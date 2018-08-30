@@ -3,130 +3,130 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://grpc.io/blog/test/</loc>
+    <loc>https://cjyabraham.github.io/blog/test/</loc>
     <lastmod>2018-08-29T16:52:54+07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2017-08-17-community-meeting-update/</loc>
+    <loc>https://cjyabraham.github.io/blog/2017-08-17-community-meeting-update/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2017-08-22-grpc-go-perf-improvements/</loc>
+    <loc>https://cjyabraham.github.io/blog/2017-08-22-grpc-go-perf-improvements/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2018-01-22-grpc-go-engineering-practices/</loc>
+    <loc>https://cjyabraham.github.io/blog/2018-01-22-grpc-go-engineering-practices/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2017-08-17-grpc-flatbuffers/</loc>
+    <loc>https://cjyabraham.github.io/blog/2017-08-17-grpc-flatbuffers/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/</loc>
-    <lastmod>2018-08-29T16:52:54+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2016-10-13-bazel-rules-protobuf/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2016-3-24-pubsub/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2018-06-26-gracefully_clean_up_in_grpc_junit_tests/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2018-07-13-http2_smarter_at_scale/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2017-04-12-yikyak/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2018-03-06-so-you-want-to-optimize-grpc-part-1/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2018-04-16-so-you-want-to-optimize-grpc-part-2/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2018-08-14-take-the-grpc-survey/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2017-09-14-meetup-kit/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/blog/2016-08-29-vendasta/</loc>
-  </url>
-  
-  <url>
-    <loc>http://grpc.io/</loc>
+    <loc>https://cjyabraham.github.io/blog/</loc>
     <lastmod>2018-08-29T16:52:54+07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2018-08-15-grpc-with-json/</loc>
+    <loc>https://cjyabraham.github.io/blog/2016-10-13-bazel-rules-protobuf/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2016-4-4-installation/</loc>
+    <loc>https://cjyabraham.github.io/categories/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2017-06-15-grpc-load-balancing/</loc>
+    <loc>https://cjyabraham.github.io/blog/2016-3-24-pubsub/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2015-9-8-principles/</loc>
+    <loc>https://cjyabraham.github.io/blog/2018-06-26-gracefully_clean_up_in_grpc_junit_tests/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2016-08-23-gablog/</loc>
+    <loc>https://cjyabraham.github.io/blog/2018-07-13-http2_smarter_at_scale/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2018-02-26-grpc-and-deadlines/</loc>
+    <loc>https://cjyabraham.github.io/blog/2017-04-12-yikyak/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2016-09-06-vsco/</loc>
+    <loc>https://cjyabraham.github.io/blog/2018-03-06-so-you-want-to-optimize-grpc-part-1/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2017-05-15-helm-grpc/</loc>
+    <loc>https://cjyabraham.github.io/blog/2018-04-16-so-you-want-to-optimize-grpc-part-2/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2015-10-26-principles/</loc>
+    <loc>https://cjyabraham.github.io/tags/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2016-5-9-coreos/</loc>
+    <loc>https://cjyabraham.github.io/blog/2018-08-14-take-the-grpc-survey/</loc>
   </url>
   
   <url>
-    <loc>http://grpc.io/blog/2018-06-19-kotlin-project-setup/</loc>
+    <loc>https://cjyabraham.github.io/blog/2017-09-14-meetup-kit/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2016-08-29-vendasta/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/</loc>
+    <lastmod>2018-08-29T16:52:54+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2018-08-15-grpc-with-json/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2016-4-4-installation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2017-06-15-grpc-load-balancing/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2015-9-8-principles/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2016-08-23-gablog/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2018-02-26-grpc-and-deadlines/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2016-09-06-vsco/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2017-05-15-helm-grpc/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2015-10-26-principles/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2016-5-9-coreos/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/blog/2018-06-19-kotlin-project-setup/</loc>
   </url>
   
 </urlset>
