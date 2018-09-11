@@ -4,17 +4,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
-  &lt;!-- This will override the default value set in baseof.html; i.e., "gRPC" in the original example-->
   2017-08-22 gRPC-Go performance Improvements &ndash; gRPC
 </title>
   </head>
   <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
     
-    
-  <h1>2017-08-22 gRPC-Go performance Improvements</h1>
-  <p>For past few months we&rsquo;ve been working on improving gRPC-Go performance. This includes improving network utilization, optimizing CPU usage and memory allocations. Most of our recent effort has been focused around revamping gRPC-Go flow control. After several optimizations and new features we&rsquo;ve been able to improve quite significantly, especially on high-latency networks. We expect users that are working with high-latency networks and large messages to see an order of magnitude performance gain.
+            <div class="headertext">2017-08-22 gRPC-Go performance Improvements</div>
+  </div>
+        </div>
+        </div>
+
+  <div class="section2" style="text-align:left;margin-bottom:5%">
+    <p>For past few months we&rsquo;ve been working on improving gRPC-Go performance. This includes improving network utilization, optimizing CPU usage and memory allocations. Most of our recent effort has been focused around revamping gRPC-Go flow control. After several optimizations and new features we&rsquo;ve been able to improve quite significantly, especially on high-latency networks. We expect users that are working with high-latency networks and large messages to see an order of magnitude performance gain.
 Benchmark results at the end.</p>
 
 <p>This blog summarizes the work we have done so far (in chronological order) to improve performance and lays out our near-future plans.</p>
@@ -173,8 +191,8 @@ Benchmark results at the end.</p>
   |68.816031ms|69.628744ms|70.141381ms
   |69.170105ms|68.935813ms|70.685521ms
   |68.831608ms|69.728349ms|69.45605ms</p>
+  </div>
 
-    
     
     
   </body>
