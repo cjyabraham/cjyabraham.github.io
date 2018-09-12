@@ -1,4 +1,4 @@
- contentDiv {
+contentDiv {
     background-color: orange;
     height: 200px;
     position: relative;

@@ -26,12 +26,15 @@
 		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
             </div>
     
-            <div class="headertext">Why we have decided to move our APIs to gRPC</div>
+            <div class="headertext">Blog</div>
   </div>
         </div>
         </div>
 
-  <div class="section2" style="text-align:left;margin-bottom:5%">
+  <div class="singleblog"> 
+  <h3 style="margin-top:0px;">Why we have decided to move our APIs to gRPC</h3>
+  <h5>Posted on Monday, August 29, 2016 by Dale Hopkins</h5>
+  <p>
     <p>Our guest post today comes from Dale Hopkins, CTO of <a href="https://vendasta.com/">Vendasta</a>.</p>
 
 <p>Vendasta started out 8 years ago as a point solution provider of products for small business. From the beginning we partnered with media companies and agencies who have armies of salespeople and existing relationships with those businesses to sell our software. It is estimated that over 30 million small businesses exist in the United States alone, so scalability of our SaaS solution was considered one of our top concerns from the beginning and it was the reason we started with <a href="https://cloud.google.com/appengine/">Google App Engine</a> and Datastore. This solution worked really well for us as our system scaled from hundreds to hundreds of thousands of end users. We also scaled our offering from a point solution to an entire platform with multiple products and the tools for partners to manage their sales of those products during this time.</p>
@@ -53,6 +56,9 @@
 <p>The final benefit of gRPC was our ability to quickly spec endpoints. The proto format for both data and service definition greatly simplifies defining new endpoints and finally allows the succinct definition of endpoint contracts.  This means we are much better able to communicate endpoint specifications between our development teams.  gRPC means that for the first time at our company we are able to simultaneously develop the client and the server side of our APIs!  This means our latency to produce new APIs with the accompanying SDKs has dropped dramatically.  Combined with code generation, it allows us to truly develop clients and servers in parallel.</p>
 
 <p>Our experience with gRPC has been positive, even though it does not eliminate the difficulty of providing endpoints to partners and vendors, and address all of our performance issues. However, it does make improvements to our endpoint performance, integration with those endpoints, and even in delivery of SDKs.</p>
+
+  </p>
+
 
   </div>
 

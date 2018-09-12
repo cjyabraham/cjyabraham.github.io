@@ -26,12 +26,15 @@
 		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
             </div>
     
-            <div class="headertext">gRPC Motivation and Design Principles.</div>
+            <div class="headertext">Blog</div>
   </div>
         </div>
         </div>
 
-  <div class="section2" style="text-align:left;margin-bottom:5%">
+  <div class="singleblog"> 
+  <h3 style="margin-top:0px;">gRPC Motivation and Design Principles.</h3>
+  <h5>Posted on Tuesday, September 08, 2015 by </h5>
+  <p>
     <h2>Motivation</h2>
 
 <p>Google has been using a single general-purpose RPC infrastructure called Stubby to connect the large number of microservices running within and across our data centers for over a decade. Our internal systems have long embraced the microservice architecture gaining popularity today. Having a uniform, cross-platform RPC infrastructure has allowed for the rollout of fleet-wide improvements in efficiency, security, reliability and behavioral analysis critical to supporting the incredible growth seen in that period.
@@ -74,6 +77,9 @@
 <p><strong>Metadata Exchange</strong> - Common cross-cutting concerns like authentication or tracing rely on the exchange of data that is not part of the declared interface of a service. Deployments rely on their ability to evolve these features at a different rate to the individual APIs exposed by services.</p>
 
 <p><strong>Standardized Status Codes</strong> - Clients typically respond to errors returned by API calls in a limited number of ways. The status code namespace should be constrained to make these error handling decisions clearer. If richer domain-specific status is needed the metadata exchange mechanism can be used to provide that.</p>
+
+  </p>
+
 
   </div>
 

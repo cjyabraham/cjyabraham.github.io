@@ -26,12 +26,15 @@
 		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
             </div>
     
-            <div class="headertext">gRPC and Deadlines</div>
+            <div class="headertext">Blog</div>
   </div>
         </div>
         </div>
 
-  <div class="section2" style="text-align:left;margin-bottom:5%">
+  <div class="singleblog"> 
+  <h3 style="margin-top:0px;">gRPC and Deadlines</h3>
+  <h5>Posted on Monday, February 26, 2018 by Gráinne Sheerin, Google SRE</h5>
+  <p>
     <p><strong>TL;DR Always set a deadline</strong>. This post explains why we recommend being deliberate about setting deadlines, with useful code snippets to show you how.</p>
 
 <p></p>
@@ -132,6 +135,9 @@ response = blockingStub.withDeadlineAfter(deadlineMs, TimeUnit.MILLISECONDS).say
 </code></pre>
 
 <p>Now the deadline can be adjusted to wait longer to avoid failing, without the need to cherry-pick a release with a different hard coded deadline. This lets you mitigate the issue for users until the regression can be debugged and resolved.</p>
+  </p>
+
+
   </div>
 
     

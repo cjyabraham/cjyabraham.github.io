@@ -26,12 +26,15 @@
 		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
             </div>
     
-            <div class="headertext">gRPC with REST and Open APIs</div>
+            <div class="headertext">Blog</div>
   </div>
         </div>
         </div>
 
-  <div class="section2" style="text-align:left;margin-bottom:5%">
+  <div class="singleblog"> 
+  <h3 style="margin-top:0px;">gRPC with REST and Open APIs</h3>
+  <h5>Posted on Monday, May 09, 2016 by Brandon Phillips</h5>
+  <p>
     <p>Our guest post today comes from Brandon Phillips of <a href="https://coreos.com/">CoreOS</a>. CoreOS builds open source projects and products for Linux Containers. Their flagship product for consensus and discovery <a href="https://coreos.com/etcd/">etcd</a> and their container engine <a href="https://coreos.com/rkt/">rkt</a> are early adopters of gRPC.</p>
 
 <p>One of the key reasons CoreOS chose gRPC is because it uses HTTP/2, enabling applications to present both a HTTP 1.1 REST/JSON API and an efficient gRPC interface on a single TCP port (available for Go). This provides developers with compatibility with the REST web ecosystem, while advancing a new, high-efficiency RPC protocol. With the recent release of Go 1.6, Go ships with a stable <code>net/http2</code> package by default.</p>
@@ -110,6 +113,9 @@ curl -X POST -k https://localhost:10000/v1/echo -d '{&quot;value&quot;: &quot;Co
 <p><img src="/img/grpc-swaggerscreen.png" class="img-responsive" alt="gRPC/REST Open API document"></p>
 
 <p>We’ve taken a look at how to use gRPC to bridge to the world of REST. If you want to take a look at the complete project, check out the <a href="https://github.com/philips/grpc-gateway-example">repo on GitHub</a>. We think this pattern of using a single protobuf to describe an API leads to an easy to consume, flexible API framework, and we’re excited to leverage it in more of our projects.</p>
+  </p>
+
+
   </div>
 
     
