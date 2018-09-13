@@ -58,19 +58,6 @@ Install Protocol Buffers v3 While not mandatory to use gRPC, gRPC applications u
     
     <item>
       <title></title>
-      <link>https://cjyabraham.github.io/docs/quickstart/go/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cjyabraham.github.io/docs/quickstart/go/</guid>
-      <description>This guide gets you started with gRPC in Go with a simple working example.
- Before you begin Prerequisites Go version gRPC requires Go 1.6 or higher.
-$ go version  For installation instructions, follow this guide: Getting Started - The Go Programming Language
-Install gRPC Use the following command to install gRPC.
-$ go get -u google.golang.org/grpc  Install Protocol Buffers v3 Install the protoc compiler that is used to generate gRPC service code.</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>https://cjyabraham.github.io/docs/quickstart/java/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -137,6 +124,19 @@ $ python -m pip install virtualenv $ virtualenv venv $ source venv/bin/activate 
       <guid>https://cjyabraham.github.io/docs/quickstart/ruby/</guid>
       <description>This guide gets you started with gRPC in Ruby with a simple working example.
  Before you begin Prerequisites  ruby: version 2 or higher  Install gRPC $ gem install grpc  Install gRPC tools Ruby&amp;rsquo;s gRPC tools include the protocol buffer compiler protoc and the special plugin for generating server and client code from the .proto service definitions. For the first part of our quickstart example, we&amp;rsquo;ve already generated the server and client stubs from helloworld.</description>
+    </item>
+    
+    <item>
+      <title>Go Quick Start</title>
+      <link>https://cjyabraham.github.io/docs/quickstart/go/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cjyabraham.github.io/docs/quickstart/go/</guid>
+      <description>This guide gets you started with gRPC in Go with a simple working example.
+ Before you begin Prerequisites Go version gRPC requires Go 1.6 or higher.
+$ go version  For installation instructions, follow this guide: Getting Started - The Go Programming Language
+Install gRPC Use the following command to install gRPC.
+$ go get -u google.golang.org/grpc  Install Protocol Buffers v3 Install the protoc compiler that is used to generate gRPC service code.</description>
     </item>
     
   </channel>

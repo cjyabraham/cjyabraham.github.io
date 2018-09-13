@@ -159,10 +159,6 @@
   </url>
   
   <url>
-    <loc>https://cjyabraham.github.io/docs/quickstart/go/</loc>
-  </url>
-  
-  <url>
     <loc>https://cjyabraham.github.io/docs/quickstart/java/</loc>
   </url>
   
@@ -195,6 +191,10 @@
   <url>
     <loc>https://cjyabraham.github.io/categories/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/quickstart/go/</loc>
   </url>
   
   <url>
