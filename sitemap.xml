@@ -147,7 +147,9 @@
   </url>
   
   <url>
-    <loc>https://cjyabraham.github.io/docs/quickstart/cpp/</loc>
+    <loc>https://cjyabraham.github.io/blog/</loc>
+    <lastmod>2018-08-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -155,7 +157,24 @@
   </url>
   
   <url>
+    <loc>https://cjyabraham.github.io/docs/quickstart/cpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://cjyabraham.github.io/docs/quickstart/dart/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/quickstart/go/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/guides/</loc>
   </url>
   
   <url>
@@ -175,34 +194,11 @@
   </url>
   
   <url>
-    <loc>https://cjyabraham.github.io/docs/quickstart/python/</loc>
-  </url>
-  
-  <url>
-    <loc>https://cjyabraham.github.io/docs/quickstart/ruby/</loc>
-  </url>
-  
-  <url>
-    <loc>https://cjyabraham.github.io/blog/</loc>
-    <lastmod>2018-08-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://cjyabraham.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://cjyabraham.github.io/docs/quickstart/go/</loc>
-  </url>
-  
-  <url>
-    <loc>https://cjyabraham.github.io/docs/guides/</loc>
-  </url>
-  
-  <url>
     <loc>https://cjyabraham.github.io/docs/talks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/quickstart/python/</loc>
   </url>
   
   <url>
@@ -211,6 +207,10 @@
   
   <url>
     <loc>https://cjyabraham.github.io/docs/reference/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/quickstart/ruby/</loc>
   </url>
   
   <url>
