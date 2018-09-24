@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+   &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext"></div>
+  </div>
+        </div>
+        </div>
+
+  <div class="section2" style="text-align:left;margin-bottom:5%">
+    
+
+<h1 id="python-generated-code-reference">Python Generated Code Reference</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>gRPC Python relies on the protocol buffers compiler (<code>protoc</code>) to generate
+code.  It uses a plugin to supplement the generated code by plain <code>protoc</code>
+with gRPC-specific code.  For a <code>.proto</code> service description containing
+gRPC services, the plain <code>protoc</code> generated code is synthesized in
+a <code>_pb2.py</code> file, and the gRPC-specifc code lands in a <code>_grpc_pb2.py</code> file.
+The latter python module imports the former.  In this guide, we focus
+on the gRPC-specific subset of the generated code.</p>
+
+<h2 id="illustrative-example">Illustrative Example</h2>
+
+<p>Let&rsquo;s look at the following <code>FortuneTeller</code> proto service:</p>
+
+<pre><code class="language-proto">service FortuneTeller {
+  // Returns the horoscope and zodiac sign for the given month and day.
+  rpc TellFortune(HoroscopeRequest) returns (HoroscopeResponse) {
+    // errors: invalid month or day, fortune unavailable
+  }
+
+  // Replaces the fortune for the given zodiac sign with the provided one.
+  rpc SuggestFortune(SuggestionRequest) returns (SuggestionResponse) {
+    // errors: invalid zodiac sign
+  }
+}
+</code></pre>
+
+<p>gRPC <code>protoc</code> plugin will synthesize code elements along the lines
+of what follows in the corresponding <code>_pb2_grpc.py</code> file:</p>
+
+<pre><code class="language-python">import grpc
+
+import fortune_pb2
+
+class FortuneTellerStub(object):
+
+  def __init__(self, channel):
+    &quot;&quot;&quot;Constructor.
+
+    Args:
+      channel: A grpc.Channel.
+    &quot;&quot;&quot;
+    self.TellFortune = channel.unary_unary(
+        '/example.FortuneTeller/TellFortune',
+        request_serializer=fortune_pb2.HoroscopeRequest.SerializeToString,
+        response_deserializer=fortune_pb2.HoroscopeResponse.FromString,
+        )
+    self.SuggestFortune = channel.unary_unary(
+        '/example.FortuneTeller/SuggestFortune',
+        request_serializer=fortune_pb2.SuggestionRequest.SerializeToString,
+        response_deserializer=fortune_pb2.SuggestionResponse.FromString,
+        )
+
+
+class FortuneTellerServicer(object):
+
+  def TellFortune(self, request, context):
+    &quot;&quot;&quot;Returns the horoscope and zodiac sign for the given month and day.
+    errors: invalid month or day, fortune unavailable
+    &quot;&quot;&quot;
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def SuggestFortune(self, request, context):
+    &quot;&quot;&quot;Replaces the fortune for the given zodiac sign with the provided
+one.
+    errors: invalid zodiac sign
+    &quot;&quot;&quot;
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+
+def add_FortuneTellerServicer_to_server(servicer, server):
+  rpc_method_handlers = {
+      'TellFortune': grpc.unary_unary_rpc_method_handler(
+          servicer.TellFortune,
+          request_deserializer=fortune_pb2.HoroscopeRequest.FromString,
+          response_serializer=fortune_pb2.HoroscopeResponse.SerializeToString,
+      ),
+      'SuggestFortune': grpc.unary_unary_rpc_method_handler(
+          servicer.SuggestFortune,
+          request_deserializer=fortune_pb2.SuggestionRequest.FromString,
+          response_serializer=fortune_pb2.SuggestionResponse.SerializeToString,
+      ),
+  }
+  generic_handler = grpc.method_handlers_generic_handler(
+      'example.FortuneTeller', rpc_method_handlers)
+  server.add_generic_rpc_handlers((generic_handler,))
+</code></pre>
+
+<h2 id="code-elements">Code Elements</h2>
+
+<p>The gRPC generated code starts by importing the <code>grpc</code> package and the plain
+<code>_pb2</code> module, synthesized by <code>protoc</code>, which defines non-gRPC-specifc code
+elements, like the classes corresponding to protocol buffers messages and
+descriptors used by reflection.</p>
+
+<p>For each service <code>Foo</code> in the <code>.proto</code> file, three primary elements are
+generated:</p>
+
+<ul>
+<li><a href="#stub"><strong>Stub</strong></a>: <code>FooStub</code> used by the client to connect to a gRPC service.</li>
+<li><a href="#servicer"><strong>Servicer</strong></a>: <code>FooServicer</code> used by the server to implement a
+gRPC service.</li>
+<li><a href="#registration-function"><strong>Registration Function</strong></a>:
+<code>add_FooServicer_to_server</code> function used to register a servicer with a
+<code>grpc.Server</code> object.</li>
+</ul>
+
+<h3 id="stub">Stub</h3>
+
+<p><a name="stub"></a>The generated <code>Stub</code> class is used by the gRPC clients.  It
+will have a constructor that takes a <code>grpc.Channel</code> object and initializes the
+stub.  For each method in the service, the initializer adds a corresponding
+attribute to the stub object with the same name.  Depending on the RPC type
+(<em>i.e.</em> unary or streaming), the value of that attribute will be callable
+objects of type
+<a href="/grpc/python/grpc.html?#grpc.UnaryUnaryMultiCallable">UnaryUnaryMultiCallable</a>,
+<a href="/grpc/python/grpc.html?#grpc.UnaryStreamMultiCallable">UnaryStreamMultiCallable</a>,
+<a href="/grpc/python/grpc.html?#grpc.StreamUnaryMultiCallable">StreamUnaryMultiCallable</a>,
+or
+<a href="/grpc/python/grpc.html?#grpc.StreamStreamMultiCallable">StreamStreamMultiCallable</a>.</p>
+
+<h3 id="servicer">Servicer</h3>
+
+<p><a name="servicer"></a>For each service, a <code>Servicer</code> class is generated.  This
+class is intended to serve as the superclass of a service implementation.  For
+each method in the service, a corresponding function in the <code>Servicer</code> class
+will be synthesized which is intended to be overriden in the actual service
+implementation.  Comments associated with code elements
+in the <code>.proto</code> file will be transferred over as docstrings in
+the generated python code.</p>
+
+<h3 id="registration-function">Registration Function</h3>
+
+<p><a name="registration-function"></a>For each service, a function will be
+generated that registers a <code>Servicer</code> object implementing it on a <code>grpc.Server</code>
+object, so that the server would be able to appropriately route the queries to
+the respective servicer.  This function takes an object that implements the
+<code>Servicer</code>, typically an instance of a subclass of the generated <code>Servicer</code>
+code element described above, and a
+<a href="/grpc/python/_modules/grpc.html#Server"><code>grpc.Server</code></a>
+object.</p>
+
+  </div>
+
+    
+    
+  </body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  Asynchronous Basics - C&#43;&#43; &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">+Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Tutorials<br>
+<a href="https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/">+Async - C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/">Auth - Objective C</a><br>
+Basic <br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/c/">C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/csharp/">C#</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/dart/">Dart</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/go/">Go</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/java/">Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/android/">Android Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/objective-c/">Objective-C</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/php/">PHP</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/python/">Python</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/">Ruby</a><br>
+
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">Asynchronous Basics - C&#43;&#43;</h3>
+
+    
+
+<h1 class="page-header">Asynchronous Basics: C++</h1>
+
+<p>This tutorial shows you how to write a simple server and client in C++ using
+gRPC&rsquo;s asynchronous/non-blocking APIs. It assumes you are already familiar with
+writing simple synchronous gRPC code, as described in <a href="/docs/tutorials/basic/c.html">gRPC Basics:
+C++</a>. The example used in this tutorial follows on
+from the basic <a href="https://github.com/grpc/grpc/tree/{{ site.data.config.grpc_release_tag }}/examples/cpp/helloworld">Greeter example</a> we used in the
+<a href="/docs/index.html">overview</a>. You&rsquo;ll find it along with installation
+instructions in
+<a href="https://github.com/grpc/grpc/tree/{{ site.data.config.grpc_release_tag }}/examples/cpp/helloworld">grpc/examples/cpp/helloworld</a>.</p>
+
+<div id="toc"></div>
+
+<h2 id="overview">Overview</h2>
+
+<p>gRPC uses the
+<a href="/grpc/cpp/classgrpc_1_1_completion_queue.html"><code>CompletionQueue</code></a>
+API for asynchronous operations. The basic work flow
+is as follows:</p>
+
+<ul>
+<li>bind a <code>CompletionQueue</code> to an RPC call</li>
+<li>do something like a read or write, present with a unique <code>void*</code> tag</li>
+<li>call <code>CompletionQueue::Next</code> to wait for operations to complete. If a tag
+appears, it indicates that the corresponding operation is complete.</li>
+</ul>
+
+<h2 id="async-client">Async client</h2>
+
+<p>To use an asynchronous client to call a remote method, you first create a
+channel and stub, just as you do in a <a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/cpp/helloworld/greeter_client.cc">synchronous
+client</a>. Once you have your stub, you do
+the following to make an asynchronous call:</p>
+
+<ul>
+<li>Initiate the RPC and create a handle for it. Bind the RPC to a
+<code>CompletionQueue</code>.</li>
+</ul>
+
+<pre><code>    CompletionQueue cq;
+    std::unique_ptr&lt;ClientAsyncResponseReader&lt;HelloReply&gt; &gt; rpc(
+        stub_-&gt;AsyncSayHello(&amp;context, request, &amp;cq));
+</code></pre>
+
+<ul>
+<li>Ask for the reply and final status, with a unique tag</li>
+</ul>
+
+<pre><code>    Status status;
+    rpc-&gt;Finish(&amp;reply, &amp;status, (void*)1);
+</code></pre>
+
+<ul>
+<li>Wait for the completion queue to return the next tag. The reply and status are
+ready once the tag passed into the corresponding <code>Finish()</code> call is returned.</li>
+</ul>
+
+<pre><code>    void* got_tag;
+    bool ok = false;
+    cq.Next(&amp;got_tag, &amp;ok);
+    if (ok &amp;&amp; got_tag == (void*)1) {
+      // check reply and status
+    }
+</code></pre>
+
+<p>You can see the complete client example in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/cpp/helloworld/greeter_async_client.cc">greeter&#95;async&#95;client.cc</a>.</p>
+
+<h2 id="async-server">Async server</h2>
+
+<p>The server implementation requests an RPC call with a tag and then waits for the
+completion queue to return the tag. The basic flow for handling an RPC
+asynchronously is:</p>
+
+<ul>
+<li>Build a server exporting the async service</li>
+</ul>
+
+<pre><code>    helloworld::Greeter::AsyncService service;
+    ServerBuilder builder;
+    builder.AddListeningPort(&quot;0.0.0.0:50051&quot;, InsecureServerCredentials());
+    builder.RegisterAsyncService(&amp;service);
+    auto cq = builder.AddCompletionQueue();
+    auto server = builder.BuildAndStart();
+</code></pre>
+
+<ul>
+<li>Request one RPC, providing a unique tag</li>
+</ul>
+
+<pre><code>    ServerContext context;
+    HelloRequest request;
+    ServerAsyncResponseWriter&lt;HelloReply&gt; responder;
+    service.RequestSayHello(&amp;context, &amp;request, &amp;responder, &amp;cq, &amp;cq, (void*)1);
+</code></pre>
+
+<ul>
+<li>Wait for the completion queue to return the tag. The context, request and
+responder are ready once the tag is retrieved.</li>
+</ul>
+
+<pre><code>    HelloReply reply;
+    Status status;
+    void* got_tag;
+    bool ok = false;
+    cq.Next(&amp;got_tag, &amp;ok);
+    if (ok &amp;&amp; got_tag == (void*)1) {
+      // set reply and status
+      responder.Finish(reply, status, (void*)2);
+    }
+</code></pre>
+
+<ul>
+<li>Wait for the completion queue to return the tag. The RPC is finished when the
+tag is back.</li>
+</ul>
+
+<pre><code>    void* got_tag;
+    bool ok = false;
+    cq.Next(&amp;got_tag, &amp;ok);
+    if (ok &amp;&amp; got_tag == (void*)2) {
+      // clean up
+    }
+</code></pre>
+
+<p>This basic flow, however, doesn&rsquo;t take into account the server handling multiple
+requests concurrently. To deal with this, our complete async server example uses
+a <code>CallData</code> object to maintain the state of each RPC, and uses the address of
+this object as the unique tag for the call.</p>
+
+<pre><code>  class CallData {
+   public:
+    // Take in the &quot;service&quot; instance (in this case representing an asynchronous
+    // server) and the completion queue &quot;cq&quot; used for asynchronous communication
+    // with the gRPC runtime.
+    CallData(Greeter::AsyncService* service, ServerCompletionQueue* cq)
+        : service_(service), cq_(cq), responder_(&amp;ctx_), status_(CREATE) {
+      // Invoke the serving logic right away.
+      Proceed();
+    }
+
+    void Proceed() {
+      if (status_ == CREATE) {
+        // As part of the initial CREATE state, we *request* that the system
+        // start processing SayHello requests. In this request, &quot;this&quot; acts are
+        // the tag uniquely identifying the request (so that different CallData
+        // instances can serve different requests concurrently), in this case
+        // the memory address of this CallData instance.
+        service_-&gt;RequestSayHello(&amp;ctx_, &amp;request_, &amp;responder_, cq_, cq_,
+                                  this);
+        // Make this instance progress to the PROCESS state.
+        status_ = PROCESS;
+      } else if (status_ == PROCESS) {
+        // Spawn a new CallData instance to serve new clients while we process
+        // the one for this CallData. The instance will deallocate itself as
+        // part of its FINISH state.
+        new CallData(service_, cq_);
+
+        // The actual processing.
+        std::string prefix(&quot;Hello &quot;);
+        reply_.set_message(prefix + request_.name());
+
+        // And we are done! Let the gRPC runtime know we've finished, using the
+        // memory address of this instance as the uniquely identifying tag for
+        // the event.
+        responder_.Finish(reply_, Status::OK, this);
+        status_ = FINISH;
+      } else {
+        GPR_ASSERT(status_ == FINISH);
+        // Once in the FINISH state, deallocate ourselves (CallData).
+        delete this;
+      }
+    }
+  }
+</code></pre>
+
+<p>For simplicity the server only uses one completion queue for all events, and
+runs a main loop in <code>HandleRpcs</code> to query the queue:</p>
+
+<pre><code>  void HandleRpcs() {
+    // Spawn a new CallData instance to serve new clients.
+    new CallData(&amp;service_, cq_.get());
+    void* tag;  // uniquely identifies a request.
+    bool ok;
+    while (true) {
+      // Block waiting to read the next event from the completion queue. The
+      // event is uniquely identified by its tag, which in this case is the
+      // memory address of a CallData instance.
+      cq_-&gt;Next(&amp;tag, &amp;ok);
+      GPR_ASSERT(ok);
+      static_cast&lt;CallData*&gt;(tag)-&gt;Proceed();
+    }
+  }
+</code></pre>
+
+<h3 id="shutting-down-the-server">Shutting Down the Server</h3>
+
+<p>We&rsquo;ve been using a completion queue to get the async notifications. Care must be
+taken to shut it down <em>after</em> the server has also been shut down.</p>
+
+<p>Remember we got our completion queue instance <code>cq_</code> in <code>ServerImpl::Run()</code> by
+running <code>cq_ = builder.AddCompletionQueue()</code>. Looking at
+<code>ServerBuilder::AddCompletionQueue</code>&rsquo;s documentation we see that</p>
+
+<blockquote>
+<p>&hellip; Caller is required to shutdown the server prior to shutting down the
+returned completion queue.</p>
+</blockquote>
+
+<p>Refer to <code>ServerBuilder::AddCompletionQueue</code>&rsquo;s full docstring for more details.
+What this means in our example is that <code>ServerImpl's</code> destructor looks like:</p>
+
+<pre><code>  ~ServerImpl() {
+    server_-&gt;Shutdown();
+    // Always shutdown the completion queue after the server.
+    cq_-&gt;Shutdown();
+  }
+</code></pre>
+
+<p>You can see our complete server example in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/cpp/helloworld/greeter_async_server.cc">greeter&#95;async&#95;server.cc</a>.</p>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>

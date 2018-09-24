@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  Error Handling &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">+Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Guides<br>
+<a href="https://cjyabraham.github.io/docs/guides/">What is gRPC?</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/concepts/">gRPC Concepts</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/auth/">Authentication</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/error/">+Error handling and debugging</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/benchmarking/">Benchmarking</a><br>
+<a href="https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md">gRPC Wire format</a><br>
+Related Guides<br>
+<a href="https://developers.google.com/protocol-buffers/docs/overview">Protocol Buffers</a><br>
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">Error Handling</h3>
+
+    
+
+<p class="lead"> This page describes how gRPC deals with errors, including gRPC's built-in error codes. Example code in different languages can be found <a href="https://github.com/avinassh/grpc-errors">here</a>.</p>
+
+<div id="toc" class="toc mobile-toc"></div>
+
+<h2 id="error-model">Error model</h2>
+
+<p>As you&rsquo;ll have seen in our concepts document and examples, when a gRPC call
+completes successfully the server returns an <code>OK</code> status to the client
+(depending on the language the <code>OK</code> status may or may not be directly used in
+your code). But what happens if the call isn&rsquo;t successful?</p>
+
+<p>If an error occurs, gRPC returns one of its error status codes instead, with an
+optional string error message that provides further details about what happened.
+Error information is available to gRPC clients in all supported languages.</p>
+
+<h2 id="error-status-codes">Error status codes</h2>
+
+<p>Errors are raised by gRPC under various circumstances, from network failures to
+unauthenticated connections, each of which is associated with a particular
+status code. The following error status codes are supported in all gRPC
+languages.</p>
+
+<h3 id="general-errors">General errors</h3>
+
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Status code</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Client application cancelled the request</td>
+<td>GRPC&#95;STATUS&#95;CANCELLED</td>
+</tr>
+
+<tr>
+<td>Deadline expired before server returned status</td>
+<td>GRPC&#95;STATUS&#95;DEADLINE_EXCEEDED</td>
+</tr>
+
+<tr>
+<td>Method not found on server</td>
+<td>GRPC&#95;STATUS&#95;UNIMPLEMENTED</td>
+</tr>
+
+<tr>
+<td>Server shutting down</td>
+<td>GRPC&#95;STATUS&#95;UNAVAILABLE</td>
+</tr>
+
+<tr>
+<td>Server threw an exception (or did something other than returning a status code to terminate the RPC)</td>
+<td>GRPC&#95;STATUS&#95;UNKNOWN</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="network-failures">Network failures</h3>
+
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Status code</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>No data transmitted before deadline expires. Also applies to cases where some data is transmitted and no other failures are detected before the deadline expires</td>
+<td>GRPC&#95;STATUS&#95;DEADLINE_EXCEEDED</td>
+</tr>
+
+<tr>
+<td>Some data transmitted (for example, the request metadata has been written to the TCP connection) before the connection breaks</td>
+<td>GRPC&#95;STATUS&#95;UNAVAILABLE</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="protocol-errors">Protocol errors</h3>
+
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Status code</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Could not decompress but compression algorithm supported</td>
+<td>GRPC&#95;STATUS&#95;INTERNAL</td>
+</tr>
+
+<tr>
+<td>Compression mechanism used by client not supported by the server</td>
+<td>GRPC&#95;STATUS&#95;UNIMPLEMENTED</td>
+</tr>
+
+<tr>
+<td>Flow-control resource limits reached</td>
+<td>GRPC&#95;STATUS&#95;RESOURCE_EXHAUSTED</td>
+</tr>
+
+<tr>
+<td>Flow-control protocol violation</td>
+<td>GRPC&#95;STATUS&#95;INTERNAL</td>
+</tr>
+
+<tr>
+<td>Error parsing returned status</td>
+<td>GRPC&#95;STATUS&#95;UNKNOWN</td>
+</tr>
+
+<tr>
+<td>Unauthenticated: credentials failed to get metadata</td>
+<td>GRPC&#95;STATUS&#95;UNAUTHENTICATED</td>
+</tr>
+
+<tr>
+<td>Invalid host set in authority metadata</td>
+<td>GRPC&#95;STATUS&#95;UNAUTHENTICATED</td>
+</tr>
+
+<tr>
+<td>Error parsing response protocol buffer</td>
+<td>GRPC&#95;STATUS&#95;INTERNAL</td>
+</tr>
+
+<tr>
+<td>Error parsing request protocol buffer</td>
+<td>GRPC&#95;STATUS&#95;INTERNAL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>

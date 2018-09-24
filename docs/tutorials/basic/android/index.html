@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  gRPC Basics - Android Java &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">+Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Tutorials<br>
+<a href="https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/">Async - C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/">Auth - Objective C</a><br>
+Basic <br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/c/">C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/csharp/">C#</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/dart/">Dart</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/go/">Go</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/java/">Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/android/">+Android Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/objective-c/">Objective-C</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/php/">PHP</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/python/">Python</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/">Ruby</a><br>
+
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">gRPC Basics - Android Java</h3>
+
+    
+
+<p class="lead">This tutorial provides a basic Android Java programmer's introduction to working with gRPC.</p>
+
+<p>By walking through this example you&rsquo;ll learn how to:</p>
+
+<ul>
+<li>Define a service in a .proto file.</li>
+<li>Generate client code using the protocol buffer compiler.</li>
+<li>Use the Java gRPC API to write a simple mobile client for your service.</li>
+</ul>
+
+<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>.
+This guide also does not cover anything on the server side. You can check the <a href="/docs/tutorials/basic/java.md">Java guide</a> for more information.</p>
+
+<div id="toc"></div>
+
+<h2 id="why-use-grpc">Why use gRPC?</h2>
+
+<p>Our example is a simple route mapping application that lets clients get information about features on their route, create a summary of their route, and exchange route information such as traffic updates with the server and other clients.</p>
+
+<p>With gRPC we can define our service once in a .proto file and implement clients and servers in any of gRPC&rsquo;s supported languages, which in turn can be run in environments ranging from servers inside Google to your own tablet - all the complexity of communication between different languages and environments is handled for you by gRPC. We also get all the advantages of working with protocol buffers, including efficient serialization, a simple IDL, and easy interface updating.</p>
+
+<h2 id="example-code-and-setup">Example code and setup</h2>
+
+<p>The example code for our tutorial is in <a href="https://github.com/grpc/grpc-java/tree/{{ site.data.config.grpc_release_tag }}/examples/android">grpc-java&rsquo;s examples/android</a>. To download the example, clone the <code>grpc-java</code> repository by running the following command:</p>
+
+<pre><code>$ git clone -b {{ site.data.config.grpc_java_release_tag }} https://github.com/grpc/grpc-java.git
+</code></pre>
+
+<p>Then change your current directory to <code>grpc-java/examples/android</code>:</p>
+
+<pre><code>$ cd grpc-java/examples/android
+</code></pre>
+
+<p>You also should have the relevant tools installed to generate the client interface code - if you don&rsquo;t already, follow the setup instructions in <a href="https://github.com/grpc/grpc-java/blob/{{ site.data.config.grpc_release_tag }}/README.md">the Java README</a>.</p>
+
+<h2 id="defining-the-service">Defining the service</h2>
+
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. You can see the complete .proto file in <a href="https://github.com/grpc/grpc-java/blob/{{ site.data.config.grpc_release_tag }}/examples/android/routeguide/app/src/main/proto/route_guide.proto"><code>routeguide/app/src/main/proto/route_guide.proto</code></a>.</p>
+
+<p>As we&rsquo;re generating Java code in this example, we&rsquo;ve specified a <code>java_package</code> file option in our .proto:</p>
+
+<pre><code class="language-proto">option java_package = &quot;io.grpc.examples&quot;;
+</code></pre>
+
+<p>This specifies the package we want to use for our generated Java classes. If no explicit <code>java_package</code> option is given in the .proto file, then by default the proto package (specified using the &ldquo;package&rdquo; keyword) will be used. However, proto packages generally do not make good Java packages since proto packages are not expected to start with reverse domain names. If we generate code in another language from this .proto, the <code>java_package</code> option has no effect.</p>
+
+<p>To define a service, we specify a named <code>service</code> in the .proto file:</p>
+
+<pre><code class="language-proto">service RouteGuide {
+   ...
+}
+</code></pre>
+
+<p>Then we define <code>rpc</code> methods inside our service definition, specifying their request and response types. gRPC lets you define four kinds of service method, all of which are used in the <code>RouteGuide</code> service:</p>
+
+<ul>
+<li>A <em>simple RPC</em> where the client sends a request to the server using the stub and waits for a response to come back, just like a normal function call.</li>
+</ul>
+
+<pre><code class="language-proto">// Obtains the feature at a given position.
+rpc GetFeature(Point) returns (Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>server-side streaming RPC</em> where the client sends a request to the server and gets a stream to read a sequence of messages back. The client reads from the returned stream until there are no more messages. As you can see in our example, you specify a server-side streaming method by placing the <code>stream</code> keyword before the <em>response</em> type.</li>
+</ul>
+
+<pre><code class="language-proto">// Obtains the Features available within the given Rectangle.  Results are
+// streamed rather than returned at once (e.g. in a response message with a
+// repeated field), as the rectangle may cover a large area and contain a
+// huge number of features.
+rpc ListFeatures(Rectangle) returns (stream Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>client-side streaming RPC</em> where the client writes a sequence of messages and sends them to the server, again using a provided stream. Once the client has finished writing the messages, it waits for the server to read them all and return its response. You specify a client-side streaming method by placing the <code>stream</code> keyword before the <em>request</em> type.</li>
+</ul>
+
+<pre><code class="language-proto">// Accepts a stream of Points on a route being traversed, returning a
+// RouteSummary when traversal is completed.
+rpc RecordRoute(stream Point) returns (RouteSummary) {}
+</code></pre>
+
+<ul>
+<li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages using a read-write stream. The two streams operate independently, so clients and servers can read and write in whatever order they like: for example, the server could wait to receive all the client messages before writing its responses, or it could alternately read a message then write a message, or some other combination of reads and writes. The order of messages in each stream is preserved. You specify this type of method by placing the <code>stream</code> keyword before both the request and the response.</li>
+</ul>
+
+<pre><code class="language-proto">// Accepts a stream of RouteNotes sent while a route is being traversed,
+// while receiving other RouteNotes (e.g. from other users).
+rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+</code></pre>
+
+<p>Our .proto file also contains protocol buffer message type definitions for all the request and response types used in our service methods - for example, here&rsquo;s the <code>Point</code> message type:</p>
+
+<pre><code class="language-proto">// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+</code></pre>
+
+<h2 id="generating-client-code">Generating client code</h2>
+
+<p>Next we need to generate the gRPC client interfaces from our .proto
+service definition. We do this using the protocol buffer compiler <code>protoc</code> with
+a special gRPC Java plugin. You need to use the
+<a href="https://github.com/google/protobuf/releases">proto3</a> compiler (which supports
+both proto2 and proto3 syntax) in order to generate gRPC services.</p>
+
+<p>The build system for this example is also part of Java gRPC itself&rsquo;s build. You
+can refer to the <a
+href="https://github.com/grpc/grpc-java/blob/{{ site.data.config.grpc_release_tag }}/README.md">README</a> and
+<a href="https://github.com/grpc/grpc-java/blob/{{ site.data.config.grpc_release_tag }}/examples/android/routeguide/app/build.gradle#L26">build.gradle</a> for
+how to generate code from your own .proto files.
+Note that for Android, we will use protobuf lite which is optimized for mobile usecase.</p>
+
+<p>The following classes are generated from our service definition:</p>
+
+<ul>
+<li><code>Feature.java</code>, <code>Point.java</code>, <code>Rectangle.java</code>, and others which contain
+all the protocol buffer code to populate, serialize, and retrieve our request
+and response message types.</li>
+<li><code>RouteGuideGrpc.java</code> which contains (along with some other useful code):
+
+<ul>
+<li>a base class for <code>RouteGuide</code> servers to implement,
+<code>RouteGuideGrpc.RouteGuideImplBase</code>, with all the methods defined in the <code>RouteGuide</code>
+service.</li>
+<li><em>stub</em> classes that clients can use to talk to a <code>RouteGuide</code> server.</li>
+</ul></li>
+</ul>
+
+<h2 id="creating-the-client">Creating the client</h2>
+
+<p>In this section, we&rsquo;ll look at creating a Java client for our <code>RouteGuide</code> service. You can see our complete example client code in <a href="https://github.com/grpc/grpc-java/blob/{{ site.data.config.grpc_release_tag }}/examples/android/routeguide/app/src/main/java/io/grpc/routeguideexample/RouteGuideActivity.java"><code>routeguide/app/src/main/java/io/grpc/routeguideexample/RouteGuideActivity.java</code></a>.</p>
+
+<h3 id="creating-a-stub">Creating a stub</h3>
+
+<p>To call service methods, we first need to create a <em>stub</em>, or rather, two stubs:</p>
+
+<ul>
+<li>a <em>blocking/synchronous</em> stub: this means that the RPC call waits for the server to respond, and will either return a response or raise an exception.</li>
+<li>a <em>non-blocking/asynchronous</em> stub that makes non-blocking calls to the server, where the response is returned asynchronously. You can make certain types of streaming call only using the asynchronous stub.</li>
+</ul>
+
+<p>First we need to create a gRPC <em>channel</em> for our stub, specifying the server address and port we want to connect to:
+We use a <code>ManagedChannelBuilder</code> to create the channel.</p>
+
+<pre><code class="language-java">mChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext(true).build();
+</code></pre>
+
+<p>Now we can use the channel to create our stubs using the <code>newStub</code> and <code>newBlockingStub</code> methods provided in the <code>RouteGuideGrpc</code> class we generated from our .proto.</p>
+
+<pre><code class="language-java">blockingStub = RouteGuideGrpc.newBlockingStub(mChannel);
+asyncStub = RouteGuideGrpc.newStub(mChannel);
+</code></pre>
+
+<h3 id="calling-service-methods">Calling service methods</h3>
+
+<p>Now let&rsquo;s look at how we call our service methods.</p>
+
+<h4 id="simple-rpc">Simple RPC</h4>
+
+<p>Calling the simple RPC <code>GetFeature</code> on the blocking stub is as straightforward as calling a local method.</p>
+
+<pre><code class="language-java">Point request = Point.newBuilder().setLatitude(lat).setLongitude(lon).build();
+Feature feature = blockingStub.getFeature(request);
+</code></pre>
+
+<p>We create and populate a request protocol buffer object (in our case <code>Point</code>), pass it to the <code>getFeature()</code> method on our blocking stub, and get back a <code>Feature</code>.</p>
+
+<h4 id="server-side-streaming-rpc">Server-side streaming RPC</h4>
+
+<p>Next, let&rsquo;s look at a server-side streaming call to <code>ListFeatures</code>, which returns a stream of geographical <code>Feature</code>s:</p>
+
+<pre><code class="language-java">Rectangle request =
+    Rectangle.newBuilder()
+        .setLo(Point.newBuilder().setLatitude(lowLat).setLongitude(lowLon).build())
+        .setHi(Point.newBuilder().setLatitude(hiLat).setLongitude(hiLon).build()).build();
+Iterator&lt;Feature&gt; features = blockingStub.listFeatures(request);
+</code></pre>
+
+<p>As you can see, it&rsquo;s very similar to the simple RPC we just looked at, except instead of returning a single <code>Feature</code>, the method returns an <code>Iterator</code> that the client can use to read all the returned <code>Feature</code>s.</p>
+
+<h4 id="client-side-streaming-rpc">Client-side streaming RPC</h4>
+
+<p>Now for something a little more complicated: the client-side streaming method <code>RecordRoute</code>, where we send a stream of <code>Point</code>s to the server and get back a single <code>RouteSummary</code>. For this method we need to use the asynchronous stub. If you&rsquo;ve already read <a href="https://github.com/grpc/grpc.github.io/blob/{{ site.data.config.grpc_release_tag }}/docs/tutorials/basic/java.md#creating-the-server">Creating the server</a> some of this may look very familiar - asynchronous streaming RPCs are implemented in a similar way on both sides.</p>
+
+<pre><code class="language-java">private String recordRoute(List&lt;Point&gt; points, int numPoints, RouteGuideStub asyncStub)
+        throws InterruptedException, RuntimeException {
+    final StringBuffer logs = new StringBuffer();
+    appendLogs(logs, &quot;*** RecordRoute&quot;);
+
+    final CountDownLatch finishLatch = new CountDownLatch(1);
+    StreamObserver&lt;RouteSummary&gt; responseObserver = new StreamObserver&lt;RouteSummary&gt;() {
+        @Override
+        public void onNext(RouteSummary summary) {
+            appendLogs(logs, &quot;Finished trip with {0} points. Passed {1} features. &quot;
+                    + &quot;Travelled {2} meters. It took {3} seconds.&quot;, summary.getPointCount(),
+                    summary.getFeatureCount(), summary.getDistance(),
+                    summary.getElapsedTime());
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            failed = t;
+            finishLatch.countDown();
+        }
+
+        @Override
+        public void onCompleted() {
+            appendLogs(logs, &quot;Finished RecordRoute&quot;);
+            finishLatch.countDown();
+        }
+    };
+
+    StreamObserver&lt;Point&gt; requestObserver = asyncStub.recordRoute(responseObserver);
+    try {
+        // Send numPoints points randomly selected from the points list.
+        Random rand = new Random();
+        for (int i = 0; i &lt; numPoints; ++i) {
+            int index = rand.nextInt(points.size());
+            Point point = points.get(index);
+            appendLogs(logs, &quot;Visiting point {0}, {1}&quot;, RouteGuideUtil.getLatitude(point),
+                    RouteGuideUtil.getLongitude(point));
+            requestObserver.onNext(point);
+            // Sleep for a bit before sending the next one.
+            Thread.sleep(rand.nextInt(1000) + 500);
+            if (finishLatch.getCount() == 0) {
+                // RPC completed or errored before we finished sending.
+                // Sending further requests won't error, but they will just be thrown away.
+                break;
+            }
+        }
+    } catch (RuntimeException e) {
+        // Cancel RPC
+        requestObserver.onError(e);
+        throw e;
+    }
+    // Mark the end of requests
+    requestObserver.onCompleted();
+
+    // Receiving happens asynchronously
+    if (!finishLatch.await(1, TimeUnit.MINUTES)) {
+        throw new RuntimeException(
+               &quot;Could not finish rpc within 1 minute, the server is likely down&quot;);
+    }
+
+    if (failed != null) {
+        throw new RuntimeException(failed);
+    }
+    return logs.toString();
+}
+</code></pre>
+
+<p>As you can see, to call this method we need to create a <code>StreamObserver</code>, which implements a special interface for the server to call with its <code>RouteSummary</code> response. In our <code>StreamObserver</code> we:</p>
+
+<ul>
+<li>Override the <code>onNext()</code> method to print out the returned information when the server writes a <code>RouteSummary</code> to the message stream.</li>
+<li>Override the <code>onCompleted()</code> method (called when the <em>server</em> has completed the call on its side) to set a <code>SettableFuture</code> that we can check to see if the server has finished writing.</li>
+</ul>
+
+<p>We then pass the <code>StreamObserver</code> to the asynchronous stub&rsquo;s <code>recordRoute()</code> method and get back our own <code>StreamObserver</code> request observer to write our <code>Point</code>s to send to the server.  Once we&rsquo;ve finished writing points, we use the request observer&rsquo;s <code>onCompleted()</code> method to tell gRPC that we&rsquo;ve finished writing on the client side. Once we&rsquo;re done, we check our <code>SettableFuture</code> to check that the server has completed on its side.</p>
+
+<h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
+
+<p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>.</p>
+
+<pre><code class="language-java">private String routeChat(RouteGuideStub asyncStub) throws InterruptedException,
+        RuntimeException {
+    final StringBuffer logs = new StringBuffer();
+    appendLogs(logs, &quot;*** RouteChat&quot;);
+    final CountDownLatch finishLatch = new CountDownLatch(1);
+    StreamObserver&lt;RouteNote&gt; requestObserver =
+            asyncStub.routeChat(new StreamObserver&lt;RouteNote&gt;() {
+                @Override
+                public void onNext(RouteNote note) {
+                    appendLogs(logs, &quot;Got message \&quot;{0}\&quot; at {1}, {2}&quot;, note.getMessage(),
+                            note.getLocation().getLatitude(),
+                            note.getLocation().getLongitude());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    failed = t;
+                    finishLatch.countDown();
+                }
+
+                @Override
+                public void onCompleted() {
+                    appendLogs(logs,&quot;Finished RouteChat&quot;);
+                    finishLatch.countDown();
+                }
+            });
+
+    try {
+        RouteNote[] requests =
+                {newNote(&quot;First message&quot;, 0, 0), newNote(&quot;Second message&quot;, 0, 1),
+                        newNote(&quot;Third message&quot;, 1, 0), newNote(&quot;Fourth message&quot;, 1, 1)};
+
+        for (RouteNote request : requests) {
+            appendLogs(logs, &quot;Sending message \&quot;{0}\&quot; at {1}, {2}&quot;, request.getMessage(),
+                    request.getLocation().getLatitude(),
+                    request.getLocation().getLongitude());
+            requestObserver.onNext(request);
+        }
+    } catch (RuntimeException e) {
+        // Cancel RPC
+        requestObserver.onError(e);
+        throw e;
+    }
+    // Mark the end of requests
+    requestObserver.onCompleted();
+
+    // Receiving happens asynchronously
+    if (!finishLatch.await(1, TimeUnit.MINUTES)) {
+        throw new RuntimeException(
+                &quot;Could not finish rpc within 1 minute, the server is likely down&quot;);
+    }
+
+    if (failed != null) {
+        throw new RuntimeException(failed);
+    }
+
+    return logs.toString();
+}
+</code></pre>
+
+<p>As with our client-side streaming example, we both get and return a <code>StreamObserver</code> response observer, except this time we send values via our method&rsquo;s response observer while the server is still writing messages to <em>their</em> message stream. The syntax for reading and writing here is exactly the same as for our client-streaming method. Although each side will always get the other&rsquo;s messages in the order they were written, both the client and server can read and write in any order — the streams operate completely independently.</p>
+
+<h2 id="try-it-out">Try it out!</h2>
+
+<p>Follow the instructions in the example directory <a href="https://github.com/grpc/grpc-java/blob/{{ site.data.config.grpc_release_tag }}/examples/android/README.md">README</a> to build and run the client and server.</p>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>

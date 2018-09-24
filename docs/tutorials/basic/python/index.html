@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  gRPC Basics - Python &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">+Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Tutorials<br>
+<a href="https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/">Async - C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/">Auth - Objective C</a><br>
+Basic <br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/c/">C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/csharp/">C#</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/dart/">Dart</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/go/">Go</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/java/">Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/android/">Android Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/objective-c/">Objective-C</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/php/">PHP</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/python/">+Python</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/">Ruby</a><br>
+
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">gRPC Basics - Python</h3>
+
+    
+
+<p class="lead">This tutorial provides a basic Python programmer's introduction
+to working with gRPC.</p>
+
+<p>By walking through this example you&rsquo;ll learn how to:</p>
+
+<ul>
+<li>Define a service in a .proto file.</li>
+<li>Generate server and client code using the protocol buffer compiler.</li>
+<li>Use the Python gRPC API to write a simple client and server for your service.</li>
+</ul>
+
+<p>It assumes that you have read the <a href="/docs/guides/#overview">Overview</a> and are familiar
+with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. You can
+find out more in the <a href="https://developers.google.com/protocol-buffers/docs/proto3">proto3 language
+guide</a> and <a href="https://developers.google.com/protocol-buffers/docs/reference/python-generated">Python
+generated code
+guide</a>,
+and see the <a href="https://github.com/google/protobuf/releases">release notes</a> for the
+new version in the protocol buffers Github repository.</p>
+
+<div id="toc"></div>
+
+<h2 id="why-use-grpc">Why use gRPC?</h2>
+
+<p>This example is a simple route mapping application that lets clients get
+information about features on their route, create a summary of their route, and
+exchange route information such as traffic updates with the server and other
+clients.</p>
+
+<p>With gRPC you can define your service once in a .proto file and implement
+clients and servers in any of gRPC&rsquo;s supported languages, which in turn can be
+run in environments ranging from servers inside Google to your own tablet, with
+all the complexity of communication between different languages and environments
+is handled for you by gRPC. You also get all the advantages of working with
+protocol buffers, including efficient serialization, a simple IDL, and easy
+interface updating.</p>
+
+<h2 id="example-code-and-setup">Example code and setup</h2>
+
+<p>The example code for this tutorial is in
+<a href="https://github.com/grpc/grpc/tree/{{ site.data.config.grpc_release_tag }}/examples/python/route_guide">grpc/grpc/examples/python/route_guide</a>.
+To download the example, clone the <code>grpc</code> repository by running the following
+command:</p>
+
+<pre><code>$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
+</code></pre>
+
+<p>Then change your current directory to <code>examples/python/route_guide</code> in the repository:</p>
+
+<pre><code>$ cd grpc/examples/python/route_guide
+</code></pre>
+
+<p>You also should have the relevant tools installed to generate the server and
+client interface code - if you don&rsquo;t already, follow the setup instructions in
+<a href="/docs/quickstart/python.html">the Python quick start guide</a>.</p>
+
+<h2 id="defining-the-service">Defining the service</h2>
+
+<p>Your first step (as you&rsquo;ll know from the <a href="/docs/guides/#overview">Overview</a>) is to
+define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
+<a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. You can
+see the complete .proto file in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+
+<p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
+
+<pre><code class="language-protobuf">service RouteGuide {
+   // (Method definitions not shown)
+}
+</code></pre>
+
+<p>Then you define <code>rpc</code> methods inside your service definition, specifying their
+request and response types. gRPC lets you define four kinds of service method,
+all of which are used in the <code>RouteGuide</code> service:</p>
+
+<ul>
+<li>A <em>simple RPC</em> where the client sends a request to the server using the stub
+and waits for a response to come back, just like a normal function call.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the feature at a given position.
+rpc GetFeature(Point) returns (Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>response-streaming RPC</em> where the client sends a request to the server and
+gets a stream to read a sequence of messages back. The client reads from the
+returned stream until there are no more messages. As you can see in the
+example, you specify a response-streaming method by placing the <code>stream</code>
+keyword before the <em>response</em> type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the Features available within the given Rectangle.  Results are
+// streamed rather than returned at once (e.g. in a response message with a
+// repeated field), as the rectangle may cover a large area and contain a
+// huge number of features.
+rpc ListFeatures(Rectangle) returns (stream Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>request-streaming RPC</em> where the client writes a sequence of messages and
+sends them to the server, again using a provided stream. Once the client has
+finished writing the messages, it waits for the server to read them all and
+return its response. You specify a request-streaming method by placing the
+<code>stream</code> keyword before the <em>request</em> type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of Points on a route being traversed, returning a
+// RouteSummary when traversal is completed.
+rpc RecordRoute(stream Point) returns (RouteSummary) {}
+</code></pre>
+
+<ul>
+<li>A <em>bidirectionally-streaming RPC</em> where both sides send a sequence of messages
+using a read-write stream. The two streams operate independently, so clients
+and servers can read and write in whatever order they like: for example, the
+server could wait to receive all the client messages before writing its
+responses, or it could alternately read a message then write a message, or
+some other combination of reads and writes. The order of messages in each
+stream is preserved. You specify this type of method by placing the <code>stream</code>
+keyword before both the request and the response.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of RouteNotes sent while a route is being traversed,
+// while receiving other RouteNotes (e.g. from other users).
+rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+</code></pre>
+
+<p>Your .proto file also contains protocol buffer message type definitions for all
+the request and response types used in our service methods - for example, here&rsquo;s
+the <code>Point</code> message type:</p>
+
+<pre><code class="language-protobuf">// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+</code></pre>
+
+<h2 id="generating-client-and-server-code">Generating client and server code</h2>
+
+<p>Next you need to generate the gRPC client and server interfaces from your .proto
+service definition.</p>
+
+<p>First, install the grpcio-tools package:</p>
+
+<pre><code>$ pip install grpcio-tools
+</code></pre>
+
+<p>Then, install the googleapis-common-proto package which is a collection of
+generated python classes for some common protos:</p>
+
+<pre><code>$ pip install googleapis-common-protos
+</code></pre>
+
+<p>Use the following command to generate the Python code:</p>
+
+<pre><code>$ python -m grpc_tools.protoc -I../../protos --python_out=. --grpc_python_out=. ../../protos/route_guide.proto
+</code></pre>
+
+<p>Note that as we&rsquo;ve already provided a version of the generated code in the
+example directory, running this command regenerates the appropriate file rather
+than creates a new one. The generated code files are called
+<code>route_guide_pb2.py</code> and <code>route_guide_pb2_grpc.py</code> and contain:</p>
+
+<ul>
+<li>classes for the messages defined in route_guide.proto</li>
+<li>classes for the service defined in route_guide.proto
+
+<ul>
+<li><code>RouteGuideStub</code>, which can be used by clients to invoke RouteGuide RPCs</li>
+<li><code>RouteGuideServicer</code>, which defines the interface for implementations
+of the RouteGuide service</li>
+</ul></li>
+<li>a function for the service defined in route_guide.proto
+
+<ul>
+<li><code>add_RouteGuideServicer_to_server</code>, which adds a RouteGuideServicer to
+a <code>grpc.Server</code></li>
+</ul></li>
+</ul>
+
+<p>Note: The <code>2</code> in pb2 indicates that the generated code is following Protocol Buffers Python API version 2. Version 1 is obsolete. It has no relation to the Protocol Buffers Language version, which is the one indicated by <code>syntax = &quot;proto3&quot;</code> or <code>syntax = &quot;proto2&quot;</code> in a .proto file.</p>
+
+<p><a name="server"></a></p>
+
+<h2 id="creating-the-server">Creating the server</h2>
+
+<p>First let&rsquo;s look at how you create a <code>RouteGuide</code> server. If you&rsquo;re only
+interested in creating gRPC clients, you can skip this section and go straight
+to <a href="#client">Creating the client</a> (though you might find it interesting
+anyway!).</p>
+
+<p>Creating and running a <code>RouteGuide</code> server breaks down into two work items:
+- Implementing the servicer interface generated from our service definition with
+  functions that perform the actual &ldquo;work&rdquo; of the service.
+- Running a gRPC server to listen for requests from clients and transmit
+  responses.</p>
+
+<p>You can find the example <code>RouteGuide</code> server in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/python/route_guide/route_guide_server.py">examples/python/route_guide/route_guide_server.py</a>.</p>
+
+<h3 id="implementing-routeguide">Implementing RouteGuide</h3>
+
+<p><code>route_guide_server.py</code> has a <code>RouteGuideServicer</code> class that subclasses the
+generated class <code>route_guide_pb2_grpc.RouteGuideServicer</code>:</p>
+
+<pre><code class="language-python"># RouteGuideServicer provides an implementation of the methods of the RouteGuide service.
+class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
+</code></pre>
+
+<p><code>RouteGuideServicer</code> implements all the <code>RouteGuide</code> service methods.</p>
+
+<h4 id="simple-rpc">Simple RPC</h4>
+
+<p>Let&rsquo;s look at the simplest type first, <code>GetFeature</code>, which just gets a <code>Point</code>
+from the client and returns the corresponding feature information from its
+database in a <code>Feature</code>.</p>
+
+<pre><code class="language-python">def GetFeature(self, request, context):
+  feature = get_feature(self.db, request)
+  if feature is None:
+    return route_guide_pb2.Feature(name=&quot;&quot;, location=request)
+  else:
+    return feature
+</code></pre>
+
+<p>The method is passed a <code>route_guide_pb2.Point</code> request for the RPC, and a
+<code>grpc.ServicerContext</code> object that provides RPC-specific information such as
+timeout limits. It returns a <code>route_guide_pb2.Feature</code> response.</p>
+
+<h4 id="response-streaming-rpc">Response-streaming RPC</h4>
+
+<p>Now let&rsquo;s look at the next method. <code>ListFeatures</code> is a response-streaming RPC
+that sends multiple <code>Feature</code>s to the client.</p>
+
+<pre><code class="language-python">def ListFeatures(self, request, context):
+  left = min(request.lo.longitude, request.hi.longitude)
+  right = max(request.lo.longitude, request.hi.longitude)
+  top = max(request.lo.latitude, request.hi.latitude)
+  bottom = min(request.lo.latitude, request.hi.latitude)
+  for feature in self.db:
+    if (feature.location.longitude &gt;= left and
+        feature.location.longitude &lt;= right and
+        feature.location.latitude &gt;= bottom and
+        feature.location.latitude &lt;= top):
+      yield feature
+</code></pre>
+
+<p>Here the request message is a <code>route_guide_pb2.Rectangle</code> within which the
+client wants to find <code>Feature</code>s. Instead of returning a single response the
+method yields zero or more responses.</p>
+
+<h4 id="request-streaming-rpc">Request-streaming RPC</h4>
+
+<p>The request-streaming method <code>RecordRoute</code> uses an
+<a href="https://docs.python.org/2/library/stdtypes.html#iterator-types">iterator</a> of
+request values and returns a single response value.</p>
+
+<pre><code class="language-python">def RecordRoute(self, request_iterator, context):
+  point_count = 0
+  feature_count = 0
+  distance = 0.0
+  prev_point = None
+
+  start_time = time.time()
+  for point in request_iterator:
+    point_count += 1
+    if get_feature(self.db, point):
+      feature_count += 1
+    if prev_point:
+      distance += get_distance(prev_point, point)
+    prev_point = point
+
+  elapsed_time = time.time() - start_time
+  return route_guide_pb2.RouteSummary(point_count=point_count,
+                                      feature_count=feature_count,
+                                      distance=int(distance),
+                                      elapsed_time=int(elapsed_time))
+</code></pre>
+
+<h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
+
+<p>Lastly let&rsquo;s look at the bidirectionally-streaming method <code>RouteChat</code>.</p>
+
+<pre><code class="language-python">def RouteChat(self, request_iterator, context):
+  prev_notes = []
+  for new_note in request_iterator:
+    for prev_note in prev_notes:
+      if prev_note.location == new_note.location:
+        yield prev_note
+    prev_notes.append(new_note)
+</code></pre>
+
+<p>This method&rsquo;s semantics are a combination of those of the request-streaming
+method and the response-streaming method. It is passed an iterator of request
+values and is itself an iterator of response values.</p>
+
+<h3 id="starting-the-server">Starting the server</h3>
+
+<p>Once you have implemented all the <code>RouteGuide</code> methods, the next step is to
+start up a gRPC server so that clients can actually use your service:</p>
+
+<pre><code class="language-python">def serve():
+  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+  route_guide_pb2_grpc.add_RouteGuideServicer_to_server(
+      RouteGuideServicer(), server)
+  server.add_insecure_port('[::]:50051')
+  server.start()
+</code></pre>
+
+<p>Because <code>start()</code> does not block you may need to sleep-loop if there is nothing
+else for your code to do while serving.</p>
+
+<p><a name="client"></a></p>
+
+<h2 id="creating-the-client">Creating the client</h2>
+
+<p>You can see the complete example client code in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/python/route_guide/route_guide_client.py">examples/python/route_guide/route_guide_client.py</a>.</p>
+
+<h3 id="creating-a-stub">Creating a stub</h3>
+
+<p>To call service methods, we first need to create a <em>stub</em>.</p>
+
+<p>We instantiate the <code>RouteGuideStub</code> class of the <code>route_guide_pb2_grpc</code>
+module, generated from our .proto.</p>
+
+<pre><code class="language-python">channel = grpc.insecure_channel('localhost:50051')
+stub = route_guide_pb2_grpc.RouteGuideStub(channel)
+</code></pre>
+
+<h3 id="calling-service-methods">Calling service methods</h3>
+
+<p>For RPC methods that return a single response (&ldquo;response-unary&rdquo; methods), gRPC
+Python supports both synchronous (blocking) and asynchronous (non-blocking)
+control flow semantics. For response-streaming RPC methods, calls immediately
+return an iterator of response values. Calls to that iterator&rsquo;s <code>next()</code> method
+block until the response to be yielded from the iterator becomes available.</p>
+
+<h4 id="simple-rpc-1">Simple RPC</h4>
+
+<p>A synchronous call to the simple RPC <code>GetFeature</code> is nearly as straightforward
+as calling a local method. The RPC call waits for the server to respond, and
+will either return a response or raise an exception:</p>
+
+<pre><code class="language-python">feature = stub.GetFeature(point)
+</code></pre>
+
+<p>An asynchronous call to <code>GetFeature</code> is similar, but like calling a local method
+asynchronously in a thread pool:</p>
+
+<pre><code class="language-python">feature_future = stub.GetFeature.future(point)
+feature = feature_future.result()
+</code></pre>
+
+<h4 id="response-streaming-rpc-1">Response-streaming RPC</h4>
+
+<p>Calling the response-streaming <code>ListFeatures</code> is similar to working with
+sequence types:</p>
+
+<pre><code class="language-python">for feature in stub.ListFeatures(rectangle):
+</code></pre>
+
+<h4 id="request-streaming-rpc-1">Request-streaming RPC</h4>
+
+<p>Calling the request-streaming <code>RecordRoute</code> is similar to passing an iterator
+to a local method. Like the simple RPC above that also returns a single
+response, it can be called synchronously or asynchronously:</p>
+
+<pre><code class="language-python">route_summary = stub.RecordRoute(point_iterator)
+</code></pre>
+
+<pre><code class="language-python">route_summary_future = stub.RecordRoute.future(point_iterator)
+route_summary = route_summary_future.result()
+</code></pre>
+
+<h4 id="bidirectional-streaming-rpc-1">Bidirectional streaming RPC</h4>
+
+<p>Calling the bidirectionally-streaming <code>RouteChat</code> has (as is the case on the
+service-side) a combination of the request-streaming and response-streaming
+semantics:</p>
+
+<pre><code class="language-python">for received_route_note in stub.RouteChat(sent_route_note_iterator):
+</code></pre>
+
+<h2 id="try-it-out">Try it out!</h2>
+
+<p>Run the server, which will listen on port 50051:</p>
+
+<pre><code>$ python route_guide_server.py
+</code></pre>
+
+<p>Run the client (in a different terminal):</p>
+
+<pre><code>$ python route_guide_client.py
+</code></pre>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>

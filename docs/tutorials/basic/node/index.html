@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  gRPC Basics - Node.js &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">+Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Tutorials<br>
+<a href="https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/">Async - C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/">Auth - Objective C</a><br>
+Basic <br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/c/">C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/csharp/">C#</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/dart/">Dart</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/go/">Go</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/java/">Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/android/">Android Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/objective-c/">Objective-C</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/php/">PHP</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/python/">Python</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/">Ruby</a><br>
+
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">gRPC Basics - Node.js</h3>
+
+    
+
+<p class="lead">This tutorial provides a basic Node.js programmer's introduction
+to working with gRPC.</p>
+
+<p>By walking through this example you&rsquo;ll learn how to:</p>
+
+<ul>
+<li>Define a service in a .proto file.</li>
+<li>Use the Node.js gRPC API to write a simple client and server for your service.</li>
+</ul>
+
+<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
+with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. Note
+that the example in this tutorial uses the
+<a href="https://github.com/google/protobuf/releases">proto3</a> version of the protocol
+buffers language, which is currently in alpha release: you can find out more in
+the <a href="https://developers.google.com/protocol-buffers/docs/proto3">proto3 language
+guide</a> and see the
+<a href="https://github.com/google/protobuf/releases">release notes</a> for the new version
+in the protocol buffers Github repository.</p>
+
+<div id="toc"></div>
+
+<h2 id="why-use-grpc">Why use gRPC?</h2>
+
+<p>Our example is a simple route mapping application that lets clients get
+information about features on their route, create a summary of their route, and
+exchange route information such as traffic updates with the server and other
+clients.</p>
+
+<p>With gRPC we can define our service once in a .proto file and implement clients
+and servers in any of gRPC&rsquo;s supported languages, which in turn can be run in
+environments ranging from servers inside Google to your own tablet - all the
+complexity of communication between different languages and environments is
+handled for you by gRPC. We also get all the advantages of working with protocol
+buffers, including efficient serialization, a simple IDL, and easy interface
+updating.</p>
+
+<h2 id="example-code-and-setup">Example code and setup</h2>
+
+<p>The example code for our tutorial is in
+<a href="https://github.com/grpc/grpc/tree/
+{{ site.data.config.grpc_release_tag }}/examples/node/dynamic_codegen/route_guide">grpc/grpc/examples/node/dynamic&#95;codegen/route&#95;guide</a>.
+As you&rsquo;ll see if you look at the repository, there&rsquo;s also a very similar-looking
+example in
+<a href="https://github.com/grpc/grpc/tree/
+{{ site.data.config.grpc_release_tag }}/examples/node/static_codegen/route_guide">grpc/grpc/examples/node/static&#95;codegen/route&#95;guide</a>.
+We have two versions of our route guide example because there are two ways to
+generate the code needed to work with protocol buffers in Node.js - one approach
+uses <code>Protobuf.js</code> to dynamically generate the code at runtime, the other uses
+code statically generated using the protocol buffer compiler <code>protoc</code>. The
+examples behave identically, and either server can be used with either client.
+As suggested by the directory name, we&rsquo;ll be using the version with dynamically
+generated code in this document, but feel free to look at the static code
+example too.</p>
+
+<p>To download the example, clone the <code>grpc</code> repository by running the following
+command:</p>
+
+<pre><code class="language-sh">$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
+$ cd grpc
+</code></pre>
+
+<p>Then change your current directory to <code>examples/node</code>:</p>
+
+<pre><code class="language-sh">$ cd examples/node
+</code></pre>
+
+<p>You also should have the relevant tools installed to generate the server and
+client interface code - if you don&rsquo;t already, follow the setup instructions in
+<a href="/docs/quickstart/node.html">the Node.js quick start guide</a>.</p>
+
+<h2 id="defining-the-service">Defining the service</h2>
+
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to
+define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
+<a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. You can
+see the complete .proto file in
+<a href="https://github.com/grpc/grpc/blob/
+{{ site.data.config.grpc_release_tag }}/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+
+<p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
+
+<pre><code class="language-protobuf">service RouteGuide {
+   ...
+}
+</code></pre>
+
+<p>Then you define <code>rpc</code> methods inside your service definition, specifying their
+request and response types. gRPC lets you define four kinds of service method,
+all of which are used in the <code>RouteGuide</code> service:</p>
+
+<ul>
+<li>A <em>simple RPC</em> where the client sends a request to the server using the stub
+and waits for a response to come back, just like a normal function call.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the feature at a given position.
+rpc GetFeature(Point) returns (Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>server-side streaming RPC</em> where the client sends a request to the server
+and gets a stream to read a sequence of messages back. The client reads from
+the returned stream until there are no more messages. As you can see in our
+example, you specify a server-side streaming method by placing the <code>stream</code>
+keyword before the <em>response</em> type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the Features available within the given Rectangle.  Results are
+// streamed rather than returned at once (e.g. in a response message with a
+// repeated field), as the rectangle may cover a large area and contain a
+// huge number of features.
+rpc ListFeatures(Rectangle) returns (stream Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>client-side streaming RPC</em> where the client writes a sequence of messages
+and sends them to the server, again using a provided stream. Once the client
+has finished writing the messages, it waits for the server to read them all
+and return its response. You specify a client-side streaming method by placing
+the <code>stream</code> keyword before the <em>request</em> type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of Points on a route being traversed, returning a
+// RouteSummary when traversal is completed.
+rpc RecordRoute(stream Point) returns (RouteSummary) {}
+</code></pre>
+
+<ul>
+<li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages
+using a read-write stream. The two streams operate independently, so clients
+and servers can read and write in whatever order they like: for example, the
+server could wait to receive all the client messages before writing its
+responses, or it could alternately read a message then write a message, or
+some other combination of reads and writes. The order of messages in each
+stream is preserved. You specify this type of method by placing the <code>stream</code>
+keyword before both the request and the response.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of RouteNotes sent while a route is being traversed,
+// while receiving other RouteNotes (e.g. from other users).
+rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+</code></pre>
+
+<p>Our .proto file also contains protocol buffer message type definitions for all
+the request and response types used in our service methods - for example, here&rsquo;s
+the <code>Point</code> message type:</p>
+
+<pre><code class="language-protobuf">// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+</code></pre>
+
+<h2 id="loading-service-descriptors-from-proto-files">Loading service descriptors from proto files</h2>
+
+<p>The Node.js library dynamically generates service descriptors and client stub
+definitions from <code>.proto</code> files loaded at runtime.</p>
+
+<p>To load a <code>.proto</code> file, simply <code>require</code> the gRPC proto loader library and use its
+<code>loadSync()</code> method, then pass the output to the gRPC library&rsquo;s <code>loadPackageDefinition</code> method:</p>
+
+<pre><code class="language-js">var PROTO_PATH = __dirname + '/../../../protos/route_guide.proto';
+var grpc = require('grpc');
+var protoLoader = require('@grpc/proto-loader');
+// Suggested options for similarity to existing grpc.load behavior
+var packageDefinition = protoLoader.loadSync(
+    PROTO_PATH,
+    {keepCase: true,
+     longs: String,
+     enums: String,
+     defaults: true,
+     oneofs: true
+    });
+var protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
+// The protoDescriptor object has the full package hierarchy
+var routeguide = protoDescriptor.routeguide;
+</code></pre>
+
+<p>Once you&rsquo;ve done this, the stub constructor is in the <code>routeguide</code> namespace
+(<code>protoDescriptor.routeguide.RouteGuide</code>) and the service descriptor (which is
+used to create a server) is a property of the stub
+(<code>protoDescriptor.routeguide.RouteGuide.service</code>);</p>
+
+<p><a name="server"></a></p>
+
+<h2 id="creating-the-server">Creating the server</h2>
+
+<p>First let&rsquo;s look at how we create a <code>RouteGuide</code> server. If you&rsquo;re only
+interested in creating gRPC clients, you can skip this section and go straight
+to <a href="#client">Creating the client</a> (though you might find it interesting
+anyway!).</p>
+
+<p>There are two parts to making our <code>RouteGuide</code> service do its job:
+- Implementing the service interface generated from our service definition:
+  doing the actual &ldquo;work&rdquo; of our service.
+- Running a gRPC server to listen for requests from clients and return the
+  service responses.</p>
+
+<p>You can find our example <code>RouteGuide</code> server in
+<a href="https://github.com/grpc/grpc/blob/
+{{ site.data.config.grpc_release_tag }}/examples/node/dynamic_codegen/route_guide/route_guide_server.js">examples/node/dynamic&#95;codegen/route&#95;guide/route&#95;guide&#95;server.js</a>.
+Let&rsquo;s take a closer look at how it works.</p>
+
+<h3 id="implementing-routeguide">Implementing RouteGuide</h3>
+
+<p>As you can see, our server has a <code>Server</code> constructor generated from the
+<code>RouteGuide.service</code> descriptor object</p>
+
+<pre><code class="language-js">var Server = new grpc.Server();
+</code></pre>
+
+<p>In this case we&rsquo;re implementing the <em>asynchronous</em> version of <code>RouteGuide</code>,
+which provides our default gRPC server behaviour.</p>
+
+<p>The functions in <code>route_guide_server.js</code> implement all our service methods.
+Let&rsquo;s look at the simplest type first, <code>getFeature</code>, which just gets a <code>Point</code>
+from the client and returns the corresponding feature information from its
+database in a <code>Feature</code>.</p>
+
+<pre><code class="language-js">function checkFeature(point) {
+  var feature;
+  // Check if there is already a feature object for the given point
+  for (var i = 0; i &lt; feature_list.length; i++) {
+    feature = feature_list[i];
+    if (feature.location.latitude === point.latitude &amp;&amp;
+        feature.location.longitude === point.longitude) {
+      return feature;
+    }
+  }
+  var name = '';
+  feature = {
+    name: name,
+    location: point
+  };
+  return feature;
+}
+function getFeature(call, callback) {
+  callback(null, checkFeature(call.request));
+}
+</code></pre>
+
+<p>The method is passed a call object for the RPC, which has the <code>Point</code> parameter
+as a property, and a callback to which we can pass our returned <code>Feature</code>. In
+the method body we populate a <code>Feature</code> corresponding to the given point and
+pass it to the callback, with a null first parameter to indicate that there is
+no error.</p>
+
+<p>Now let&rsquo;s look at something a bit more complicated - a streaming RPC.
+<code>listFeatures</code> is a server-side streaming RPC, so we need to send back multiple
+<code>Feature</code>s to our client.</p>
+
+<pre><code class="language-js">function listFeatures(call) {
+  var lo = call.request.lo;
+  var hi = call.request.hi;
+  var left = _.min([lo.longitude, hi.longitude]);
+  var right = _.max([lo.longitude, hi.longitude]);
+  var top = _.max([lo.latitude, hi.latitude]);
+  var bottom = _.min([lo.latitude, hi.latitude]);
+  // For each feature, check if it is in the given bounding box
+  _.each(feature_list, function(feature) {
+    if (feature.name === '') {
+      return;
+    }
+    if (feature.location.longitude &gt;= left &amp;&amp;
+        feature.location.longitude &lt;= right &amp;&amp;
+        feature.location.latitude &gt;= bottom &amp;&amp;
+        feature.location.latitude &lt;= top) {
+      call.write(feature);
+    }
+  });
+  call.end();
+}
+</code></pre>
+
+<p>As you can see, instead of getting the call object and callback in our method
+parameters, this time we get a <code>call</code> object that implements the <code>Writable</code>
+interface. In the method, we create as many <code>Feature</code> objects as we need to
+return, writing them to the <code>call</code> using its <code>write()</code> method. Finally, we call
+<code>call.end()</code> to indicate that we have sent all messages.</p>
+
+<p>If you look at the client-side streaming method <code>RecordRoute</code> you&rsquo;ll see it&rsquo;s
+quite similar to the unary call, except this time the <code>call</code> parameter
+implements the <code>Reader</code> interface. The <code>call</code>&rsquo;s <code>'data'</code> event fires every time
+there is new data, and the <code>'end'</code> event fires when all data has been read. Like
+the unary case, we respond by calling the callback</p>
+
+<pre><code class="language-js">call.on('data', function(point) {
+  // Process user data
+});
+call.on('end', function() {
+  callback(null, result);
+});
+</code></pre>
+
+<p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>.</p>
+
+<pre><code class="language-js">function routeChat(call) {
+  call.on('data', function(note) {
+    var key = pointKey(note.location);
+    /* For each note sent, respond with all previous notes that correspond to
+     * the same point */
+    if (route_notes.hasOwnProperty(key)) {
+      _.each(route_notes[key], function(note) {
+        call.write(note);
+      });
+    } else {
+      route_notes[key] = [];
+    }
+    // Then add the new note to the list
+    route_notes[key].push(JSON.parse(JSON.stringify(note)));
+  });
+  call.on('end', function() {
+    call.end();
+  });
+}
+</code></pre>
+
+<p>This time we get a <code>call</code> implementing <code>Duplex</code> that can be used to read <em>and</em>
+write messages. The syntax for reading and writing here is exactly the same as
+for our client-streaming and server-streaming methods. Although each side will
+always get the other&rsquo;s messages in the order they were written, both the client
+and server can read and write in any order — the streams operate completely
+independently.</p>
+
+<h3 id="starting-the-server">Starting the server</h3>
+
+<p>Once we&rsquo;ve implemented all our methods, we also need to start up a gRPC server
+so that clients can actually use our service. The following snippet shows how we
+do this for our <code>RouteGuide</code> service:</p>
+
+<pre><code class="language-js">function getServer() {
+  var server = new grpc.Server();
+  server.addProtoService(routeguide.RouteGuide.service, {
+    getFeature: getFeature,
+    listFeatures: listFeatures,
+    recordRoute: recordRoute,
+    routeChat: routeChat
+  });
+  return server;
+}
+var routeServer = getServer();
+routeServer.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+routeServer.start();
+</code></pre>
+
+<p>As you can see, we build and start our server with the following steps:</p>
+
+<ol>
+<li>Create a <code>Server</code> constructor from the <code>RouteGuide</code> service descriptor.</li>
+<li>Implement the service methods.</li>
+<li>Create an instance of the server by calling the <code>Server</code> constructor with
+the method implementations.</li>
+<li>Specify the address and port we want to use to listen for client requests
+using the instance&rsquo;s <code>bind()</code> method.</li>
+<li>Call <code>start()</code> on the instance to start the RPC server.</li>
+</ol>
+
+<p><a name="client"></a></p>
+
+<h2 id="creating-the-client">Creating the client</h2>
+
+<p>In this section, we&rsquo;ll look at creating a Node.js client for our <code>RouteGuide</code>
+service. You can see our complete example client code in
+<a href="https://github.com/grpc/grpc/blob/
+{{ site.data.config.grpc_release_tag }}/examples/node/dynamic_codegen/route_guide/route_guide_client.js">examples/node/dynamic&#95;codegen/route&#95;guide/route&#95;guide&#95;client.js</a>.</p>
+
+<h3 id="creating-a-stub">Creating a stub</h3>
+
+<p>To call service methods, we first need to create a <em>stub</em>. To do this, we just
+need to call the RouteGuide stub constructor, specifying the server address and
+port.</p>
+
+<pre><code class="language-js">new example.RouteGuide('localhost:50051', grpc.credentials.createInsecure());
+</code></pre>
+
+<h3 id="calling-service-methods">Calling service methods</h3>
+
+<p>Now let&rsquo;s look at how we call our service methods. Note that all of these
+methods are asynchronous: they use either events or callbacks to retrieve
+results.</p>
+
+<h4 id="simple-rpc">Simple RPC</h4>
+
+<p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
+local asynchronous method.</p>
+
+<pre><code class="language-js">var point = {latitude: 409146138, longitude: -746188906};
+stub.getFeature(point, function(err, feature) {
+  if (err) {
+    // process error
+  } else {
+    // process feature
+  }
+});
+</code></pre>
+
+<p>As you can see, we create and populate a request object. Finally, we call the
+method on the stub, passing it the request and callback. If there is no error,
+then we can read the response information from the server from our response
+object.</p>
+
+<pre><code class="language-js">console.log('Found feature called &quot;' + feature.name + '&quot; at ' +
+    feature.location.latitude/COORD_FACTOR + ', ' +
+    feature.location.longitude/COORD_FACTOR);
+</code></pre>
+
+<h4 id="streaming-rpcs">Streaming RPCs</h4>
+
+<p>Now let&rsquo;s look at our streaming methods. If you&rsquo;ve already read <a href="#server">Creating the
+server</a> some of this may look very familiar - streaming RPCs are
+implemented in a similar way on both sides. Here&rsquo;s where we call the server-side
+streaming method <code>ListFeatures</code>, which returns a stream of geographical
+<code>Feature</code>s:</p>
+
+<pre><code class="language-js">var call = client.listFeatures(rectangle);
+  call.on('data', function(feature) {
+      console.log('Found feature called &quot;' + feature.name + '&quot; at ' +
+          feature.location.latitude/COORD_FACTOR + ', ' +
+          feature.location.longitude/COORD_FACTOR);
+  });
+  call.on('end', function() {
+    // The server has finished sending
+  });
+  call.on('error', function(e) {
+    // An error has occurred and the stream has been closed.
+  });
+  call.on('status', function(status) {
+    // process status
+  });
+</code></pre>
+
+<p>Instead of passing the method a request and callback, we pass it a request and
+get a <code>Readable</code> stream object back. The client can use the <code>Readable</code>&rsquo;s
+<code>'data'</code> event to read the server&rsquo;s responses. This event fires with each
+<code>Feature</code> message object until there are no more messages. Errors in the <code>'data'</code>
+callback will not cause the stream to be closed. The <code>'error'</code> event
+indicates that an error has occurred and the stream has been closed. The
+<code>'end'</code> event indicates that the server has finished sending and no errors
+occured. Only one of <code>'error'</code> or <code>'end'</code> will be emitted. Finally, the
+<code>'status'</code> event fires when the server sends the status.</p>
+
+<p>The client-side streaming method <code>RecordRoute</code> is similar, except there we pass
+the method a callback and get back a <code>Writable</code>.</p>
+
+<pre><code class="language-js">var call = client.recordRoute(function(error, stats) {
+  if (error) {
+    callback(error);
+  }
+  console.log('Finished trip with', stats.point_count, 'points');
+  console.log('Passed', stats.feature_count, 'features');
+  console.log('Travelled', stats.distance, 'meters');
+  console.log('It took', stats.elapsed_time, 'seconds');
+});
+function pointSender(lat, lng) {
+  return function(callback) {
+    console.log('Visiting point ' + lat/COORD_FACTOR + ', ' +
+        lng/COORD_FACTOR);
+    call.write({
+      latitude: lat,
+      longitude: lng
+    });
+    _.delay(callback, _.random(500, 1500));
+  };
+}
+var point_senders = [];
+for (var i = 0; i &lt; num_points; i++) {
+  var rand_point = feature_list[_.random(0, feature_list.length - 1)];
+  point_senders[i] = pointSender(rand_point.location.latitude,
+                                 rand_point.location.longitude);
+}
+async.series(point_senders, function() {
+  call.end();
+});
+</code></pre>
+
+<p>Once we&rsquo;ve finished writing our client&rsquo;s requests to the stream using <code>write()</code>,
+we need to call <code>end()</code> on the stream to let gRPC know that we&rsquo;ve finished
+writing. If the status is <code>OK</code>, the <code>stats</code> object will be populated with the
+server&rsquo;s response.</p>
+
+<p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>routeChat()</code>. In this
+case, we just pass a context to the method and get back a <code>Duplex</code> stream
+object, which we can use to both write and read messages.</p>
+
+<pre><code class="language-js">var call = client.routeChat();
+</code></pre>
+
+<p>The syntax for reading and writing here is exactly the same as for our
+client-streaming and server-streaming methods. Although each side will always
+get the other&rsquo;s messages in the order they were written, both the client and
+server can read and write in any order — the streams operate completely
+independently.</p>
+
+<h2 id="try-it-out">Try it out!</h2>
+
+<p>Build client and server:</p>
+
+<pre><code class="language-sh">$ npm install
+</code></pre>
+
+<p>Run the server, which will listen on port 50051:</p>
+
+<pre><code class="language-sh">$ node ./dynamic_codegen/route_guide/route_guide_server.js --db_path=./dynamic_codegen/route_guide/route_guide_db.json
+</code></pre>
+
+<p>Run the client (in a different terminal):</p>
+
+<pre><code class="language-sh">$ node ./dynamic_codegen/route_guide/route_guide_client.js --db_path=./dynamic_codegen/route_guide/route_guide_db.json
+</code></pre>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>

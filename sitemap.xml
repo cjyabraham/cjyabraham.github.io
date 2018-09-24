@@ -143,7 +143,31 @@
   </url>
   
   <url>
+    <loc>https://cjyabraham.github.io/docs/reference/go/generated-code/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/reference/java/generated-code/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/reference/python/generated-code/</loc>
+  </url>
+  
+  <url>
     <loc>https://cjyabraham.github.io/docs/quickstart/android/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/guides/auth/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/guides/benchmarking/</loc>
   </url>
   
   <url>
@@ -157,7 +181,15 @@
   </url>
   
   <url>
+    <loc>https://cjyabraham.github.io/docs/reference/c/client/</loc>
+  </url>
+  
+  <url>
     <loc>https://cjyabraham.github.io/docs/quickstart/cpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/reference/c/server/</loc>
   </url>
   
   <url>
@@ -166,7 +198,23 @@
   </url>
   
   <url>
+    <loc>https://cjyabraham.github.io/community/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/guides/contributing/</loc>
+  </url>
+  
+  <url>
     <loc>https://cjyabraham.github.io/docs/quickstart/dart/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/guides/error/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/faq/</loc>
   </url>
   
   <url>
@@ -178,11 +226,23 @@
   </url>
   
   <url>
+    <loc>https://cjyabraham.github.io/docs/reference/java/client/</loc>
+  </url>
+  
+  <url>
     <loc>https://cjyabraham.github.io/docs/quickstart/java/</loc>
   </url>
   
   <url>
+    <loc>https://cjyabraham.github.io/docs/reference/java/server/</loc>
+  </url>
+  
+  <url>
     <loc>https://cjyabraham.github.io/docs/quickstart/node/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/</loc>
   </url>
   
   <url>
@@ -223,7 +283,59 @@
   </url>
   
   <url>
+    <loc>https://cjyabraham.github.io/docs/guides/tuning/</loc>
+  </url>
+  
+  <url>
     <loc>https://cjyabraham.github.io/docs/tutorials/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/android/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/csharp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/c/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/dart/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/go/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/java/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/node/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/objective-c/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/php/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/python/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/ruby/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/guides/concepts/</loc>
   </url>
   
 </urlset>

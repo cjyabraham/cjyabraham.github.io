@@ -19,19 +19,47 @@
             </div>
             <div class="topnav">
                 <a href="https://cjyabraham.github.io/about/">About</a>
-		<a href="https://cjyabraham.github.io/docs/">Docs</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
 		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
 		<a href="https://cjyabraham.github.io/community/">Community</a>
 		<a href="https://packages.grpc.io/">Packages</a> 
 		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
             </div>
     
-            <div class="headertext">Guides</div>
+            <div class="headertext">Documentation</div>
   </div>
         </div>
         </div>
 
-  <div class="section2" style="text-align:left;margin-bottom:5%">
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">+Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Guides<br>
+<a href="https://cjyabraham.github.io/docs/guides/">+What is gRPC?</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/concepts/">gRPC Concepts</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/auth/">Authentication</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/error/">Error handling and debugging</a><br>
+<a href="https://cjyabraham.github.io/docs/guides/benchmarking/">Benchmarking</a><br>
+<a href="https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md">gRPC Wire format</a><br>
+Related Guides<br>
+<a href="https://developers.google.com/protocol-buffers/docs/overview">Protocol Buffers</a><br>
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">Guides</h3>
+
     
 
 <p>This document introduces you to gRPC and protocol buffers. gRPC can use
@@ -46,7 +74,7 @@ see our <a href="../quickstart">Quick Starts</a>.</p>
 
 <p>In gRPC a client application can directly call methods on a server application on a different machine as if it was a local object, making it easier for you to create distributed applications and services. As in many RPC systems, gRPC is based around the idea of defining a service, specifying the methods that can be called remotely with their parameters and return types. On the server side, the server implements this interface and runs a gRPC server to handle client calls. On the client side, the client has a stub (referred to as just a client in some languages) that provides the same methods as the server.</p>
 
-<p><img src="{{site.baseurl}}/img/landing-2.svg" alt="Concept Diagram" /></p>
+<p><img src="../../img/landing-2.svg" alt="Concept Diagram" /></p>
 
 <p>gRPC clients and servers can run and talk to each other in a variety of environments - from servers inside Google to your own desktop - and can be written in any of gRPC&rsquo;s supported languages. So, for example, you can easily create a gRPC server in Java with clients in Go, Python, or Ruby. In addition, the latest Google APIs will have gRPC versions of their interfaces, letting you easily build Google functionality into your applications.</p>
 
@@ -135,7 +163,10 @@ version), we recommend that you use proto3 with gRPC as it lets you use the
 full range of gRPC-supported languages, as well as avoiding compatibility
 issues with proto2 clients talking to proto3 servers and vice versa.</p>
 
-  </div>
+</div>
+</div>
+
+</div>
 
     
     

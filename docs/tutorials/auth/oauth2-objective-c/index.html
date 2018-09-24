@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  OAuth2 on gRPC - Objective-C &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">+Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Tutorials<br>
+<a href="https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/">Async - C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/">+Auth - Objective C</a><br>
+Basic <br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/c/">C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/csharp/">C#</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/dart/">Dart</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/go/">Go</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/java/">Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/android/">Android Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/objective-c/">+Objective-C</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/php/">PHP</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/python/">Python</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/">Ruby</a><br>
+
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">OAuth2 on gRPC - Objective-C</h3>
+
+    
+
+<p class="lead">This example demonstrates how to use OAuth2 on gRPC to make
+authenticated API calls on behalf of a user.</p>
+
+<p>By walking through it you&rsquo;ll also learn how to use the Objective-C gRPC API to:</p>
+
+<ul>
+<li>Initialize and configure a remote call object before the RPC is started.</li>
+<li>Set request metadata elements on a call, which are semantically equivalent to
+HTTP request headers.</li>
+<li>Read response metadata from a call, which is equivalent to HTTP response
+headers and trailers.</li>
+</ul>
+
+<p>It assumes you know the basics on how to make gRPC API calls using the
+Objective-C client library, as shown in <a href="/docs/tutorials/basic/objective-c.html">gRPC Basics:
+Objective-C</a> and the
+<a href="/docs/index.html">overview</a>, and are familiar with OAuth2 concepts like <em>access
+token</em>.</p>
+
+<div id="toc"></div>
+
+<p><a name="setup"></a></p>
+
+<h2 id="example-code-and-setup">Example code and setup</h2>
+
+<p>The example code for our tutorial is in
+<a href="https://github.com/grpc/grpc/tree/
+{{ site.data.config.grpc_release_tag }}/examples/objective-c/auth_sample">gprc/examples/objective-c/auth_sample</a>. To
+download the example, clone this repository by running the following commands:</p>
+
+<pre><code>$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
+$ cd grpc
+$ git submodule update --init
+</code></pre>
+
+<p>Then change your current directory to <code>examples/objective-c/auth_sample</code>:</p>
+
+<pre><code>$ cd examples/objective-c/auth_sample
+</code></pre>
+
+<p>Our example is a simple application with two views. The first view lets a user
+sign in and out using the OAuth2 flow of Google&rsquo;s <a href="https://developers.google.com/identity/sign-in/ios/">iOS SignIn
+library</a>. (Google&rsquo;s library
+is used in this example because the test gRPC service we are going to call
+expects Google account credentials, but neither gRPC nor the Objective-C client
+library is tied to any specific OAuth2 provider). The second view makes a gRPC
+request to the test server, using the access token obtained by the first view.</p>
+
+<p>Note: OAuth2 libraries need the application to register and obtain an ID from
+the identity provider (in the case of this example app, Google). The app&rsquo;s XCode
+project is configured using that ID, so you shouldn&rsquo;t copy this project &ldquo;as is&rdquo;
+for your own app: it would result in your app being identified in the consent
+screen as &ldquo;gRPC-AuthSample&rdquo;, and not having access to real Google services.
+Instead, configure your own XCode project following the <a href="https://developers.google.com/identity/sign-in/ios/">instructions
+here</a>.</p>
+
+<p>As with the other Objective-C examples, you also should have
+<a href="https://cocoapods.org/#install">Cocoapods</a> installed, as well as the relevant
+tools to generate the client library code. You can obtain the latter by
+following <a href="https://github.com/grpc/homebrew-grpc">these setup instructions</a>.</p>
+
+<p><a name="try"></a></p>
+
+<h2 id="try-it-out">Try it out!</h2>
+
+<p>To try the sample app, first have Cocoapods generate and install the client library for our .proto
+files:</p>
+
+<pre><code>$ pod install
+</code></pre>
+
+<p>(This might have to compile OpenSSL, which takes around 15 minutes if Cocoapods
+doesn&rsquo;t have it yet on your computer&rsquo;s cache).</p>
+
+<p>Finally, open the XCode workspace created by Cocoapods, and run the app.</p>
+
+<p>The first view, <code>SelectUserViewController.h/m</code>, asks you to sign in with your
+Google account, and to give the &ldquo;gRPC-AuthSample&rdquo; app the following permissions:</p>
+
+<ul>
+<li>View your email address.</li>
+<li>View your basic profile info.</li>
+<li>&ldquo;Test scope for access to the Zoo service&rdquo;.</li>
+</ul>
+
+<p>This last permission, corresponding to the scope
+<code>https://www.googleapis.com/auth/xapi.zoo</code> doesn&rsquo;t grant any real capability:
+it&rsquo;s only used for testing. You can log out at any time.</p>
+
+<p>The second view, <code>MakeRPCViewController.h/m</code>, makes a gRPC request to a test
+server at <a href="https://grpc-test.sandbox.google.com">https://grpc-test.sandbox.google.com</a>, sending the access token along
+with the request. The test service simply validates the token and writes in its
+response which user it belongs to, and which scopes it gives access to. (The
+client application already knows those two values; it&rsquo;s a way to verify that
+everything went as expected).</p>
+
+<p>The next sections guide you step-by-step through how the gRPC call in
+<code>MakeRPCViewController</code> is performed. You can see the complete code in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/objective-c/auth_sample/MakeRPCViewController.m">MakeRPCViewController.m</a>.</p>
+
+<p><a name="rpc-object"></a></p>
+
+<h2 id="create-an-rpc-object">Create an RPC object</h2>
+
+<p>The other basic tutorials show how to invoke an RPC by calling an asynchronous
+method in a generated client object. However, to make an authenticated call you
+need to initialize an object that represents the RPC, and configure it <em>before</em>
+starting the network request. First let&rsquo;s look at how to create the RPC object.</p>
+
+<p>Assume you have a proto service definition like this:</p>
+
+<pre><code class="language-protobuf">option objc_class_prefix = &quot;AUTH&quot;;
+
+service TestService {
+  rpc UnaryCall(Request) returns (Response);
+}
+</code></pre>
+
+<p>A <code>unaryCallWithRequest:handler:</code> method, with which you&rsquo;re already familiar, is
+generated for the <code>AUTHTestService</code> class:</p>
+
+<pre><code class="language-objective-c">[client unaryCallWithRequest:request handler:^(AUTHResponse *response, NSError *error) {
+  ...
+}];
+</code></pre>
+
+<p>In addition, an <code>RPCToUnaryCallWithRequest:handler:</code> method is generated, which returns a
+not-yet-started RPC object:</p>
+
+<pre><code class="language-objective-c">#import &lt;ProtoRPC/ProtoRPC.h&gt;
+
+ProtoRPC *call =
+    [client RPCToUnaryCallWithRequest:request handler:^(AUTHResponse *response, NSError *error) {
+      ...
+    }];
+</code></pre>
+
+<p>You can start the RPC represented by this object at any later time like this:</p>
+
+<pre><code class="language-objective-c">[call start];
+</code></pre>
+
+<p><a name="request-metadata"></a></p>
+
+<h2 id="setting-request-metadata-auth-header-with-an-access-token">Setting request metadata: Auth header with an access token</h2>
+
+<p>Now let&rsquo;s look at how to configure some settings on the RPC object. The
+<code>ProtoRPC</code> class has a <code>requestHeaders</code> property (inherited from <code>GRPCCall</code>)
+defined like this:</p>
+
+<pre><code class="language-objective-c">@property(atomic, readonly) id&lt;GRPCRequestHeaders&gt; requestHeaders
+</code></pre>
+
+<p>You can think of the <code>GRPCRequestHeaders</code> protocol as equivalent to the
+<code>NSMutableDictionary</code> class. Setting elements of this dictionary of metadata
+keys and values means this metadata will be sent on the wire when the call is
+started. gRPC metadata are pieces of information about the call sent by the
+client to the server (and vice versa). They take the form of key-value pairs and
+are essentially opaque to gRPC itself.</p>
+
+<p>For convenience, the property is initialized with an empty
+<code>NSMutableDictionary</code>, so that request metadata elements can be set like this:</p>
+
+<pre><code class="language-objective-c">call.requestHeaders[@&quot;My-Header&quot;] = @&quot;Value for this header&quot;;
+call.requestHeaders[@&quot;Another-Header&quot;] = @&quot;Its value&quot;;
+</code></pre>
+
+<p>A typical use of metadata is for authentication details, as in our example. If
+you have an access token, OAuth2 specifies it is to be sent in this format:</p>
+
+<pre><code class="language-objective-c">call.requestHeaders[@&quot;Authorization&quot;] = [@&quot;Bearer &quot; stringByAppendingString:accessToken];
+</code></pre>
+
+<p><a name="response-metadata"></a></p>
+
+<h2 id="getting-response-metadata-auth-challenge-header">Getting response metadata: Auth challenge header</h2>
+
+<p>The <code>ProtoRPC</code> class also inherits a pair of properties, <code>responseHeaders</code> and
+<code>responseTrailers</code>, analogous to the request metadata we just looked at but sent
+back by the server to the client. They are defined like this:</p>
+
+<pre><code class="language-objective-c">@property(atomic, readonly) NSDictionary *responseHeaders;
+@property(atomic, readonly) NSDictionary *responseTrailers;
+</code></pre>
+
+<p>In OAuth2, if there&rsquo;s an authentication error the server will send back a
+challenge header. This is returned in the RPC&rsquo;s response headers. To access
+this, as in our example&rsquo;s error-handling code, you write:</p>
+
+<pre><code class="language-objective-c">call.responseHeaders[@&quot;www-authenticate&quot;]
+</code></pre>
+
+<p>Note that, as gRPC metadata elements are mapped to HTTP/2 headers (or trailers),
+the keys of the response metadata are always ASCII strings in lowercase.</p>
+
+<p>Many uses cases of response metadata involve getting more details about an RPC
+error. For convenience, when a <code>NSError</code> instance is passed to an RPC handler
+block, the response headers and trailers dictionaries can also be accessed this
+way:</p>
+
+<pre><code class="language-objective-c">error.userInfo[kGRPCHeadersKey] == call.responseHeaders
+error.userInfo[kGRPCTrailersKey] == call.responseTrailers
+</code></pre>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>

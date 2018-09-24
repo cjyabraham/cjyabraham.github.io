@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  gRPC Basics - PHP &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">+Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Tutorials<br>
+<a href="https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/">Async - C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/">Auth - Objective C</a><br>
+Basic <br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/c/">C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/csharp/">C#</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/dart/">Dart</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/go/">Go</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/java/">Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/android/">Android Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/objective-c/">Objective-C</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/php/">+PHP</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/python/">Python</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/">Ruby</a><br>
+
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">gRPC Basics - PHP</h3>
+
+    
+
+<p class="lead">This tutorial provides a basic PHP programmer's introduction to
+working with gRPC.</p>
+
+<p>By walking through this example you&rsquo;ll learn how to:</p>
+
+<ul>
+<li>Define a service in a .proto file.</li>
+<li>Generate client code using the protocol buffer compiler.</li>
+<li>Use the PHP gRPC API to write a simple client for your service.</li>
+</ul>
+
+<p>It assumes a passing familiarity with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. Note
+that the example in this tutorial uses the proto2 version of the protocol
+buffers language.</p>
+
+<p>Also note that currently you can only create clients in PHP for gRPC services -
+you can find out how to create gRPC servers in our other tutorials, e.g.
+<a href="/docs/tutorials/basic/node.html">Node.js</a>.</p>
+
+<div id="toc"></div>
+
+<p><a name="why-grpc"></a></p>
+
+<h2 id="why-use-grpc">Why use gRPC?</h2>
+
+<p>With gRPC you can define your service once in a .proto file and implement
+clients and servers in any of gRPC&rsquo;s supported languages, which in turn can be
+run in environments ranging from servers inside Google to your own tablet - all
+the complexity of communication between different languages and environments is
+handled for you by gRPC. You also get all the advantages of working with
+protocol buffers, including efficient serialization, a simple IDL, and easy
+interface updating.</p>
+
+<p><a name="setup"></a></p>
+
+<h2 id="example-code-and-setup">Example code and setup</h2>
+
+<p>The example code for our tutorial is in
+<a href="https://github.com/grpc/grpc/tree/{{ site.data.config.grpc_release_tag }}/examples/php/route_guide">grpc/grpc/examples/php/route_guide</a>.
+To download the example, clone the <code>grpc</code> repository by running the following
+command:</p>
+
+<pre><code>$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
+</code></pre>
+
+<p>You need grpc-php-plugin to help you generate proto files. You can build it from source:</p>
+
+<pre><code>$ cd grpc &amp;&amp; git submodule update --init &amp;&amp; make grpc_php_plugin
+</code></pre>
+
+<p>Then change your current directory to <code>examples/php/route_guide</code> and generate proto files:</p>
+
+<pre><code>$ cd examples/php/route_guide
+$ ./route_guide_proto_gen.sh
+</code></pre>
+
+<p>Our example is a simple route mapping application that lets clients get
+information about features on their route, create a summary of their route, and
+exchange route information such as traffic updates with the server and other
+clients.</p>
+
+<p>You also should have the relevant tools installed to generate the client
+interface code (and a server in another language, for testing). You can obtain
+the latter by following <a href="/docs/tutorials/basic/node.html">these setup
+instructions</a>.</p>
+
+<p><a name="try"></a></p>
+
+<h2 id="try-it-out">Try it out!</h2>
+
+<p>To try the sample app, we need a gRPC server running locally. Let&rsquo;s compile and
+run, for example, the Node.js server in this repository:</p>
+
+<pre><code>$ cd ../../node
+$ npm install
+$ cd dynamic_codegen/route_guide
+$ nodejs ./route_guide_server.js --db_path=route_guide_db.json
+</code></pre>
+
+<p>Run the PHP client (in a different terminal):</p>
+
+<pre><code>$ ./run_route_guide_client.sh
+</code></pre>
+
+<p>The next sections guide you step-by-step through how this proto service is
+defined, how to generate a client library from it, and how to create a client
+stub that uses that library.</p>
+
+<p><a name="proto"></a></p>
+
+<h2 id="defining-the-service">Defining the service</h2>
+
+<p>First let&rsquo;s look at how the service we&rsquo;re using is defined. A gRPC <em>service</em> and
+its method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. You can
+see the complete .proto file for our example in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+
+<p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
+
+<pre><code class="language-protobuf">service RouteGuide {
+   ...
+}
+</code></pre>
+
+<p>Then you define <code>rpc</code> methods inside your service definition, specifying their
+request and response types. Protocol buffers let you define four kinds of
+service method, all of which are used in the <code>RouteGuide</code> service:</p>
+
+<ul>
+<li>A <em>simple RPC</em> where the client sends a request to the server and receives a
+response later, just like a normal remote procedure call.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the feature at a given position.
+rpc GetFeature(Point) returns (Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>response-streaming RPC</em> where the client sends a request to the server and
+gets back a stream of response messages. You specify a response-streaming
+method by placing the <code>stream</code> keyword before the <em>response</em> type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the Features available within the given Rectangle.  Results are
+// streamed rather than returned at once (e.g. in a response message with a
+// repeated field), as the rectangle may cover a large area and contain a
+// huge number of features.
+rpc ListFeatures(Rectangle) returns (stream Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>request-streaming RPC</em> where the client sends a sequence of messages to the
+server. Once the client has finished writing the messages, it waits for the
+server to read them all and return its response. You specify a
+request-streaming method by placing the <code>stream</code> keyword before the <em>request</em>
+type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of Points on a route being traversed, returning a
+// RouteSummary when traversal is completed.
+rpc RecordRoute(stream Point) returns (RouteSummary) {}
+</code></pre>
+
+<ul>
+<li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages
+to the other. The two streams operate independently, so clients and servers
+can read and write in whatever order they like: for example, the server could
+wait to receive all the client messages before writing its responses, or it
+could alternately read a message then write a message, or some other
+combination of reads and writes. The order of messages in each stream is
+preserved. You specify this type of method by placing the <code>stream</code> keyword
+before both the request and the response.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of RouteNotes sent while a route is being traversed,
+// while receiving other RouteNotes (e.g. from other users).
+rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+</code></pre>
+
+<p>Our .proto file also contains protocol buffer message type definitions for all
+the request and response types used in our service methods - for example, here&rsquo;s
+the <code>Point</code> message type:</p>
+
+<pre><code class="language-protobuf">// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+</code></pre>
+
+<p><a name="protoc"></a></p>
+
+<h2 id="generating-client-code">Generating client code</h2>
+
+<p>The PHP client stub implementation of the proto files can be generated by the
+gRPC PHP Protoc Plugin. To compile the plugin:</p>
+
+<pre><code class="language-sh">$ make grpc_php_plugin
+</code></pre>
+
+<p>To generate the client stub implementation .php file:</p>
+
+<pre><code class="language-sh">$ cd grpc
+$ protoc --proto_path=examples/protos \
+  --php_out=examples/php/route_guide \
+  --grpc_out=examples/php/route_guide \
+  --plugin=protoc-gen-grpc=bins/opt/grpc_php_plugin \
+  ./examples/protos/route_guide.proto
+</code></pre>
+
+<p>or running the helper script under the <code>grpc/example/php/route_guide</code> directory if you build
+grpc-php-plugin by source:</p>
+
+<pre><code class="language-sh">$ ./route_guide_proto_gen.sh
+</code></pre>
+
+<p>A number of files will be generated in the <code>examples/php/route_guide</code> directory.
+You do not need to modify those files.</p>
+
+<p>To load these generated files, add this section to your <code>composer.json</code> file under
+<code>examples/php</code> directory</p>
+
+<pre><code class="language-json">  &quot;autoload&quot;: {
+    &quot;psr-4&quot;: {
+      &quot;&quot;: &quot;route_guide/&quot;
+    }
+  }
+</code></pre>
+
+<p>The file contains:</p>
+
+<ul>
+<li>All the protocol buffer code to populate, serialize, and retrieve our request
+and response message types.</li>
+<li>A class called <code>Routeguide\RouteGuideClient</code> that lets clients call the methods
+defined in the <code>RouteGuide</code> service.</li>
+</ul>
+
+<p><a name="client"></a></p>
+
+<h2 id="creating-the-client">Creating the client</h2>
+
+<p>In this section, we&rsquo;ll look at creating a PHP client for our <code>RouteGuide</code>
+service. You can see our complete example client code in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/php/route_guide/route_guide_client.php">examples/php/route_guide/route_guide_client.php</a>.</p>
+
+<h3 id="constructing-a-client-object">Constructing a client object</h3>
+
+<p>To call service methods, we first need to create a client object, an instance of
+the generated <code>RouteGuideClient</code> class. The constructor of the class expects the
+server address and port we want to connect to:</p>
+
+<pre><code class="language-php">$client = new Routeguide\RouteGuideClient('localhost:50051', [
+    'credentials' =&gt; Grpc\ChannelCredentials::createInsecure(),
+]);
+</code></pre>
+
+<h3 id="calling-service-methods">Calling service methods</h3>
+
+<p>Now let&rsquo;s look at how we call our service methods.</p>
+
+<h4 id="simple-rpc">Simple RPC</h4>
+
+<p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
+local asynchronous method.</p>
+
+<pre><code class="language-php">$point = new Routeguide\Point();
+$point-&gt;setLatitude(409146138);
+$point-&gt;setLongitude(-746188906);
+list($feature, $status) = $client-&gt;GetFeature($point)-&gt;wait();
+</code></pre>
+
+<p>As you can see, we create and populate a request object, i.e. an
+<code>Routeguide\Point</code> object. Then, we call the method on the stub, passing it the
+request object. If there is no error, then we can read the response information
+from the server from our response object, i.e. an <code>Routeguide\Feature</code> object.</p>
+
+<pre><code class="language-php">print sprintf(&quot;Found %s \n  at %f, %f\n&quot;, $feature-&gt;getName(),
+              $feature-&gt;getLocation()-&gt;getLatitude() / COORD_FACTOR,
+              $feature-&gt;getLocation()-&gt;getLongitude() / COORD_FACTOR);
+</code></pre>
+
+<h4 id="streaming-rpcs">Streaming RPCs</h4>
+
+<p>Now let&rsquo;s look at our streaming methods. Here&rsquo;s where we call the server-side
+streaming method <code>ListFeatures</code>, which returns a stream of geographical
+<code>Feature</code>s:</p>
+
+<pre><code class="language-php">$lo_point = new Routeguide\Point();
+$hi_point = new Routeguide\Point();
+
+$lo_point-&gt;setLatitude(400000000);
+$lo_point-&gt;setLongitude(-750000000);
+$hi_point-&gt;setLatitude(420000000);
+$hi_point-&gt;setLongitude(-730000000);
+
+$rectangle = new Routeguide\Rectangle();
+$rectangle-&gt;setLo($lo_point);
+$rectangle-&gt;setHi($hi_point);
+
+$call = $client-&gt;ListFeatures($rectangle);
+// an iterator over the server streaming responses
+$features = $call-&gt;responses();
+foreach ($features as $feature) {
+  // process each feature
+} // the loop will end when the server indicates there is no more responses to be sent.
+</code></pre>
+
+<p>The <code>$call-&gt;responses()</code> method call returns an iterator. When the server sends
+a response, a <code>$feature</code> object will be returned in the <code>foreach</code> loop, until
+the server indiciates that there will be no more responses to be sent.</p>
+
+<p>The client-side streaming method <code>RecordRoute</code> is similar, except that we call
+<code>$call-&gt;write($point)</code> for each point we want to write from the client side and
+get back a <code>Routeguide\RouteSummary</code>.</p>
+
+<pre><code class="language-php">$call = $client-&gt;RecordRoute();
+
+for ($i = 0; $i &lt; $num_points; $i++) {
+  $point = new Routeguide\Point();
+  $point-&gt;setLatitude($lat);
+  $point-&gt;setLongitude($long);
+  $call-&gt;write($point);
+}
+
+list($route_summary, $status) = $call-&gt;wait();
+</code></pre>
+
+<p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>routeChat()</code>. In this
+case, we just pass a context to the method and get back a <code>BidiStreamingCall</code>
+stream object, which we can use to both write and read messages.</p>
+
+<pre><code class="language-php">$call = $client-&gt;RouteChat();
+</code></pre>
+
+<p>To write messages from the client:</p>
+
+<pre><code class="language-php">foreach ($notes as $n) {
+  $route_note = new Routeguide\RouteNote();
+  $call-&gt;write($route_note);
+}
+$call-&gt;writesDone();
+</code></pre>
+
+<p>To read messages from the server:</p>
+
+<pre><code class="language-php">while ($route_note_reply = $call-&gt;read()) {
+  // process $route_note_reply
+}
+</code></pre>
+
+<p>Each side will always get the other&rsquo;s messages in the order they were written,
+both the client and server can read and write in any order — the streams operate
+completely independently.</p>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>

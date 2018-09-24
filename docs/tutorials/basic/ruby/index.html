@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
+    <title>
+  gRPC Basics - Ruby &ndash; gRPC
+</title>
+  </head>
+  <body>
+
+    <div id="landing-content">
+      <div class="row">
+        <div class="topbannersub">
+          <div class="logonav">
+                <img src="https://cjyabraham.github.io/img/grpc-logo.png" style="width:10%">
+            </div>
+            <div class="topnav">
+                <a href="https://cjyabraham.github.io/about/">About</a>
+		<a href="https://cjyabraham.github.io/docs/">+Docs</a>
+		<a href="https://cjyabraham.github.io/blog/">Blog</a> 
+		<a href="https://cjyabraham.github.io/community/">Community</a>
+		<a href="https://packages.grpc.io/">Packages</a> 
+		<a href="https://cjyabraham.github.io/faq/">FAQ</a>
+            </div>
+    
+            <div class="headertext">Documentation</div>
+  </div>
+        </div>
+        </div>
+
+    <div class="subnav">
+  <a href="https://cjyabraham.github.io/docs/">Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/">+Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/">Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/">Presentations</a>
+</div>
+
+
+<div class="quickstartcols">          
+
+<div class="quickstartcol1">
+
+Tutorials<br>
+<a href="https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/">Async - C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/auth/oauth2-objective-c/">Auth - Objective C</a><br>
+Basic <br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/c/">C++</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/csharp/">C#</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/dart/">Dart</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/go/">Go</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/java/">Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/android/">Android Java</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/objective-c/">Objective-C</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/php/">PHP</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/python/">Python</a><br>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/">+Ruby</a><br>
+
+</div>
+
+<div class="quickstartcol2" style="margin-top:4%">
+<h3 style="margin-top:0px;">gRPC Basics - Ruby</h3>
+
+    
+
+<p class="lead">This tutorial provides a basic Ruby programmer's introduction to working with gRPC.</p>
+
+<p>By walking through this example you&rsquo;ll learn how to:</p>
+
+<ul>
+<li>Define a service in a .proto file.</li>
+<li>Generate server and client code using the protocol buffer compiler.</li>
+<li>Use the Ruby gRPC API to write a simple client and server for your service.</li>
+</ul>
+
+<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
+with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. Note
+that the example in this tutorial uses the proto3 version of the protocol
+buffers language, which is currently in alpha release: you can find out more in
+the <a href="https://developers.google.com/protocol-buffers/docs/proto3">proto3 language
+guide</a> and see the
+<a href="https://github.com/google/protobuf/releases">release notes</a> for the new version
+in the protocol buffers Github repository.</p>
+
+<div id="toc"></div>
+
+<h2 id="why-use-grpc">Why use gRPC?</h2>
+
+<p>Our example is a simple route mapping application that lets clients get
+information about features on their route, create a summary of their route, and
+exchange route information such as traffic updates with the server and other
+clients.</p>
+
+<p>With gRPC we can define our service once in a .proto file and implement clients
+and servers in any of gRPC&rsquo;s supported languages, which in turn can be run in
+environments ranging from servers inside Google to your own tablet - all the
+complexity of communication between different languages and environments is
+handled for you by gRPC. We also get all the advantages of working with protocol
+buffers, including efficient serialization, a simple IDL, and easy interface
+updating.</p>
+
+<h2 id="example-code-and-setup">Example code and setup</h2>
+
+<p>The example code for our tutorial is in
+<a href="https://github.com/grpc/grpc/tree/{{ site.data.config.grpc_release_tag }}/examples/ruby/route_guide">grpc/grpc/examples/ruby/route_guide</a>.
+To download the example, clone the <code>grpc</code> repository by running the following
+command:</p>
+
+<pre><code>$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
+$ cd grpc
+</code></pre>
+
+<p>Then change your current directory to <code>examples/ruby/route_guide</code>:</p>
+
+<pre><code>$ cd examples/ruby/route_guide
+</code></pre>
+
+<p>You also should have the relevant tools installed to generate the server and
+client interface code - if you don&rsquo;t already, follow the setup instructions in
+<a href="/docs/quickstart/ruby.html">the Ruby quick start guide</a>.</p>
+
+<h2 id="defining-the-service">Defining the service</h2>
+
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to
+define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
+<a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
+buffers</a>. You can
+see the complete .proto file in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+
+<p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
+
+<pre><code class="language-protobuf">service RouteGuide {
+   ...
+}
+</code></pre>
+
+<p>Then you define <code>rpc</code> methods inside your service definition, specifying their
+request and response types. gRPC lets you define four kinds of service method,
+all of which are used in the <code>RouteGuide</code> service:</p>
+
+<ul>
+<li>A <em>simple RPC</em> where the client sends a request to the server using the stub
+and waits for a response to come back, just like a normal function call.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the feature at a given position.
+rpc GetFeature(Point) returns (Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>server-side streaming RPC</em> where the client sends a request to the server
+and gets a stream to read a sequence of messages back. The client reads from
+the returned stream until there are no more messages. As you can see in our
+example, you specify a server-side streaming method by placing the <code>stream</code>
+keyword before the <em>response</em> type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Obtains the Features available within the given Rectangle.  Results are
+// streamed rather than returned at once (e.g. in a response message with a
+// repeated field), as the rectangle may cover a large area and contain a
+// huge number of features.
+rpc ListFeatures(Rectangle) returns (stream Feature) {}
+</code></pre>
+
+<ul>
+<li>A <em>client-side streaming RPC</em> where the client writes a sequence of messages
+and sends them to the server, again using a provided stream. Once the client
+has finished writing the messages, it waits for the server to read them all
+and return its response. You specify a client-side streaming method by placing
+the <code>stream</code> keyword before the <em>request</em> type.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of Points on a route being traversed, returning a
+// RouteSummary when traversal is completed.
+rpc RecordRoute(stream Point) returns (RouteSummary) {}
+</code></pre>
+
+<ul>
+<li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages
+using a read-write stream. The two streams operate independently, so clients
+and servers can read and write in whatever order they like: for example, the
+server could wait to receive all the client messages before writing its
+responses, or it could alternately read a message then write a message, or
+some other combination of reads and writes. The order of messages in each
+stream is preserved. You specify this type of method by placing the <code>stream</code>
+keyword before both the request and the response.</li>
+</ul>
+
+<pre><code class="language-protobuf">// Accepts a stream of RouteNotes sent while a route is being traversed,
+// while receiving other RouteNotes (e.g. from other users).
+rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+</code></pre>
+
+<p>Our .proto file also contains protocol buffer message type definitions for all
+the request and response types used in our service methods - for example, here&rsquo;s
+the <code>Point</code> message type:</p>
+
+<pre><code class="language-protobuf">// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+</code></pre>
+
+<h2 id="generating-client-and-server-code">Generating client and server code</h2>
+
+<p>Next we need to generate the gRPC client and server interfaces from our .proto
+service definition. We do this using the protocol buffer compiler <code>protoc</code> with
+a special gRPC Ruby plugin.</p>
+
+<p>If you want to run this yourself, make sure you&rsquo;ve installed protoc and followed
+the gRPC Ruby plugin <a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/src/cpp/README.md#make">installation
+instructions</a> first):</p>
+
+<p>Once that&rsquo;s done, the following command can be used to generate the ruby code.</p>
+
+<pre><code>$ grpc_tools_ruby_protoc -I ../../protos --ruby_out=../lib --grpc_out=../lib ../../protos/route_guide.proto
+</code></pre>
+
+<p>Running this command regenerates the following files in the lib directory:</p>
+
+<ul>
+<li><code>lib/route_guide.pb</code> defines a module <code>Examples::RouteGuide</code>
+
+<ul>
+<li>This contain all the protocol buffer code to populate, serialize, and
+retrieve our request and response message types</li>
+</ul></li>
+<li><code>lib/route_guide_services.pb</code>, extends <code>Examples::RouteGuide</code> with stub and
+service classes
+
+<ul>
+<li>a class <code>Service</code> for use as a base class when defining RouteGuide service
+implementations</li>
+<li>a class <code>Stub</code> that can be used to access remote RouteGuide instances</li>
+</ul></li>
+</ul>
+
+<p><a name="server"></a></p>
+
+<h2 id="creating-the-server">Creating the server</h2>
+
+<p>First let&rsquo;s look at how we create a <code>RouteGuide</code> server. If you&rsquo;re only
+interested in creating gRPC clients, you can skip this section and go straight
+to <a href="#client">Creating the client</a> (though you might find it interesting
+anyway!).</p>
+
+<p>There are two parts to making our <code>RouteGuide</code> service do its job:
+- Implementing the service interface generated from our service definition:
+  doing the actual &ldquo;work&rdquo; of our service.
+- Running a gRPC server to listen for requests from clients and return the
+  service responses.</p>
+
+<p>You can find our example <code>RouteGuide</code> server in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/ruby/route_guide/route_guide_server.rb">examples/ruby/route_guide/route_guide_server.rb</a>.
+Let&rsquo;s take a closer look at how it works.</p>
+
+<h3 id="implementing-routeguide">Implementing RouteGuide</h3>
+
+<p>As you can see, our server has a <code>ServerImpl</code> class that extends the generated
+<code>RouteGuide::Service</code>:</p>
+
+<pre><code class="language-ruby"># ServerImpl provides an implementation of the RouteGuide service.
+class ServerImpl &lt; RouteGuide::Service
+</code></pre>
+
+<p><code>ServerImpl</code> implements all our service methods. Let&rsquo;s look at the simplest type
+first, <code>GetFeature</code>, which just gets a <code>Point</code> from the client and returns the
+corresponding feature information from its database in a <code>Feature</code>.</p>
+
+<pre><code class="language-ruby">def get_feature(point, _call)
+  name = @feature_db[{
+    'longitude' =&gt; point.longitude,
+    'latitude' =&gt; point.latitude }] || ''
+  Feature.new(location: point, name: name)
+end
+</code></pre>
+
+<p>The method is passed a _call for the RPC, the client&rsquo;s <code>Point</code> protocol buffer
+request, and returns a <code>Feature</code> protocol buffer. In the method we create the
+<code>Feature</code> with the appropriate information, and then <code>return</code> it.</p>
+
+<p>Now let&rsquo;s look at something a bit more complicated - a streaming RPC.
+<code>ListFeatures</code> is a server-side streaming RPC, so we need to send back multiple
+<code>Feature</code>s to our client.</p>
+
+<pre><code class="language-ruby"># in ServerImpl
+
+  def list_features(rectangle, _call)
+    RectangleEnum.new(@feature_db, rectangle).each
+  end
+</code></pre>
+
+<p>As you can see, here the request object is a <code>Rectangle</code> in which our client
+wants to find <code>Feature</code>s, but instead of returning a simple response we need to
+return an <a href="https://ruby-doc.org//core-2.2.0/Enumerator.html">Enumerator</a> that
+yields the responses. In the method, we use a helper class <code>RectangleEnum</code>, to
+act as an Enumerator implementation.</p>
+
+<p>Similarly, the client-side streaming method <code>record_route</code> uses an
+<a href="https://ruby-doc.org//core-2.2.0/Enumerable.html">Enumerable</a>, but here it&rsquo;s
+obtained from the call object, which we&rsquo;ve ignored in the earlier examples.
+<code>call.each_remote_read</code> yields each message sent by the client in turn.</p>
+
+<pre><code class="language-ruby">call.each_remote_read do |point|
+  ...
+end
+</code></pre>
+
+<p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>route_chat</code>.</p>
+
+<pre><code class="language-ruby">def route_chat(notes)
+  q = EnumeratorQueue.new(self)
+  t = Thread.new do
+    begin
+      notes.each do |n|
+      	...
+    end
+      end
+  q = EnumeratorQueue.new(self)
+...
+  return q.each_item
+end
+</code></pre>
+
+<p>Here the method receives an
+<a href="https://ruby-doc.org//core-2.2.0/Enumerable.html">Enumerable</a>, but also returns
+an <a href="https://ruby-doc.org//core-2.2.0/Enumerator.html">Enumerator</a> that yields the
+responses.  The implementation demonstrates how to set these up so that the
+requests and responses can be handled concurrently.  Although each side will
+always get the other&rsquo;s messages in the order they were written, both the client
+and server can read and write in any order — the streams operate completely
+independently.</p>
+
+<h3 id="starting-the-server">Starting the server</h3>
+
+<p>Once we&rsquo;ve implemented all our methods, we also need to start up a gRPC server
+so that clients can actually use our service. The following snippet shows how we
+do this for our <code>RouteGuide</code> service:</p>
+
+<pre><code class="language-ruby">addr = &quot;0.0.0.0:8080&quot;
+s = GRPC::RpcServer.new
+s.add_http2_port(addr, :this_port_is_insecure)
+logger.info(&quot;... running insecurely on #{addr}&quot;)
+s.handle(ServerImpl.new(feature_db))
+s.run_till_terminated
+</code></pre>
+
+<p>As you can see, we build and start our server using a <code>GRPC::RpcServer</code>. To do
+this, we:</p>
+
+<ol>
+<li>Create an instance of our service implementation class <code>ServerImpl</code>.</li>
+<li>Specify the address and port we want to use to listen for client requests
+using the builder&rsquo;s <code>add_http2_port</code> method.</li>
+<li>Register our service implementation with the <code>GRPC::RpcServer</code>.</li>
+<li>Call <code>run</code> on the<code>GRPC::RpcServer</code> to create and start an RPC server for our
+service.</li>
+</ol>
+
+<p><a name="client"></a></p>
+
+<h2 id="creating-the-client">Creating the client</h2>
+
+<p>In this section, we&rsquo;ll look at creating a Ruby client for our <code>RouteGuide</code>
+service. You can see our complete example client code in
+<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/ruby/route_guide/route_guide_client.rb">examples/ruby/route_guide/route_guide_client.rb</a>.</p>
+
+<h3 id="creating-a-stub">Creating a stub</h3>
+
+<p>To call service methods, we first need to create a <em>stub</em>.</p>
+
+<p>We use the <code>Stub</code> class of the <code>RouteGuide</code> module generated from our .proto.</p>
+
+<pre><code class="language-ruby">stub = RouteGuide::Stub.new('localhost:50051')
+</code></pre>
+
+<h3 id="calling-service-methods">Calling service methods</h3>
+
+<p>Now let&rsquo;s look at how we call our service methods. Note that the gRPC Ruby only
+provides  <em>blocking/synchronous</em> versions of each method: this means that the
+RPC call waits for the server to respond, and will either return a response or
+raise an exception.</p>
+
+<h4 id="simple-rpc">Simple RPC</h4>
+
+<p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
+local method.</p>
+
+<pre><code class="language-ruby">GET_FEATURE_POINTS = [
+  Point.new(latitude:  409_146_138, longitude: -746_188_906),
+  Point.new(latitude:  0, longitude: 0)
+]
+..
+  GET_FEATURE_POINTS.each do |pt|
+    resp = stub.get_feature(pt)
+	...
+    p &quot;- found '#{resp.name}' at #{pt.inspect}&quot;
+  end
+</code></pre>
+
+<p>As you can see, we create and populate a request protocol buffer object (in our
+case <code>Point</code>), and create a response protocol buffer object for the server to
+fill in.  Finally, we call the method on the stub, passing it the context,
+request, and response. If the method returns <code>OK</code>, then we can read the response
+information from the server from our response object.</p>
+
+<h4 id="streaming-rpcs">Streaming RPCs</h4>
+
+<p>Now let&rsquo;s look at our streaming methods. If you&rsquo;ve already read <a href="#server">Creating the
+server</a> some of this may look very familiar - streaming RPCs are
+implemented in a similar way on both sides. Here&rsquo;s where we call the server-side
+streaming method <code>list_features</code>, which returns an <code>Enumerable</code> of <code>Features</code></p>
+
+<pre><code class="language-ruby">resps = stub.list_features(LIST_FEATURES_RECT)
+resps.each do |r|
+  p &quot;- found '#{r.name}' at #{r.location.inspect}&quot;
+end
+</code></pre>
+
+<p>The client-side streaming method <code>record_route</code> is similar, except there we pass
+the server an <code>Enumerable</code>.</p>
+
+<pre><code class="language-ruby">...
+reqs = RandomRoute.new(features, points_on_route)
+resp = stub.record_route(reqs.each, deadline)
+...
+</code></pre>
+
+<p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>route_chat</code>. In this
+case, we pass <code>Enumerable</code> to the method and get back an <code>Enumerable</code>.</p>
+
+<pre><code class="language-ruby">resps = stub.route_chat(ROUTE_CHAT_NOTES)
+resps.each { |r| p &quot;received #{r.inspect}&quot; }
+</code></pre>
+
+<p>Although it&rsquo;s not shown well by this example, each enumerable is independent of
+the other - both the client and server can read and write in any order — the
+streams operate completely independently.</p>
+
+<h2 id="try-it-out">Try it out!</h2>
+
+<p>Build client and server:</p>
+
+<pre><code>$ # from examples/ruby
+$ gem install bundler &amp;&amp; bundle install
+</code></pre>
+
+<p>Run the server, which will listen on port 50051:</p>
+
+<pre><code>$ # from examples/ruby
+$ bundle exec route_guide/route_guide_server.rb ../python/route_guide/route_guide_db.json
+$ # (note that the route_guide_db.json file is actually language-agnostic; it's just
+$ # located in the python folder).
+</code></pre>
+
+<p>Run the client (in a different terminal):</p>
+
+<pre><code>$ # from examples/ruby
+$ bundle exec route_guide/route_guide_client.rb ../python/route_guide/route_guide_db.json
+</code></pre>
+
+</div>
+</div>
+
+</div>
+
+    
+    
+  </body>
+</html>
