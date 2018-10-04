@@ -23,8 +23,8 @@
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
-            <div class="topnav, collapse navbar-collapse" id="navbarSupportedContent">
-	      <ul class="navbar-nav mr-auto">
+            <div class="topnav, collapse navbar-collapse" id="navbarSupportedContent" style="float:right !important">
+	      <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
 		  <a class="nav-link" href="https://cjyabraham.github.io/about/">About</a>
 		</li>
@@ -67,7 +67,7 @@
   <h3 style="margin-top:0px;">gRPC Motivation and Design Principles.</h3>
   <h5>Posted on Tuesday, September 08, 2015 by </h5>
   <p>
-    <h2>Motivation</h2>
+    <h1>Motivation</h1>
 
 <p>Google has been using a single general-purpose RPC infrastructure called Stubby to connect the large number of microservices running within and across our data centers for over a decade. Our internal systems have long embraced the microservice architecture gaining popularity today. Having a uniform, cross-platform RPC infrastructure has allowed for the rollout of fleet-wide improvements in efficiency, security, reliability and behavioral analysis critical to supporting the incredible growth seen in that period.
 </p>
@@ -76,7 +76,7 @@
 
 <p>Stubby has many great features - however, it's not based on any standard and is too tightly coupled to our internal infrastructure to be considered suitable for public release. With the advent of SPDY, HTTP/2, and QUIC, many of these same features have appeared in public standards, together with other features that Stubby does not provide. It became clear that it was time to rework Stubby to take advantage of this standardization, and to extend its applicability to mobile, IoT, and Cloud use-cases.</p>
 
-<h2>Principles &amp; Requirements</h2>
+<h1>Principles &amp; Requirements</h1>
 
 <p><strong>Services not Objects, Messages not References</strong> - Promote the microservices design philosophy of coarse-grained message exchange between systems while avoiding the <a href="https://martinfowler.com/articles/distributed-objects-microservices.html">pitfalls of distributed objects</a> and the <a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing">fallacies of ignoring the network</a>.</p>
 

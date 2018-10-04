@@ -11,6 +11,31 @@
     100% {bottom: 0;}
 }
 
+
+.page-item.active .page-link
+
+{ 
+background-color:#0CC1C8 !important;
+border-color:#0CC1C8;
+color:#ffffff !important;
+}
+
+.page-link {
+color:#0CC1C8 !important;
+ 
+}
+
+.pagination {
+ 
+ padding-top:10%;
+}
+
+
+.dropdown-item {
+ font-size:0.8em;
+}
+
+
 .arrow {
     animation: bouncing 1s infinite ease-in-out;
     bottom: 0;
@@ -32,12 +57,12 @@ body {
 .topbanner {
     width:100%;
     color:#0CC1C8;
-    padding-top:2%;
+    padding-top:0%;
     padding-bottom:5%;
     text-align:center;
     font-family: 'Open Sans', sans-serif;
     font-weight:300;
-    font-size:18pt;
+    font-size:1.3em;
     background-image:url('../img/graphic-04.svg');
     background-repeat: repeat;
     position:relative;
@@ -48,8 +73,8 @@ body {
 .topbannersub {
     width:100%;
     color:white;
-    padding-top:2%;
-    padding-bottom:3%;
+    padding-top:%;
+    padding-bottom:2%;
     text-align:left;
     float:center;
     font-family: 'Open Sans', sans-serif;
@@ -127,7 +152,13 @@ body {
     
 }
 
-
+.navbar-brand {
+  padding-top:0.5em !important;
+  padding-left:1.8em !important;
+ 
+ 
+ 
+}
 .headertext {
  font-size:30pt;
  padding-top:6%;
@@ -136,13 +167,15 @@ body {
 }
 
 .topbannertext{
-   width:30%;
-   margin-left:34%;
-   padding:1%;
+   width:35%;
+   margin-left:32.5%;
+   padding-top:0.5%;
+   font-size:1em !important;
+   padding-bottom:0,5%;
 }
 
 .bannerlogo {
-    padding-top:4%;
+    padding-top:2%;
     float:left;
 
     width:100%:
@@ -166,7 +199,7 @@ body {
 button {
     font-family: 'Open Sans', sans-serif;
     background-color:white;
-    color:#333333;
+    color:#116068;
     border:0px solid;
     padding-left:3%;
     padding-right:3%;
@@ -181,12 +214,12 @@ button {
 .section2 {
     padding-top:3%;
     font-family: 'Open Sans', sans-serif;
-    width:85%;
+    width:82%;
     font-weight:100;
-    font-size:13pt;
-    color:#505050;
+    font-size:1em;
+    color:#606060;
     line-height:1.7em;
-    padding-left:12.5%;
+    padding-left:16%;
     text-align:center;
    
 }
@@ -203,7 +236,19 @@ button {
     text-align:center;
     position:relative;
 }
-
+.refsection {
+    padding-top:3%;
+    padding-bottom:3%;
+    font-family: 'Open Sans', sans-serif;
+    width:90%;
+    font-weight:100;
+    font-size:1em;
+    color:#606060;
+    line-height:1.7em;
+    padding-left:20%;
+    text-align:left;
+   
+}
 
 .doccols {
  
@@ -211,8 +256,8 @@ button {
     margin-top:2%;
     font-family: 'Open Sans', sans-serif;
     width:100%;
-    padding-top:2%;
-    padding-bottom:2%;
+    padding-top:4%;
+    padding-bottom:4%;
     font-weight:100;
     background-color:#EBF2F2;
     padding-left:15%;
@@ -232,10 +277,13 @@ a {
      margin-bottom:3%;
     font-family: 'Open Sans', sans-serif;
     width:100%;
+    font-size:0.95em;
+    color:#505050;
     font-weight:100;
     background-color:#EBF2F2;
     padding-left:10%;
     padding-top:2%;
+    padding-bottom:1%;
     float:left;
     
 }
@@ -245,7 +293,7 @@ a {
 
      margin-bottom:17%;
     font-family: 'Open Sans', sans-serif;
-    width:80%;
+    width:100%;
     margin-left:10%;
     font-weight:100;
     font-size:11pt;
@@ -260,7 +308,7 @@ a {
 
     float:left;
     text-align:left;
-    width:15%;
+    width:17%;
     line-height:2em;
     padding-top:%;
     margin-right:2%;
@@ -280,7 +328,7 @@ a {
     padding-top:%;
     margin-right:2%;
     padding-left:3%;
-    padding-left:5%;
+    padding-left:4%;
    border-left:0.5px solid #cccccc;
 }
 
@@ -288,7 +336,7 @@ a {
 
     margin-bottom:17%;
     font-family: 'Open Sans', sans-serif;
-    width:80%;
+    width:90%;
     margin-left:8%;
     font-weight:100;
     font-size:11pt;
@@ -314,7 +362,7 @@ margin-top:4%;
 
     float:left;
     text-align:left;
-    width:60%;
+    width:55%;
     line-height:1.6em;
     padding-top:%;
     margin-right:2%;
@@ -334,9 +382,9 @@ margin-top:4%;
     width:20%;
     line-height:2em;
     padding-top:1%;
-    font-size:9pt;
+    font-size:0.9em;
     margin-right:2%;
-    padding-left:1%;
+    padding-left:3%;
     padding-left:3%;
     margin-top:4%;
    border-left:0.5px solid #cccccc;
@@ -347,7 +395,7 @@ margin-top:4%;
 .docscol1 {
 
     float:left;
-    width:25%;
+    width:28%;
     line-height:2em;
     padding-top:%;
     margin-right:2%;
@@ -356,16 +404,15 @@ margin-top:4%;
 
 .docscol2 {
     float:left;
-    width:25%;
+    width:28%;
      line-height:2em;
-
     margin-right:2%;
     padding-bottom:3%;
 }
 
 .docscol3 {
     float:left;
-    width:25%;
+    width:28%;
      line-height:2em;
    
     margin-right:2%;
@@ -404,8 +451,8 @@ margin-top:4%;
     float:left;
     display:block;
     width:25%;
-    margin-right:2%;
-    margin-bottom:8%;
+    margin-right:5%;
+    margin-bottom:10%;
     padding:3%;
     display:block;
 }
@@ -413,7 +460,7 @@ margin-top:4%;
 .col2image{
     float:left;
     width:25%;
-    margin-right:2%;
+    margin-right:5%;
     padding:2%;
 }
 
@@ -462,7 +509,7 @@ margin-top:4%;
     background-image:url('../img/graphic-04.svg');
     background-repeat: no-repeat;
     position:relative;
-   background-size: 100%;
+    background-size: 100%;
     padding-bottom:7%;
     padding-left:5%;
     padding-right:5%;
@@ -473,13 +520,30 @@ margin-top:4%;
 }
 
 
+h1 {
+    
+    font-family: 'Open Sans', sans-serif;
+    font-size:2.5em;
+    color:#0CC1C8;
+    margin-bottom:3%;
+    margin-top:1%;
+    font-weight:300;
+    
+}
+
 h2 {
     
     font-family: 'Open Sans', sans-serif;
-    font-size:38pt;
+    font-size:1.7em;
     color:#0CC1C8;
+    margin-bottom:3%;
+    margin-top:3%;
     font-weight:300;
     
+}
+
+.lead {
+ font-size: 1em!important;
 }
 
 
@@ -487,9 +551,10 @@ h3 {
     
     font-family: 'Open Sans', sans-serif;
     font-size:18pt;
-    color:#33838b;
+    color:#266B6B;
     font-weight:300;
     padding-top:2%;
+    padding-bottom:1%;
     
 }
 h4 {
@@ -499,7 +564,7 @@ h4 {
     padding-top:3%;
     padding-bottom:0%;
     color:#33838b;
-    margin-bottom:0px;
+    margin-bottom:3%;
     color:#0CC1C8;
     font-weight:300;
     margin-top:3%;
@@ -512,6 +577,159 @@ h5 {
     font-size:9pt;
     font-weight:300;
     
+}
+
+@media screen and (max-width: 1100px) {
+ 
+ 
+ 
+ 
+
+
+  .col1image {
+  padding-bottom: 0%;
+  padding-top:0%;
+  margin-bottom:0%;
+  margin-right:5%;
+  width:20%;
+  }
+ 
+.col1 {
+  width:80%;
+  padding-bottom:0%;
+  margin-bottom:0%;
+ }
+ .col2 {
+  width:80%;
+  padding-bottom:0%;
+    margin-bottom:0%;
+ }
+ 
+ .cols {
+  padding-bottom:3%;
+  padding-left:15%;
+ }
+ 
+ .section4 {
+  background-repeat:repeat;
+ }
+ 
+ .col1image {
+  padding-bottom: 3%;
+  margin-bottom:0%;
+  margin-right:5%;
+  
+ }
+ .colpart1 {
+  padding-bottom:0%;
+  
+ }
+ 
+ .colpart2 {
+  padding-top:0%;
+   padding-bottom:0%;
+ }
+ 
+ .section2 {
+    padding-top:3%;
+    font-family: 'Open Sans', sans-serif;
+    width:90%;
+    font-weight:100;
+    font-size:1em;
+    color:#606060;
+    line-height:1.7em;
+    padding-left:10%;
+    text-align:center;
+   
+}
+ 
+.bannerlogo img{
+ 
+ width:35% !important;
+}
+ 
+}
+ 
+
+@media screen and (max-width: 900px) {
+ 
+.topbanner {
+    width:100%;
+    background-image:url('../img/graphic-04-mobile.svg');
+    
+    
+}
+.bannerlogo img{
+ 
+ width:60% !important;
+}
+
+ .topbannertext{
+   width:70% !important;
+   margin-left:15% !important;
+   padding-top:2%;
+   font-size:1em !important;
+   padding-bottom:0% !important;
+}
+
+
+
+.col1image {
+  padding-bottom: 3%;
+  margin-bottom:5%;
+  margin-right:5%;
+  
+ }
+
+ h2 {
+  font-size:3em !important;
+  padding-top:2%;
+  padding-bottom:2%;
+ }
+ 
+ .quickstartcols {
+
+    margin-bottom:17%;
+    font-family: 'Open Sans', sans-serif;
+    width:100% !important;
+    margin-left:4%;
+    font-weight:100;
+    font-size:11pt;
+    padding-left:5%;
+    float:left;
+    
+}
+
+
+.quickstartcol1 {
+
+    float:left;
+    text-align:left;
+    width:25%;
+    line-height:2em;
+    padding-top:%;
+    margin-right:0%;
+    padding:0%;
+    padding-right:0%;
+    padding-top:5%;
+
+}
+
+
+.quickstartcol2 {
+
+    float:left;
+    text-align:left;
+    width:60%;
+    line-height:1.6em;
+    padding-top:%;
+    margin-right:2%;
+    padding-left:1%;
+    padding-left:4%;
+   border-left:0.5px solid #cccccc;
+}
+
+
 }
 
 
@@ -561,11 +779,11 @@ h5 {
 
 .doccols {
     margin-bottom:3%;
-    margin-top:2%;
+    margin-top:0%;
     font-family: 'Open Sans', sans-serif;
     width:100%;
-    padding-top:2%;
-    padding-bottom:2%;
+    padding-top:6%;
+    padding-bottom:4%;
     font-weight:100;
     background-color:#EBF2F2;
     padding-left:5%;
@@ -576,6 +794,7 @@ h5 {
 .docstext {
   
   width:80%;
+  font-size:0.9em;
   padding-left:5%;
   text-align:center;
 }
@@ -588,11 +807,9 @@ h5 {
   font-size:1em;
  }
  
- .bannerlogo img {
+ .section4 {
   
-  width:70% !important;
-  padding-top:5%;
-  padding-bottom:2%;
+   background-image:url('../img/graphic-04-mobile.svg');
  }
  
  .button {
@@ -601,10 +818,10 @@ h5 {
  }
  
  .col1 {
-  width:80%;
+  width:90%;
  }
  .col2 {
-  width:80%;
+  width:90%;
  }
  
  .cols {
@@ -621,16 +838,80 @@ h5 {
  }
  
  h2 {
-  font-size:2em;
+  font-size:2.2em;
+  padding-top:4%;
+  padding-bottom:4%;
  }
+ 
+ h1 {
+  font-size:2.2em;
+  padding-top:4%;
+  padding-bottom:4%;
+ }
+ 
+ 
  .companybox img {
   
   width:20%;
+  
+ }
+ 
+ .section2 {
+  padding-bottom:4%;
  }
  
  .section3 {
-  width:90%;
-  padding-left:5%;
+  width:100%;
+  padding-left:%;
+  margin-bottom:7%;
  }
+ 
+ button {
+    font-family: 'Open Sans', sans-serif;
+    background-color:white;
+    color:#116068;
+    border:0px solid;
+    padding-left:4%;
+    padding-right:4%;
+    font-weight:bold;
+    padding-top:3%;
+    padding-bottom:3%;
+    margin:1%;
+    margin-bottom:2%;
+    letter-spacing:0.07em;
+    font-size:13pt;
+}
+
+.col1image {
+  padding-bottom: 3%;
+  margin-bottom:10% !important;
+  margin-right:3%;
+  
+ }
+ .colpart1 {
+  padding-bottom:5%;
+  
+ }
+ 
+ .colpart2 {
+  padding-top:0%;
+   padding-bottom:0%;
+ }
+ 
+ .cols {
+  padding-bottom:8%;
+  padding-top:5%;
+  font-size:0.9em !important;
+  padding-left:8%;
+ }
+ 
+ h3 {
+  
+  font-size:1.5em;
+ }
+ .companybox {
+ margin-left:10%;
+
+   
  
 }

@@ -23,8 +23,8 @@
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
-            <div class="topnav, collapse navbar-collapse" id="navbarSupportedContent">
-	      <ul class="navbar-nav mr-auto">
+            <div class="topnav, collapse navbar-collapse" id="navbarSupportedContent" style="float:right !important">
+	      <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
 		  <a class="nav-link" href="https://cjyabraham.github.io/about/">About</a>
 		</li>
@@ -68,36 +68,61 @@
 <div class="blogcol1" style="margin-top:4%">
 
 
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/grpc-with-json/">gRPC &#43; JSON</a></h3>
-  <h5>August 15, 2018</h5>
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/coreos/">gRPC with REST and Open APIs</a></h3>
+  <h5>May 09, 2016</h5>
 <p>
-  <p>So you&rsquo;ve bought into this whole RPC thing and want to try it out, but aren&rsquo;t quite sure about Protocol Buffers.  Your existing code encodes your own objects, or perhaps you have code that needs a particular encoding.  What to do?</p>
+  <p>Our guest post today comes from Brandon Phillips of <a href="https://coreos.com/">CoreOS</a>. CoreOS builds open source projects and products for Linux Containers. Their flagship product for consensus and discovery <a href="https://coreos.com/etcd/">etcd</a> and their container engine <a href="https://coreos.com/rkt/">rkt</a> are early adopters of gRPC.</p>
 
-<p>Fortunately, gRPC is encoding agnostic!  You can still get a lot of the benefits of gRPC without using Protobuf.  In this post we&rsquo;ll go through how to make gRPC work with other encodings and types.  Let&rsquo;s try using JSON.</p>
+<p>One of the key reasons CoreOS chose gRPC is because it uses HTTP/2, enabling applications to present both a HTTP 1.1 REST/JSON API and an efficient gRPC interface on a single TCP port (available for Go). This provides developers with compatibility with the REST web ecosystem, while advancing a new, high-efficiency RPC protocol. With the recent release of Go 1.6, Go ships with a stable <code>net/http2</code> package by default.</p>
 
 <p></p>
 </p>
 
-<a href="https://cjyabraham.github.io/blog/grpc-with-json/">Read More</a>
+<a href="https://cjyabraham.github.io/blog/coreos/">Read More</a>
 
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/installation/">gRPC - now with easy installation.</a></h3>
+  <h5>April 04, 2016</h5>
+<p>
+  <p>Today we are happy to provide an update that significantly simplifies the getting started experience for gRPC.</p>
 
-</div>
+<ul>
+<li><p>For most languages, <strong>the gRPC runtime can now be installed in a single step via native package managers</strong> such as <code>npm</code> for Node.js, <code>gem</code> for Ruby and <code>pip</code> for Python. Even though our Node, Ruby and Python runtimes are wrapped on gRPC&rsquo;s C core, users now don&rsquo;t need to explicitly pre-install the C core library as a package in most Linux distributions. We autofetch it for you :-).</p></li>
 
+<li><p><strong>For Java, we have simplified the steps needed to add gRPC support to your build tools</strong> by providing plugins for Maven and Gradle. These let you easily depend on the core runtime to deploy or ship generated libraries into production environments.</p></li>
 
+<li><p>You can also use our Dockerfiles to use these updated packages - deploying microservices built on gRPC should now be a very simple experience.</p></li>
+</ul>
 
-<div class="blogcol2">
+<p></p>
+</p>
 
-<h5 style="font-size:12pt">All blog posts</h5>
+<a href="https://cjyabraham.github.io/blog/installation/">Read More</a>
 
-  <a href="https://cjyabraham.github.io/blog/coreos/">gRPC with REST and Open APIs</a><br>
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/pubsub/">Google Cloud PubSub - with the power of gRPC!</a></h3>
+  <h5>March 24, 2016</h5>
+<p>
+  <p><a href="https://cloud.google.com/pubsub/">Google Cloud PubSub</a> is Google&rsquo;s scalable real-time messaging service that lets users send and receive messages between independent applications. It&rsquo;s an important part of Google Cloud Platform&rsquo;s big data offering, and is used by customers worldwide to build their own robust, global services. However, until now, the only way to use the Cloud PubSub API was via JSON over HTTP. That&rsquo;s all changed with the release of <a href="https://cloud.google.com/blog/big-data/2016/03/announcing-grpc-alpha-for-google-cloud-pubsub">PubSub gRPC alpha</a>. Now <strong>users can access PubSub via gRPC</strong> and benefit from all the advantages it brings.</p>
 
-  <a href="https://cjyabraham.github.io/blog/installation/">gRPC - now with easy installation.</a><br>
+<p></p>
+</p>
 
-  <a href="https://cjyabraham.github.io/blog/pubsub/">Google Cloud PubSub - with the power of gRPC!</a><br>
+<a href="https://cjyabraham.github.io/blog/pubsub/">Read More</a>
 
-  <a href="https://cjyabraham.github.io/blog/beta_release/">gRPC releases Beta, opening door for use in production environments.</a><br>
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/beta_release/">gRPC releases Beta, opening door for use in production environments.</a></h3>
+  <h5>October 26, 2015</h5>
+<p>
+  The gRPC team is excited to announce the immediate availability of gRPC Beta. This release marks an important point in API stability and going forward most API changes are expected to be additive in nature. This milestone opens the door for gRPC use in production environments.   We’re also taking a big step forward in improving the installation process. Over the past few weeks we’ve rolled out gRPC packages to Debian Stable/Backports.
+</p>
 
-  <a href="https://cjyabraham.github.io/blog/principles/">gRPC Motivation and Design Principles.</a><br>
+<a href="https://cjyabraham.github.io/blog/beta_release/">Read More</a>
+
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/principles/">gRPC Motivation and Design Principles.</a></h3>
+  <h5>September 08, 2015</h5>
+<p>
+  Motivation Google has been using a single general-purpose RPC infrastructure called Stubby to connect the large number of microservices running within and across our data centers for over a decade. Our internal systems have long embraced the microservice architecture gaining popularity today. Having a uniform, cross-platform RPC infrastructure has allowed for the rollout of fleet-wide improvements in efficiency, security, reliability and behavioral analysis critical to supporting the incredible growth seen in that period.
+</p>
+
+<a href="https://cjyabraham.github.io/blog/principles/">Read More</a>
 
 
 
@@ -154,6 +179,65 @@
     </li>
     
 </ul>
+
+</div>
+
+
+
+<div class="blogcol2">
+
+<h5 style="font-size:12pt">All blog posts</h5>
+
+  <a href="https://cjyabraham.github.io/blog/grpc-with-json/">gRPC &#43; JSON</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/take-the-grpc-survey/">Take the gRPC Survey!</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/http2_smarter_at_scale/">HTTP/2 Smarter At Scale</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/gracefully_clean_up_in_grpc_junit_tests/">Gracefully clean up in gRPC JUnit tests</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/kotlin-gradle-projects/">gRPC ❤ Kotlin</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-2/">So You Want to Optimize gRPC - Part 2</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-1/">So You Want to Optimize gRPC - Part 1</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/deadlines/">gRPC and Deadlines</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/2018-01-22-grpc-go-engineering-practices/">2018-01-19 gRPC-Go Engineering Practices</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/meetup-kit/">The gRPC Meetup Kit</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/2017-08-22-grpc-go-perf-improvements/">2017-08-22 gRPC-Go performance Improvements</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/2017-08-17-community-meeting-update/">2017-08-17 Community Meeting Update</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/flatbuffers/">Announcing out of the box support for gRPC in the Flatbuffers serialization library.</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/loadbalancing/">gRPC Load Balancing</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/helmgrpc/">gRPC in Helm</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/yygrpc/">Migration to Google Cloud Platform — gRPC &amp; grpc-gateway</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/bazel_rules_protobuf/">Building gRPC services with bazel and rules_protobuf</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/vscogrpc/">gRPC at VSCO</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/vendastagrpc/">Why we have decided to move our APIs to gRPC</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/gablogpost/">gRPC Project is now 1.0 and ready for production deployments</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/coreos/">gRPC with REST and Open APIs</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/installation/">gRPC - now with easy installation.</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/pubsub/">Google Cloud PubSub - with the power of gRPC!</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/beta_release/">gRPC releases Beta, opening door for use in production environments.</a><br>
+
+  <a href="https://cjyabraham.github.io/blog/principles/">gRPC Motivation and Design Principles.</a><br>
+
 
 </div>
 
