@@ -65,7 +65,7 @@
 
     <div class="subnav d-none d-md-block">
   <a href="https://cjyabraham.github.io/docs/">Overview</a>
-|  <a href="https://cjyabraham.github.io/docs/quickstart/">Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/"><div class="plusmain">+</div>Quick Start</a>
 |  <a href="https://cjyabraham.github.io/docs/guides/">Guides</a>
 |  <a href="https://cjyabraham.github.io/docs/tutorials/">Tutorials</a>
 |  <a href="https://cjyabraham.github.io/docs/reference/">Reference</a>
@@ -74,21 +74,21 @@
 </div>
 
 
-<div class="quickstartcols">          
+<div class="quickstartcols">
 
 <div class="quickstartcol1">
 
-Quick Start<br>
-<a href="https://cjyabraham.github.io/docs/quickstart/cpp/">C++</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/csharp/">+C#</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/dart/">Dart</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/go/">Go</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/java/">Java</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/android/">Android</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/node/">Node.js</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/objective-c/">Objective-C</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/php/">PHP</a><br>
-<a href="https://cjyabraham.github.io/docs/quickstart/python/">Python</a><br>
+<h8>Quick Start</h8>
+<a href="https://cjyabraham.github.io/docs/quickstart/cpp/">C++</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/csharp/"><div class="plus">+</div>C#</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/dart/">Dart</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/go/">Go</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/java/">Java</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/android/">Android</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/node/">Node.js</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/objective-c/">Objective-C</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/php/">PHP</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/python/">Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/">Ruby</a>
 </div>
 
@@ -96,8 +96,6 @@ Quick Start<br>
 <h3 style="margin-top:0px;">C# Quick Start</h3>
 
     
-
-<h1 class="page-header">C# Quickstart</h1>
 
 <p class="lead">This guide gets you started with gRPC in C# with a simple
 working example.</p>
@@ -153,7 +151,7 @@ clones the entire repository, but you just need the examples for this quickstart
 and other tutorials):</p>
 
 <pre><code class="language-sh">$ # Clone the repository to get the example code:
-$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc 
+$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
 $ cd grpc
 </code></pre>
 
@@ -209,8 +207,7 @@ package and unzip without a NuGet client, as follows.</p>
 <li>Install NuGet 2.12+ so that it&rsquo;s available from the command line.</li>
 <li>From the <code>examples/csharp/helloworld</code> directory, run <code>/path/to/nuget restore</code>.</li>
 <li>Now that the NuGet dependencies are restored into their proper package folders, build
-the solution from the Monodevelop IDE.
-<br /></li>
+the solution from the Monodevelop IDE.</li>
 </ul>
 
 <h2 id="run-a-grpc-application">Run a gRPC application</h2>
@@ -373,8 +370,7 @@ including:
 <li>an abstract class Greeter.GreeterBase to inherit from when defining
 Greeter service implementations</li>
 <li>a class Greeter.GreeterClient that can be used to access remote Greeter
-instances
-<br /></li>
+instances</li>
 </ul></li>
 </ul>
 
@@ -418,7 +414,7 @@ Call the new method like this:</p>
 
     var reply = client.SayHello(new HelloRequest { Name = user });
     Console.WriteLine(&quot;Greeting: &quot; + reply.Message);
-    
+
     var secondReply = client.SayHelloAgain(new HelloRequest { Name = user });
     Console.WriteLine(&quot;Greeting: &quot; + secondReply.Message);
 

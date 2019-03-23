@@ -16,7 +16,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/async/helloasync-cpp/</guid>
-      <description>Asynchronous Basics: C++ This tutorial shows you how to write a simple server and client in C++ using gRPC&amp;rsquo;s asynchronous/non-blocking APIs. It assumes you are already familiar with writing simple synchronous gRPC code, as described in gRPC Basics: C++. The example used in this tutorial follows on from the basic Greeter example we used in the overview. You&amp;rsquo;ll find it along with installation instructions in grpc/examples/cpp/helloworld.
+      <description>This tutorial shows you how to write a simple server and client in C++ using gRPC&amp;rsquo;s asynchronous/non-blocking APIs. It assumes you are already familiar with writing simple synchronous gRPC code, as described in gRPC Basics: C++. The example used in this tutorial follows on from the basic Greeter example we used in the overview. You&amp;rsquo;ll find it along with installation instructions in grpc/examples/cpp/helloworld.
  Overview gRPC uses the CompletionQueue API for asynchronous operations.</description>
     </item>
     

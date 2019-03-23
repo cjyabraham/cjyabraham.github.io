@@ -74,8 +74,6 @@
   <p>So you&rsquo;ve bought into this whole RPC thing and want to try it out, but aren&rsquo;t quite sure about Protocol Buffers.  Your existing code encodes your own objects, or perhaps you have code that needs a particular encoding.  What to do?</p>
 
 <p>Fortunately, gRPC is encoding agnostic!  You can still get a lot of the benefits of gRPC without using Protobuf.  In this post we&rsquo;ll go through how to make gRPC work with other encodings and types.  Let&rsquo;s try using JSON.</p>
-
-<p></p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/grpc-with-json/">Read More</a>
@@ -87,8 +85,6 @@
   <h2 id="the-grpc-project-wants-your-feedback">The gRPC Project wants your feedback!</h2>
 
 <p>The gRPC project is looking for feedback to improve the gRPC experience. To do this, we are running a <a href="http://bit.ly/gRPC18survey">gRPC user survey</a>. We invite you to participate  and provide input that will help us better plan and prioritize.</p>
-
-<p></p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/take-the-grpc-survey/">Read More</a>
@@ -97,8 +93,7 @@
   <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/http2_smarter_at_scale/">HTTP/2 Smarter At Scale</a></h3>
   <h5>July 13, 2018</h5>
 <p>
-  <p>Much of the web today runs on HTTP/1.1. The spec for HTTP/1.1 was published in June of 1999, just shy of 20 years ago. A lot has changed since then, which makes it all the more remarkable that HTTP/1.1 has persisted and flourished for so long. But in some areas it’s beginning to show its age; for the most part, in that the designers weren’t building for the scale at which HTTP/1.1 would be used and the astonishing amount of traffic that it would come to handle. A not-so-bad case is that subsequent tests can&rsquo;t pass because of a leaked resource from the previous test. The worst case is that some subsequent tests pass that wouldn&rsquo;t have passed at all if the previously passed test had not leaked a resource.
-</p>
+  <p>Much of the web today runs on HTTP/1.1. The spec for HTTP/1.1 was published in June of 1999, just shy of 20 years ago. A lot has changed since then, which makes it all the more remarkable that HTTP/1.1 has persisted and flourished for so long. But in some areas it’s beginning to show its age; for the most part, in that the designers weren’t building for the scale at which HTTP/1.1 would be used and the astonishing amount of traffic that it would come to handle. A not-so-bad case is that subsequent tests can&rsquo;t pass because of a leaked resource from the previous test. The worst case is that some subsequent tests pass that wouldn&rsquo;t have passed at all if the previously passed test had not leaked a resource.</p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/http2_smarter_at_scale/">Read More</a>
@@ -110,8 +105,6 @@
   <p>It is best practice to always clean up gRPC resources such as client channels, servers, and previously attached Contexts whenever they are no longer needed.</p>
 
 <p>This is even true for JUnit tests, because otherwise leaked resources may not only linger in your machine forever, but also interfere with subsequent tests. A not-so-bad case is that subsequent tests can&rsquo;t pass because of a leaked resource from the previous test. The worst case is that some subsequent tests pass that wouldn&rsquo;t have passed at all if the previously passed test had not leaked a resource.</p>
-
-<p></p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/gracefully_clean_up_in_grpc_junit_tests/">Read More</a>
@@ -120,9 +113,7 @@
   <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/kotlin-gradle-projects/">gRPC ❤ Kotlin</a></h3>
   <h5>June 19, 2018</h5>
 <p>
-  <p>Did you know that gRPC Java now has out of box support for Kotlin projects built with Gradle? <a href="https://kotlinlang.org/">Kotlin</a> is a modern, statically typed language developed by JetBrains that targets the JVM and Android. It is generally easy for Kotlin programs to interoperate with existing Java libraries. To improve this experience further, we have added support to the <a href="https://github.com/google/protobuf-gradle-plugin/releases">protobuf-gradle-plugin</a> so that the generated Java libraries are automatically picked up by Kotlin. You can now add the protobuf-gradle-plugin to your Kotlin project, and use gRPC just like you would with a typical Java project.
-
-The following examples show you how to configure a project for a JVM application and an Android application using Kotlin.</p>
+  <p>Did you know that gRPC Java now has out of box support for Kotlin projects built with Gradle? <a href="https://kotlinlang.org/">Kotlin</a> is a modern, statically typed language developed by JetBrains that targets the JVM and Android. It is generally easy for Kotlin programs to interoperate with existing Java libraries. To improve this experience further, we have added support to the <a href="https://github.com/google/protobuf-gradle-plugin/releases">protobuf-gradle-plugin</a> so that the generated Java libraries are automatically picked up by Kotlin. You can now add the protobuf-gradle-plugin to your Kotlin project, and use gRPC just like you would with a typical Java project.</p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/kotlin-gradle-projects/">Read More</a>
@@ -134,8 +125,6 @@ The following examples show you how to configure a project for a JVM application
   <p>How fast is gRPC?  Pretty fast if you understand how modern clients and servers are built.  In
 <a href="/blog/optimizing-grpc-part-1">part 1</a>, I showed how to get an easy <strong>60%</strong> improvement.  In this
 post I show how to get a <strong>10000%</strong> improvement.</p>
-
-<p></p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-2/">Read More</a>
@@ -147,8 +136,6 @@ post I show how to get a <strong>10000%</strong> improvement.</p>
   <p>A common question with gRPC is how to make it fast.  The gRPC library offers users access to high
 performance RPCs, but it isn&rsquo;t always clear how to achieve this.  Because this question is common
 enough I thought I would try to show my thought process when tuning programs.</p>
-
-<p></p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-1/">Read More</a>
@@ -158,8 +145,6 @@ enough I thought I would try to show my thought process when tuning programs.</p
   <h5>February 26, 2018</h5>
 <p>
   <p><strong>TL;DR Always set a deadline</strong>. This post explains why we recommend being deliberate about setting deadlines, with useful code snippets to show you how.</p>
-
-<p></p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/deadlines/">Read More</a>
@@ -176,8 +161,6 @@ I&rsquo;ve meaningfully contributed, so this year has been a learning experience
 me.  Over this year, the team has made constant improvements to our work habits
 and communication.  I still see room for improvement, but I believe we are in a
 considerably better place than we were a year ago.</p>
-
-<p></p>
 </p>
 
 <a href="https://cjyabraham.github.io/blog/2018-01-22-grpc-go-engineering-practices/">Read More</a>
@@ -187,7 +170,7 @@ considerably better place than we were a year ago.</p>
   <h5>September 14, 2017</h5>
 <p>
   If you have ever wanted to run an event around gRPC, but didn&rsquo;t know where to start, or wasn&rsquo;t sure what content is available - we have released the gRPC Meetup Kit!
- The meetup kit includes a 15 minute presentation on the basic concepts of gRPC, with accompanying slides and video for either reference or playback, as well as a 45 minute codelab that takes you through the basics of gRPC in Node.
+HUGOMORE42 The meetup kit includes a 15 minute presentation on the basic concepts of gRPC, with accompanying slides and video for either reference or playback, as well as a 45 minute codelab that takes you through the basics of gRPC in Node.
 </p>
 
 <a href="https://cjyabraham.github.io/blog/meetup-kit/">Read More</a>

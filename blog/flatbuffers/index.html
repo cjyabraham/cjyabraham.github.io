@@ -72,8 +72,6 @@
 <p><a href="https://google.github.io/flatbuffers/">Flatbuffers</a> is a serialization library that allows you to access serialized data without first unpacking it or allocating any
 additional data structures. It was originally designed for games and other resource constrained applications, but is now finding more general use, both by teams within Google and in other companies such as Netflix and Facebook.</p>
 
-<p></p>
-
 <p>Flatbuffers enables maximum throughput by directly using gRPC&rsquo;s slice buffers with zero-copy for common use cases. An incoming rpc can be processed directly from gRPCs internal buffers, and constructing a new message will write directly to these buffers without intermediate steps.</p>
 
 <p>This is currently, fully supported in the C++ implementation of FlatBuffers, with more languages to come. There is also an implementation in Go, which is not entirely zero copy, but still very low on allocation cost (see below).</p>

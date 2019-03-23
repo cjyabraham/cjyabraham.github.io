@@ -26,10 +26,10 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/quickstart/csharp/</guid>
-      <description>C# Quickstart This guide gets you started with gRPC in C# with a simple working example.
+      <description>This guide gets you started with gRPC in C# with a simple working example.
  Before you begin Prerequisites Whether you&amp;rsquo;re using Windows, OS X, or Linux, you can follow this example by using either an IDE and its build tools, or by using the the .NET Core SDK command line tools.
 Using the .NET Core SDK on Windows, OS X, or Linux, you&amp;rsquo;ll need:
- The .</description>
+ The .NET Core SDK command line tools.</description>
     </item>
     
     <item>

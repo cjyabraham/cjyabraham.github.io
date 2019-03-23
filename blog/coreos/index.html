@@ -71,8 +71,6 @@
 
 <p>One of the key reasons CoreOS chose gRPC is because it uses HTTP/2, enabling applications to present both a HTTP 1.1 REST/JSON API and an efficient gRPC interface on a single TCP port (available for Go). This provides developers with compatibility with the REST web ecosystem, while advancing a new, high-efficiency RPC protocol. With the recent release of Go 1.6, Go ships with a stable <code>net/http2</code> package by default.</p>
 
-<p></p>
-
 <p>Since many CoreOS clients speak HTTP 1.1 with JSON, gRPC&rsquo;s easy interoperability with JSON and the <a href="https://github.com/OAI/OpenAPI-Specification">Open API Specification</a> (formerly Swagger) was extremely valuable. For their users who are more comfortable with HTTP/1.1+JSON-based and Open API Spec APIs they used a combination of open source libraries to make their gRPC services available in both gRPC and HTTP REST flavors, using API multiplexers to give users the best of both worlds. Let&rsquo;s dive into the details and find out how they did it!</p>
 
 <p><em>This post was originally published at the <a href="https://coreos.com/blog/gRPC-protobufs-swagger.html">CoreOS blog</a>. We are reproducing it here with some edits.</em></p>

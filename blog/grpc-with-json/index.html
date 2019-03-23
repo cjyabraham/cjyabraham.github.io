@@ -71,8 +71,6 @@
 
 <p>Fortunately, gRPC is encoding agnostic!  You can still get a lot of the benefits of gRPC without using Protobuf.  In this post we&rsquo;ll go through how to make gRPC work with other encodings and types.  Let&rsquo;s try using JSON.</p>
 
-<p></p>
-
 <p>gRPC is actually a collection of technologies that have high cohesion, rather than a singular, monolithic framework.  This means its possible to swap out parts of gRPC and still take advantage of gRPC&rsquo;s benefits.  <a href="https://github.com/google/gson">Gson</a> is a popular library for Java for doing JSON encoding.  Let&rsquo;s remove all the protobuf related things and replace them with Gson:</p>
 
 <pre><code class="language-diff">- Protobuf wire encoding

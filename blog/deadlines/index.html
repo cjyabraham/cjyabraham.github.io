@@ -69,8 +69,6 @@
   <p>
     <p><strong>TL;DR Always set a deadline</strong>. This post explains why we recommend being deliberate about setting deadlines, with useful code snippets to show you how.</p>
 
-<p></p>
-
 <p>When you use gRPC, the gRPC library takes care of communication, marshalling, unmarshalling, and deadline enforcement. Deadlines allow gRPC clients to specify how long they are willing to wait for an RPC to complete before the RPC is terminated with the error <code>DEADLINE_EXCEEDED</code>. By default this deadline is a very large number, dependent on the language implementation. How deadlines are specified is also language-dependent. Some language APIs work in terms of a <strong>deadline</strong>, a fixed point in time by which the RPC should complete. Others use a <strong>timeout</strong>, a duration of time after which the RPC times out.</p>
 
 <p>In general, when you don&rsquo;t set a deadline, resources will be held for all in-flight requests, and all requests can potentially reach the maximum timeout. This puts the service at risk of running out of resources, like memory, which would increase the latency of the service, or could crash the entire process in the worst case.</p>
