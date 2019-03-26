@@ -466,8 +466,7 @@ Install Protocol Buffers v3 While not mandatory to use gRPC, gRPC applications u
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/faq/</guid>
-      <description>Here are some frequently asked questions. Hope you find your answer in here :-)
-Frequently Asked Questions What is gRPC? gRPC is a modern, open source remote procedure call (RPC) framework that can run anywhere. It enables client and server applications to communicate transparently, and makes it easier to build connected systems.
+      <description>Here are some frequently asked questions. Hope you find your answer in here :-) Frequently Asked Questions What is gRPC? gRPC is a modern, open source remote procedure call (RPC) framework that can run anywhere. It enables client and server applications to communicate transparently, and makes it easier to build connected systems.
  Read the longer Motivation &amp;amp; Design Principles post for background on why we created gRPC.
   What does gRPC stand for?</description>
     </item>
