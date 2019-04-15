@@ -68,6 +68,83 @@
 <div class="blogcol1" style="margin-top:4%">
 
 
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/gracefully_clean_up_in_grpc_junit_tests/">Gracefully clean up in gRPC JUnit tests</a></h3>
+  <h5>June 26, 2018</h5>
+<p>
+  <p>It is best practice to always clean up gRPC resources such as client channels, servers, and previously attached Contexts whenever they are no longer needed.</p>
+
+<p>This is even true for JUnit tests, because otherwise leaked resources may not only linger in your machine forever, but also interfere with subsequent tests. A not-so-bad case is that subsequent tests can&rsquo;t pass because of a leaked resource from the previous test. The worst case is that some subsequent tests pass that wouldn&rsquo;t have passed at all if the previously passed test had not leaked a resource.</p>
+</p>
+
+<a href="https://cjyabraham.github.io/blog/gracefully_clean_up_in_grpc_junit_tests/">Read More</a>
+<br><br><br>
+
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/kotlin-gradle-projects/">gRPC ❤ Kotlin</a></h3>
+  <h5>June 19, 2018</h5>
+<p>
+  <p>Did you know that gRPC Java now has out of box support for Kotlin projects built with Gradle? <a href="https://kotlinlang.org/">Kotlin</a> is a modern, statically typed language developed by JetBrains that targets the JVM and Android. It is generally easy for Kotlin programs to interoperate with existing Java libraries. To improve this experience further, we have added support to the <a href="https://github.com/google/protobuf-gradle-plugin/releases">protobuf-gradle-plugin</a> so that the generated Java libraries are automatically picked up by Kotlin. You can now add the protobuf-gradle-plugin to your Kotlin project, and use gRPC just like you would with a typical Java project.</p>
+</p>
+
+<a href="https://cjyabraham.github.io/blog/kotlin-gradle-projects/">Read More</a>
+<br><br><br>
+
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-2/">So You Want to Optimize gRPC - Part 2</a></h3>
+  <h5>April 16, 2018</h5>
+<p>
+  <p>How fast is gRPC?  Pretty fast if you understand how modern clients and servers are built.  In
+<a href="/blog/optimizing-grpc-part-1">part 1</a>, I showed how to get an easy <strong>60%</strong> improvement.  In this
+post I show how to get a <strong>10000%</strong> improvement.</p>
+</p>
+
+<a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-2/">Read More</a>
+<br><br><br>
+
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-1/">So You Want to Optimize gRPC - Part 1</a></h3>
+  <h5>March 06, 2018</h5>
+<p>
+  <p>A common question with gRPC is how to make it fast.  The gRPC library offers users access to high
+performance RPCs, but it isn&rsquo;t always clear how to achieve this.  Because this question is common
+enough I thought I would try to show my thought process when tuning programs.</p>
+</p>
+
+<a href="https://cjyabraham.github.io/blog/optimizing-grpc-part-1/">Read More</a>
+<br><br><br>
+
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/deadlines/">gRPC and Deadlines</a></h3>
+  <h5>February 26, 2018</h5>
+<p>
+  <p><strong>TL;DR Always set a deadline</strong>. This post explains why we recommend being deliberate about setting deadlines, with useful code snippets to show you how.</p>
+</p>
+
+<a href="https://cjyabraham.github.io/blog/deadlines/">Read More</a>
+<br><br><br>
+
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/2018-01-22-grpc-go-engineering-practices/">2018-01-19 gRPC-Go Engineering Practices</a></h3>
+  <h5>January 22, 2018</h5>
+<p>
+  <p>It&rsquo;s the start of the new year, and almost the end of my first full year on the
+gRPC-Go project, so I&rsquo;d like to take this opportunity to provide an update on
+the state of gRPC-Go development and give some visibility into how we manage the
+project.  For me, personally, this is the first open source project to which
+I&rsquo;ve meaningfully contributed, so this year has been a learning experience for
+me.  Over this year, the team has made constant improvements to our work habits
+and communication.  I still see room for improvement, but I believe we are in a
+considerably better place than we were a year ago.</p>
+</p>
+
+<a href="https://cjyabraham.github.io/blog/2018-01-22-grpc-go-engineering-practices/">Read More</a>
+<br><br><br>
+
+  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/meetup-kit/">The gRPC Meetup Kit</a></h3>
+  <h5>September 14, 2017</h5>
+<p>
+  If you have ever wanted to run an event around gRPC, but didn&rsquo;t know where to start, or wasn&rsquo;t sure what content is available - we have released the gRPC Meetup Kit!
+HUGOMORE42 The meetup kit includes a 15 minute presentation on the basic concepts of gRPC, with accompanying slides and video for either reference or playback, as well as a 45 minute codelab that takes you through the basics of gRPC in Node.
+</p>
+
+<a href="https://cjyabraham.github.io/blog/meetup-kit/">Read More</a>
+<br><br><br>
+
   <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/2017-08-22-grpc-go-perf-improvements/">2017-08-22 gRPC-Go performance Improvements</a></h3>
   <h5>August 22, 2017</h5>
 <p>
@@ -99,92 +176,6 @@ additional data structures. It was originally designed for games and other resou
 </p>
 
 <a href="https://cjyabraham.github.io/blog/flatbuffers/">Read More</a>
-<br><br><br>
-
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/loadbalancing/">gRPC Load Balancing</a></h3>
-  <h5>June 15, 2017</h5>
-<p>
-  <p>This post describes various load balancing scenarios seen when deploying gRPC. If you use <a href="/">gRPC</a> with multiple backends, this document is for you.</p>
-
-<p>A large scale gRPC deployment typically has a number of identical back-end instances, and a number of clients. Each server has a certain capacity. Load balancing is used for distributing the load from clients optimally across available servers.</p>
-</p>
-
-<a href="https://cjyabraham.github.io/blog/loadbalancing/">Read More</a>
-<br><br><br>
-
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/helmgrpc/">gRPC in Helm</a></h3>
-  <h5>May 15, 2017</h5>
-<p>
-  <p><em>Our guest post today comes from Brian Hardock, a software engineer from Deis working on the <a href="https://helm.sh/">Helm</a> project.</em></p>
-
-<p>Helm is the package manager for Kubernetes. Helm provides its users with a customizable mechanism for
-managing distributed applications and controlling their deployment.</p>
-
-<p>I have the good fortune to be a member of the phenomenal open-source Kubernetes Helm community serving as
-a core contributor. My first day working with the Helm team was spent prototyping the architecture for
-the next generation of Helm. By the end of that day, we had procured the preliminary RPC protocol data model
-used to enable communication between Helm and its in-cluster server component, Tiller.</p>
-</p>
-
-<a href="https://cjyabraham.github.io/blog/helmgrpc/">Read More</a>
-<br><br><br>
-
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/yygrpc/">Migration to Google Cloud Platform — gRPC &amp; grpc-gateway</a></h3>
-  <h5>April 12, 2017</h5>
-<p>
-  <p>Our guest post today comes from <a href="https://www.linkedin.com/in/miguel-mendez-008231/">Miguel Mendez</a> of Yik Yak.</p>
-
-<p><em>This post was originally a part of the <a href="https://medium.com/yik-yak-eng">Yik Yak Engineering Blog</a> which focused on sharing the lessons learned as we evolved Yik Yak from early-stage startup code running in Amazon Web Services to an eventual incremental rewrite, re-architecture, and live-migration to Google Cloud Platform.</em></p>
-
-<p>In our previous blog <a href="https://medium.com/yik-yak-eng/migration-to-google-cloud-platform-overview-9b5e5c17c368">post</a> we gave an overview of our migration to Google Cloud Platform from Amazon Web Services. In this post we will drill down into the role that <a href="/">gRPC</a> and <a href="https://github.com/grpc-ecosystem/grpc-gateway">grpc-gateway</a> played in that migration and share some lessons which we picked up along the way.</p>
-</p>
-
-<a href="https://cjyabraham.github.io/blog/yygrpc/">Read More</a>
-<br><br><br>
-
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/bazel_rules_protobuf/">Building gRPC services with bazel and rules_protobuf</a></h3>
-  <h5>October 13, 2016</h5>
-<p>
-  <p><a href="/">gRPC</a> makes it easier to build high-performance
-microservices by providing generated service entrypoints in a variety
-of different languages.  <a href="https://bazel.io">Bazel</a> complements these
-efforts with a capable and fast polyglot build environment.</p>
-
-<p><a href="https://github.com/pubref/rules_protobuf">rules_protobuf</a> extends
-bazel and makes it easier develop gRPC services.</p>
-</p>
-
-<a href="https://cjyabraham.github.io/blog/bazel_rules_protobuf/">Read More</a>
-<br><br><br>
-
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/vscogrpc/">gRPC at VSCO</a></h3>
-  <h5>September 06, 2016</h5>
-<p>
-  <p>Our guest post today comes from Robert Sayre and Melinda Lu of VSCO.</p>
-
-<p>Founded in 2011, <a href="https://vsco.co">VSCO</a> is a community for expression—empowering people to create, discover and connect through images and words. VSCO is in the process of migrating their stack to gRPC.</p>
-</p>
-
-<a href="https://cjyabraham.github.io/blog/vscogrpc/">Read More</a>
-<br><br><br>
-
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/vendastagrpc/">Why we have decided to move our APIs to gRPC</a></h3>
-  <h5>August 29, 2016</h5>
-<p>
-  Our guest post today comes from Dale Hopkins, CTO of Vendasta.
-Vendasta started out 8 years ago as a point solution provider of products for small business. From the beginning we partnered with media companies and agencies who have armies of salespeople and existing relationships with those businesses to sell our software. It is estimated that over 30 million small businesses exist in the United States alone, so scalability of our SaaS solution was considered one of our top concerns from the beginning and it was the reason we started with Google App Engine and Datastore.
-</p>
-
-<a href="https://cjyabraham.github.io/blog/vendastagrpc/">Read More</a>
-<br><br><br>
-
-  <h3 style="margin-top:0px;"><a href="https://cjyabraham.github.io/blog/gablogpost/">gRPC Project is now 1.0 and ready for production deployments</a></h3>
-  <h5>August 23, 2016</h5>
-<p>
-  Today, the gRPC project has reached a significant milestone with its 1.0 release. Languages moving to 1.0 include C++, Java, Go, Node, Ruby, Python and C# across Linux, Windows, and Mac. Objective-C and Android Java support on iOS and Android is also moving to 1.0. The 1.0 release means that the core protocol and API surface are now stable with measured performance, stress tested and developers can rely on these APIs and deploy in production, they will follow semantic versioning from here.
-</p>
-
-<a href="https://cjyabraham.github.io/blog/gablogpost/">Read More</a>
 <br><br><br>
 
 
@@ -233,12 +224,23 @@ Vendasta started out 8 years ago as a point solution provider of products for sm
     <li class="page-item"><a class="page-link" href="/blog/page/3/">3</a></li>
     
     
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/blog/page/4/">4</a></li>
+    
+    
     <li class="page-item">
     <a href="/blog/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
     </li>
     
     <li class="page-item">
-        <a href="/blog/page/3/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/blog/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
@@ -250,6 +252,20 @@ Vendasta started out 8 years ago as a point solution provider of products for sm
 <div class="blogcol2">
 
 <h5 style="font-size:12pt;margin-bottom:20px">All blog posts</h5>
+
+  <a href="https://cjyabraham.github.io/blog/2019-03-08-pancakes/">Dear gRPC</a><br><br>
+
+  <a href="https://cjyabraham.github.io/blog/2019-01-08-state-of-grpc-web/">The state of gRPC in the browser</a><br><br>
+
+  <a href="https://cjyabraham.github.io/blog/2018-12-18-grpc-dotnet-build/">gRPC Meets .NET SDK And Visual Studio: Automatic Codegen On Build</a><br><br>
+
+  <a href="https://cjyabraham.github.io/blog/2018-12-11-grpc-stacks/">Visualizing gRPC Language Stacks</a><br><br>
+
+  <a href="https://cjyabraham.github.io/blog/2018-10-23-grpc-web-ga/">gRPC-Web is Generally Available</a><br><br>
+
+  <a href="https://cjyabraham.github.io/blog/2018-09-05-grpc-channelz-how-to/">A short introduction to Channelz</a><br><br>
+
+  <a href="https://cjyabraham.github.io/blog/2018-08-20-grpc-on-http2/">gRPC on HTTP/2 Engineering a Robust, High Performance Protocol</a><br><br>
 
   <a href="https://cjyabraham.github.io/blog/grpc-with-json/">gRPC &#43; JSON</a><br><br>
 
