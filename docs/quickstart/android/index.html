@@ -152,51 +152,45 @@ $ cd grpc-java/examples</code></pre></div>
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
 buffers; you can find out lots more about how to define a service in a <code>.proto</code>
-file in <a href="../tutorials/basic/android.html">gRPC Basics: Android Java</a>. For now all you need to know is that both the
+file in <a href="/docs/tutorials/basic/android/">gRPC Basics: Android Java</a>. For now all you need to know is that both the
 server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC method that takes a
 <code>HelloRequest</code> parameter from the client and returns a <code>HelloResponse</code> from the
 server, and that this method is defined like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter <span style="color:#f92672">{</span>
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc <span style="color:#a6e22e">SayHello</span> <span style="color:#f92672">(</span>HelloRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>HelloReply<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
+<span style="color:#f92672">}</span>
 
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-}
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest <span style="color:#f92672">{</span>
+  string name <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply <span style="color:#f92672">{</span>
+  string message <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>src/main/proto/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter <span style="color:#f92672">{</span>
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc <span style="color:#a6e22e">SayHello</span> <span style="color:#f92672">(</span>HelloRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>HelloReply<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
+  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  rpc <span style="color:#a6e22e">SayHelloAgain</span> <span style="color:#f92672">(</span>HelloRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>HelloReply<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
+<span style="color:#f92672">}</span>
 
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
-}
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest <span style="color:#f92672">{</span>
+  string name <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply <span style="color:#f92672">{</span>
+  string message <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="update-and-run-the-application">Update and run the application</h2>
@@ -211,27 +205,24 @@ parts of our example application.</p>
 
 <h3 id="update-the-server">Update the server</h3>
 
-<p>Check out the Java quickstart <a href="/docs/quickstart/java.html#update-the-server">here</a>.</p>
+<p>Check out the Java quickstart <a href="/docs/quickstart/java/#update-the-server">here</a>.</p>
 
 <h3 id="update-the-client">Update the client</h3>
 
 <p>In the same directory, open
 <code>app/src/main/java/io/grpc/helloworldexample/HelloworldActivity.java</code>. Call the new
 method like this:</p>
-
-<pre><code>    try {
-        HelloRequest message = HelloRequest.newBuilder().setName(mMessage).build();
-        HelloReply reply = stub.sayHello(message);
-        reply = stub.sayHelloAgain(message);
-    } catch (Exception e) {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        e.printStackTrace(pw);
-        pw.flush();
-        return &quot;Failed... : &quot; + System.lineSeparator() + sw;
-    }
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        HelloRequest message <span style="color:#f92672">=</span> HelloRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>mMessage<span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+        HelloReply reply <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span><span style="color:#a6e22e">sayHello</span><span style="color:#f92672">(</span>message<span style="color:#f92672">);</span>
+        reply <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span><span style="color:#a6e22e">sayHelloAgain</span><span style="color:#f92672">(</span>message<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        StringWriter sw <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringWriter<span style="color:#f92672">();</span>
+        PrintWriter pw <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PrintWriter<span style="color:#f92672">(</span>sw<span style="color:#f92672">);</span>
+        e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">(</span>pw<span style="color:#f92672">);</span>
+        pw<span style="color:#f92672">.</span><span style="color:#a6e22e">flush</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Failed... : &#34;</span> <span style="color:#f92672">+</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">lineSeparator</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> sw<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span></code></pre></div>
 <h3 id="run">Run!</h3>
 
 <p>Just like we did before, from the <code>examples</code> directory:</p>
@@ -255,10 +246,7 @@ method like this:</p>
 configure USB port forwarding to allow the device to communicate with the server
 running on your computer. This is done via the <code>adb</code> command line tool as
 follows:</p>
-
-<pre><code>adb reverse tcp:8080 tcp:50051
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">adb reverse tcp:8080 tcp:50051</code></pre></div>
 <p>This sets up port forwarding from port <code>8080</code> on the device to port <code>50051</code> on
 the connected computer, which is the port that the Hello World server is
 listening on.</p>
@@ -276,9 +264,9 @@ enter <code>10.0.2.2</code> and <code>50051</code> as the <code>Host</code> and 
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
-<li>Read a full explanation of how gRPC works in <a href="../guides/">What is gRPC?</a>
-and <a href="../guides/concepts.html">gRPC Concepts</a></li>
-<li>Work through a more detailed tutorial in <a href="../tutorials/basic/android.html">gRPC Basics: Android Java</a></li>
+<li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
+and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
+<li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/android/">gRPC Basics: Android Java</a></li>
 <li>Explore the gRPC Java core API in its <a href="/grpc-java/javadoc/">reference
 documentation</a></li>
 </ul>

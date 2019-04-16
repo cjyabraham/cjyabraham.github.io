@@ -165,51 +165,45 @@ $ cd grpc-dart/example/helloworld</code></pre></div>
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
 buffers; you can find out lots more about how to define a service in a <code>.proto</code>
-file in <a href="../tutorials/basic/dart.html">gRPC Basics: Dart</a>. For now all you need to know is that both the
+file in <a href="/docs/tutorials/basic/dart/">gRPC Basics: Dart</a>. For now all you need to know is that both the
 server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC method that takes a
 <code>HelloRequest</code> parameter from the client and returns a <code>HelloReply</code> from the
 server, and that this method is defined like this:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter {
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc SayHello (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest {
+  string name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply {
+  string message <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>protos/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter {
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest {
+  string name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply {
+  string message <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="generate-grpc-code">Generate gRPC code</h2>
@@ -281,9 +275,9 @@ this:</p>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
-<li>Read a full explanation of how gRPC works in <a href="../guides/">What is gRPC?</a>
-and <a href="../guides/concepts.html">gRPC Concepts</a></li>
-<li>Work through a more detailed tutorial in <a href="../tutorials/basic/dart.html">gRPC Basics: Dart</a></li>
+<li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
+and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
+<li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/dart/">gRPC Basics: Dart</a></li>
 </ul>
 
 <h2 id="reporting-issues">Reporting issues</h2>

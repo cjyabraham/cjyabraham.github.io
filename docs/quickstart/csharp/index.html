@@ -142,10 +142,7 @@ dependencies for you (<code>Grpc</code>, <code>Grpc.Tools</code> and <code>Googl
 <h3 id="using-net-core-sdk-from-the-command-line">Using .NET Core SDK from the command line</h3>
 
 <p>From the <code>examples/csharp/Helloworld</code> directory:</p>
-
-<pre><code>&gt; dotnet build Greeter.sln
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; dotnet build Greeter.sln</code></pre></div>
 <p><em>NOTE: If you want to use gRPC C# from a project that uses the &ldquo;classic&rdquo; .csproj files (supported by Visual Studio 2013, 2015 and older versions of Mono), please refer to the
 <a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/csharp/HelloworldLegacyCsproj/README.md">Greeter using &ldquo;classic&rdquo; .csproj</a> example.</em></p>
 
@@ -156,19 +153,13 @@ dependencies for you (<code>Grpc</code>, <code>Grpc.Tools</code> and <code>Googl
 <ul>
 <li>Run the server</li>
 </ul>
-
-<pre><code>&gt; cd GreeterServer
-&gt; dotnet run -f netcoreapp2.1
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; cd GreeterServer
+&gt; dotnet run -f netcoreapp2.1</code></pre></div>
 <ul>
 <li>In another terminal, run the client</li>
 </ul>
-
-<pre><code>&gt; cd GreeterClient
-&gt; dotnet run -f netcoreapp2.1
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; cd GreeterClient
+&gt; dotnet run -f netcoreapp2.1</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
 <h2 id="update-a-grpc-service">Update a gRPC service</h2>
@@ -176,51 +167,45 @@ dependencies for you (<code>Grpc</code>, <code>Grpc.Tools</code> and <code>Googl
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
 buffers; you can find out lots more about how to define a service in a <code>.proto</code>
-file in <a href="../tutorials/basic/csharp.html">gRPC Basics: C#</a>. For now all you need to know is that both the
+file in <a href="/docs/tutorials/basic/csharp/">gRPC Basics: C#</a>. For now all you need to know is that both the
 server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC method that takes a
 <code>HelloRequest</code> parameter from the client and returns a <code>HelloResponse</code> from the
 server, and that this method is defined like this:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter {
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc SayHello (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest {
+  <span style="color:#66d9ef">string</span> name = <span style="color:#ae81ff">1</span>;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply {
+  <span style="color:#66d9ef">string</span> message = <span style="color:#ae81ff">1</span>;
+}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>examples/protos/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter {
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest {
+  <span style="color:#66d9ef">string</span> name = <span style="color:#ae81ff">1</span>;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply {
+  <span style="color:#66d9ef">string</span> message = <span style="color:#ae81ff">1</span>;
+}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="generate-grpc-code">Generate gRPC code</h2>
@@ -265,47 +250,41 @@ and call the new method in the human-written parts of our example application.</
 
 <p>With the <code>Greeter.sln</code> open in your IDE, open <code>GreeterServer/Program.cs</code>.
 Implement the new method by editing the GreeterImpl class like this:</p>
-
-<pre><code>class GreeterImpl : Greeter.GreeterBase
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GreeterImpl</span> : Greeter.GreeterBase
 {
-    // Server side handler of the SayHello RPC
-    public override Task&lt;HelloReply&gt; SayHello(HelloRequest request, ServerCallContext context)
+    <span style="color:#75715e">// Server side handler of the SayHello RPC
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> Task&lt;HelloReply&gt; SayHello(HelloRequest request, ServerCallContext context)
     {
-        return Task.FromResult(new HelloReply { Message = &quot;Hello &quot; + request.Name });
+        <span style="color:#66d9ef">return</span> Task.FromResult(<span style="color:#66d9ef">new</span> HelloReply { Message = <span style="color:#e6db74">&#34;Hello &#34;</span> + request.Name });
     }
 
-    // Server side handler for the SayHelloAgain RPC
-    public override Task&lt;HelloReply&gt; SayHelloAgain(HelloRequest request, ServerCallContext context)
+    <span style="color:#75715e">// Server side handler for the SayHelloAgain RPC
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> Task&lt;HelloReply&gt; SayHelloAgain(HelloRequest request, ServerCallContext context)
     {
-        return Task.FromResult(new HelloReply { Message = &quot;Hello again &quot; + request.Name });
+        <span style="color:#66d9ef">return</span> Task.FromResult(<span style="color:#66d9ef">new</span> HelloReply { Message = <span style="color:#e6db74">&#34;Hello again &#34;</span> + request.Name });
     }
-}
-</code></pre>
-
+}</code></pre></div>
 <h3 id="update-the-client">Update the client</h3>
 
 <p>With the same <code>Greeter.sln</code> open in your IDE, open <code>GreeterClient/Program.cs</code>.
 Call the new method like this:</p>
-
-<pre><code>public static void Main(string[] args)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span><span style="color:#a6e22e">[]</span> args)
 {
-    Channel channel = new Channel(&quot;127.0.0.1:50051&quot;, ChannelCredentials.Insecure);
+    Channel channel = <span style="color:#66d9ef">new</span> Channel(<span style="color:#e6db74">&#34;127.0.0.1:50051&#34;</span>, ChannelCredentials.Insecure);
 
-    var client = new Greeter.GreeterClient(channel);
-    String user = &quot;you&quot;;
+    <span style="color:#66d9ef">var</span> client = <span style="color:#66d9ef">new</span> Greeter.GreeterClient(channel);
+    String user = <span style="color:#e6db74">&#34;you&#34;</span>;
 
-    var reply = client.SayHello(new HelloRequest { Name = user });
-    Console.WriteLine(&quot;Greeting: &quot; + reply.Message);
+    <span style="color:#66d9ef">var</span> reply = client.SayHello(<span style="color:#66d9ef">new</span> HelloRequest { Name = user });
+    Console.WriteLine(<span style="color:#e6db74">&#34;Greeting: &#34;</span> + reply.Message);
     
-    var secondReply = client.SayHelloAgain(new HelloRequest { Name = user });
-    Console.WriteLine(&quot;Greeting: &quot; + secondReply.Message);
+    <span style="color:#66d9ef">var</span> secondReply = client.SayHelloAgain(<span style="color:#66d9ef">new</span> HelloRequest { Name = user });
+    Console.WriteLine(<span style="color:#e6db74">&#34;Greeting: &#34;</span> + secondReply.Message);
 
     channel.ShutdownAsync().Wait();
-    Console.WriteLine(&quot;Press any key to exit...&quot;);
+    Console.WriteLine(<span style="color:#e6db74">&#34;Press any key to exit...&#34;</span>);
     Console.ReadKey();
-}
-</code></pre>
-
+}</code></pre></div>
 <h3 id="rebuild-the-modified-example">Rebuild the modified example</h3>
 
 <p>Rebuild the newly modified example just like we first built the original
@@ -318,25 +297,19 @@ example by running <code>dotnet build Greeter.sln</code> or by clicking &ldquo;B
 <ul>
 <li>Run the server</li>
 </ul>
-
-<pre><code>&gt; cd GreeterServer
-&gt; dotnet run -f netcoreapp2.1
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; cd GreeterServer
+&gt; dotnet run -f netcoreapp2.1</code></pre></div>
 <ul>
 <li>In another terminal, run the client</li>
 </ul>
-
-<pre><code>&gt; cd GreeterClient
-&gt; dotnet run -f netcoreapp2.1
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; cd GreeterClient
+&gt; dotnet run -f netcoreapp2.1</code></pre></div>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
-<li>Read a full explanation of how gRPC works in <a href="../guides/">What is gRPC?</a>
-and <a href="../guides/concepts.html">gRPC Concepts</a></li>
-<li>Work through a more detailed tutorial in <a href="../tutorials/basic/csharp.html">gRPC Basics: C#</a></li>
+<li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
+and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
+<li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/csharp/">gRPC Basics: C#</a></li>
 <li>Explore the gRPC C# core API in its <a href="/grpc/csharp/api/Grpc.Core.html">reference
 documentation</a></li>
 </ul>

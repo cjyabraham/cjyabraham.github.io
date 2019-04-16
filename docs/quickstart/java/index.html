@@ -144,51 +144,45 @@ $ cd grpc-java/examples</code></pre></div>
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
 buffers; you can find out lots more about how to define a service in a <code>.proto</code>
-file in <a href="../tutorials/basic/java.html">gRPC Basics: Java</a>. For now all you need to know is that both the
+file in <a href="/docs/tutorials/basic/java/">gRPC Basics: Java</a>. For now all you need to know is that both the
 server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC method that takes a
 <code>HelloRequest</code> parameter from the client and returns a <code>HelloReply</code> from the
 server, and that this method is defined like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter <span style="color:#f92672">{</span>
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc <span style="color:#a6e22e">SayHello</span> <span style="color:#f92672">(</span>HelloRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>HelloReply<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
+<span style="color:#f92672">}</span>
 
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-}
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest <span style="color:#f92672">{</span>
+  string name <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply <span style="color:#f92672">{</span>
+  string message <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>src/main/proto/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter <span style="color:#f92672">{</span>
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc <span style="color:#a6e22e">SayHello</span> <span style="color:#f92672">(</span>HelloRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>HelloReply<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
+  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  rpc <span style="color:#a6e22e">SayHelloAgain</span> <span style="color:#f92672">(</span>HelloRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>HelloReply<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
+<span style="color:#f92672">}</span>
 
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
-}
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest <span style="color:#f92672">{</span>
+  string name <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply <span style="color:#f92672">{</span>
+  string message <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="update-and-run-the-application">Update and run the application</h2>
@@ -206,53 +200,47 @@ parts of our example application.</p>
 <p>In the same directory, open
 <code>src/main/java/io/grpc/examples/helloworld/HelloWorldServer.java</code>. Implement the
 new method like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GreeterImpl</span> <span style="color:#66d9ef">extends</span> GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">GreeterImplBase</span> <span style="color:#f92672">{</span>
 
-<pre><code>private class GreeterImpl extends GreeterGrpc.GreeterImplBase {
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sayHello</span><span style="color:#f92672">(</span>HelloRequest req<span style="color:#f92672">,</span> StreamObserver<span style="color:#f92672">&lt;</span>HelloReply<span style="color:#f92672">&gt;</span> responseObserver<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    HelloReply reply <span style="color:#f92672">=</span> HelloReply<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">setMessage</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello &#34;</span> <span style="color:#f92672">+</span> req<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+    responseObserver<span style="color:#f92672">.</span><span style="color:#a6e22e">onNext</span><span style="color:#f92672">(</span>reply<span style="color:#f92672">);</span>
+    responseObserver<span style="color:#f92672">.</span><span style="color:#a6e22e">onCompleted</span><span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
 
-  @Override
-  public void sayHello(HelloRequest req, StreamObserver&lt;HelloReply&gt; responseObserver) {
-    HelloReply reply = HelloReply.newBuilder().setMessage(&quot;Hello &quot; + req.getName()).build();
-    responseObserver.onNext(reply);
-    responseObserver.onCompleted();
-  }
-
-  @Override
-  public void sayHelloAgain(HelloRequest req, StreamObserver&lt;HelloReply&gt; responseObserver) {
-    HelloReply reply = HelloReply.newBuilder().setMessage(&quot;Hello again &quot; + req.getName()).build();
-    responseObserver.onNext(reply);
-    responseObserver.onCompleted();
-  }
-}
-...
-</code></pre>
-
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sayHelloAgain</span><span style="color:#f92672">(</span>HelloRequest req<span style="color:#f92672">,</span> StreamObserver<span style="color:#f92672">&lt;</span>HelloReply<span style="color:#f92672">&gt;</span> responseObserver<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    HelloReply reply <span style="color:#f92672">=</span> HelloReply<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">setMessage</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello again &#34;</span> <span style="color:#f92672">+</span> req<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+    responseObserver<span style="color:#f92672">.</span><span style="color:#a6e22e">onNext</span><span style="color:#f92672">(</span>reply<span style="color:#f92672">);</span>
+    responseObserver<span style="color:#f92672">.</span><span style="color:#a6e22e">onCompleted</span><span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+<span style="color:#f92672">...</span></code></pre></div>
 <h3 id="update-the-client">Update the client</h3>
 
 <p>In the same directory, open
 <code>src/main/java/io/grpc/examples/helloworld/HelloWorldClient.java</code>. Call the new
 method like this:</p>
-
-<pre><code>public void greet(String name) {
-  logger.info(&quot;Will try to greet &quot; + name + &quot; ...&quot;);
-  HelloRequest request = HelloRequest.newBuilder().setName(name).build();
-  HelloReply response;
-  try {
-    response = blockingStub.sayHello(request);
-  } catch (StatusRuntimeException e) {
-    logger.log(Level.WARNING, &quot;RPC failed: {0}&quot;, e.getStatus());
-    return;
-  }
-  logger.info(&quot;Greeting: &quot; + response.getMessage());
-  try {
-    response = blockingStub.sayHelloAgain(request);
-  } catch (StatusRuntimeException e) {
-    logger.log(Level.WARNING, &quot;RPC failed: {0}&quot;, e.getStatus());
-    return;
-  }
-  logger.info(&quot;Greeting: &quot; + response.getMessage());
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">greet</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  logger<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Will try to greet &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; ...&#34;</span><span style="color:#f92672">);</span>
+  HelloRequest request <span style="color:#f92672">=</span> HelloRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>name<span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+  HelloReply response<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+    response <span style="color:#f92672">=</span> blockingStub<span style="color:#f92672">.</span><span style="color:#a6e22e">sayHello</span><span style="color:#f92672">(</span>request<span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>StatusRuntimeException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    logger<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>Level<span style="color:#f92672">.</span><span style="color:#a6e22e">WARNING</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;RPC failed: {0}&#34;</span><span style="color:#f92672">,</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getStatus</span><span style="color:#f92672">());</span>
+    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  logger<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Greeting: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+  <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+    response <span style="color:#f92672">=</span> blockingStub<span style="color:#f92672">.</span><span style="color:#a6e22e">sayHelloAgain</span><span style="color:#f92672">(</span>request<span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>StatusRuntimeException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    logger<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>Level<span style="color:#f92672">.</span><span style="color:#a6e22e">WARNING</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;RPC failed: {0}&#34;</span><span style="color:#f92672">,</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getStatus</span><span style="color:#f92672">());</span>
+    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  logger<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Greeting: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <h3 id="run">Run!</h3>
 
 <p>Just like we did before, from the <code>examples</code> directory:</p>
@@ -272,9 +260,9 @@ method like this:</p>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
-<li>Read a full explanation of how gRPC works in <a href="../guides/">What is gRPC?</a>
-and <a href="../guides/concepts.html">gRPC Concepts</a></li>
-<li>Work through a more detailed tutorial in <a href="../tutorials/basic/java.html">gRPC Basics: Java</a></li>
+<li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
+and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
+<li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/java/">gRPC Basics: Java</a></li>
 <li>Explore the gRPC Java core API in its <a href="/grpc-java/javadoc/">reference
 documentation</a></li>
 </ul>

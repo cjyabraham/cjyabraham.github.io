@@ -212,47 +212,41 @@ file in Protocol Buffers
 need to know is that both the server and the client &ldquo;stub&rdquo; have a <code>SayHello</code>
 RPC method that takes a <code>HelloRequest</code> parameter from the client and returns a
 <code>HelloResponse</code> from the server, and that this method is defined like this:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter {
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc SayHello (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest {
+  string name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply {
+  string message <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>examples/protos/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span>service Greeter {
+  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+<span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span>message HelloRequest {
+  string name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span>message HelloReply {
+  string message <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="update-the-client-and-server">Update the client and server</h2>
@@ -265,49 +259,44 @@ call the new method in the human-written parts of our example application.</p>
 <p>As you remember, gRPC doesn&rsquo;t provide a server API for Objective-C. Instead, we
 need to update the C++ sample server. Open
 <code>examples/cpp/helloworld/greeter_server.cc</code>. Implement the new method like this:</p>
-
-<pre><code>class GreeterServiceImpl final : public Greeter::Service {
-  Status SayHello(ServerContext* context, const HelloRequest* request,
-                  HelloReply* reply) override {
-    std::string prefix(&quot;Hello &quot;);
-    reply-&gt;set_message(prefix + request-&gt;name());
-    return Status::OK;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#a6e22e">GreeterServiceImpl</span> <span style="color:#66d9ef">final</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Greeter<span style="color:#f92672">::</span>Service {
+  Status SayHello(ServerContext<span style="color:#f92672">*</span> context, <span style="color:#66d9ef">const</span> HelloRequest<span style="color:#f92672">*</span> request,
+                  HelloReply<span style="color:#f92672">*</span> reply) <span style="color:#66d9ef">override</span> {
+    std<span style="color:#f92672">::</span>string prefix(<span style="color:#e6db74">&#34;Hello &#34;</span>);
+    reply<span style="color:#f92672">-&gt;</span>set_message(prefix <span style="color:#f92672">+</span> request<span style="color:#f92672">-&gt;</span>name());
+    <span style="color:#66d9ef">return</span> Status<span style="color:#f92672">::</span>OK;
   }
-  Status SayHelloAgain(ServerContext* context, const HelloRequest* request,
-                  HelloReply* reply) override {
-    std::string prefix(&quot;Hello again &quot;);
-    reply-&gt;set_message(prefix + request-&gt;name());
-    return Status::OK;
+  Status SayHelloAgain(ServerContext<span style="color:#f92672">*</span> context, <span style="color:#66d9ef">const</span> HelloRequest<span style="color:#f92672">*</span> request,
+                  HelloReply<span style="color:#f92672">*</span> reply) <span style="color:#66d9ef">override</span> {
+    std<span style="color:#f92672">::</span>string prefix(<span style="color:#e6db74">&#34;Hello again &#34;</span>);
+    reply<span style="color:#f92672">-&gt;</span>set_message(prefix <span style="color:#f92672">+</span> request<span style="color:#f92672">-&gt;</span>name());
+    <span style="color:#66d9ef">return</span> Status<span style="color:#f92672">::</span>OK;
   }
 };
-</code></pre>
-
+</code></pre></div>
 <h3 id="update-the-client">Update the client</h3>
 
 <p>Edit <code>examples/objective-c/helloworld/main.m</code> to call the new method like this:</p>
-
-<pre><code>int main(int argc, char * argv[]) {
-  @autoreleasepool {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> argv[]) {
+  <span style="color:#960050;background-color:#1e0010">@</span>autoreleasepool {
     [GRPCCall useInsecureConnectionsForHost:kHostAddress];
-    [GRPCCall setUserAgentPrefix:@&quot;HelloWorld/1.0&quot; forHost:kHostAddress];
+    [GRPCCall setUserAgentPrefix:<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#34;HelloWorld/1.0&#34;</span> forHost:kHostAddress];
 
-    HLWGreeter *client = [[HLWGreeter alloc] initWithHost:kHostAddress];
+    HLWGreeter <span style="color:#f92672">*</span>client <span style="color:#f92672">=</span> [[HLWGreeter alloc] initWithHost:kHostAddress];
 
-    HLWHelloRequest *request = [HLWHelloRequest message];
-    request.name = @&quot;Objective-C&quot;;
+    HLWHelloRequest <span style="color:#f92672">*</span>request <span style="color:#f92672">=</span> [HLWHelloRequest message];
+    request.name <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#34;Objective-C&#34;</span>;
 
-    [client sayHelloWithRequest:request handler:^(HLWHelloReply *response, NSError *error) {
-      NSLog(@&quot;%@&quot;, response.message);
+    [client sayHelloWithRequest:request handler:<span style="color:#f92672">^</span>(HLWHelloReply <span style="color:#f92672">*</span>response, NSError <span style="color:#f92672">*</span>error) {
+      NSLog(<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#34;%@&#34;</span>, response.message);
     }];
-    [client sayHelloAgainWithRequest:request handler:^(HLWHelloReply *response, NSError *error) {
-      NSLog(@&quot;%@&quot;, response.message);
+    [client sayHelloAgainWithRequest:request handler:<span style="color:#f92672">^</span>(HLWHelloReply <span style="color:#f92672">*</span>response, NSError <span style="color:#f92672">*</span>error) {
+      NSLog(<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#34;%@&#34;</span>, response.message);
     }];
 
-    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    <span style="color:#66d9ef">return</span> UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
   }
-}
-</code></pre>
-
+}</code></pre></div>
 <h2 id="build-and-run">Build and run</h2>
 
 <p>First terminate the server process already running in the background:</p>
@@ -375,9 +364,9 @@ clone from GitHub, and build again.</p>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
-<li>Read a full explanation of how gRPC works in <a href="../guides/">What is gRPC?</a>
-and <a href="../guides/concepts.html">gRPC Concepts</a></li>
-<li>Work through a more detailed tutorial in <a href="../tutorials/basic/objective-c.html">gRPC Basics: Objective-C</a></li>
+<li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
+and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
+<li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/objective-c/">gRPC Basics: Objective-C</a></li>
 <li>Explore the Objective-C core API in its <a href="http://cocoadocs.org/docsets/gRPC/">reference
 documentation</a></li>
 </ul>

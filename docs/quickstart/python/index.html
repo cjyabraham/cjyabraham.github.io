@@ -168,51 +168,45 @@ $ cd grpc/examples/python/helloworld</code></pre></div>
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
 buffers; you can find out lots more about how to define a service in a <code>.proto</code>
-file in <a href="../guides/">What is gRPC?</a> and <a href="../tutorials/basic/python.html">gRPC Basics: Python</a>. For now all you need
+file in <a href="/docs/guides/">What is gRPC?</a> and <a href="/docs/tutorials/basic/python/">gRPC Basics: Python</a>. For now all you need
 to know is that both the server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC
 method that takes a <code>HelloRequest</code> parameter from the client and returns a
 <code>HelloReply</code> from the server, and that this method is defined like this:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>examples/protos/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
-
-<pre><code>// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHelloAgain (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="generate-grpc-code">Generate gRPC code</h2>
@@ -235,30 +229,24 @@ and call the new method in the human-written parts of our example application.</
 
 <p>In the same directory, open <code>greeter_server.py</code>. Implement the new method like
 this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Greeter</span>(helloworld_pb2_grpc<span style="color:#f92672">.</span>GreeterServicer):
 
-<pre><code>class Greeter(helloworld_pb2_grpc.GreeterServicer):
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">SayHello</span>(self, request, context):
+    <span style="color:#66d9ef">return</span> helloworld_pb2<span style="color:#f92672">.</span>HelloReply(message<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Hello, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">!&#39;</span> <span style="color:#f92672">%</span> request<span style="color:#f92672">.</span>name)
 
-  def SayHello(self, request, context):
-    return helloworld_pb2.HelloReply(message='Hello, %s!' % request.name)
-
-  def SayHelloAgain(self, request, context):
-    return helloworld_pb2.HelloReply(message='Hello again, %s!' % request.name)
-...
-</code></pre>
-
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">SayHelloAgain</span>(self, request, context):
+    <span style="color:#66d9ef">return</span> helloworld_pb2<span style="color:#f92672">.</span>HelloReply(message<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Hello again, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">!&#39;</span> <span style="color:#f92672">%</span> request<span style="color:#f92672">.</span>name)
+<span style="color:#f92672">...</span></code></pre></div>
 <h3 id="update-the-client">Update the client</h3>
 
 <p>In the same directory, open <code>greeter_client.py</code>. Call the new method like this:</p>
-
-<pre><code>def run():
-  channel = grpc.insecure_channel('localhost:50051')
-  stub = helloworld_pb2_grpc.GreeterStub(channel)
-  response = stub.SayHello(helloworld_pb2.HelloRequest(name='you'))
-  print(&quot;Greeter client received: &quot; + response.message)
-  response = stub.SayHelloAgain(helloworld_pb2.HelloRequest(name='you'))
-  print(&quot;Greeter client received: &quot; + response.message)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>():
+  channel <span style="color:#f92672">=</span> grpc<span style="color:#f92672">.</span>insecure_channel(<span style="color:#e6db74">&#39;localhost:50051&#39;</span>)
+  stub <span style="color:#f92672">=</span> helloworld_pb2_grpc<span style="color:#f92672">.</span>GreeterStub(channel)
+  response <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>SayHello(helloworld_pb2<span style="color:#f92672">.</span>HelloRequest(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;you&#39;</span>))
+  <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Greeter client received: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span>message)
+  response <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>SayHelloAgain(helloworld_pb2<span style="color:#f92672">.</span>HelloRequest(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;you&#39;</span>))
+  <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Greeter client received: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span>message)</code></pre></div>
 <h3 id="run">Run!</h3>
 
 <p>Just like we did before, from the <code>examples/python/helloworld</code> directory:</p>
@@ -274,9 +262,9 @@ this:</p>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
-<li>Read a full explanation of how gRPC works in <a href="../guides/">What is gRPC?</a>
-and <a href="../guides/concepts.html">gRPC Concepts</a></li>
-<li>Work through a more detailed tutorial in <a href="../tutorials/basic/python.html">gRPC Basics: Python</a></li>
+<li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
+and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
+<li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/python/">gRPC Basics: Python</a></li>
 <li>Explore the gRPC Python core API in its <a href="/grpc/python/">reference
 documentation</a></li>
 </ul>

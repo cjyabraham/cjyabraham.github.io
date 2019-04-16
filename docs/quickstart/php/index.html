@@ -184,12 +184,9 @@ depending on where your PHP installation is.</p>
 <p><strong>Add the gRPC PHP library as a Composer dependency</strong></p>
 
 <p>You need to add this to your project&rsquo;s <code>composer.json</code> file.</p>
-
-<pre><code>  &quot;require&quot;: {
-    &quot;grpc/grpc&quot;: &quot;v1.7.0&quot;
-  }
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;require&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#f92672">&#34;grpc/grpc&#34;</span>: <span style="color:#e6db74">&#34;v1.7.0&#34;</span>
+  }</code></pre></div>
 <p>To run tests with generated stub code from <code>.proto</code> files, you will also
 need the <code>composer</code> and <code>protoc</code> binaries. You can find out how to get these below.</p>
 
@@ -299,12 +296,9 @@ depending on where your PHP installation is.</p>
 <h4 id="2-php-implementation-for-easier-installation">2. PHP implementation (for easier installation)</h4>
 
 <p>Add this to your <code>composer.json</code> file:</p>
-
-<pre><code>  &quot;require&quot;: {
-    &quot;google/protobuf&quot;: &quot;^v3.3.0&quot;
-  }
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;require&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#f92672">&#34;google/protobuf&#34;</span>: <span style="color:#e6db74">&#34;^v3.3.0&#34;</span>
+  }</code></pre></div>
 <h3 id="php-protoc-plugin">PHP Protoc Plugin</h3>
 
 <p>You need the gRPC PHP protoc plugin to generate the client stub classes.
@@ -333,7 +327,7 @@ and other tutorials):</p>
 
 <p>Note that currently you can only create clients in PHP for gRPC services -
 you can find out how to create gRPC servers in our other tutorials,
-e.g. <a href="node-quickstart.md">Node.js</a>.</p>
+e.g. <a href="/docs/tutorials/basic/node/">Node.js</a>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># Clone the repository to get the example code:</span>
 $ git clone -b v1.19.0 https://github.com/grpc/grpc
 $ <span style="color:#75715e"># Build grpc_php_plugin to generate proto files if not build before</span>
@@ -365,18 +359,17 @@ $ composer install</code></pre></div>
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
 buffers; you can find out lots more about how to define a service in a <code>.proto</code>
-file in <a href="../tutorials/basic/php.html">gRPC Basics: PHP</a>. For now all you need to know is that both the
+file in <a href="/docs/tutorials/basic/php/">gRPC Basics: PHP</a>. For now all you need to know is that both the
 server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC method that takes a
 <code>HelloRequest</code> parameter from the client and returns a <code>HelloResponse</code> from
 the server, and that this method is defined like this:</p>
-
-<pre><code>// The greeting service definition.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">// The greeting service definition.
 service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
+// The request message containing the user&#39;s name.
 message HelloRequest {
   string name = 1;
 }
@@ -384,14 +377,11 @@ message HelloRequest {
 // The response message containing the greetings
 message HelloReply {
   string message = 1;
-}
-</code></pre>
-
+}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>examples/protos/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
-
-<pre><code>// The greeting service definition.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">// The greeting service definition.
 service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
@@ -399,7 +389,7 @@ service Greeter {
   rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
 }
 
-// The request message containing the user's name.
+// The request message containing the user&#39;s name.
 message HelloRequest {
   string name = 1;
 }
@@ -407,9 +397,7 @@ message HelloRequest {
 // The response message containing the greetings
 message HelloReply {
   string message = 1;
-}
-</code></pre>
-
+}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="generate-grpc-code">Generate gRPC code</h2>
@@ -480,9 +468,9 @@ this:</p>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
-<li>Read a full explanation of how gRPC works in <a href="../guides/">What is gRPC?</a>
-and <a href="../guides/concepts.html">gRPC Concepts</a></li>
-<li>Work through a more detailed tutorial in <a href="../tutorials/basic/php.html">gRPC Basics: PHP</a></li>
+<li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
+and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
+<li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/php/">gRPC Basics: PHP</a></li>
 <li>Explore the gRPC PHP core API in its <a href="/grpc/php/namespace-Grpc.html">reference
 documentation</a></li>
 </ul>
