@@ -84,12 +84,13 @@
 <a href="https://cjyabraham.github.io/docs/quickstart/dart/" >Dart</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/go/" >Go</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/java/" >Java</a>
-<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android Java</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/node/" >Node.js</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/objective-c/" >Objective-C</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/"  class="active">Ruby</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/web/" >Web</a>
 </div>
 
 <div class="quickstartcol2" style="margin-top:4%">
@@ -121,28 +122,22 @@ working example.</p>
 plugin for generating server and client code from the <code>.proto</code> service
 definitions. For the first part of our quickstart example, we&rsquo;ve already
 generated the server and client stubs from
-<a href="https://github.com/grpc/grpc/tree/{{site.data.config.grpc_release_tag}}/examples/protos/helloworld.proto">helloworld.proto</a>,
+<a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/protos/helloworld.proto">helloworld.proto</a>,
 but you&rsquo;ll need the tools for the rest of our quickstart, as well as later
 tutorials and your own projects.</p>
 
 <p>To install gRPC tools, run:</p>
-
-<pre><code class="language-sh">gem install grpc-tools
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">gem install grpc-tools</code></pre></div>
 <h2 id="download-the-example">Download the example</h2>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
-Download the example code from our Github repository (the following command
+Download the example code from our GitHub repository (the following command
 clones the entire repository, but you just need the examples for this quickstart
 and other tutorials):</p>
-
-<pre><code class="language-sh">$ # Clone the repository to get the example code:
-$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
-$ # Navigate to the &quot;hello, world&quot; Ruby example:
-$ cd grpc/examples/ruby
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># Clone the repository to get the example code:</span>
+$ git clone -b v1.19.0 https://github.com/grpc/grpc
+$ <span style="color:#75715e"># Navigate to the &#34;hello, world&#34; Ruby example:</span>
+$ cd grpc/examples/ruby</code></pre></div>
 <h2 id="run-a-grpc-application">Run a gRPC application</h2>
 
 <p>From the <code>examples/ruby</code> directory:</p>
@@ -150,17 +145,11 @@ $ cd grpc/examples/ruby
 <ol>
 <li>Run the server</li>
 </ol>
-
-<pre><code class="language-sh">   $ ruby greeter_server.rb
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ruby greeter_server.rb</code></pre></div>
 <ol>
 <li>In another terminal, run the client</li>
 </ol>
-
-<pre><code class="language-sh">   $ ruby greeter_client.rb
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ruby greeter_client.rb</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
 <h2 id="update-a-grpc-service">Update a gRPC service</h2>
@@ -172,77 +161,65 @@ file in <a href="../tutorials/basic/ruby.html">gRPC Basics: Ruby</a>. For now al
 to know is that both the server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC
 method that takes a <code>HelloRequest</code> parameter from the client and returns a
 <code>HelloResponse</code> from the server, and that this method is defined like this:</p>
-
-<pre><code class="language-proto">// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>examples/protos/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
-
-<pre><code class="language-proto">// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHelloAgain (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="generate-grpc-code">Generate gRPC code</h2>
 
 <p>Next we need to update the gRPC code used by our application to use the new
 service definition. From the <code>examples/ruby/</code> directory:</p>
-
-<pre><code class="language-sh">$ grpc_tools_ruby_protoc -I ../protos --ruby_out=lib --grpc_out=lib ../protos/helloworld.proto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ grpc_tools_ruby_protoc -I ../protos --ruby_out<span style="color:#f92672">=</span>lib --grpc_out<span style="color:#f92672">=</span>lib ../protos/helloworld.proto</code></pre></div>
 <p>This regenerates <code>lib/helloworld_services_pb.rb</code>, which contains our generated
 client and server classes.</p>
 
 <h3 id="update-the-server">Update the server</h3>
 
 <p>In the same directory, open <code>greeter_server.rb</code>. Implement the new method like this</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rb" data-lang="rb"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GreeterServer</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Helloworld</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Greeter</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Service</span>
 
-<pre><code class="language-rb">class GreeterServer &lt; Helloworld::Greeter::Service
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_hello</span>(hello_req, _unused_call)
+    <span style="color:#66d9ef">Helloworld</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HelloReply</span><span style="color:#f92672">.</span>new(<span style="color:#e6db74">message</span>: <span style="color:#e6db74">&#34;Hello </span><span style="color:#e6db74">#{</span>hello_req<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+  <span style="color:#66d9ef">end</span>
 
-  def say_hello(hello_req, _unused_call)
-    Helloworld::HelloReply.new(message: &quot;Hello #{hello_req.name}&quot;)
-  end
-
-  def say_hello_again(hello_req, _unused_call)
-    Helloworld::HelloReply.new(message: &quot;Hello again, #{hello_req.name}&quot;)
-  end
-end
-...
-</code></pre>
-
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_hello_again</span>(hello_req, _unused_call)
+    <span style="color:#66d9ef">Helloworld</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HelloReply</span><span style="color:#f92672">.</span>new(<span style="color:#e6db74">message</span>: <span style="color:#e6db74">&#34;Hello again, </span><span style="color:#e6db74">#{</span>hello_req<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+<span style="color:#f92672">...</span></code></pre></div>
 <h3 id="update-the-client">Update the client</h3>
 
 <p>In the same directory, open <code>greeter_client.rb</code>. Call the new method like this:</p>
@@ -264,17 +241,11 @@ end
 <ol>
 <li>Run the server</li>
 </ol>
-
-<pre><code class="language-sh">   $ ruby greeter_server.rb
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ruby greeter_server.rb</code></pre></div>
 <ol>
 <li>In another terminal, run the client</li>
 </ol>
-
-<pre><code class="language-sh">   $ ruby greeter_client.rb
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ruby greeter_client.rb</code></pre></div>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>

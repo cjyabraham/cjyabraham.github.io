@@ -65,7 +65,12 @@
 
   <div class="singleblog"> 
   <h1>gRPC-Web is Generally Available</h1>
-  <h5>Posted on Tuesday, October 23, 2018 by Luc Perkins - CNCF, Stanley Cheung - Google, Kailash Sethuraman - Google</h5>
+  <h5>Posted on Tuesday, October 23, 2018 
+    by 
+    
+      Luc Perkins - CNCF, Stanley Cheung - Google, Kailash Sethuraman - Google
+    
+  </h5>
   <p>
     <p>We are excited to announce the GA release of
 <a href="https://www.npmjs.com/package/grpc-web">gRPC-Web</a>, a JavaScript client library
@@ -113,60 +118,50 @@ gRPC with gRPC-Web (left) and gRPC with REST (right)</p>
 <h2 id="a-grpc-web-example">A gRPC-Web example</h2>
 
 <p>The previous section illustrated some of the high-level advantages of gRPC-Web for large-scale applications. Now let’s get closer to the metal with an example: a simple TODO app. In gRPC-Web you can start with a simple <code>todos.proto</code> definition like this:</p>
-
-<pre><code class="language-proto">syntax = &quot;proto3&quot;;
-
-package todos;
-
-message Todo {
-  string content = 1;
-  bool finished = 2;
-}
-
-message GetTodoRequest {
-  int32 id = 1;
-}
-
-service TodoService {
-  rpc GetTodoById (GetTodoRequest) returns (Todo);
-} 
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto">syntax <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;proto3&#34;</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#f92672">package</span> todos;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Todo</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> content <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">bool</span> finished <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">GetTodoRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">service</span> TodoService {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> GetTodoById (GetTodoRequest) <span style="color:#66d9ef">returns</span> (Todo);<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>} </code></pre></div>
 <p>CommonJS client-side code can be generated from this <code>.proto</code> definition with the following command:</p>
-
-<pre><code class="language-proto">protoc echo.proto \
-  --js_out=import_style=commonjs:./output \
-  --grpc-web_out=import_style=commonjs:./output
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto">protoc echo.proto <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#f92672">--</span>js_out<span style="color:#f92672">=</span>import_style<span style="color:#f92672">=</span>commonjs<span style="color:#f92672">:./</span>output <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#f92672">--</span>grpc<span style="color:#f92672">-</span>web_out<span style="color:#f92672">=</span>import_style<span style="color:#f92672">=</span>commonjs<span style="color:#f92672">:./</span>output</code></pre></div>
 <p>Now, fetching a list of TODOs from a backend gRPC service is as simple as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> {<span style="color:#a6e22e">GetTodoRequest</span>} <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./todos_pb.js&#39;</span>);
+<span style="color:#66d9ef">const</span> {<span style="color:#a6e22e">TodoServiceClient</span>} <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./todos_grpc_web_pb.js&#39;</span>);
 
-<pre><code class="language-js">const {GetTodoRequest} = require('./todos_pb.js');
-const {TodoServiceClient} = require('./todos_grpc_web_pb.js');
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">todoService</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">proto</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">TodoServiceClient</span>(<span style="color:#e6db74">&#39;http://localhost:8080&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">todoId</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1234</span>;
 
-const todoService = new proto.todos.TodoServiceClient('http://localhost:8080');
-const todoId = 1234;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">getTodoRequest</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">proto</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">GetTodoRequest</span>();
+<span style="color:#a6e22e">getTodoRequest</span>.<span style="color:#a6e22e">setId</span>(<span style="color:#a6e22e">todoId</span>);
 
-var getTodoRequest = new proto.todos.GetTodoRequest();
-getTodoRequest.setId(todoId);
-
-var metadata = {};
-var getTodo = todoService.getTodoById(getTodoRequest, metadata, (err, response) =&gt; {
-  if (err) {
-    console.log(err);
-  } else {
-    const todo = response.todo();
-    if (todo == null) {
-      console.log(`A TODO with the ID ${todoId} wasn't found`);
-    } else {
-      console.log(`Fetched TODO with ID ${todoId}: ${todo.content()}`);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">metadata</span> <span style="color:#f92672">=</span> {};
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">getTodo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">todoService</span>.<span style="color:#a6e22e">getTodoById</span>(<span style="color:#a6e22e">getTodoRequest</span>, <span style="color:#a6e22e">metadata</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">response</span>) =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
+  } <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">todo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">todo</span>();
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">todo</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`A TODO with the ID </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">todoId</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> wasn&#39;t found`</span>);
+    } <span style="color:#66d9ef">else</span> {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Fetched TODO with ID </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">todoId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">content</span>()<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
     }
   }
 });
-
-</code></pre>
-
+</code></pre></div>
 <p>Once you declare the data types and a service interface, gRPC-Web abstracts away all the boilerplate, leaving you with a clean and human-friendly API (essentially the same API as the current <a href="https://grpc.io/docs/tutorials/basic/node.html">Node.js</a> for gRPC API, just transferred to the client).</p>
 
 <p>On the backend, the gRPC server can be written in any language that supports gRPC, such as Go, Java, C++, Ruby, Node.js, and many others. The last piece of the puzzle is the service proxy. From the get-go, gRPC-Web will support <a href="https://envoyproxy.io">Envoy</a> as the default service proxy, which has a built-in <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http_filters/grpc_web_filter#config-http-filters-grpc-web">envoy.grpc_web filter</a> that you can apply with just a few lines of copy-and-pastable configuration.</p>

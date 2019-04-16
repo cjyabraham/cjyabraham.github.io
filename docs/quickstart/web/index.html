@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
-  Quick Start &ndash; gRPC
+  Web Quick Start &ndash; gRPC
 </title>
   </head>
   <body>
@@ -90,27 +90,67 @@
 <a href="https://cjyabraham.github.io/docs/quickstart/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/" >Ruby</a>
-<a href="https://cjyabraham.github.io/docs/quickstart/web/" >Web</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/web/"  class="active">Web</a>
 </div>
 
 <div class="quickstartcol2" style="margin-top:4%">
-<h3 style="margin-top:0px;">Quick Start</h3>
+<h3 style="margin-top:0px;">Web Quick Start</h3>
 
-    <p class="lead">
-Get started with gRPC
-</p>
+    
 
-<div id="toc" class="toc mobile-toc"></div>
+<p class="lead">This guide gets you started with gRPC-Web with a simple
+working example from the browser.</p>
 
-<p>These pages show you how to get up and running as quickly as possible in gRPC,
-including installing all the tools you’ll need.</p>
+<div id="toc"></div>
 
-<p>There is a Quick Start for each gRPC supported language with accompanying sample
-code for a simple <code>Hello World</code> example for you to explore and update.</p>
+<h2 id="prerequisites">Prerequisites</h2>
 
-<p>For an overview of some of the core concepts in gRPC, see <a href="/docs/guides/concepts.html">gRPC Concepts</a>.
-For more tutorials and examples, see our <a href="/docs/tutorials">Tutorials</a>.
-You can read more about gRPC in general in <a href="/docs/guides">What is gRPC?</a>.</p>
+<ul>
+<li><code>docker</code> and <code>docker-compose</code></li>
+</ul>
+
+<p>This demo requires Docker Compose file
+<a href="https://docs.docker.com/compose/compose-file/">version 3</a>. Please refer to
+<a href="https://docs.docker.com/compose/install/#install-compose">Docker website</a> on how to install Docker.</p>
+
+<h2 id="run-an-echo-example-from-the-browser">Run an Echo example from the browser!</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone https://github.com/grpc/grpc-web
+$ cd grpc-web
+$ docker-compose pull
+$ docker-compose up -d node-server envoy commonjs-client</code></pre></div>
+<p>Open a browser tab, and go to:</p>
+
+<pre><code>http://localhost:8081/echotest.html
+</code></pre>
+
+<p>To shutdown, run <code>docker-compose down</code>.</p>
+
+<h2 id="what-is-happening">What is Happening?</h2>
+
+<p>In this demo, there are three key components:</p>
+
+<ol>
+<li><p><code>node-server</code>: This is a standard gRPC Server, implemented in Node.
+This server listens at port <code>:9090</code> and implements the service&rsquo;s business
+logic.</p></li>
+
+<li><p><code>envoy</code>: This is the Envoy proxy. It listens at <code>:8080</code> and forwards the
+browser&rsquo;s gRPC-Web requests to port <code>:9090</code>. This is done via a config file
+<code>envoy.yaml</code>.</p></li>
+
+<li><p><code>commonjs-client</code>: This component generates the client stub class using
+the <code>protoc-gen-grpc-web</code> protoc plugin, compiles all the JS dependencies
+using <code>webpack</code>, and hosts the static content <code>echotest.html</code> and
+<code>dist/main.js</code> using a simple web server at port <code>:8081</code>. Once the user
+interacts with the webpage, it sends a gRPC-Web request to the Envoy proxy
+endpoint at <code>:8080</code>.</p></li>
+</ol>
+
+<h2 id="what-s-next">What&rsquo;s next</h2>
+
+<ul>
+<li>Work through a more detailed tutorial in <a href="../../tutorials/basic/web/">gRPC Basics: Web</a></li>
+</ul>
 
 </div>
 </div>

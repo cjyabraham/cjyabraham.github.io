@@ -65,7 +65,12 @@
 
   <div class="singleblog"> 
   <h1>Migration to Google Cloud Platform — gRPC &amp; grpc-gateway</h1>
-  <h5>Posted on Wednesday, April 12, 2017 by Miguel Mendez</h5>
+  <h5>Posted on Wednesday, April 12, 2017 
+    by 
+    
+      Miguel Mendez
+    
+  </h5>
   <p>
     <p>Our guest post today comes from <a href="https://www.linkedin.com/in/miguel-mendez-008231/">Miguel Mendez</a> of Yik Yak.</p>
 
@@ -93,8 +98,7 @@ First, because REST is tied to HTTP there is no simple mapping to an API in my l
 <h3 id="no-declarative-rest-api-description">No Declarative REST API Description</h3>
 
 <p>The fourth problem with a REST APIs is that, at least until <a href="https://swagger.io/">Swagger</a> arrived on the scene, there was no declarative way to define a REST API and include type information. It may sound pedantic, but there are legitimate reasons to want a proper definition that includes type information in general. To reinforce the point, look at the lines of PHP server code below, which were extracted from various files, that set the “hidePin” field on “yak” which was then returned to the client. The actual line of code that executed on the server was a function of multiple parameters, so imagine that the one which was run was basically chosen at random:</p>
-
-<pre><code class="language-php">    // Code omitted…
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    // Code omitted…
     $yak-&gt;hidePin=false;
     
     // Code omitted…
@@ -104,15 +108,11 @@ First, because REST is tied to HTTP there is no simple mapping to an API in my l
     $yak-&gt;hidePin=0;
     
     // Code omitted…
-    $yak-&gt;hidePin=1;
-
-</code></pre>
-
+    $yak-&gt;hidePin=1;</code></pre></div>
 <p>What is the type of the field hidePin? You cannot say for certain. It could be a boolean or an integer or whatever happens to have been written there by the server, but in any case now your clients have to be able to deal with these possibilities which makes them more complicated.</p>
 
 <p>Problems can also arise when the client’s definition of a type varies from that which the server expects. Have a look at the server code below which processed a JSON payload sent up by a client:</p>
-
-<pre><code class="language-php">    // Code omitted…
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    // Code omitted…
     switch ($fieldName) {
       // Code omitted…
       case “recipientID”:
@@ -125,9 +125,7 @@ First, because REST is tied to HTTP there is no simple mapping to an API in my l
         break;
       // Code omitted…
     }
-    // Code omitted…
-</code></pre>
-
+    // Code omitted…</code></pre></div>
 <p>In this case, the server had to deal with an iOS client that sent a JSON object whose field name used unexpected casing. Again, not insurmountable but all of these little disconnects compound and work together to steal time away from the problems that really move the ball down the field.</p>
 
 <h2 id="grpc-can-address-the-issues-with-rest">gRPC can address the issues with REST…</h2>
@@ -171,85 +169,76 @@ Lets walk through the pieces and how they fit together.</p>
 <h3 id="grpc-idl-for-api-getmessages">gRPC IDL for “/api/getMessages”</h3>
 
 <p>Below is the gRPC IDL that we defined to mimic the legacy Yik Yak API in GCP. We’ve simplified the example to only contain the “/api/getMessages” endpoint which clients use to get the set of messages centered around their current location.</p>
-
-<pre><code class="language-proto">// APIRequest Message — sent by clients
-message APIRequest {
-  // userID is the ID of the user making the request
-  string userID = 1;
-  // Other fields omitted for clarity…
-}
-
-// APIFeedResponse contains the set of messages that clients should
-// display.
-message APIFeedResponse {
-  repeated APIPost messages = 1;
-  // Other fields omitted for clarity…
-}
-
-// APIPost defines the set of post fields returned to the clients.
-message APIPost {
-  string messageID = 1;
-  string message = 2;
-  // Other fields omitted for clarity…
-}
-
-// YYAPI service accessed by Android, iOS and Web clients.
-service YYAPI {
-  // Other endpoints omitted…
-  
-  // APIGetMessages returns the list of messages within a radius of
-  // the user’s current location.
-  rpc APIGetMessages (APIRequest) returns (APIFeedResponse) {
-    option (google.api.http) = {
-      get: “/api/getMessages” // Option tells grpc-gateway that an HTTP
-                              // GET to /api/getMessages should be
-                              // routed to the APIGetMessages gRPC
-                              // endpoint.
-    };
-  }
-  
-  // Other endpoints omitted…
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// APIRequest Message — sent by clients
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">APIRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// userID is the ID of the user making the request
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">string</span> userID <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Other fields omitted for clarity…
+</span><span style="color:#75715e"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// APIFeedResponse contains the set of messages that clients should
+</span><span style="color:#75715e">// display.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">APIFeedResponse</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> APIPost messages <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Other fields omitted for clarity…
+</span><span style="color:#75715e"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// APIPost defines the set of post fields returned to the clients.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">APIPost</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> messageID <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Other fields omitted for clarity…
+</span><span style="color:#75715e"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// YYAPI service accessed by Android, iOS and Web clients.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> YYAPI {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Other endpoints omitted…
+</span><span style="color:#75715e"></span>  <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// APIGetMessages returns the list of messages within a radius of
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// the user’s current location.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> APIGetMessages (APIRequest) <span style="color:#66d9ef">returns</span> (APIFeedResponse) {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">option</span> (google.api.http) <span style="color:#f92672">=</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      get<span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">“</span><span style="color:#f92672">/</span>api<span style="color:#f92672">/</span>getMessages<span style="color:#960050;background-color:#1e0010">”</span> <span style="color:#75715e">// Option tells grpc-gateway that an HTTP
+</span><span style="color:#75715e"></span>                              <span style="color:#75715e">// GET to /api/getMessages should be
+</span><span style="color:#75715e"></span>                              <span style="color:#75715e">// routed to the APIGetMessages gRPC
+</span><span style="color:#75715e"></span>                              <span style="color:#75715e">// endpoint.
+</span><span style="color:#75715e"></span>    };<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Other endpoints omitted…
+</span><span style="color:#75715e"></span>}</code></pre></div>
 <h3 id="protoc-generated-go-interfaces-for-yyapi-service">Protoc Generated Go Interfaces for YYAPI Service</h3>
 
 <p>The IDL above is then compiled to Go files by the protoc compiler to produce client proxies and server stubs as below.</p>
-
-<pre><code class="language-go">// Client API for YYAPI service
-type YYAPIClient interface {
-  APIGetMessages(ctx context.Context, in *APIRequest, opts ...grpc.CallOption) (*APIFeedResponse, error)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Client API for YYAPI service
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">YYAPIClient</span> <span style="color:#66d9ef">interface</span> {
+  <span style="color:#a6e22e">APIGetMessages</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">in</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">APIRequest</span>, <span style="color:#a6e22e">opts</span> <span style="color:#f92672">...</span><span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">CallOption</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">APIFeedResponse</span>, <span style="color:#66d9ef">error</span>)
 }
 
-// NewYYAPIClient returns an implementation of the YYAPIClient interface  which 
-// clients can use to call the gRPC service.
-func NewYYAPIClient(cc *grpc.ClientConn) YYAPIClient {
-  // Code omitted for clarity..
+<span style="color:#75715e">// NewYYAPIClient returns an implementation of the YYAPIClient interface  which 
+</span><span style="color:#75715e">// clients can use to call the gRPC service.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewYYAPIClient</span>(<span style="color:#a6e22e">cc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ClientConn</span>) <span style="color:#a6e22e">YYAPIClient</span> {
+  <span style="color:#75715e">// Code omitted for clarity..
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">// Server API for YYAPI service
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">YYAPIServer</span> <span style="color:#66d9ef">interface</span> {
+  <span style="color:#a6e22e">APIGetMessages</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">APIRequest</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">APIFeedResponse</span>, <span style="color:#66d9ef">error</span>)
 }
 
-// Server API for YYAPI service
-type YYAPIServer interface {
-  APIGetMessages(context.Context, *APIRequest) (*APIFeedResponse, error)
-}
-
-// RegisterYYAPIServer registers an implementation of the YYAPIServer with an
-// existing gRPC server instance.
-func RegisterYYAPIServer(s *grpc.Server, srv YYAPIServer) {
-  // Code omitted for clarity..
-}
-</code></pre>
-
+<span style="color:#75715e">// RegisterYYAPIServer registers an implementation of the YYAPIServer with an
+</span><span style="color:#75715e">// existing gRPC server instance.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">RegisterYYAPIServer</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">Server</span>, <span style="color:#a6e22e">srv</span> <span style="color:#a6e22e">YYAPIServer</span>) {
+  <span style="color:#75715e">// Code omitted for clarity..
+</span><span style="color:#75715e"></span>}</code></pre></div>
 <h3 id="grpc-gateway-generated-go-code-for-rest-reverse-proxy-of-yyapi-service">Grpc-gateway Generated Go-code for REST Reverse Proxy of YYAPI Service</h3>
 
 <p>By using the google.api.http option in our IDL above, we tell the grpc-gateway system that it should route HTTP GETs for “/api/getMessages” to the APIGetMessages gRPC endpoint. In turn, it creates the HTTP to gRPC reverse proxy and allows you to set it up by calling the generated function below.</p>
-
-<pre><code class="language-go">// RegisterYYAPIHandler registers the http handlers for service YYAPI to “mux”.
-// The handlers forward requests to the grpc endpoint over “conn”.
-func RegisterYYAPIHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-  // Code omitted for clarity
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// RegisterYYAPIHandler registers the http handlers for service YYAPI to “mux”.
+</span><span style="color:#75715e">// The handlers forward requests to the grpc endpoint over “conn”.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">RegisterYYAPIHandler</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">mux</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">ServeMux</span>, <span style="color:#a6e22e">conn</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ClientConn</span>) <span style="color:#66d9ef">error</span> {
+  <span style="color:#75715e">// Code omitted for clarity
+</span><span style="color:#75715e"></span>}</code></pre></div>
 <p>So again, from a single gRPC IDL description you can obtain client and server interfaces and implementation stubs in your language of choice as well as REST reverse proxies for free.</p>
 
 <h2 id="grpc-i-heard-there-were-some-rough-edges">gRPC — I heard there were some rough edges?</h2>
@@ -274,11 +263,11 @@ func RegisterYYAPIHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc
 
 <p>So was that the end of the load balancing issues? Not exactly. Once we had our basic gRPC-based system up and running we started running load tests against it, and noticed some interesting behaviors. Below is the per gRPC server CPU load graph over time, do you notice anything curious about it?</p>
 
-<p><img src="{{ site.baseurl }}//img/yy-cpu-imbalance.png" alt="" /></p>
+<p><img src="/img/yy-cpu-imbalance.png" alt="" /></p>
 
 <p>The server with the heaviest load was running at around 50% CPU, while the most lightly loaded server was running at around 20% CPU even after several minutes of warmup. It turned out that even though we were dialing every time, we had an <a href="https://nghttp2.org/">nghttp2</a> ingress as part of our network topology which would tend to send inbound requests to servers to whom it had already connected and thereby causing uneven distribution. After removing the nghttp2 ingress, our CPU graphs showed much less variance in the load distribution.</p>
 
-<p><img src="{{ site.baseurl }}//img/yy-cpu-balanced.png" alt="" /></p>
+<p><img src="/img/yy-cpu-balanced.png" alt="" /></p>
 
 <h2 id="conclusion">Conclusion</h2>
 

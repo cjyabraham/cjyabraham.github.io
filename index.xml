@@ -422,7 +422,7 @@ Vendasta started out 8 years ago as a point solution provider of products for sm
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/reference/go/generated-code/</guid>
-      <description>This guide describes the code generated with the grpc plugin to protoc-gen-go when compiling .proto files with protoc.
+      <description>Go Generated Code Reference This guide describes the code generated with the grpc plugin to protoc-gen-go when compiling .proto files with protoc.
 You can find out how to define a gRPC service in a .proto file in Service Definitions.
 Thread-safety: note that client-side RPC invocations and server-side RPC handlers are thread-safe and are meant to be run on concurrent goroutines. But also note that for individual streams, incoming and outgoing data is bi-directional but serial; so e.</description>
     </item>
@@ -435,7 +435,7 @@ Thread-safety: note that client-side RPC invocations and server-side RPC handler
       <guid>https://cjyabraham.github.io/docs/reference/java/generated-code/</guid>
       <description>Java Generated Code Reference Packages For each service defined in a .proto file, the Java code generation produces a Java class. The class name is the service&amp;rsquo;s name suffixed by Grpc. The package for the generated code is specified in the .proto file using the java_package option.
 For example, if ServiceName is defined in a .proto file containing the following:
-package grpcexample; option java_package = &amp;quot;io.grpc.examples&amp;quot;;  Then the generated class will be io.</description>
+package grpcexample;option java_package = &amp;#34;io.grpc.examples&amp;#34;; Then the generated class will be io.</description>
     </item>
     
     <item>
@@ -496,8 +496,7 @@ Overview gRPC is designed for both high-performance and high-productivity design
       <guid>https://cjyabraham.github.io/docs/quickstart/csharp/</guid>
       <description>This guide gets you started with gRPC in C# with a simple working example.
  Before you begin Prerequisites Whether you&amp;rsquo;re using Windows, OS X, or Linux, you can follow this example by using either an IDE and its build tools, or by using the the .NET Core SDK command line tools.
-Using the .NET Core SDK on Windows, OS X, or Linux, you&amp;rsquo;ll need:
- The .NET Core SDK command line tools.</description>
+First, make sure you have installed the gRPC C# prerequisites. You will also need Git to download the sample code.</description>
     </item>
     
     <item>
@@ -565,8 +564,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
       
       <guid>https://cjyabraham.github.io/docs/quickstart/dart/</guid>
       <description>This guide gets you started with gRPC in Dart with a simple working example.
- Before you begin Dart gRPC is currently in beta. Please help us out by filing issues if you encounter any.
-Prerequisites Dart SDK gRPC requires Dart SDK version 1.24.3 or higher. Dart gRPC supports Flutter and Server platforms.
+ Prerequisites Dart SDK gRPC requires Dart SDK version 2.0 or higher. Dart gRPC supports Flutter and Server platforms.
 For installation instructions, follow this guide: Install Dart
 Install Protocol Buffers v3 While not mandatory to use gRPC, gRPC applications usually leverage Protocol Buffers v3 for service definitions and data serialization, and our example code uses Protocol Buffers as well as gRPC.</description>
     </item>
@@ -600,9 +598,9 @@ Install Protocol Buffers v3 While not mandatory to use gRPC, gRPC applications u
       <guid>https://cjyabraham.github.io/docs/quickstart/go/</guid>
       <description>This guide gets you started with gRPC in Go with a simple working example.
  Before you begin Prerequisites Go version gRPC requires Go 1.6 or higher.
-$ go version  For installation instructions, follow this guide: Getting Started - The Go Programming Language
+$ go version For installation instructions, follow this guide: Getting Started - The Go Programming Language
 Install gRPC Use the following command to install gRPC.
-$ go get -u google.golang.org/grpc  Install Protocol Buffers v3 Install the protoc compiler that is used to generate gRPC service code.</description>
+$ go get -u google.golang.org/grpc Install Protocol Buffers v3 Install the protoc compiler that is used to generate gRPC service code.</description>
     </item>
     
     <item>
@@ -622,7 +620,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
       
       <guid>https://cjyabraham.github.io/docs/quickstart/java/</guid>
       <description>This guide gets you started with gRPC in Java with a simple working example.
- Before you begin Prerequisites  JDK: version 7 or higher  Download the example You&amp;rsquo;ll need a local copy of the example code to work through this quickstart. Download the example code from our Github repository (the following command clones the entire repository, but you just need the examples for this quickstart and other tutorials):</description>
+ Before you begin Prerequisites  JDK: version 7 or higher  Download the example You&amp;rsquo;ll need a local copy of the example code to work through this quickstart. Download the example code from our GitHub repository (the following command clones the entire repository, but you just need the examples for this quickstart and other tutorials):</description>
     </item>
     
     <item>
@@ -678,9 +676,9 @@ Prerequisites  CocoaPods: version 1.0 or higher
       <description>This guide gets you started with gRPC in PHP with a simple working example.
  Prerequisites  php 5.5 or above, 7.0 or above pecl composer phpunit (optional)  Install PHP and PECL on Ubuntu/Debian:
 For PHP5:
-$ sudo apt-get install php5 php5-dev php-pear phpunit  For PHP7:
-$ sudo apt-get install php7.0 php7.0-dev php-pear phpunit  or
-$ sudo apt-get install php php-dev php-pear phpunit  Install PHP and PECL on CentOS/RHEL 7:</description>
+$ sudo apt-get install php5 php5-dev php-pear phpunit For PHP7:
+$ sudo apt-get install php7.0 php7.0-dev php-pear phpunit or
+$ sudo apt-get install php php-dev php-pear phpunit Install PHP and PECL on CentOS/RHEL 7:</description>
     </item>
     
     <item>
@@ -692,8 +690,8 @@ $ sudo apt-get install php php-dev php-pear phpunit  Install PHP and PECL on Cen
       <description>This guide gets you started with gRPC in Python with a simple working example.
  Before you begin Prerequisites gRPC Python is supported for use with Python 2.7 or Python 3.4 or higher.
 Ensure you have pip version 9.0.1 or higher:
-$ python -m pip install --upgrade pip  If you cannot upgrade pip due to a system-owned installation, you can run the example in a virtualenv:
-$ python -m pip install virtualenv $ virtualenv venv $ source venv/bin/activate $ python -m pip install --upgrade pip  Install gRPC Install gRPC:</description>
+$ python -m pip install --upgrade pip If you cannot upgrade pip due to a system-owned installation, you can run the example in a virtualenv:
+$ python -m pip install virtualenv $ virtualenv venv $ source venv/bin/activate $ python -m pip install --upgrade pip Install gRPC Install gRPC:</description>
     </item>
     
     <item>
@@ -707,12 +705,14 @@ $ python -m pip install virtualenv $ virtualenv venv $ source venv/bin/activate 
     </item>
     
     <item>
-      <title>Tuning RPC Behaviour</title>
-      <link>https://cjyabraham.github.io/docs/guides/tuning/</link>
+      <title>Web Quick Start</title>
+      <link>https://cjyabraham.github.io/docs/quickstart/web/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/docs/guides/tuning/</guid>
-      <description>Coming soon!</description>
+      <guid>https://cjyabraham.github.io/docs/quickstart/web/</guid>
+      <description>This guide gets you started with gRPC-Web with a simple working example from the browser.
+ Prerequisites  docker and docker-compose  This demo requires Docker Compose file version 3. Please refer to Docker website on how to install Docker.
+Run an Echo example from the browser! $ git clone https://github.com/grpc/grpc-web $ cd grpc-web $ docker-compose pull $ docker-compose up -d node-server envoy commonjs-client Open a browser tab, and go to:</description>
     </item>
     
     <item>
@@ -734,7 +734,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/csharp/</guid>
       <description>This tutorial provides a basic C# programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the C# gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language, which is currently in beta release: you can find out more in the proto3 language guide and C# generated code reference.</description>
+ Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the C# gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and C# generated code reference.</description>
     </item>
     
     <item>
@@ -745,7 +745,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/c/</guid>
       <description>This tutorial provides a basic C++ programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the C++ gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language, which is currently in beta release: you can find out more in the proto3 language guide and C++ generated code guide, and see the release notes for the new version in the protocol buffers Github repository.</description>
+ Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the C++ gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and C++ generated code guide.</description>
     </item>
     
     <item>
@@ -755,9 +755,8 @@ By walking through this example you&amp;rsquo;ll learn how to:
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/dart/</guid>
       <description>This tutorial provides a basic Dart programmer&#39;s introduction to working with gRPC.
-Dart gRPC is currently in beta. Please help us out by filing issues if you encounter any.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Dart gRPC API to write a simple client and server for your service.</description>
+ Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Dart gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide.</description>
     </item>
     
     <item>
@@ -768,7 +767,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/go/</guid>
       <description>This tutorial provides a basic Go programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Go gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language, which is currently in beta release: you can find out more in the proto3 language guide and the Go generated code guide, and see the release notes for the new version in the protocol buffers Github repository.</description>
+ Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Go gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and the Go generated code guide.</description>
     </item>
     
     <item>
@@ -779,7 +778,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/java/</guid>
       <description>This tutorial provides a basic Java programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Java gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and Java generated code guide, and see the release notes for the new version in the protocol buffers Github repository.</description>
+ Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Java gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and Java generated code guide.</description>
     </item>
     
     <item>
@@ -790,7 +789,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/node/</guid>
       <description>This tutorial provides a basic Node.js programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Use the Node.js gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language, which is currently in alpha release: you can find out more in the proto3 language guide and see the release notes for the new version in the protocol buffers Github repository.</description>
+ Define a service in a .proto file. Use the Node.js gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language.</description>
     </item>
     
     <item>
@@ -801,7 +800,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/objective-c/</guid>
       <description>This tutorial provides a basic Objective-C programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate client code using the protocol buffer compiler. Use the Objective-C gRPC API to write a simple client for your service.  It assumes a passing familiarity with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language, which is currently in beta release: you can find out more in the proto3 language guide and the Objective-C generated code guide, and see the release notes for the new version in the protocol buffers Github repository.</description>
+ Define a service in a .proto file. Generate client code using the protocol buffer compiler. Use the Objective-C gRPC API to write a simple client for your service.  It assumes a passing familiarity with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and the Objective-C generated code guide.</description>
     </item>
     
     <item>
@@ -823,7 +822,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/python/</guid>
       <description>This tutorial provides a basic Python programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Python gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. You can find out more in the proto3 language guide and Python generated code guide, and see the release notes for the new version in the protocol buffers Github repository.</description>
+ Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Python gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. You can find out more in the proto3 language guide and Python generated code guide.</description>
     </item>
     
     <item>
@@ -834,7 +833,20 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/ruby/</guid>
       <description>This tutorial provides a basic Ruby programmer&#39;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
- Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Ruby gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language, which is currently in alpha release: you can find out more in the proto3 language guide and see the release notes for the new version in the protocol buffers Github repository.</description>
+ Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Ruby gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide.</description>
+    </item>
+    
+    <item>
+      <title>gRPC Basics - Web</title>
+      <link>https://cjyabraham.github.io/docs/tutorials/basic/web/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cjyabraham.github.io/docs/tutorials/basic/web/</guid>
+      <description>This tutorial provides a basic introduction on how to use gRPC-Web from browsers.
+By walking through this example you&amp;rsquo;ll learn how to:
+ Define a service in a .proto file. Generate client code using the protocol buffer compiler. Use the gRPC-Web API to write a simple client for your service.  It assumes a passing familiarity with protocol buffers.
+ 
+Why use gRPC and gRPC-Web? With gRPC you can define your service once in a .</description>
     </item>
     
     <item>

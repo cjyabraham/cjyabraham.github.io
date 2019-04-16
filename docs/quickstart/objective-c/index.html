@@ -84,12 +84,13 @@
 <a href="https://cjyabraham.github.io/docs/quickstart/dart/" >Dart</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/go/" >Go</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/java/" >Java</a>
-<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android Java</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/node/" >Node.js</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/objective-c/"  class="active">Objective-C</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/web/" >Web</a>
 </div>
 
 <div class="quickstartcol2" style="margin-top:4%">
@@ -158,57 +159,39 @@ brew install autoconf automake libtool pkg-config
 <h2 id="download-the-example">Download the example</h2>
 
 <p>You&rsquo;ll need a local copy of the sample app source code to work through this
-Quickstart. Copy the source code from Github
+Quickstart. Copy the source code from GitHub
 <a href="https://github.com/grpc/grpc">repository</a>:</p>
-
-<pre><code class="language-sh">$ git clone --recursive -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc.git
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone --recursive -b v1.19.0 https://github.com/grpc/grpc.git</code></pre></div>
 <h2 id="install-grpc-plugins-and-libraries">Install gRPC plugins and libraries</h2>
-
-<pre><code class="language-sh">$ cd grpc
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc
 $ make
-$ [sudo] make install
-</code></pre>
-
+$ <span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> make install</code></pre></div>
 <h2 id="install-protoc-compiler">Install protoc compiler</h2>
-
-<pre><code class="language-sh">$ brew tap grpc/grpc
-$ brew install protobuf
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ brew tap grpc/grpc
+$ brew install protobuf</code></pre></div>
 <h2 id="run-the-server">Run the server</h2>
 
 <p>For this sample app, we need a gRPC server running on the local machine. gRPC
 Objective-C API supports creating gRPC clients but not gRPC servers. Therefore
 instead we build and run the C++ server in the same repository:</p>
-
-<pre><code class="language-sh">$ cd examples/cpp/helloworld
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/cpp/helloworld
 $ make
-$ ./greeter_server &amp;
-</code></pre>
-
+$ ./greeter_server &amp;</code></pre></div>
 <h2 id="run-the-client">Run the client</h2>
 
 <h3 id="generate-client-libraries-and-dependencies">Generate client libraries and dependencies</h3>
 
 <p>Have CocoaPods generate and install the client library from our .proto files, as
 well as installing several dependencies:</p>
-
-<pre><code class="language-sh">$ cd ../../objective-c/helloworld
-$ pod install
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd ../../objective-c/helloworld
+$ pod install</code></pre></div>
 <p>(This might have to compile OpenSSL, which takes around 15 minutes if Cocoapods
 doesn&rsquo;t have it yet on your computer&rsquo;s cache.)</p>
 
 <h3 id="run-the-client-app">Run the client app</h3>
 
 <p>Open the Xcode workspace created by CocoaPods:</p>
-
-<pre><code class="language-sh">$ open HelloWorld.xcworkspace
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ open HelloWorld.xcworkspace</code></pre></div>
 <p>This will open the app project with Xcode. Run the app in an iOS simulator
 by pressing the Run button on the top left corner of Xcode window. You can check
 the calling code in <code>main.m</code> and see the results in Xcode&rsquo;s console.</p>
@@ -328,32 +311,20 @@ need to update the C++ sample server. Open
 <h2 id="build-and-run">Build and run</h2>
 
 <p>First terminate the server process already running in the background:</p>
-
-<pre><code class="language-sh">$ pkill greeter_server
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pkill greeter_server</code></pre></div>
 <p>Then in directory <code>examples/cpp/helloworld</code>, build and run the updated server
 with the following commands:</p>
-
-<pre><code class="language-sh">$ make
-$ ./greeter_server &amp;
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make
+$ ./greeter_server &amp;</code></pre></div>
 <p>Change directory to <code>examples/objective-c/helloworld</code>, then clean up and
 reinstall Pods for the client app with the following commands:</p>
-
-<pre><code class="language-sh">$ rm -Rf Pods
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ rm -Rf Pods
 $ rm Podfile.lock
 $ rm -Rf HelloWorld.xcworkspace
-$ pod install
-</code></pre>
-
+$ pod install</code></pre></div>
 <p>This regenerates files in <code>Pods/HelloWorld</code> based on the new proto file we wrote
 above. Open the client Xcode project in Xcode:</p>
-
-<pre><code class="language-sh">$ open HelloWorld.xcworkspace
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ open HelloWorld.xcworkspace</code></pre></div>
 <p>and run the client app. If you look at the console messages, you should see two RPC calls,
 one to SayHello and one to SayHelloAgain.</p>
 
@@ -362,11 +333,8 @@ one to SayHello and one to SayHelloAgain.</p>
 <p><strong>When installing CocoaPods, error prompt <code>activesupport requires Ruby version &gt;= 2.2.2.</code></strong></p>
 
 <p>Install an older version of <code>activesupport</code>, then install CocoaPods:</p>
-
-<pre><code class="language-sh">[sudo] gem install activesupport -v 4.2.6
-[sudo] gem install cocoapods
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> gem install activesupport -v <span style="color:#ae81ff">4</span>.2.6
+<span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> gem install cocoapods</code></pre></div>
 <p><strong>When installing dependencies with CocoaPods, error prompt <code>Unable to find a specification for !ProtoCompiler-gRPCPlugin</code></strong></p>
 
 <p>Update the local clone of spec repo by running <code>pod repo update</code></p>
@@ -398,7 +366,7 @@ auto generated files are corrupt; remove and rebuild may solve the problem.</p>
 <p><strong>When building grpc, error prompt <code>cannot find install-sh, install.sh, or shtool</code></strong></p>
 
 <p>Some of the auto generated files are corrupt. Remove the entire gRPC directory,
-clone from Github, and build again.</p>
+clone from GitHub, and build again.</p>
 
 <p><strong>Cannot find <code>protoc</code> when building HelloWorld</strong></p>
 

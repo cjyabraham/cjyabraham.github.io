@@ -84,12 +84,13 @@
 <a href="https://cjyabraham.github.io/docs/quickstart/dart/"  class="active">Dart</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/go/" >Go</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/java/" >Java</a>
-<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android Java</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/node/" >Node.js</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/objective-c/" >Objective-C</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/web/" >Web</a>
 </div>
 
 <div class="quickstartcol2" style="margin-top:4%">
@@ -102,17 +103,11 @@ working example.</p>
 
 <div id="toc"></div>
 
-<h2 id="before-you-begin">Before you begin</h2>
-
-<p class="note">Dart gRPC is currently in beta. Please help us out by
-<a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>
-if you encounter any.</p>
-
 <h3 id="prerequisites">Prerequisites</h3>
 
 <h4 id="dart-sdk">Dart SDK</h4>
 
-<p>gRPC requires Dart SDK version 1.24.3 or higher. Dart gRPC supports Flutter and Server platforms.</p>
+<p>gRPC requires Dart SDK version 2.0 or higher. Dart gRPC supports Flutter and Server platforms.</p>
 
 <p>For installation instructions, follow this guide: <a href="https://www.dartlang.org/install">Install Dart</a></p>
 
@@ -133,29 +128,20 @@ binary file.</li>
 </ul>
 
 <p>Next, install the protoc plugin for Dart</p>
-
-<pre><code class="language-sh">$ pub global activate protoc_plugin
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pub global activate protoc_plugin</code></pre></div>
 <p>The compiler plugin, <code>protoc-gen-dart</code>, is installed in <code>$HOME/.pub-cache/bin</code>.
 It must be in your $PATH for the protocol compiler, protoc, to find it.</p>
-
-<pre><code class="language-sh">$ export PATH=$PATH:$HOME/.pub-cache/bin
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ export PATH<span style="color:#f92672">=</span>$PATH:$HOME/.pub-cache/bin</code></pre></div>
 <h2 id="download-the-example">Download the example</h2>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
-Download the example code from our Github repository (the following command
+Download the example code from our GitHub repository (the following command
 clones the entire repository, but you just need the examples for this quickstart
 and other tutorials):</p>
-
-<pre><code class="language-sh">$ # Clone the repository at the latest release to get the example code:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># Clone the repository at the latest release to get the example code:</span>
 $ git clone https://github.com/grpc/grpc-dart
-$ # Navigate to the &quot;Hello World&quot; Dart example:
-$ cd grpc-dart/example/helloworld
-</code></pre>
-
+$ <span style="color:#75715e"># Navigate to the &#34;Hello World&#34; Dart example:</span>
+$ cd grpc-dart/example/helloworld</code></pre></div>
 <h2 id="run-a-grpc-application">Run a gRPC application</h2>
 
 <p>From the <code>example/helloworld</code> directory:</p>
@@ -163,24 +149,15 @@ $ cd grpc-dart/example/helloworld
 <ol>
 <li>Download package dependencies</li>
 </ol>
-
-<pre><code class="language-sh">   $ pub get
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ pub get</code></pre></div>
 <ol>
 <li>Run the server</li>
 </ol>
-
-<pre><code class="language-sh">   $ dart bin/server.dart
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ dart bin/server.dart</code></pre></div>
 <ol>
 <li>In another terminal, run the client</li>
 </ol>
-
-<pre><code class="language-sh">   $ dart bin/client.dart
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ dart bin/client.dart</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
 <h2 id="update-a-grpc-service">Update a gRPC service</h2>
@@ -241,10 +218,7 @@ message HelloReply {
 service definition.</p>
 
 <p>From the <code>example/helloworld</code> directory, run:</p>
-
-<pre><code class="language-sh">$ protoc --dart_out=grpc:lib/src/generated -Iprotos protos/helloworld.proto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ protoc --dart_out<span style="color:#f92672">=</span>grpc:lib/src/generated -Iprotos protos/helloworld.proto</code></pre></div>
 <p>This regenerates the files in <code>lib/src/generated</code> which contain our generated
 request and response classes, and client and server classes.</p>
 
@@ -257,47 +231,41 @@ and call the new method in the human-written parts of our example application.</
 
 <p>In the same directory, open <code>bin/server.dart</code>. Implement the new method like
 this:</p>
-
-<pre><code class="language-dart">class GreeterService extends GreeterServiceBase {
-  @override
-  Future&lt;HelloReply&gt; sayHello(ServiceCall call, HelloRequest request) async {
-    return new HelloReply()..message = 'Hello, ${request.name}!';
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GreeterService</span> <span style="color:#66d9ef">extends</span> GreeterServiceBase {
+  <span style="color:#960050;background-color:#1e0010">@</span>override
+  Future<span style="color:#f92672">&lt;</span>HelloReply<span style="color:#f92672">&gt;</span> sayHello(ServiceCall call, HelloRequest request) <span style="color:#66d9ef">async</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> HelloReply()..message <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Hello, </span><span style="color:#e6db74">${</span>request.name<span style="color:#e6db74">}</span><span style="color:#e6db74">!&#39;</span>;
   }
 
-  @override
-  Future&lt;HelloReply&gt; sayHelloAgain(
-      ServiceCall call, HelloRequest request) async {
-    return new HelloReply()..message = 'Hello again, ${request.name}!';
+  <span style="color:#960050;background-color:#1e0010">@</span>override
+  Future<span style="color:#f92672">&lt;</span>HelloReply<span style="color:#f92672">&gt;</span> sayHelloAgain(
+      ServiceCall call, HelloRequest request) <span style="color:#66d9ef">async</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> HelloReply()..message <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Hello again, </span><span style="color:#e6db74">${</span>request.name<span style="color:#e6db74">}</span><span style="color:#e6db74">!&#39;</span>;
   }
 }
-...
-</code></pre>
-
+...</code></pre></div>
 <h3 id="update-the-client">Update the client</h3>
 
 <p>In the same directory, open <code>bin/client.dart</code>. Call the new method like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart">Future<span style="color:#f92672">&lt;</span>Null<span style="color:#f92672">&gt;</span> main(List<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">String</span><span style="color:#f92672">&gt;</span> args) <span style="color:#66d9ef">async</span> {
+  <span style="color:#66d9ef">final</span> channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ClientChannel(<span style="color:#e6db74">&#39;localhost&#39;</span>,
+      port: <span style="color:#ae81ff">50051</span>,
+      options: <span style="color:#66d9ef">const</span> ChannelOptions(
+          credentials: <span style="color:#66d9ef">const</span> ChannelCredentials.insecure()));
+  <span style="color:#66d9ef">final</span> stub <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GreeterClient(channel);
 
-<pre><code class="language-dart">Future&lt;Null&gt; main(List&lt;String&gt; args) async {
-  final channel = new ClientChannel('localhost',
-      port: 50051,
-      options: const ChannelOptions(
-          credentials: const ChannelCredentials.insecure()));
-  final stub = new GreeterClient(channel);
+  <span style="color:#66d9ef">final</span> name <span style="color:#f92672">=</span> args.isNotEmpty <span style="color:#f92672">?</span> args[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;world&#39;</span>;
 
-  final name = args.isNotEmpty ? args[0] : 'world';
-
-  try {
-    var response = await stub.sayHello(new HelloRequest()..name = name);
-    print('Greeter client received: ${response.message}');
-    response = await stub.sayHelloAgain(new HelloRequest()..name = name);
-    print('Greeter client received: ${response.message}');
-  } catch (e) {
-    print('Caught error: $e');
+  <span style="color:#66d9ef">try</span> {
+    <span style="color:#66d9ef">var</span> response <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> stub.sayHello(<span style="color:#66d9ef">new</span> HelloRequest()..name <span style="color:#f92672">=</span> name);
+    print(<span style="color:#e6db74">&#39;Greeter client received: </span><span style="color:#e6db74">${</span>response.message<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>);
+    response <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> stub.sayHelloAgain(<span style="color:#66d9ef">new</span> HelloRequest()..name <span style="color:#f92672">=</span> name);
+    print(<span style="color:#e6db74">&#39;Greeter client received: </span><span style="color:#e6db74">${</span>response.message<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>);
+  } <span style="color:#66d9ef">catch</span> (e) {
+    print(<span style="color:#e6db74">&#39;Caught error: </span><span style="color:#e6db74">$</span>e<span style="color:#e6db74">&#39;</span>);
   }
-  await channel.shutdown();
-}
-</code></pre>
-
+  <span style="color:#66d9ef">await</span> channel.shutdown();
+}</code></pre></div>
 <h3 id="run">Run!</h3>
 
 <p>Just like we did before, from the <code>example/helloworld</code> directory:</p>
@@ -305,17 +273,11 @@ this:</p>
 <ol>
 <li>Run the server</li>
 </ol>
-
-<pre><code class="language-sh">   $ dart bin/server.dart
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ dart bin/server.dart</code></pre></div>
 <ol>
 <li>In another terminal, run the client</li>
 </ol>
-
-<pre><code class="language-sh">   $ dart bin/client.dart
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ dart bin/client.dart</code></pre></div>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
@@ -323,6 +285,12 @@ this:</p>
 and <a href="../guides/concepts.html">gRPC Concepts</a></li>
 <li>Work through a more detailed tutorial in <a href="../tutorials/basic/dart.html">gRPC Basics: Dart</a></li>
 </ul>
+
+<h2 id="reporting-issues">Reporting issues</h2>
+
+<p>Should you encounter an issue, please help us out by
+<a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>
+in our issue tracker.</p></p>
 
 </div>
 </div>

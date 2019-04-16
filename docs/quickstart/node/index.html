@@ -84,12 +84,13 @@
 <a href="https://cjyabraham.github.io/docs/quickstart/dart/" >Dart</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/go/" >Go</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/java/" >Java</a>
-<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android Java</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/node/"  class="active">Node.js</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/objective-c/" >Objective-C</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/web/" >Web</a>
 </div>
 
 <div class="quickstartcol2" style="margin-top:4%">
@@ -116,29 +117,22 @@ working example.</p>
 Download the example code from our GitHub repository (the following command
 clones the entire repository, but you just need the examples for this quickstart
 and other tutorials):</p>
-
-<pre><code class="language-sh">$ # Clone the repository to get the example code
-$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
-$ # Navigate to the dynamic codegen &quot;hello, world&quot; Node example:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># Clone the repository to get the example code</span>
+$ git clone -b v1.19.0 https://github.com/grpc/grpc
+$ <span style="color:#75715e"># Navigate to the dynamic codegen &#34;hello, world&#34; Node example:</span>
 $ cd grpc/examples/node/dynamic_codegen
-$ # Install the example's dependencies
-$ npm install
-</code></pre>
-
+$ <span style="color:#75715e"># Install the example&#39;s dependencies</span>
+$ npm install</code></pre></div>
 <h2 id="run-a-grpc-application">Run a gRPC application</h2>
 
 <p>From the <code>examples/node/dynamic_codegen</code> directory:</p>
 
 <ol>
 <li><p>Run the server</p>
-
-<pre><code class="language-sh">$ node greeter_server.js
-</code></pre></li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ node greeter_server.js</code></pre></div></li>
 
 <li><p>In another terminal, run the client</p>
-
-<pre><code class="language-sh">$ node greeter_client.js
-</code></pre></li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ node greeter_client.js</code></pre></div></li>
 </ol>
 
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
@@ -151,48 +145,42 @@ buffers; you can find out lots more about how to define a service in a <code>.pr
 file in <a href="../tutorials/basic/node.html">gRPC Basics: Node</a>. For now all you need
 to know is that both the server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC
 method that takes a <code>HelloRequest</code> parameter from the client and returns a
-<code>HelloResponse</code> from the server, and that this method is defined like this:</p>
-
-<pre><code class="language-proto">// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<code>HelloReply</code> from the server, and that this method is defined like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>examples/protos/helloworld.proto</code> and update it with a new <code>SayHelloAgain</code>
 method, with the same request and response types:</p>
-
-<pre><code class="language-proto">// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHelloAgain (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="update-and-run-the-application">Update and run the application</h2>
@@ -204,55 +192,47 @@ the new method in the human-written parts of our example application.</p>
 
 <p>In the same directory, open <code>greeter_server.js</code>. Implement the new method like
 this:</p>
-
-<pre><code class="language-js">function sayHello(call, callback) {
-  callback(null, {message: 'Hello ' + call.request.name});
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sayHello</span>(<span style="color:#a6e22e">call</span>, <span style="color:#a6e22e">callback</span>) {
+  <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, {<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Hello &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">call</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">name</span>});
 }
 
-function sayHelloAgain(call, callback) {
-  callback(null, {message: 'Hello again, ' + call.request.name});
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sayHelloAgain</span>(<span style="color:#a6e22e">call</span>, <span style="color:#a6e22e">callback</span>) {
+  <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, {<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Hello again, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">call</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">name</span>});
 }
 
-function main() {
-  var server = new grpc.Server();
-  server.addProtoService(hello_proto.Greeter.service,
-                         {sayHello: sayHello, sayHelloAgain: sayHelloAgain});
-  server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
-  server.start();
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">server</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">Server</span>();
+  <span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">addProtoService</span>(<span style="color:#a6e22e">hello_proto</span>.<span style="color:#a6e22e">Greeter</span>.<span style="color:#a6e22e">service</span>,
+                         {<span style="color:#a6e22e">sayHello</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">sayHello</span>, <span style="color:#a6e22e">sayHelloAgain</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">sayHelloAgain</span>});
+  <span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#e6db74">&#39;0.0.0.0:50051&#39;</span>, <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ServerCredentials</span>.<span style="color:#a6e22e">createInsecure</span>());
+  <span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">start</span>();
 }
 ...
-</code></pre>
-
+</code></pre></div>
 <h3 id="update-the-client">Update the client</h3>
 
 <p>In the same directory, open <code>greeter_client.js</code>. Call the new method like this:</p>
-
-<pre><code class="language-js">function main() {
-  var client = new hello_proto.Greeter('localhost:50051',
-                                       grpc.credentials.createInsecure());
-  client.sayHello({name: 'you'}, function(err, response) {
-    console.log('Greeting:', response.message);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">hello_proto</span>.<span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#39;localhost:50051&#39;</span>,
+                                       <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">credentials</span>.<span style="color:#a6e22e">createInsecure</span>());
+  <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">sayHello</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;you&#39;</span>}, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">response</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Greeting:&#39;</span>, <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">message</span>);
   });
-  client.sayHelloAgain({name: 'you'}, function(err, response) {
-    console.log('Greeting:', response.message);
+  <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">sayHelloAgain</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;you&#39;</span>}, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">response</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Greeting:&#39;</span>, <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">message</span>);
   });
 }
-</code></pre>
-
+</code></pre></div>
 <h3 id="run">Run!</h3>
 
 <p>Just like we did before, from the <code>examples/node/dynamic_codegen</code> directory:</p>
 
 <ol>
 <li><p>Run the server</p>
-
-<pre><code class="language-sh">$ node greeter_server.js
-</code></pre></li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ node greeter_server.js</code></pre></div></li>
 
 <li><p>In another terminal, run the client</p>
-
-<pre><code class="language-sh">$ node greeter_client.js
-</code></pre></li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ node greeter_client.js</code></pre></div></li>
 </ol>
 
 <h2 id="what-s-next">What&rsquo;s next</h2>
@@ -263,6 +243,7 @@ and <a href="../guides/concepts.html">gRPC Concepts</a></li>
 <li>Work through a more detailed tutorial in <a href="../tutorials/basic/node.html">gRPC Basics: Node</a></li>
 <li>Explore the gRPC Node core API in its <a href="/grpc/node/">reference
 documentation</a></li>
+<li>We do have more than one grpc implementation for nodejs. <a href="https://github.com/grpc/grpc-node/blob/master/PACKAGE-COMPARISON.md">Learn about the pros and cons of each here</a>.</li>
 </ul>
 
 </div>

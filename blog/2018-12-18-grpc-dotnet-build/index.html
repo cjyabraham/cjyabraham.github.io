@@ -65,7 +65,12 @@
 
   <div class="singleblog"> 
   <h1>gRPC Meets .NET SDK And Visual Studio: Automatic Codegen On Build</h1>
-  <h5>Posted on Tuesday, December 18, 2018 by Kirill &#39;kkm&#39; Katsnelson</h5>
+  <h5>Posted on Tuesday, December 18, 2018 
+    by 
+    
+      <a href="https://github.com/kkm000">Kirill &#39;kkm&#39; Katsnelson</a>
+    
+  </h5>
   <p>
     <p>As part of Microsoft&rsquo;s move towards its cross-platform .NET offering, they have
 greatly simplified the project file format, and allowed a tight integration of
@@ -151,29 +156,26 @@ that always.</p>
 <p>So edit the file <code>MyGreeter.csproj</code> to add the <code>helloworld.proto</code> so that it
 will be compiled, and the <code>PrivateAssets</code> property to the Grpc.Tools package
 reference. Your resulting project file should now look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Project</span> <span style="color:#a6e22e">Sdk=</span><span style="color:#e6db74">&#34;Microsoft.NET.Sdk&#34;</span><span style="color:#f92672">&gt;</span>
 
-<pre><code class="language-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+  <span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+    <span style="color:#f92672">&lt;TargetFramework&gt;</span>netstandard2.0<span style="color:#f92672">&lt;/TargetFramework&gt;</span>
+  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
 
-  &lt;PropertyGroup&gt;
-    &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
-  &lt;/PropertyGroup&gt;
+  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Google.Protobuf&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;3.6.1&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Grpc&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;1.17.0&#34;</span> <span style="color:#f92672">/&gt;</span>
 
-  &lt;ItemGroup&gt;
-    &lt;PackageReference Include=&quot;Google.Protobuf&quot; Version=&quot;3.6.1&quot; /&gt;
-    &lt;PackageReference Include=&quot;Grpc&quot; Version=&quot;1.17.0&quot; /&gt;
+    <span style="color:#75715e">&lt;!-- The Grpc.Tools package generates C# sources from .proto files during
+</span><span style="color:#75715e">         project build, but is not needed by projects using the built library.
+</span><span style="color:#75715e">         It&#39;s IMPORTANT to add the &#39;PrivateAssets=&#34;All&#34;&#39; to this reference: --&gt;</span>
+    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Grpc.Tools&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;1.17.0&#34;</span> <span style="color:#a6e22e">PrivateAssets=</span><span style="color:#e6db74">&#34;All&#34;</span> <span style="color:#f92672">/&gt;</span>
 
-    &lt;!-- The Grpc.Tools package generates C# sources from .proto files during
-         project build, but is not needed by projects using the built library.
-         It's IMPORTANT to add the 'PrivateAssets=&quot;All&quot;' to this reference: --&gt;
-    &lt;PackageReference Include=&quot;Grpc.Tools&quot; Version=&quot;1.17.0&quot; PrivateAssets=&quot;All&quot; /&gt;
+    <span style="color:#75715e">&lt;!-- Explicitly include our helloworld.proto file by adding this line: --&gt;</span>
+    <span style="color:#f92672">&lt;Protobuf</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;helloworld.proto&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
 
-    &lt;!-- Explicitly include our helloworld.proto file by adding this line: --&gt;
-    &lt;Protobuf Include=&quot;helloworld.proto&quot; /&gt;
-  &lt;/ItemGroup&gt;
-
-&lt;/Project&gt;
-</code></pre>
-
+<span style="color:#f92672">&lt;/Project&gt;</span></code></pre></div>
 <h3 id="build-it">Build it!</h3>
 
 <p>At this point you can build the project with the <code>dotnet build</code> command to

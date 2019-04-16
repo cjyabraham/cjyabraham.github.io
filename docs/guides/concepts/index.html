@@ -95,9 +95,9 @@
     
 
 <p class="lead">This document introduces some key gRPC concepts with an overview
-of gRPC's architecture and RPC life cycle.</p>
+of gRPC's architecture and RPC life cycle.</p> 
 
-<p>It assumes that you&rsquo;ve read <a href="{{site.baseurl}}/docs/guides">What is gRPC?</a>. For
+<p>It assumes that you&rsquo;ve read <a href="/docs/guides">What is gRPC?</a>. For
 language-specific details, see the Quick Start, tutorial, and reference
 documentation for your chosen language(s), where available (complete reference
 docs are coming soon).</p>
@@ -143,7 +143,8 @@ single response back, just like a normal function call.</li>
 <ul>
 <li>Server streaming RPCs where the client sends a request to the server and gets
 a stream to read a sequence of messages back. The client reads from the
-returned stream until there are no more messages.</li>
+returned stream until there are no more messages. gRPC guarantees message
+ordering within an individual RPC call.</li>
 </ul>
 
 <pre><code>rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse){
@@ -154,7 +155,8 @@ returned stream until there are no more messages.</li>
 <li>Client streaming RPCs where the client writes a sequence of messages and sends
 them to the server, again using a provided stream. Once the client has
 finished writing the messages, it waits for the server to read them and return
-its response.</li>
+its response.  Again gRPC guarantees message ordering within an individual RPC
+call.</li>
 </ul>
 
 <pre><code>rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse) {
@@ -298,8 +300,7 @@ terminates the RPC immediately so that no further work is done. It is <em>not</e
 
 <h3 id="metadata">Metadata</h3>
 
-<p>Metadata is information about a particular RPC call (such as <a href="
-{{ site.baseurl }}/docs/guides/auth.html">authentication details</a>) in the
+<p>Metadata is information about a particular RPC call (such as <a href="/docs/guides/auth.html">authentication details</a>) in the
 form of a list of key-value pairs, where the keys are strings and the values are
 typically strings (but can be binary data). Metadata is opaque to gRPC itself -
 it lets the client provide information associated with the call to the server

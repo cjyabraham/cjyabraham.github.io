@@ -322,11 +322,11 @@
   </url>
   
   <url>
-    <loc>https://cjyabraham.github.io/docs/guides/tuning/</loc>
+    <loc>https://cjyabraham.github.io/docs/tutorials/</loc>
   </url>
   
   <url>
-    <loc>https://cjyabraham.github.io/docs/tutorials/</loc>
+    <loc>https://cjyabraham.github.io/docs/quickstart/web/</loc>
   </url>
   
   <url>
@@ -371,6 +371,10 @@
   
   <url>
     <loc>https://cjyabraham.github.io/docs/tutorials/basic/ruby/</loc>
+  </url>
+  
+  <url>
+    <loc>https://cjyabraham.github.io/docs/tutorials/basic/web/</loc>
   </url>
   
   <url>

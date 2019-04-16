@@ -65,7 +65,12 @@
 
   <div class="singleblog"> 
   <h1>Gracefully clean up in gRPC JUnit tests</h1>
-  <h5>Posted on Tuesday, June 26, 2018 by Dapeng Zhang</h5>
+  <h5>Posted on Tuesday, June 26, 2018 
+    by 
+    
+      <a href="https://github.com/dapengzhang0">Dapeng Zhang</a>
+    
+  </h5>
   <p>
     <p>It is best practice to always clean up gRPC resources such as client channels, servers, and previously attached Contexts whenever they are no longer needed.</p>
 
@@ -74,48 +79,42 @@
 <p>So cleanup, cleanup, cleanup&hellip; and fail the test if any cleanup is not successful.</p>
 
 <p>A typical example is</p>
-
-<pre><code class="language-java">public class MyTest {
-  private Server server;
-  private ManagedChannel channel;
-  ...
-  @After
-  public void tearDown() throws InterruptedException {
-    // assume channel and server are not null
-    channel.shutdownNow();
-    server.shutdownNow();
-    // fail the test if cleanup is not successful
-    assert channel.awaitTermination(5, TimeUnit.SECONDS) : &quot;channel failed to shutdown&quot;;
-    assert server.awaitTermination(5, TimeUnit.SECONDS) : &quot;server failed to shutdown&quot;;
-  }
-  ...
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTest</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">private</span> Server server<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">private</span> ManagedChannel channel<span style="color:#f92672">;</span>
+  <span style="color:#f92672">...</span>
+  <span style="color:#a6e22e">@After</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tearDown</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> InterruptedException <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// assume channel and server are not null
+</span><span style="color:#75715e"></span>    channel<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdownNow</span><span style="color:#f92672">();</span>
+    server<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdownNow</span><span style="color:#f92672">();</span>
+    <span style="color:#75715e">// fail the test if cleanup is not successful
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">assert</span> channel<span style="color:#f92672">.</span><span style="color:#a6e22e">awaitTermination</span><span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">)</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;channel failed to shutdown&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">assert</span> server<span style="color:#f92672">.</span><span style="color:#a6e22e">awaitTermination</span><span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">)</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;server failed to shutdown&#34;</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>or to be more graceful</p>
-
-<pre><code class="language-java">public class MyTest {
-  private Server server;
-  private ManagedChannel channel;
-  ...
-  @After
-  public void tearDown() throws InterruptedException {
-    // assume channel and server are not null
-    channel.shutdown();
-    server.shutdown();
-    // fail the test if cannot gracefully shutdown
-    try {
-      assert channel.awaitTermination(5, TimeUnit.SECONDS) : &quot;channel cannot be gracefully shutdown&quot;;
-      assert server.awaitTermination(5, TimeUnit.SECONDS) : &quot;server cannot be gracefully shutdown&quot;;
-    } finally {
-      channel.shutdownNow();
-      server.shutdownNow();
-    }
-  }
-  ...
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTest</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">private</span> Server server<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">private</span> ManagedChannel channel<span style="color:#f92672">;</span>
+  <span style="color:#f92672">...</span>
+  <span style="color:#a6e22e">@After</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tearDown</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> InterruptedException <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// assume channel and server are not null
+</span><span style="color:#75715e"></span>    channel<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdown</span><span style="color:#f92672">();</span>
+    server<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdown</span><span style="color:#f92672">();</span>
+    <span style="color:#75715e">// fail the test if cannot gracefully shutdown
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">assert</span> channel<span style="color:#f92672">.</span><span style="color:#a6e22e">awaitTermination</span><span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">)</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;channel cannot be gracefully shutdown&#34;</span><span style="color:#f92672">;</span>
+      <span style="color:#66d9ef">assert</span> server<span style="color:#f92672">.</span><span style="color:#a6e22e">awaitTermination</span><span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">)</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;server cannot be gracefully shutdown&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+      channel<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdownNow</span><span style="color:#f92672">();</span>
+      server<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdownNow</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+  <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>However, having to add all this to every test so it shuts down gracefully gives you more work to do, as you need to write the shutdown boilerplate by yourself. Because of this, the gRPC testing library has helper rules to make this job less tedious.</p>
 
 <p>Initially, a JUnit rule <a href="https://github.com/grpc/grpc-java/blob/v1.1.x/testing/src/main/java/io/grpc/testing/GrpcServerRule.java"><code>GrpcServerRule</code></a> was introduced to eliminate the shutdown boilerplate. This rule creates an In-Process server and channel at the beginning of the test, and shuts them down at the end of test automatically. However, users found this rule too restrictive in that it does not support transports other than In-Process transports, multiple channels to the server, custom channel or server builder options, and configuration inside individual test methods.</p>
@@ -123,45 +122,39 @@
 <p>A more flexible JUnit rule <a href="https://github.com/grpc/grpc-java/blob/v1.13.x/testing/src/main/java/io/grpc/testing/GrpcCleanupRule.java"><code>GrpcCleanupRule</code></a> was introduced in gRPC release v1.13, which also eliminates the shutdown boilerplate. However unlike <code>GrpcServerRule</code>, <code>GrpcCleanupRule</code> does not create any server or channel automatically at all. Users create and start the server by themselves, and create channels by themselves, just as in plain tests. With this rule, users just need to register every resource (channel or server) that needs to be shut down at the end of test, and the rule will then shut them down gracefully automatically.</p>
 
 <p>You can register resources either before running test methods</p>
-
-<pre><code class="language-java">public class MyTest {
-  @Rule
-  public GrpcCleanupRule grpcCleanup = new GrpcCleanupRule();
-  ...
-  private String serverName = InProcessServerBuilder.generateName();
-  private Server server = grpcCleanup.register(InProcessServerBuilder
-      .forName(serverName).directExecutor().addService(myServiceImpl).build().start());
-  private ManagedChannel channel = grpcCleanup.register(InProcessChannelBuilder
-      .forName(serverName).directExecutor().build());
-  ...
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTest</span> <span style="color:#f92672">{</span>
+  <span style="color:#a6e22e">@Rule</span>
+  <span style="color:#66d9ef">public</span> GrpcCleanupRule grpcCleanup <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GrpcCleanupRule<span style="color:#f92672">();</span>
+  <span style="color:#f92672">...</span>
+  <span style="color:#66d9ef">private</span> String serverName <span style="color:#f92672">=</span> InProcessServerBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">generateName</span><span style="color:#f92672">();</span>
+  <span style="color:#66d9ef">private</span> Server server <span style="color:#f92672">=</span> grpcCleanup<span style="color:#f92672">.</span><span style="color:#a6e22e">register</span><span style="color:#f92672">(</span>InProcessServerBuilder
+      <span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span>serverName<span style="color:#f92672">).</span><span style="color:#a6e22e">directExecutor</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addService</span><span style="color:#f92672">(</span>myServiceImpl<span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">().</span><span style="color:#a6e22e">start</span><span style="color:#f92672">());</span>
+  <span style="color:#66d9ef">private</span> ManagedChannel channel <span style="color:#f92672">=</span> grpcCleanup<span style="color:#f92672">.</span><span style="color:#a6e22e">register</span><span style="color:#f92672">(</span>InProcessChannelBuilder
+      <span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span>serverName<span style="color:#f92672">).</span><span style="color:#a6e22e">directExecutor</span><span style="color:#f92672">().</span><span style="color:#a6e22e">build</span><span style="color:#f92672">());</span>
+  <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>or inside each individual test method</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTest</span> <span style="color:#f92672">{</span>
+  <span style="color:#a6e22e">@Rule</span>
+  <span style="color:#66d9ef">public</span> GrpcCleanupRule grpcCleanup <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GrpcCleanupRule<span style="color:#f92672">();</span>
+  <span style="color:#f92672">...</span>
+  <span style="color:#66d9ef">private</span> String serverName <span style="color:#f92672">=</span> InProcessServerBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">generateName</span><span style="color:#f92672">();</span>
+  <span style="color:#66d9ef">private</span> InProcessServerBuilder serverBuilder <span style="color:#f92672">=</span> InProcessServerBuilder
+      <span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span>serverName<span style="color:#f92672">).</span><span style="color:#a6e22e">directExecutor</span><span style="color:#f92672">();</span>
+  <span style="color:#66d9ef">private</span> InProcessChannelBuilder channelBuilder <span style="color:#f92672">=</span> InProcessChannelBuilder
+      <span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span>serverName<span style="color:#f92672">).</span><span style="color:#a6e22e">directExecutor</span><span style="color:#f92672">();</span>
+  <span style="color:#f92672">...</span>
 
-<pre><code class="language-java">public class MyTest {
-  @Rule
-  public GrpcCleanupRule grpcCleanup = new GrpcCleanupRule();
-  ...
-  private String serverName = InProcessServerBuilder.generateName();
-  private InProcessServerBuilder serverBuilder = InProcessServerBuilder
-      .forName(serverName).directExecutor();
-  private InProcessChannelBuilder channelBuilder = InProcessChannelBuilder
-      .forName(serverName).directExecutor();
-  ...
-
-  @Test
-  public void testFooBar() {
-    ...
-    grpcCleanup.register(
-    	serverBuilder.addService(myServiceImpl).build().start());
-    ManagedChannel channel = grpcCleanup.register(
-    	channelBuilder.maxInboundMessageSize(1024).build());
-    ...
-  }
-}
-</code></pre>
-
+  <span style="color:#a6e22e">@Test</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testFooBar</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+    grpcCleanup<span style="color:#f92672">.</span><span style="color:#a6e22e">register</span><span style="color:#f92672">(</span>
+    	serverBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">addService</span><span style="color:#f92672">(</span>myServiceImpl<span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">().</span><span style="color:#a6e22e">start</span><span style="color:#f92672">());</span>
+    ManagedChannel channel <span style="color:#f92672">=</span> grpcCleanup<span style="color:#f92672">.</span><span style="color:#a6e22e">register</span><span style="color:#f92672">(</span>
+    	channelBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">maxInboundMessageSize</span><span style="color:#f92672">(</span>1024<span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">...</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
 <p>Now with <a href="https://github.com/grpc/grpc-java/blob/v1.13.x/testing/src/main/java/io/grpc/testing/GrpcCleanupRule.java"><code>GrpcCleanupRule</code></a> you don&rsquo;t need to worry about graceful shutdown of gRPC servers and channels in JUnit test. So try it out and clean up in your tests!</p>
   </p>
 

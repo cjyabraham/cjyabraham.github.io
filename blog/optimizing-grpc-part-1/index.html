@@ -65,7 +65,12 @@
 
   <div class="singleblog"> 
   <h1>So You Want to Optimize gRPC - Part 1</h1>
-  <h5>Posted on Tuesday, March 06, 2018 by Carl Mastrangelo</h5>
+  <h5>Posted on Tuesday, March 06, 2018 
+    by 
+    
+      <a href="https://github.com/carl-mastrangelo">Carl Mastrangelo</a>
+    
+  </h5>
   <p>
     <p>A common question with gRPC is how to make it fast.  The gRPC library offers users access to high
 performance RPCs, but it isn&rsquo;t always clear how to achieve this.  Because this question is common
@@ -117,29 +122,26 @@ library. We refer to the code called by a gRPC client the <em>stub</em>.</p>
 As mentioned above, the client makes random RPCs.  For example, here is the code that makes the
 <a href="https://github.com/carl-mastrangelo/kvstore/blob/f422b1b6e7c69f8c07f96ed4ddba64757242352c/src/main/java/io/grpc/examples/KvClient.java#L80">creation</a>
 request:</p>
-
-<pre><code class="language-java">  private void doCreate(KeyValueServiceBlockingStub stub) {
-    ByteString key = createRandomKey();
-    try {
-      CreateResponse res = stub.create(
-          CreateRequest.newBuilder()
-              .setKey(key)
-              .setValue(randomBytes(MEAN_VALUE_SIZE))
-              .build());
-      if (!res.equals(CreateResponse.getDefaultInstance())) {
-        throw new RuntimeException(&quot;Invalid response&quot;);
-      }
-    } catch (StatusRuntimeException e) {
-      if (e.getStatus().getCode() == Code.ALREADY_EXISTS) {
-        knownKeys.remove(key);
-        logger.log(Level.INFO, &quot;Key already existed&quot;, e);
-      } else {
-        throw e;
-      }
-    }
-  }
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doCreate</span><span style="color:#f92672">(</span>KeyValueServiceBlockingStub stub<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    ByteString key <span style="color:#f92672">=</span> createRandomKey<span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+      CreateResponse res <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>
+          CreateRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">()</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setKey</span><span style="color:#f92672">(</span>key<span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setValue</span><span style="color:#f92672">(</span>randomBytes<span style="color:#f92672">(</span>MEAN_VALUE_SIZE<span style="color:#f92672">))</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">());</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>res<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>CreateResponse<span style="color:#f92672">.</span><span style="color:#a6e22e">getDefaultInstance</span><span style="color:#f92672">()))</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Invalid response&#34;</span><span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>StatusRuntimeException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getStatus</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> Code<span style="color:#f92672">.</span><span style="color:#a6e22e">ALREADY_EXISTS</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        knownKeys<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>key<span style="color:#f92672">);</span>
+        logger<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>Level<span style="color:#f92672">.</span><span style="color:#a6e22e">INFO</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Key already existed&#34;</span><span style="color:#f92672">,</span> e<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">throw</span> e<span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span></code></pre></div>
 <p>A random key is created, along with a random value.  The request is sent to the server, and the
 client waits for the response.  When the response is returned, the code checks that it is as
 expected, and if not, throws an exception.  While the keys are chosen randomly, they need to be
@@ -156,24 +158,21 @@ This is the simplest gRPC stub, but it blocks the thread while running.  This me
 
 <p>On the server side, the request is received by the
 <a href="https://github.com/carl-mastrangelo/kvstore/blob/f422b1b6e7c69f8c07f96ed4ddba64757242352c/src/main/java/io/grpc/examples/KvService.java#L34">service handler</a>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>ByteBuffer<span style="color:#f92672">,</span> ByteBuffer<span style="color:#f92672">&gt;</span> store <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
 
-<pre><code class="language-java">  private final Map&lt;ByteBuffer, ByteBuffer&gt; store = new HashMap&lt;&gt;();
-
-  @Override
-  public synchronized void create(
-      CreateRequest request, StreamObserver&lt;CreateResponse&gt; responseObserver) {
-    ByteBuffer key = request.getKey().asReadOnlyByteBuffer();
-    ByteBuffer value = request.getValue().asReadOnlyByteBuffer();
-    simulateWork(WRITE_DELAY_MILLIS);
-    if (store.putIfAbsent(key, value) == null) {
-      responseObserver.onNext(CreateResponse.getDefaultInstance());
-      responseObserver.onCompleted();
-      return;
-    }
-    responseObserver.onError(Status.ALREADY_EXISTS.asRuntimeException());
-  }
-</code></pre>
-
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">synchronized</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>
+      CreateRequest request<span style="color:#f92672">,</span> StreamObserver<span style="color:#f92672">&lt;</span>CreateResponse<span style="color:#f92672">&gt;</span> responseObserver<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    ByteBuffer key <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">().</span><span style="color:#a6e22e">asReadOnlyByteBuffer</span><span style="color:#f92672">();</span>
+    ByteBuffer value <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">().</span><span style="color:#a6e22e">asReadOnlyByteBuffer</span><span style="color:#f92672">();</span>
+    simulateWork<span style="color:#f92672">(</span>WRITE_DELAY_MILLIS<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>store<span style="color:#f92672">.</span><span style="color:#a6e22e">putIfAbsent</span><span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> value<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      responseObserver<span style="color:#f92672">.</span><span style="color:#a6e22e">onNext</span><span style="color:#f92672">(</span>CreateResponse<span style="color:#f92672">.</span><span style="color:#a6e22e">getDefaultInstance</span><span style="color:#f92672">());</span>
+      responseObserver<span style="color:#f92672">.</span><span style="color:#a6e22e">onCompleted</span><span style="color:#f92672">();</span>
+      <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    responseObserver<span style="color:#f92672">.</span><span style="color:#a6e22e">onError</span><span style="color:#f92672">(</span>Status<span style="color:#f92672">.</span><span style="color:#a6e22e">ALREADY_EXISTS</span><span style="color:#f92672">.</span><span style="color:#a6e22e">asRuntimeException</span><span style="color:#f92672">());</span>
+  <span style="color:#f92672">}</span></code></pre></div>
 <p>The service extracts the key and value as <code>ByteBuffer</code>s from the request.  It acquires the lock
 on the service itself to make sure concurrent requests don&rsquo;t corrupt the storage.  After
 simulating the disk access of a write, it stores it in the <code>Map</code> of keys to values.</p>
@@ -216,24 +215,21 @@ stage, we don&rsquo;t need profiling tools yet, we can just reason about the pro
 <p>The client is started and serially issues RPCs for about a minute.  Each iteration, it <a href="https://github.com/carl-mastrangelo/kvstore/blob/f422b1b6e7c69f8c07f96ed4ddba64757242352c/src/main/java/io/grpc/examples/KvClient.java#L49">randomly
 decides</a>
 what operation to do:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doClientWork</span><span style="color:#f92672">(</span>AtomicBoolean done<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    Random random <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random<span style="color:#f92672">();</span>
+    KeyValueServiceBlockingStub stub <span style="color:#f92672">=</span> KeyValueServiceGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">newBlockingStub</span><span style="color:#f92672">(</span>channel<span style="color:#f92672">);</span>
 
-<pre><code class="language-java">  void doClientWork(AtomicBoolean done) {
-    Random random = new Random();
-    KeyValueServiceBlockingStub stub = KeyValueServiceGrpc.newBlockingStub(channel);
-
-    while (!done.get()) {
-      // Pick a random CRUD action to take.
-      int command = random.nextInt(4);
-      if (command == 0) {
-        doCreate(stub);
-        continue;
-      }
-      /* ... */
-      rpcCount++;
-    }
-  }
-</code></pre>
-
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">(!</span>done<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+      <span style="color:#75715e">// Pick a random CRUD action to take.
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">int</span> command <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>command <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        doCreate<span style="color:#f92672">(</span>stub<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">continue</span><span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#75715e">/* ... */</span>
+      rpcCount<span style="color:#f92672">++;</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span></code></pre></div>
 <p>This means that <strong>at most one RPC can be active at any time</strong>.  Each RPC has to wait for the
 previous one to complete.  And how long does each RPC take to complete?  From reading the server
 code, most of the operations are doing a write which takes about 50 milliseconds.  At top
@@ -279,42 +275,39 @@ Java is not known for being terse.  That said, the code below is still readable,
 is still roughly from top to bottom in the function.  Here is the
 <a href="https://github.com/carl-mastrangelo/kvstore/blob/f0113912c01ac4ea48a80bb7a4736ddcb3f21e24/src/main/java/io/grpc/examples/KvClient.java#L92"><code>doCreate()</code></a>
 method revised:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doCreate</span><span style="color:#f92672">(</span>KeyValueServiceFutureStub stub<span style="color:#f92672">,</span> AtomicReference<span style="color:#f92672">&lt;</span>Throwable<span style="color:#f92672">&gt;</span> error<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    ByteString key <span style="color:#f92672">=</span> createRandomKey<span style="color:#f92672">();</span>
+    ListenableFuture<span style="color:#f92672">&lt;</span>CreateResponse<span style="color:#f92672">&gt;</span> res <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>
+        CreateRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">()</span>
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">setKey</span><span style="color:#f92672">(</span>key<span style="color:#f92672">)</span>
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">setValue</span><span style="color:#f92672">(</span>randomBytes<span style="color:#f92672">(</span>MEAN_VALUE_SIZE<span style="color:#f92672">))</span>
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">());</span>
+    res<span style="color:#f92672">.</span><span style="color:#a6e22e">addListener</span><span style="color:#f92672">(()</span> <span style="color:#f92672">-&gt;</span> rpcCount<span style="color:#f92672">.</span><span style="color:#a6e22e">incrementAndGet</span><span style="color:#f92672">(),</span> MoreExecutors<span style="color:#f92672">.</span><span style="color:#a6e22e">directExecutor</span><span style="color:#f92672">());</span>
+    Futures<span style="color:#f92672">.</span><span style="color:#a6e22e">addCallback</span><span style="color:#f92672">(</span>res<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> FutureCallback<span style="color:#f92672">&lt;</span>CreateResponse<span style="color:#f92672">&gt;()</span> <span style="color:#f92672">{</span>
+      <span style="color:#a6e22e">@Override</span>
+      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onSuccess</span><span style="color:#f92672">(</span>CreateResponse result<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>result<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>CreateResponse<span style="color:#f92672">.</span><span style="color:#a6e22e">getDefaultInstance</span><span style="color:#f92672">()))</span> <span style="color:#f92672">{</span>
+          error<span style="color:#f92672">.</span><span style="color:#a6e22e">compareAndSet</span><span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Invalid response&#34;</span><span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">synchronized</span> <span style="color:#f92672">(</span>knownKeys<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          knownKeys<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>key<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+      <span style="color:#f92672">}</span>
 
-<pre><code class="language-java">  private void doCreate(KeyValueServiceFutureStub stub, AtomicReference&lt;Throwable&gt; error) {
-    ByteString key = createRandomKey();
-    ListenableFuture&lt;CreateResponse&gt; res = stub.create(
-        CreateRequest.newBuilder()
-            .setKey(key)
-            .setValue(randomBytes(MEAN_VALUE_SIZE))
-            .build());
-    res.addListener(() -&gt; rpcCount.incrementAndGet(), MoreExecutors.directExecutor());
-    Futures.addCallback(res, new FutureCallback&lt;CreateResponse&gt;() {
-      @Override
-      public void onSuccess(CreateResponse result) {
-        if (!result.equals(CreateResponse.getDefaultInstance())) {
-          error.compareAndSet(null, new RuntimeException(&quot;Invalid response&quot;));
-        }
-        synchronized (knownKeys) {
-          knownKeys.add(key);
-        }
-      }
-
-      @Override
-      public void onFailure(Throwable t) {
-        Status status = Status.fromThrowable(t);
-        if (status.getCode() == Code.ALREADY_EXISTS) {
-          synchronized (knownKeys) {
-            knownKeys.remove(key);
-          }
-          logger.log(Level.INFO, &quot;Key already existed&quot;, t);
-        } else {
-          error.compareAndSet(null, t);
-        }
-      }
-    });
-  }
-</code></pre>
-
+      <span style="color:#a6e22e">@Override</span>
+      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onFailure</span><span style="color:#f92672">(</span>Throwable t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Status status <span style="color:#f92672">=</span> Status<span style="color:#f92672">.</span><span style="color:#a6e22e">fromThrowable</span><span style="color:#f92672">(</span>t<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>status<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> Code<span style="color:#f92672">.</span><span style="color:#a6e22e">ALREADY_EXISTS</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">synchronized</span> <span style="color:#f92672">(</span>knownKeys<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            knownKeys<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>key<span style="color:#f92672">);</span>
+          <span style="color:#f92672">}</span>
+          logger<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>Level<span style="color:#f92672">.</span><span style="color:#a6e22e">INFO</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Key already existed&#34;</span><span style="color:#f92672">,</span> t<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+          error<span style="color:#f92672">.</span><span style="color:#a6e22e">compareAndSet</span><span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> t<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">});</span>
+  <span style="color:#f92672">}</span></code></pre></div>
 <p>The stub has been modified to be a <code>KeyValueServiceFutureStub</code>, which produces a <code>Future</code> when
 called instead of the response itself.  gRPC Java uses an extension of this called <code>ListenableFuture</code>,
 which allows adding a callback when the future completes.  For the sake of this program, we are
@@ -374,26 +367,23 @@ new RPC, we will try to acquire a permit.  If we get one, the RPC can start.  If
 until one is available.  When an RPC completes (either in success or failure), we return the
 permit.  To <a href="https://github.com/carl-mastrangelo/kvstore/blob/02-future-client/src/main/java/io/grpc/examples/KvClient.java#L94">accomplish</a>
 this, we will using a <code>Semaphore</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> Semaphore limiter <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore<span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>
 
-<pre><code class="language-java">  private final Semaphore limiter = new Semaphore(100);
-
-  private void doCreate(KeyValueServiceFutureStub stub, AtomicReference&lt;Throwable&gt; error)
-      throws InterruptedException {
-    limiter.acquire();
-    ByteString key = createRandomKey();
-    ListenableFuture&lt;CreateResponse&gt; res = stub.create(
-        CreateRequest.newBuilder()
-            .setKey(key)
-            .setValue(randomBytes(MEAN_VALUE_SIZE))
-            .build());
-    res.addListener(() -&gt;  {
-      rpcCount.incrementAndGet();
-      limiter.release();
-    }, MoreExecutors.directExecutor());
-    /* ... */
-  }
-</code></pre>
-
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doCreate</span><span style="color:#f92672">(</span>KeyValueServiceFutureStub stub<span style="color:#f92672">,</span> AtomicReference<span style="color:#f92672">&lt;</span>Throwable<span style="color:#f92672">&gt;</span> error<span style="color:#f92672">)</span>
+      <span style="color:#66d9ef">throws</span> InterruptedException <span style="color:#f92672">{</span>
+    limiter<span style="color:#f92672">.</span><span style="color:#a6e22e">acquire</span><span style="color:#f92672">();</span>
+    ByteString key <span style="color:#f92672">=</span> createRandomKey<span style="color:#f92672">();</span>
+    ListenableFuture<span style="color:#f92672">&lt;</span>CreateResponse<span style="color:#f92672">&gt;</span> res <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>
+        CreateRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">()</span>
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">setKey</span><span style="color:#f92672">(</span>key<span style="color:#f92672">)</span>
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">setValue</span><span style="color:#f92672">(</span>randomBytes<span style="color:#f92672">(</span>MEAN_VALUE_SIZE<span style="color:#f92672">))</span>
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">());</span>
+    res<span style="color:#f92672">.</span><span style="color:#a6e22e">addListener</span><span style="color:#f92672">(()</span> <span style="color:#f92672">-&gt;</span>  <span style="color:#f92672">{</span>
+      rpcCount<span style="color:#f92672">.</span><span style="color:#a6e22e">incrementAndGet</span><span style="color:#f92672">();</span>
+      limiter<span style="color:#f92672">.</span><span style="color:#a6e22e">release</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">},</span> MoreExecutors<span style="color:#f92672">.</span><span style="color:#a6e22e">directExecutor</span><span style="color:#f92672">());</span>
+    <span style="color:#75715e">/* ... */</span>
+  <span style="color:#f92672">}</span></code></pre></div>
 <p>Now the code runs successfully, and doesn&rsquo;t run out of memory.</p>
 
 <h3 id="results">Results</h3>

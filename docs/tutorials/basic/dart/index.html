@@ -92,6 +92,7 @@
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/web/" >Web</a>
 
 </div>
 
@@ -102,10 +103,6 @@
 
 <p class="lead">This tutorial provides a basic Dart programmer's introduction to
 working with gRPC.</p>
-
-<p class="note">Dart gRPC is currently in beta. Please help us out by
-<a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>
-if you encounter any.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
 
@@ -118,11 +115,9 @@ if you encounter any.</p>
 <p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
 with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. Note that the
 example in this tutorial uses the proto3 version of the protocol buffers
-language, which is currently in beta release: you can find out more in the
+language: you can find out more in the
 <a href="https://developers.google.com/protocol-buffers/docs/proto3">proto3 language
-guide</a>,
-and see the <a href="https://github.com/google/protobuf/releases">release notes</a> for the
-new version in the protocol buffers Github repository.</p>
+guide</a>.</p>
 
 <div id="toc"></div>
 
@@ -167,12 +162,9 @@ complete .proto file in
 <a href="https://github.com/grpc/grpc-dart/blob/master/example/route_guide/protos/route_guide.proto"><code>example/route_guide/protos/route_guide.proto</code></a>.</p>
 
 <p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
-
-<pre><code class="language-proto">service RouteGuide {
-   ...
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">service</span> RouteGuide {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   <span style="color:#f92672">...</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>Then you define <code>rpc</code> methods inside your service definition, specifying their
 request and response types. gRPC lets you define four kinds of service method,
 all of which are used in the <code>RouteGuide</code> service:</p>
@@ -181,11 +173,8 @@ all of which are used in the <code>RouteGuide</code> service:</p>
 <li>A <em>simple RPC</em> where the client sends a request to the server using the stub
 and waits for a response to come back, just like a normal function call.</li>
 </ul>
-
-<pre><code class="language-proto">// Obtains the feature at a given position.
-rpc GetFeature(Point) returns (Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Obtains the feature at a given position.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> GetFeature(Point) <span style="color:#66d9ef">returns</span> (Feature) {}</code></pre></div>
 <ul>
 <li>A <em>server-side streaming RPC</em> where the client sends a request to the server
 and gets a stream to read a sequence of messages back. The client reads from
@@ -193,14 +182,11 @@ the returned stream until there are no more messages. As you can see in our
 example, you specify a server-side streaming method by placing the <code>stream</code>
 keyword before the <em>response</em> type.</li>
 </ul>
-
-<pre><code class="language-proto">// Obtains the Features available within the given Rectangle.  Results are
-// streamed rather than returned at once (e.g. in a response message with a
-// repeated field), as the rectangle may cover a large area and contain a
-// huge number of features.
-rpc ListFeatures(Rectangle) returns (stream Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Obtains the Features available within the given Rectangle.  Results are
+</span><span style="color:#75715e">// streamed rather than returned at once (e.g. in a response message with a
+</span><span style="color:#75715e">// repeated field), as the rectangle may cover a large area and contain a
+</span><span style="color:#75715e">// huge number of features.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> ListFeatures(Rectangle) <span style="color:#66d9ef">returns</span> (stream Feature) {}</code></pre></div>
 <ul>
 <li>A <em>client-side streaming RPC</em> where the client writes a sequence of messages
 and sends them to the server, again using a provided stream. Once the client
@@ -208,12 +194,9 @@ has finished writing the messages, it waits for the server to read them all
 and return its response. You specify a client-side streaming method by placing
 the <code>stream</code> keyword before the <em>request</em> type.</li>
 </ul>
-
-<pre><code class="language-proto">// Accepts a stream of Points on a route being traversed, returning a
-// RouteSummary when traversal is completed.
-rpc RecordRoute(stream Point) returns (RouteSummary) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Accepts a stream of Points on a route being traversed, returning a
+</span><span style="color:#75715e">// RouteSummary when traversal is completed.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> RecordRoute(stream Point) <span style="color:#66d9ef">returns</span> (RouteSummary) {}</code></pre></div>
 <ul>
 <li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages
 using a read-write stream. The two streams operate independently, so clients
@@ -224,24 +207,18 @@ some other combination of reads and writes. The order of messages in each
 stream is preserved. You specify this type of method by placing the <code>stream</code>
 keyword before both the request and the response.</li>
 </ul>
-
-<pre><code class="language-proto">// Accepts a stream of RouteNotes sent while a route is being traversed,
-// while receiving other RouteNotes (e.g. from other users).
-rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Accepts a stream of RouteNotes sent while a route is being traversed,
+</span><span style="color:#75715e">// while receiving other RouteNotes (e.g. from other users).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> RouteChat(stream RouteNote) <span style="color:#66d9ef">returns</span> (stream RouteNote) {}</code></pre></div>
 <p>Our .proto file also contains protocol buffer message type definitions for all the request and response types used in our service methods - for example, here&rsquo;s the <code>Point</code> message type:</p>
-
-<pre><code class="language-proto">// Points are represented as latitude-longitude pairs in the E7 representation
-// (degrees multiplied by 10**7 and rounded to the nearest integer).
-// Latitudes should be in the range +/- 90 degrees and longitude should be in
-// the range +/- 180 degrees (inclusive).
-message Point {
-  int32 latitude = 1;
-  int32 longitude = 2;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Points are represented as latitude-longitude pairs in the E7 representation
+</span><span style="color:#75715e">// (degrees multiplied by 10**7 and rounded to the nearest integer).
+</span><span style="color:#75715e">// Latitudes should be in the range +/- 90 degrees and longitude should be in
+</span><span style="color:#75715e">// the range +/- 180 degrees (inclusive).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Point</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <h2 id="generating-client-and-server-code">Generating client and server code</h2>
 
 <p>Next we need to generate the gRPC client and server interfaces from our .proto
@@ -250,10 +227,7 @@ a special Dart plugin.
 This is similar to what we did in the <a href="../../quickstart/dart.html">quickstart guide</a></p>
 
 <p>From the <code>route_guide</code> example directory run :</p>
-
-<pre><code class="language-sh"> protoc -I protos/ protos/route_guide.proto --dart_out=grpc:lib/src/generated
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> protoc -I protos/ protos/route_guide.proto --dart_out<span style="color:#f92672">=</span>grpc:lib/src/generated</code></pre></div>
 <p>Running this command generates the following files in the <code>lib/src/generated</code>
 directory under the <code>route_guide</code> example directory:</p>
 
@@ -301,46 +275,40 @@ Let&rsquo;s take a closer look at how it works.</p>
 
 <p>As you can see, our server has a <code>RouteGuideService</code> class that extends the
 generated abstract <code>RouteGuideServiceBase</code> class:</p>
-
-<pre><code class="language-dart">class RouteGuideService extends RouteGuideServiceBase {
-  Future&lt;Feature&gt; getFeature(grpc.ServiceCall call, Point request) async {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RouteGuideService</span> <span style="color:#66d9ef">extends</span> RouteGuideServiceBase {
+  Future<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672">&gt;</span> getFeature(grpc.ServiceCall call, Point request) <span style="color:#66d9ef">async</span> {
     ...
   }
 
-  Stream&lt;Feature&gt; listFeatures(
-      grpc.ServiceCall call, Rectangle request) async* {
+  Stream<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672">&gt;</span> listFeatures(
+      grpc.ServiceCall call, Rectangle request) <span style="color:#66d9ef">async</span><span style="color:#f92672">*</span> {
     ...
   }
 
-  Future&lt;RouteSummary&gt; recordRoute(
-      grpc.ServiceCall call, Stream&lt;Point&gt; request) async {
+  Future<span style="color:#f92672">&lt;</span>RouteSummary<span style="color:#f92672">&gt;</span> recordRoute(
+      grpc.ServiceCall call, Stream<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span> request) <span style="color:#66d9ef">async</span> {
     ...
   }
 
-  Stream&lt;RouteNote&gt; routeChat(
-      grpc.ServiceCall call, Stream&lt;RouteNote&gt; request) async* {
+  Stream<span style="color:#f92672">&lt;</span>RouteNote<span style="color:#f92672">&gt;</span> routeChat(
+      grpc.ServiceCall call, Stream<span style="color:#f92672">&lt;</span>RouteNote<span style="color:#f92672">&gt;</span> request) <span style="color:#66d9ef">async</span><span style="color:#f92672">*</span> {
     ...
   }
 
   ...
-}
-</code></pre>
-
+}</code></pre></div>
 <h4 id="simple-rpc">Simple RPC</h4>
 
 <p><code>RouteGuideService</code> implements all our service methods. Let&rsquo;s look at the
 simplest type first, <code>GetFeature</code>, which just gets a <code>Point</code> from the client and
 returns the corresponding feature information from its database in a <code>Feature</code>.</p>
-
-<pre><code class="language-dart">/// GetFeature handler. Returns a feature for the given location.
-/// The [context] object provides access to client metadata, cancellation, etc.
-@override
-Future&lt;Feature&gt; getFeature(grpc.ServiceCall call, Point request) async {
-  return featuresDb.firstWhere((f) =&gt; f.location == request,
-      orElse: () =&gt; new Feature()..location = request);
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">/// GetFeature handler. Returns a feature for the given location.
+</span><span style="color:#75715e">/// The [context] object provides access to client metadata, cancellation, etc.
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">@</span>override
+Future<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672">&gt;</span> getFeature(grpc.ServiceCall call, Point request) <span style="color:#66d9ef">async</span> {
+  <span style="color:#66d9ef">return</span> featuresDb.firstWhere((f) <span style="color:#f92672">=&gt;</span> f.location <span style="color:#f92672">==</span> request,
+      orElse: () <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">new</span> Feature()..location <span style="color:#f92672">=</span> request);
+}</code></pre></div>
 <p>The method is passed a context object for the RPC and the client&rsquo;s <code>Point</code>
 protocol buffer request. It returns a <code>Feature</code> protocol buffer object with the
 response information. In the method we populate the <code>Feature</code> with the appropriate
@@ -351,24 +319,21 @@ the client.</p>
 
 <p>Now let&rsquo;s look at one of our streaming RPCs. <code>ListFeatures</code> is a server-side
 streaming RPC, so we need to send back multiple <code>Feature</code>s to our client.</p>
-
-<pre><code class="language-dart">/// ListFeatures handler. Returns a stream of features within the given
-/// rectangle.
-@override
-Stream&lt;Feature&gt; listFeatures(
-    grpc.ServiceCall call, Rectangle request) async* {
-  final normalizedRectangle = _normalize(request);
-  // For each feature, check if it is in the given bounding box
-  for (var feature in featuresDb) {
-    if (feature.name.isEmpty) continue;
-    final location = feature.location;
-    if (_contains(normalizedRectangle, location)) {
-      yield feature;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">/// ListFeatures handler. Returns a stream of features within the given
+</span><span style="color:#75715e">/// rectangle.
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">@</span>override
+Stream<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672">&gt;</span> listFeatures(
+    grpc.ServiceCall call, Rectangle request) <span style="color:#66d9ef">async</span><span style="color:#f92672">*</span> {
+  <span style="color:#66d9ef">final</span> normalizedRectangle <span style="color:#f92672">=</span> _normalize(request);
+  <span style="color:#75715e">// For each feature, check if it is in the given bounding box
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> feature <span style="color:#66d9ef">in</span> featuresDb) {
+    <span style="color:#66d9ef">if</span> (feature.name.isEmpty) <span style="color:#66d9ef">continue</span>;
+    <span style="color:#66d9ef">final</span> location <span style="color:#f92672">=</span> feature.location;
+    <span style="color:#66d9ef">if</span> (_contains(normalizedRectangle, location)) {
+      <span style="color:#66d9ef">yield</span> feature;
     }
   }
-}
-</code></pre>
-
+}</code></pre></div>
 <p>As you can see, instead of getting and returning simple request and response
 objects in our method, this time we get a request object (the <code>Rectangle</code> in
 which our client wants to find <code>Feature</code>s) and return a <code>Stream</code> of <code>Feature</code>
@@ -391,41 +356,38 @@ client and return a single <code>RouteSummary</code> with information about thei
 you can see, this time the request parameter is a stream, which the server can
 use to both read request messages from the client. The server returns its single
 response just like in the simple RPC case.</p>
-
-<pre><code class="language-dart">/// RecordRoute handler. Gets a stream of points, and responds with statistics
-/// about the &quot;trip&quot;: number of points, number of known features visited,
-/// total distance traveled, and total time spent.
-@override
-Future&lt;RouteSummary&gt; recordRoute(
-    grpc.ServiceCall call, Stream&lt;Point&gt; request) async {
-  int pointCount = 0;
-  int featureCount = 0;
-  double distance = 0.0;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">/// RecordRoute handler. Gets a stream of points, and responds with statistics
+</span><span style="color:#75715e">/// about the &#34;trip&#34;: number of points, number of known features visited,
+</span><span style="color:#75715e">/// total distance traveled, and total time spent.
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">@</span>override
+Future<span style="color:#f92672">&lt;</span>RouteSummary<span style="color:#f92672">&gt;</span> recordRoute(
+    grpc.ServiceCall call, Stream<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span> request) <span style="color:#66d9ef">async</span> {
+  <span style="color:#66d9ef">int</span> pointCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">int</span> featureCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">double</span> distance <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
   Point previous;
-  final timer = new Stopwatch();
+  <span style="color:#66d9ef">final</span> timer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stopwatch();
 
-  await for (var location in request) {
-    if (!timer.isRunning) timer.start();
-    pointCount++;
-    final feature = featuresDb.firstWhere((f) =&gt; f.location == location,
-        orElse: () =&gt; null);
-    if (feature != null) {
-      featureCount++;
+  <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> location <span style="color:#66d9ef">in</span> request) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>timer.isRunning) timer.start();
+    pointCount<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">final</span> feature <span style="color:#f92672">=</span> featuresDb.firstWhere((f) <span style="color:#f92672">=&gt;</span> f.location <span style="color:#f92672">==</span> location,
+        orElse: () <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">null</span>);
+    <span style="color:#66d9ef">if</span> (feature <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+      featureCount<span style="color:#f92672">++</span>;
     }
-    // For each point after the first, add the incremental distance from the
-    // previous point to the total distance value.
-    if (previous != null) distance += _distance(previous, location);
-    previous = location;
+    <span style="color:#75715e">// For each point after the first, add the incremental distance from the
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// previous point to the total distance value.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (previous <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) distance <span style="color:#f92672">+=</span> _distance(previous, location);
+    previous <span style="color:#f92672">=</span> location;
   }
   timer.stop();
-  return new RouteSummary()
-    ..pointCount = pointCount
-    ..featureCount = featureCount
-    ..distance = distance.round()
-    ..elapsedTime = timer.elapsed.inSeconds;
-}
-</code></pre>
-
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> RouteSummary()
+    ..pointCount <span style="color:#f92672">=</span> pointCount
+    ..featureCount <span style="color:#f92672">=</span> featureCount
+    ..distance <span style="color:#f92672">=</span> distance.round()
+    ..elapsedTime <span style="color:#f92672">=</span> timer.elapsed.inSeconds;
+}</code></pre></div>
 <p>In the method body we use <code>await for</code> in the request stream to repeatedly read
 in our client&rsquo;s requests (in this case <code>Point</code> objects) until there are no more
 messages. Once the request stream is done, the server can return its
@@ -434,21 +396,18 @@ messages. Once the request stream is done, the server can return its
 <h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>.</p>
-
-<pre><code class="language-dart">/// RouteChat handler. Receives a stream of message/location pairs, and
-/// responds with a stream of all previous messages at each of those
-/// locations.
-@override
-Stream&lt;RouteNote&gt; routeChat(
-    grpc.ServiceCall call, Stream&lt;RouteNote&gt; request) async* {
-  await for (var note in request) {
-    final notes = routeNotes.putIfAbsent(note.location, () =&gt; &lt;RouteNote&gt;[]);
-    for (var note in notes) yield note;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">/// RouteChat handler. Receives a stream of message/location pairs, and
+</span><span style="color:#75715e">/// responds with a stream of all previous messages at each of those
+</span><span style="color:#75715e">/// locations.
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">@</span>override
+Stream<span style="color:#f92672">&lt;</span>RouteNote<span style="color:#f92672">&gt;</span> routeChat(
+    grpc.ServiceCall call, Stream<span style="color:#f92672">&lt;</span>RouteNote<span style="color:#f92672">&gt;</span> request) <span style="color:#66d9ef">async</span><span style="color:#f92672">*</span> {
+  <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> note <span style="color:#66d9ef">in</span> request) {
+    <span style="color:#66d9ef">final</span> notes <span style="color:#f92672">=</span> routeNotes.putIfAbsent(note.location, () <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">&lt;</span>RouteNote<span style="color:#f92672">&gt;</span>[]);
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> note <span style="color:#66d9ef">in</span> notes) <span style="color:#66d9ef">yield</span> note;
     notes.add(note);
   }
-}
-</code></pre>
-
+}</code></pre></div>
 <p>This time we get a stream of <code>RouteNote</code> that, as in our client-side streaming
 example, can be used to read messages. However, this time we return values via
 our method&rsquo;s returned stream while the client is still writing messages to
@@ -464,15 +423,12 @@ any order — the streams operate completely independently.</p>
 <p>Once we&rsquo;ve implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
 do this for our <code>RouteGuide</code> service:</p>
-
-<pre><code class="language-dart">Future&lt;Null&gt; main(List&lt;String&gt; args) async {
-  final server =
-      new grpc.Server([new RouteGuideService()]);
-  await server.serve(port: 8080);
-  print('Server listening...');
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart">Future<span style="color:#f92672">&lt;</span>Null<span style="color:#f92672">&gt;</span> main(List<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">String</span><span style="color:#f92672">&gt;</span> args) <span style="color:#66d9ef">async</span> {
+  <span style="color:#66d9ef">final</span> server <span style="color:#f92672">=</span>
+      <span style="color:#66d9ef">new</span> grpc.Server([<span style="color:#66d9ef">new</span> RouteGuideService()]);
+  <span style="color:#66d9ef">await</span> server.serve(port: <span style="color:#ae81ff">8080</span>);
+  print(<span style="color:#e6db74">&#39;Server listening...&#39;</span>);
+}</code></pre></div>
 <p>To build and start a server, we:</p>
 
 <ol>
@@ -496,24 +452,18 @@ service. You can see our complete example client code in
 <p>To call service methods, we first need to create a gRPC <em>channel</em> to communicate
 with the server. We create this by passing the server address and port number to
 <code>new ClientChannel()</code> as follows:</p>
-
-<pre><code class="language-dart">final channel = new ClientChannel('127.0.0.1',
-    port: 8080,
-    options: const ChannelOptions(
-        credentials: const ChannelCredentials.insecure()));
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">final</span> channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ClientChannel(<span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
+    port: <span style="color:#ae81ff">8080</span>,
+    options: <span style="color:#66d9ef">const</span> ChannelOptions(
+        credentials: <span style="color:#66d9ef">const</span> ChannelCredentials.insecure()));</code></pre></div>
 <p>You can use <code>ChannelOptions</code> to set TLS options (e.g., trusted certificates) for
 the channel, if necessary.</p>
 
 <p>Once the gRPC <em>channel</em> is setup, we need a client <em>stub</em> to perform RPCs. We
 get by creating a new instance of the <code>RouteGuideClient</code> object provided in the
 package we generated from our .proto.</p>
-
-<pre><code class="language-dart">final client = new RouteGuideClient(channel,
-    options: new CallOptions(timeout: new Duration(seconds: 30)));
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">final</span> client <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RouteGuideClient(channel,
+    options: <span style="color:#66d9ef">new</span> CallOptions(timeout: <span style="color:#66d9ef">new</span> Duration(seconds: <span style="color:#ae81ff">30</span>)));</code></pre></div>
 <p>You can use <code>CallOptions</code> to set the auth credentials (e.g., GCE credentials,
 JWT credentials) if the service you request requires that - however, we don&rsquo;t
 need to do this for our <code>RouteGuide</code> service.</p>
@@ -528,13 +478,10 @@ that must be listened to, to get the response from the server or an error.</p>
 
 <p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
 local method.</p>
-
-<pre><code class="language-dart">final point = new Point()
-  ..latitude = 409146138
-  ..longitude = -746188906;
-final feature = await stub.getFeature(point));
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">final</span> point <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Point()
+  ..latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">409146138</span>
+  ..longitude <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">746188906</span>;
+<span style="color:#66d9ef">final</span> feature <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> stub.getFeature(point));</code></pre></div>
 <p>As you can see, we call the method on the stub we got earlier. In our method
 parameters we pass a request protocol buffer object (in our case <code>Point</code>).
 We can also pass an optional <code>CallOptions</code> object which lets us change our RPC&rsquo;s
@@ -548,18 +495,15 @@ If there is an error, the <code>Future</code> will complete with the error.</p>
 returns a stream of geographical <code>Feature</code>s. If you&rsquo;ve already read <a href="#server">Creating
 the server</a> some of this may look very familiar - streaming RPCs are
 implemented in a similar way on both sides.</p>
-
-<pre><code class="language-dart">final rect = new Rectangle()...; // initialize a Rectangle
-
-try {
-  await for (var feature in stub.listFeatures(rect)) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">final</span> rect <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Rectangle()...; <span style="color:#75715e">// initialize a Rectangle
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">try</span> {
+  <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> feature <span style="color:#66d9ef">in</span> stub.listFeatures(rect)) {
     print(feature);
   }
-catch (e) {
-  print('ERROR: $e');
-}
-</code></pre>
-
+<span style="color:#66d9ef">catch</span> (e) {
+  print(<span style="color:#e6db74">&#39;ERROR: </span><span style="color:#e6db74">$</span>e<span style="color:#e6db74">&#39;</span>);
+}</code></pre></div>
 <p>As in the simple RPC, we pass the method a request. However, instead of getting
 a <code>Future</code> back, we get a <code>Stream</code>. The client can use the stream to read the
 server&rsquo;s responses.</p>
@@ -572,23 +516,20 @@ there are no more messages.</p>
 
 <p>The client-side streaming method <code>RecordRoute</code> is similar to the server-side
 method, except that we pass the method a <code>Stream</code> and get a <code>Future</code> back.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">final</span> random <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random();
 
-<pre><code class="language-dart">final random = new Random();
-
-// Generate a number of random points
-Stream&lt;Point&gt; generateRoute(int count) async* {
-  for (int i = 0; i &lt; count; i++) {
-    final point = featuresDb[random.nextInt(featuresDb.length)].location;
-    yield point;
+<span style="color:#75715e">// Generate a number of random points
+</span><span style="color:#75715e"></span>Stream<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span> generateRoute(<span style="color:#66d9ef">int</span> count) <span style="color:#66d9ef">async</span><span style="color:#f92672">*</span> {
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> count; i<span style="color:#f92672">++</span>) {
+    <span style="color:#66d9ef">final</span> point <span style="color:#f92672">=</span> featuresDb[random.nextInt(featuresDb.length)].location;
+    <span style="color:#66d9ef">yield</span> point;
   }
 }
 
-final pointCount = random.nextInt(100) + 2; // Traverse at least two points
-
-final summary = await stub.recordRoute(generateRoute(pointCount));
-print('Route summary: $summary');
-</code></pre>
-
+<span style="color:#66d9ef">final</span> pointCount <span style="color:#f92672">=</span> random.nextInt(<span style="color:#ae81ff">100</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// Traverse at least two points
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">final</span> summary <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> stub.recordRoute(generateRoute(pointCount));
+print(<span style="color:#e6db74">&#39;Route summary: </span><span style="color:#e6db74">$</span>summary<span style="color:#e6db74">&#39;</span>);</code></pre></div>
 <p>Since the <code>generateRoute()</code> method is <code>async*</code>, the points will be generated when
 gRPC listens to the request stream and sends the point messages to the server. Once
 the stream is done (when <code>generateRoute()</code> returns), gRPC knows that we&rsquo;ve finished
@@ -602,16 +543,13 @@ case of <code>RecordRoute</code>, we pass the method a stream where we will writ
 messages, and like in <code>ListFeatures</code>, we get back a stream that we can use to read
 the response messages. However, this time we will send values via our method&rsquo;s stream
 while the server is also writing messages to <em>their</em> message stream.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart">Stream<span style="color:#f92672">&lt;</span>RouteNote<span style="color:#f92672">&gt;</span> outgoingNotes <span style="color:#f92672">=</span> ...;
 
-<pre><code class="language-dart">Stream&lt;RouteNote&gt; outgoingNotes = ...;
-
-final responses = stub.routeChat(outgoingNotes);
-await for (var note in responses) {
-  print('Got message ${note.message} at ${note.location.latitude}, ${note
-      .location.longitude}');
-}
-</code></pre>
-
+<span style="color:#66d9ef">final</span> responses <span style="color:#f92672">=</span> stub.routeChat(outgoingNotes);
+<span style="color:#66d9ef">await</span> <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> note <span style="color:#66d9ef">in</span> responses) {
+  print(<span style="color:#e6db74">&#39;Got message </span><span style="color:#e6db74">${</span>note.message<span style="color:#e6db74">}</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">${</span>note.location.latitude<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">${</span>note
+      .location.longitude<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>);
+}</code></pre></div>
 <p>The syntax for reading and writing here is very similar to our client-side and
 server-side streaming methods. Although each side will always get the other&rsquo;s
 messages in the order they were written, both the client and server can read and
@@ -622,19 +560,16 @@ write in any order — the streams operate completely independently.</p>
 <p>Go to the <code>examples/route_guide</code> folder.</p>
 
 <p>First, make sure dependencies are downloaded:</p>
-
-<pre><code class="language-sh">$ pub get
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pub get</code></pre></div>
 <p>To run the server, simply:</p>
-
-<pre><code class="language-sh">$ dart bin/server.dart
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ dart bin/server.dart</code></pre></div>
 <p>Likewise, to run the client:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ dart bin/client.dart</code></pre></div>
+<h2 id="reporting-issues">Reporting issues</h2>
 
-<pre><code class="language-sh">$ dart bin/client.dart
-</code></pre>
+<p>Should you encounter an issue, please help us out by
+<a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>
+in our issue tracker.</p></p>
 
 </div>
 </div>

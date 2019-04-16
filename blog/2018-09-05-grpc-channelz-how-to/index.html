@@ -65,7 +65,12 @@
 
   <div class="singleblog"> 
   <h1>A short introduction to Channelz</h1>
-  <h5>Posted on Wednesday, September 05, 2018 by Yuxuan Li</h5>
+  <h5>Posted on Wednesday, September 05, 2018 
+    by 
+    
+      <a href="https://github.com/lyuxuan">Yuxuan Li</a>
+    
+  </h5>
   <p>
     <p>Channelz is a tool that provides comprehensive runtime info about connections at
 different levels in gRPC. It is designed to help debug live programs, which may
@@ -141,15 +146,12 @@ a gRPC server in their program and start the server. The code snippet below
 shows the API for registering channelz service to a
 <a href="https://godoc.org/google.golang.org/grpc#Server">grpc.Server</a>. Note that this
 has already been done for our example client.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;google.golang.org/grpc/channelz/service&#34;</span>
 
-<pre><code class="language-go">import &quot;google.golang.org/grpc/channelz/service&quot;
+<span style="color:#75715e">// s is a *grpc.Server
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">service</span>.<span style="color:#a6e22e">RegisterChannelzServiceToServer</span>(<span style="color:#a6e22e">s</span>)
 
-// s is a *grpc.Server
-service.RegisterChannelzServiceToServer(s)
-
-// call s.Serve() to serve channelz service
-</code></pre>
-
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Serve</span>() <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">serve</span> <span style="color:#a6e22e">channelz</span> <span style="color:#a6e22e">service</span></code></pre></div>
 <p>A web tool called
 <a href="https://github.com/grpc/grpc-experiments/tree/master/gdebug">grpc-zpages</a>
 has been developed to conveniently serve channelz data through a web page.

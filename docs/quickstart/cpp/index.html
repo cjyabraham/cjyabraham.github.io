@@ -84,12 +84,13 @@
 <a href="https://cjyabraham.github.io/docs/quickstart/dart/" >Dart</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/go/" >Go</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/java/" >Java</a>
-<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android Java</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/node/" >Node.js</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/objective-c/" >Objective-C</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/web/" >Web</a>
 </div>
 
 <div class="quickstartcol2" style="margin-top:4%">
@@ -124,24 +125,15 @@ uses Protocol Buffers as well as gRPC. If you don&rsquo;t already have it instal
 your system, you can install the version cloned alongside gRPC. First ensure
 that you are running these commands in the gRPC tree you just built in the from
 the previous step.</p>
-
-<pre><code class="language-sh">$ cd third_party/protobuf
-$ make &amp;&amp; sudo make install
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd third_party/protobuf
+$ make <span style="color:#f92672">&amp;&amp;</span> sudo make install</code></pre></div>
 <h2 id="build-the-example">Build the example</h2>
 
 <p>Always assuming you have gRPC properly installed, go into the example&rsquo;s
 directory:</p>
-
-<pre><code class="language-sh">$ cd examples/cpp/helloworld/
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/cpp/helloworld/</code></pre></div>
 <p>Let&rsquo;s build the example client and server:</p>
-
-<pre><code class="language-sh">$ make
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make</code></pre></div>
 <p>Most failures at this point are a result of a faulty installation (or having
 installed gRPC to a non-standard location. Check out <a href="https://github.com/grpc/grpc/blob/master/src/cpp/README.md#make">the installation
 instructions for details</a>).</p>
@@ -150,15 +142,9 @@ instructions for details</a>).</p>
 
 <p>From the <code>examples/cpp/helloworld</code> directory, run the server, which will listen
 on port 50051:</p>
-
-<pre><code class="language-sh">$ ./greeter_server
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ./greeter_server</code></pre></div>
 <p>From a different terminal, run the client:</p>
-
-<pre><code class="language-sh">$ ./greeter_client
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ./greeter_client</code></pre></div>
 <p>If things go smoothly, you will see the <code>Greeter received: Hello world</code> in the
 client side output.</p>
 
@@ -174,58 +160,49 @@ C++</a>. For now all you need to know is that both the server and the client
 &ldquo;stub&rdquo; have a <code>SayHello</code> RPC method that takes a <code>HelloRequest</code> parameter from
 the client and returns a <code>HelloResponse</code> from the server, and that this method
 is defined like this:</p>
-
-<pre><code class="language-protobuf">// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>Let&rsquo;s update this so that the <code>Greeter</code> service has two methods. Edit
 <code>examples/protos/helloworld.proto</code> (from the root of the cloned repository) and
 update it with a new <code>SayHelloAgain</code> method, with the same request and response
 types:</p>
-
-<pre><code class="language-protobuf">// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#75715e">// The greeting service definition.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">service</span> Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends a greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Sends another greeting
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SayHelloAgain (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloReply) {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The request message containing the user&#39;s name.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">// The response message containing the greetings
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloReply</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">message</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
 <h2 id="generate-grpc-code">Generate gRPC code</h2>
 
 <p>Next we need to update the gRPC code used by our application to use the new
 service definition. From the <code>examples/cpp/helloworld</code> directory:</p>
-
-<pre><code class="language-sh">$ make
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make</code></pre></div>
 <p>This regenerates <code>helloworld.pb.{h,cc}</code> and <code>helloworld.grpc.pb.{h,cc}</code>, which
 contains our generated client and server classes, as well as classes for
 populating, serializing, and retrieving our request and response types.</p>
@@ -276,7 +253,7 @@ method to <code>GreeterClient</code>:</p>
     HelloReply reply;
     ClientContext context;
 
-    // Here we can the stub's newly available method we just added.
+    // Here we can use the stub's newly available method we just added.
     Status status = stub_-&gt;SayHelloAgain(&amp;context, request, &amp;reply);
     if (status.ok()) {
       return reply.message();
@@ -310,23 +287,15 @@ method to <code>GreeterClient</code>:</p>
 
 <ol>
 <li><p>Build the client and server after having made changes:</p>
-
-<pre><code class="language-sh">$ make
-</code></pre></li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make</code></pre></div></li>
 
 <li><p>Run the server</p></li>
 </ol>
-
-<pre><code class="language-sh">   $ ./greeter_server
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ./greeter_server</code></pre></div>
 <ol>
 <li>On a different terminal, run the client</li>
 </ol>
-
-<pre><code class="language-sh">   $ ./greeter_client
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ./greeter_client</code></pre></div>
 <p>You should see the updated output:</p>
 
 <pre><code>   $ ./greeter_client

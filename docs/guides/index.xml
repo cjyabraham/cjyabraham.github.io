@@ -51,15 +51,6 @@ Overview gRPC is designed for both high-performance and high-productivity design
     </item>
     
     <item>
-      <title>Tuning RPC Behaviour</title>
-      <link>https://cjyabraham.github.io/docs/guides/tuning/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cjyabraham.github.io/docs/guides/tuning/</guid>
-      <description>Coming soon!</description>
-    </item>
-    
-    <item>
       <title>gRPC Concepts</title>
       <link>https://cjyabraham.github.io/docs/guides/concepts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

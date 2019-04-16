@@ -92,6 +92,7 @@
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/web/" >Web</a>
 
 </div>
 
@@ -114,13 +115,11 @@ working with gRPC.</p>
 <p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
 with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. Note that the
 example in this tutorial uses the proto3 version of the protocol buffers
-language, which is currently in beta release: you can find out more in the
+language: you can find out more in the
 <a href="https://developers.google.com/protocol-buffers/docs/proto3">proto3 language
 guide</a> and the <a href="https://developers.google.com/protocol-buffers/docs/reference/go-generated">Go
 generated code
-guide</a>,
-and see the <a href="https://github.com/google/protobuf/releases">release notes</a> for the
-new version in the protocol buffers Github repository.</p>
+guide</a>.</p>
 
 <div id="toc"></div>
 
@@ -165,12 +164,9 @@ complete .proto file in
 <a href="https://github.com/grpc/grpc-go/blob/master/examples/route_guide/routeguide/route_guide.proto"><code>examples/route_guide/routeguide/route_guide.proto</code></a>.</p>
 
 <p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
-
-<pre><code class="language-proto">service RouteGuide {
-   ...
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">service</span> RouteGuide {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   <span style="color:#f92672">...</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>Then you define <code>rpc</code> methods inside your service definition, specifying their
 request and response types. gRPC lets you define four kinds of service method,
 all of which are used in the <code>RouteGuide</code> service:</p>
@@ -179,11 +175,8 @@ all of which are used in the <code>RouteGuide</code> service:</p>
 <li>A <em>simple RPC</em> where the client sends a request to the server using the stub
 and waits for a response to come back, just like a normal function call.</li>
 </ul>
-
-<pre><code class="language-proto">// Obtains the feature at a given position.
-rpc GetFeature(Point) returns (Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Obtains the feature at a given position.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> GetFeature(Point) <span style="color:#66d9ef">returns</span> (Feature) {}</code></pre></div>
 <ul>
 <li>A <em>server-side streaming RPC</em> where the client sends a request to the server
 and gets a stream to read a sequence of messages back. The client reads from
@@ -191,14 +184,11 @@ the returned stream until there are no more messages. As you can see in our
 example, you specify a server-side streaming method by placing the <code>stream</code>
 keyword before the <em>response</em> type.</li>
 </ul>
-
-<pre><code class="language-proto">// Obtains the Features available within the given Rectangle.  Results are
-// streamed rather than returned at once (e.g. in a response message with a
-// repeated field), as the rectangle may cover a large area and contain a
-// huge number of features.
-rpc ListFeatures(Rectangle) returns (stream Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Obtains the Features available within the given Rectangle.  Results are
+</span><span style="color:#75715e">// streamed rather than returned at once (e.g. in a response message with a
+</span><span style="color:#75715e">// repeated field), as the rectangle may cover a large area and contain a
+</span><span style="color:#75715e">// huge number of features.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> ListFeatures(Rectangle) <span style="color:#66d9ef">returns</span> (stream Feature) {}</code></pre></div>
 <ul>
 <li>A <em>client-side streaming RPC</em> where the client writes a sequence of messages
 and sends them to the server, again using a provided stream. Once the client
@@ -206,12 +196,9 @@ has finished writing the messages, it waits for the server to read them all
 and return its response. You specify a client-side streaming method by placing
 the <code>stream</code> keyword before the <em>request</em> type.</li>
 </ul>
-
-<pre><code class="language-proto">// Accepts a stream of Points on a route being traversed, returning a
-// RouteSummary when traversal is completed.
-rpc RecordRoute(stream Point) returns (RouteSummary) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Accepts a stream of Points on a route being traversed, returning a
+</span><span style="color:#75715e">// RouteSummary when traversal is completed.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> RecordRoute(stream Point) <span style="color:#66d9ef">returns</span> (RouteSummary) {}</code></pre></div>
 <ul>
 <li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages
 using a read-write stream. The two streams operate independently, so clients
@@ -222,24 +209,18 @@ some other combination of reads and writes. The order of messages in each
 stream is preserved. You specify this type of method by placing the <code>stream</code>
 keyword before both the request and the response.</li>
 </ul>
-
-<pre><code class="language-proto">// Accepts a stream of RouteNotes sent while a route is being traversed,
-// while receiving other RouteNotes (e.g. from other users).
-rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Accepts a stream of RouteNotes sent while a route is being traversed,
+</span><span style="color:#75715e">// while receiving other RouteNotes (e.g. from other users).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> RouteChat(stream RouteNote) <span style="color:#66d9ef">returns</span> (stream RouteNote) {}</code></pre></div>
 <p>Our .proto file also contains protocol buffer message type definitions for all the request and response types used in our service methods - for example, here&rsquo;s the <code>Point</code> message type:</p>
-
-<pre><code class="language-proto">// Points are represented as latitude-longitude pairs in the E7 representation
-// (degrees multiplied by 10**7 and rounded to the nearest integer).
-// Latitudes should be in the range +/- 90 degrees and longitude should be in
-// the range +/- 180 degrees (inclusive).
-message Point {
-  int32 latitude = 1;
-  int32 longitude = 2;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#75715e">// Points are represented as latitude-longitude pairs in the E7 representation
+</span><span style="color:#75715e">// (degrees multiplied by 10**7 and rounded to the nearest integer).
+</span><span style="color:#75715e">// Latitudes should be in the range +/- 90 degrees and longitude should be in
+</span><span style="color:#75715e">// the range +/- 180 degrees (inclusive).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Point</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <h2 id="generating-client-and-server-code">Generating client and server code</h2>
 
 <p>Next we need to generate the gRPC client and server interfaces from our .proto
@@ -248,10 +229,7 @@ a special gRPC Go plugin.
 This is similar to what we did in the <a href="../../quickstart/go.html">quickstart guide</a></p>
 
 <p>From the <code>route_guide</code> example directory run :</p>
-
-<pre><code class="language-sh"> protoc -I routeguide/ routeguide/route_guide.proto --go_out=plugins=grpc:routeguide
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> protoc -I routeguide/ routeguide/route_guide.proto --go_out<span style="color:#f92672">=</span>plugins<span style="color:#f92672">=</span>grpc:routeguide</code></pre></div>
 <p>Running this command generates the following file in the <code>routeguide</code> directory under the <code>route_guide</code> example directory:
 - <code>route_guide.pb.go</code></p>
 
@@ -288,50 +266,44 @@ Let&rsquo;s take a closer look at how it works.</p>
 <h3 id="implementing-routeguide">Implementing RouteGuide</h3>
 
 <p>As you can see, our server has a <code>routeGuideServer</code> struct type that implements the generated <code>RouteGuideServer</code> interface:</p>
-
-<pre><code class="language-go">type routeGuideServer struct {
-        ...
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">routeGuideServer</span> <span style="color:#66d9ef">struct</span> {
+        <span style="color:#f92672">...</span>
 }
-...
+<span style="color:#f92672">...</span>
 
-func (s *routeGuideServer) GetFeature(ctx context.Context, point *pb.Point) (*pb.Feature, error) {
-        ...
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">GetFeature</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">point</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Point</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Feature</span>, <span style="color:#66d9ef">error</span>) {
+        <span style="color:#f92672">...</span>
 }
-...
+<span style="color:#f92672">...</span>
 
-func (s *routeGuideServer) ListFeatures(rect *pb.Rectangle, stream pb.RouteGuide_ListFeaturesServer) error {
-        ...
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">ListFeatures</span>(<span style="color:#a6e22e">rect</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Rectangle</span>, <span style="color:#a6e22e">stream</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteGuide_ListFeaturesServer</span>) <span style="color:#66d9ef">error</span> {
+        <span style="color:#f92672">...</span>
 }
-...
+<span style="color:#f92672">...</span>
 
-func (s *routeGuideServer) RecordRoute(stream pb.RouteGuide_RecordRouteServer) error {
-        ...
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">RecordRoute</span>(<span style="color:#a6e22e">stream</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteGuide_RecordRouteServer</span>) <span style="color:#66d9ef">error</span> {
+        <span style="color:#f92672">...</span>
 }
-...
+<span style="color:#f92672">...</span>
 
-func (s *routeGuideServer) RouteChat(stream pb.RouteGuide_RouteChatServer) error {
-        ...
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">RouteChat</span>(<span style="color:#a6e22e">stream</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteGuide_RouteChatServer</span>) <span style="color:#66d9ef">error</span> {
+        <span style="color:#f92672">...</span>
 }
-...
-</code></pre>
-
+<span style="color:#f92672">...</span></code></pre></div>
 <h4 id="simple-rpc">Simple RPC</h4>
 
 <p><code>routeGuideServer</code> implements all our service methods. Let&rsquo;s look at the
 simplest type first, <code>GetFeature</code>, which just gets a <code>Point</code> from the client and
 returns the corresponding feature information from its database in a <code>Feature</code>.</p>
-
-<pre><code class="language-go">func (s *routeGuideServer) GetFeature(ctx context.Context, point *pb.Point) (*pb.Feature, error) {
-	for _, feature := range s.savedFeatures {
-		if proto.Equal(feature.Location, point) {
-			return feature, nil
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">GetFeature</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">point</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Point</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Feature</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">feature</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">savedFeatures</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">proto</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">feature</span>.<span style="color:#a6e22e">Location</span>, <span style="color:#a6e22e">point</span>) {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">feature</span>, <span style="color:#66d9ef">nil</span>
 		}
 	}
-	// No feature was found, return an unnamed feature
-	return &amp;pb.Feature{&quot;&quot;, point}, nil
-}
-</code></pre>
-
+	<span style="color:#75715e">// No feature was found, return an unnamed feature
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Feature</span>{<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">point</span>}, <span style="color:#66d9ef">nil</span>
+}</code></pre></div>
 <p>The method is passed a context object for the RPC and the client&rsquo;s <code>Point</code>
 protocol buffer request. It returns a <code>Feature</code> protocol buffer object with the
 response information and an <code>error</code>. In the method we populate the <code>Feature</code>
@@ -343,19 +315,16 @@ be returned to the client.</p>
 
 <p>Now let&rsquo;s look at one of our streaming RPCs. <code>ListFeatures</code> is a server-side
 streaming RPC, so we need to send back multiple <code>Feature</code>s to our client.</p>
-
-<pre><code class="language-go">func (s *routeGuideServer) ListFeatures(rect *pb.Rectangle, stream pb.RouteGuide_ListFeaturesServer) error {
-	for _, feature := range s.savedFeatures {
-		if inRange(feature.Location, rect) {
-			if err := stream.Send(feature); err != nil {
-				return err
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">ListFeatures</span>(<span style="color:#a6e22e">rect</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Rectangle</span>, <span style="color:#a6e22e">stream</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteGuide_ListFeaturesServer</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">feature</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">savedFeatures</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">inRange</span>(<span style="color:#a6e22e">feature</span>.<span style="color:#a6e22e">Location</span>, <span style="color:#a6e22e">rect</span>) {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">feature</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 			}
 		}
 	}
-	return nil
-}
-</code></pre>
-
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}</code></pre></div>
 <p>As you can see, instead of getting simple request and response objects in our
 method parameters, this time we get a request object (the <code>Rectangle</code> in which
 our client wants to find <code>Feature</code>s) and a special
@@ -378,39 +347,36 @@ Instead, it gets a <code>RouteGuide_RecordRouteServer</code> stream, which the s
 use to both read <em>and</em> write messages - it can receive client messages using
 its <code>Recv()</code> method and return its single response using its <code>SendAndClose()</code>
 method.</p>
-
-<pre><code class="language-go">func (s *routeGuideServer) RecordRoute(stream pb.RouteGuide_RecordRouteServer) error {
-	var pointCount, featureCount, distance int32
-	var lastPoint *pb.Point
-	startTime := time.Now()
-	for {
-		point, err := stream.Recv()
-		if err == io.EOF {
-			endTime := time.Now()
-			return stream.SendAndClose(&amp;pb.RouteSummary{
-				PointCount:   pointCount,
-				FeatureCount: featureCount,
-				Distance:     distance,
-				ElapsedTime:  int32(endTime.Sub(startTime).Seconds()),
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">RecordRoute</span>(<span style="color:#a6e22e">stream</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteGuide_RecordRouteServer</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pointCount</span>, <span style="color:#a6e22e">featureCount</span>, <span style="color:#a6e22e">distance</span> <span style="color:#66d9ef">int32</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">lastPoint</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Point</span>
+	<span style="color:#a6e22e">startTime</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">point</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Recv</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+			<span style="color:#a6e22e">endTime</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">SendAndClose</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteSummary</span>{
+				<span style="color:#a6e22e">PointCount</span>:   <span style="color:#a6e22e">pointCount</span>,
+				<span style="color:#a6e22e">FeatureCount</span>: <span style="color:#a6e22e">featureCount</span>,
+				<span style="color:#a6e22e">Distance</span>:     <span style="color:#a6e22e">distance</span>,
+				<span style="color:#a6e22e">ElapsedTime</span>:  int32(<span style="color:#a6e22e">endTime</span>.<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">startTime</span>).<span style="color:#a6e22e">Seconds</span>()),
 			})
 		}
-		if err != nil {
-			return err
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 		}
-		pointCount++
-		for _, feature := range s.savedFeatures {
-			if proto.Equal(feature.Location, point) {
-				featureCount++
+		<span style="color:#a6e22e">pointCount</span><span style="color:#f92672">++</span>
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">feature</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">savedFeatures</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">proto</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">feature</span>.<span style="color:#a6e22e">Location</span>, <span style="color:#a6e22e">point</span>) {
+				<span style="color:#a6e22e">featureCount</span><span style="color:#f92672">++</span>
 			}
 		}
-		if lastPoint != nil {
-			distance += calcDistance(lastPoint, point)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lastPoint</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">distance</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">calcDistance</span>(<span style="color:#a6e22e">lastPoint</span>, <span style="color:#a6e22e">point</span>)
 		}
-		lastPoint = point
+		<span style="color:#a6e22e">lastPoint</span> = <span style="color:#a6e22e">point</span>
 	}
-}
-</code></pre>
-
+}</code></pre></div>
 <p>In the method body we use the <code>RouteGuide_RecordRouteServer</code>&rsquo;s <code>Recv()</code> method to
 repeatedly read in our client&rsquo;s requests to a request object (in this case a
 <code>Point</code>) until there are no more messages: the server needs to check the
@@ -423,27 +389,24 @@ gRPC layer.</p>
 <h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>.</p>
-
-<pre><code class="language-go">func (s *routeGuideServer) RouteChat(stream pb.RouteGuide_RouteChatServer) error {
-	for {
-		in, err := stream.Recv()
-		if err == io.EOF {
-			return nil
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">RouteChat</span>(<span style="color:#a6e22e">stream</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteGuide_RouteChatServer</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">in</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Recv</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 		}
-		if err != nil {
-			return err
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 		}
-		key := serialize(in.Location)
-                ... // look for notes to be sent to client
-		for _, note := range s.routeNotes[key] {
-			if err := stream.Send(note); err != nil {
-				return err
+		<span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">serialize</span>(<span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">Location</span>)
+                <span style="color:#f92672">...</span> <span style="color:#75715e">// look for notes to be sent to client
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">note</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">routeNotes</span>[<span style="color:#a6e22e">key</span>] {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">note</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 			}
 		}
 	}
-}
-</code></pre>
-
+}</code></pre></div>
 <p>This time we get a <code>RouteGuide_RouteChatServer</code> stream that, as in our
 client-side streaming example, can be used to read and write messages. However,
 this time we return values via our method&rsquo;s stream while the client is still
@@ -461,18 +424,15 @@ completely independently.</p>
 <p>Once we&rsquo;ve implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
 do this for our <code>RouteGuide</code> service:</p>
-
-<pre><code class="language-go">flag.Parse()
-lis, err := net.Listen(&quot;tcp&quot;, fmt.Sprintf(&quot;:%d&quot;, *port))
-if err != nil {
-        log.Fatalf(&quot;failed to listen: %v&quot;, err)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+<span style="color:#a6e22e">lis</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;:%d&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">port</span>))
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;failed to listen: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
 }
-grpcServer := grpc.NewServer()
-pb.RegisterRouteGuideServer(grpcServer, &amp;routeGuideServer{})
-... // determine whether to use TLS
-grpcServer.Serve(lis)
-</code></pre>
-
+<span style="color:#a6e22e">grpcServer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">NewServer</span>()
+<span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RegisterRouteGuideServer</span>(<span style="color:#a6e22e">grpcServer</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">routeGuideServer</span>{})
+<span style="color:#f92672">...</span> <span style="color:#75715e">// determine whether to use TLS
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">grpcServer</span>.<span style="color:#a6e22e">Serve</span>(<span style="color:#a6e22e">lis</span>)</code></pre></div>
 <p>To build and start a server, we:</p>
 
 <ol>
@@ -497,14 +457,11 @@ service. You can see our complete example client code in
 <p>To call service methods, we first need to create a gRPC <em>channel</em> to communicate
 with the server. We create this by passing the server address and port number to
 <code>grpc.Dial()</code> as follows:</p>
-
-<pre><code class="language-go">conn, err := grpc.Dial(*serverAddr)
-if err != nil {
-    ...
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">serverAddr</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#f92672">...</span>
 }
-defer conn.Close()
-</code></pre>
-
+<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>()</code></pre></div>
 <p>You can use <code>DialOptions</code> to set the auth credentials (e.g., TLS, GCE
 credentials, JWT credentials) in <code>grpc.Dial</code> if the service you request requires
 that - however, we don&rsquo;t need to do this for our <code>RouteGuide</code> service.</p>
@@ -512,10 +469,7 @@ that - however, we don&rsquo;t need to do this for our <code>RouteGuide</code> s
 <p>Once the gRPC <em>channel</em> is setup, we need a client <em>stub</em> to perform RPCs. We
 get this using the <code>NewRouteGuideClient</code> method provided in the <code>pb</code> package we
 generated from our .proto.</p>
-
-<pre><code class="language-go">client := pb.NewRouteGuideClient(conn)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">client</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">NewRouteGuideClient</span>(<span style="color:#a6e22e">conn</span>)</code></pre></div>
 <h3 id="calling-service-methods">Calling service methods</h3>
 
 <p>Now let&rsquo;s look at how we call our service methods. Note that in gRPC-Go, RPCs
@@ -526,47 +480,38 @@ the server to respond, and will either return a response or an error.</p>
 
 <p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
 local method.</p>
-
-<pre><code class="language-go">feature, err := client.GetFeature(context.Background(), &amp;pb.Point{409146138, -746188906})
-if err != nil {
-        ...
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">feature</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">GetFeature</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">409146138</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">746188906</span>})
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#f92672">...</span>
+}</code></pre></div>
 <p>As you can see, we call the method on the stub we got earlier. In our method
 parameters we create and populate a request protocol buffer object (in our case
 <code>Point</code>). We also pass a <code>context.Context</code> object which lets us change our RPC&rsquo;s
 behaviour if necessary, such as time-out/cancel an RPC in flight. If the call
 doesn&rsquo;t return an error, then we can read the response information from the
 server from the first return value.</p>
-
-<pre><code class="language-go">log.Println(feature)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">feature</span>)</code></pre></div>
 <h4 id="server-side-streaming-rpc-1">Server-side streaming RPC</h4>
 
 <p>Here&rsquo;s where we call the server-side streaming method <code>ListFeatures</code>, which
 returns a stream of geographical <code>Feature</code>s. If you&rsquo;ve already read <a href="#server">Creating
 the server</a> some of this may look very familiar - streaming RPCs are
 implemented in a similar way on both sides.</p>
-
-<pre><code class="language-go">rect := &amp;pb.Rectangle{ ... }  // initialize a pb.Rectangle
-stream, err := client.ListFeatures(context.Background(), rect)
-if err != nil {
-    ...
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">rect</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Rectangle</span>{ <span style="color:#f92672">...</span> }  <span style="color:#75715e">// initialize a pb.Rectangle
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">stream</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">ListFeatures</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">rect</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#f92672">...</span>
 }
-for {
-    feature, err := stream.Recv()
-    if err == io.EOF {
-        break
+<span style="color:#66d9ef">for</span> {
+    <span style="color:#a6e22e">feature</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Recv</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+        <span style="color:#66d9ef">break</span>
     }
-    if err != nil {
-        log.Fatalf(&quot;%v.ListFeatures(_) = _, %v&quot;, client, err)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;%v.ListFeatures(_) = _, %v&#34;</span>, <span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span>)
     }
-    log.Println(feature)
-}
-</code></pre>
-
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">feature</span>)
+}</code></pre></div>
 <p>As in the simple RPC, we pass the method a context and a request. However,
 instead of getting a response object back, we get back an instance of
 <code>RouteGuide_ListFeaturesClient</code>. The client can use the
@@ -585,31 +530,31 @@ otherwise there must be an RPC error, which is passed over through <code>err</co
 method, except that we only pass the method a context and get a
 <code>RouteGuide_RecordRouteClient</code> stream back, which we can use to both write <em>and</em>
 read messages.</p>
-
-<pre><code class="language-go">// Create a random number of random points
-r := rand.New(rand.NewSource(time.Now().UnixNano()))
-pointCount := int(r.Int31n(100)) + 2 // Traverse at least two points
-var points []*pb.Point
-for i := 0; i &lt; pointCount; i++ {
-	points = append(points, randomPoint(r))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Create a random number of random points
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">NewSource</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>()))
+<span style="color:#a6e22e">pointCount</span> <span style="color:#f92672">:=</span> int(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Int31n</span>(<span style="color:#ae81ff">100</span>)) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#75715e">// Traverse at least two points
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">points</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Point</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">pointCount</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+	<span style="color:#a6e22e">points</span> = append(<span style="color:#a6e22e">points</span>, <span style="color:#a6e22e">randomPoint</span>(<span style="color:#a6e22e">r</span>))
 }
-log.Printf(&quot;Traversing %d points.&quot;, len(points))
-stream, err := client.RecordRoute(context.Background())
-if err != nil {
-	log.Fatalf(&quot;%v.RecordRoute(_) = _, %v&quot;, client, err)
+<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Traversing %d points.&#34;</span>, len(<span style="color:#a6e22e">points</span>))
+<span style="color:#a6e22e">stream</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">RecordRoute</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;%v.RecordRoute(_) = _, %v&#34;</span>, <span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span>)
 }
-for _, point := range points {
-	if err := stream.Send(point); err != nil {
-		log.Fatalf(&quot;%v.Send(%v) = %v&quot;, stream, point, err)
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">point</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">points</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">point</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+			<span style="color:#66d9ef">break</span>
+		}
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;%v.Send(%v) = %v&#34;</span>, <span style="color:#a6e22e">stream</span>, <span style="color:#a6e22e">point</span>, <span style="color:#a6e22e">err</span>)
 	}
 }
-reply, err := stream.CloseAndRecv()
-if err != nil {
-	log.Fatalf(&quot;%v.CloseAndRecv() got error %v, want %v&quot;, stream, err, nil)
+<span style="color:#a6e22e">reply</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">CloseAndRecv</span>()
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;%v.CloseAndRecv() got error %v, want %v&#34;</span>, <span style="color:#a6e22e">stream</span>, <span style="color:#a6e22e">err</span>, <span style="color:#66d9ef">nil</span>)
 }
-log.Printf(&quot;Route summary: %v&quot;, reply)
-</code></pre>
-
+<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Route summary: %v&#34;</span>, <span style="color:#a6e22e">reply</span>)</code></pre></div>
 <p>The <code>RouteGuide_RecordRouteClient</code> has a <code>Send()</code> method that we can use to send
 requests to the server. Once we&rsquo;ve finished writing our client&rsquo;s requests to the
 stream using <code>Send()</code>, we need to call <code>CloseAndRecv()</code> on the stream to let
@@ -625,32 +570,29 @@ case of <code>RecordRoute</code>, we only pass the method a context object and g
 stream that we can use to both write and read messages. However, this time we
 return values via our method&rsquo;s stream while the server is still writing messages
 to <em>their</em> message stream.</p>
-
-<pre><code class="language-go">stream, err := client.RouteChat(context.Background())
-waitc := make(chan struct{})
-go func() {
-	for {
-		in, err := stream.Recv()
-		if err == io.EOF {
-			// read done.
-			close(waitc)
-			return
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">stream</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">RouteChat</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
+<span style="color:#a6e22e">waitc</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">in</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Recv</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+			<span style="color:#75715e">// read done.
+</span><span style="color:#75715e"></span>			close(<span style="color:#a6e22e">waitc</span>)
+			<span style="color:#66d9ef">return</span>
 		}
-		if err != nil {
-			log.Fatalf(&quot;Failed to receive a note : %v&quot;, err)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Failed to receive a note : %v&#34;</span>, <span style="color:#a6e22e">err</span>)
 		}
-		log.Printf(&quot;Got message %s at point(%d, %d)&quot;, in.Message, in.Location.Latitude, in.Location.Longitude)
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Got message %s at point(%d, %d)&#34;</span>, <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">Message</span>, <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">Location</span>.<span style="color:#a6e22e">Latitude</span>, <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">Location</span>.<span style="color:#a6e22e">Longitude</span>)
 	}
 }()
-for _, note := range notes {
-	if err := stream.Send(note); err != nil {
-		log.Fatalf(&quot;Failed to send a note: %v&quot;, err)
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">note</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">notes</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">note</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Failed to send a note: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
 	}
 }
-stream.CloseSend()
-&lt;-waitc
-</code></pre>
-
+<span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">CloseSend</span>()
+<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">waitc</span></code></pre></div>
 <p>The syntax for reading and writing here is very similar to our client-side
 streaming method, except we use the stream&rsquo;s <code>CloseSend()</code> method once we&rsquo;ve
 finished our call. Although each side will always get the other&rsquo;s messages in
@@ -661,15 +603,9 @@ any order — the streams operate completely independently.</p>
 
 <p>To compile and run the server, assuming you are in the folder
 <code>$GOPATH/src/google.golang.org/grpc/examples/route_guide</code>, simply:</p>
-
-<pre><code class="language-sh">$ go run server/server.go
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ go run server/server.go</code></pre></div>
 <p>Likewise, to run the client:</p>
-
-<pre><code class="language-sh">$ go run client/client.go
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ go run client/client.go</code></pre></div>
 </div>
 </div>
 

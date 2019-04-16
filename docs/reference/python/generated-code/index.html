@@ -81,85 +81,79 @@ on the gRPC-specific subset of the generated code.</p>
 <h2 id="illustrative-example">Illustrative Example</h2>
 
 <p>Let&rsquo;s look at the following <code>FortuneTeller</code> proto service:</p>
-
-<pre><code class="language-proto">service FortuneTeller {
-  // Returns the horoscope and zodiac sign for the given month and day.
-  rpc TellFortune(HoroscopeRequest) returns (HoroscopeResponse) {
-    // errors: invalid month or day, fortune unavailable
-  }
-
-  // Replaces the fortune for the given zodiac sign with the provided one.
-  rpc SuggestFortune(SuggestionRequest) returns (SuggestionResponse) {
-    // errors: invalid zodiac sign
-  }
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">service</span> FortuneTeller {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Returns the horoscope and zodiac sign for the given month and day.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> TellFortune(HoroscopeRequest) <span style="color:#66d9ef">returns</span> (HoroscopeResponse) {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#75715e">// errors: invalid month or day, fortune unavailable
+</span><span style="color:#75715e"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Replaces the fortune for the given zodiac sign with the provided one.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">rpc</span> SuggestFortune(SuggestionRequest) <span style="color:#66d9ef">returns</span> (SuggestionResponse) {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#75715e">// errors: invalid zodiac sign
+</span><span style="color:#75715e"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>gRPC <code>protoc</code> plugin will synthesize code elements along the lines
 of what follows in the corresponding <code>_pb2_grpc.py</code> file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> grpc
 
-<pre><code class="language-python">import grpc
+<span style="color:#f92672">import</span> fortune_pb2
 
-import fortune_pb2
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FortuneTellerStub</span>(object):
 
-class FortuneTellerStub(object):
-
-  def __init__(self, channel):
-    &quot;&quot;&quot;Constructor.
-
-    Args:
-      channel: A grpc.Channel.
-    &quot;&quot;&quot;
-    self.TellFortune = channel.unary_unary(
-        '/example.FortuneTeller/TellFortune',
-        request_serializer=fortune_pb2.HoroscopeRequest.SerializeToString,
-        response_deserializer=fortune_pb2.HoroscopeResponse.FromString,
+  <span style="color:#66d9ef">def</span> __init__(self, channel):
+    <span style="color:#e6db74">&#34;&#34;&#34;Constructor.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Args:
+</span><span style="color:#e6db74">      channel: A grpc.Channel.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    self<span style="color:#f92672">.</span>TellFortune <span style="color:#f92672">=</span> channel<span style="color:#f92672">.</span>unary_unary(
+        <span style="color:#e6db74">&#39;/example.FortuneTeller/TellFortune&#39;</span>,
+        request_serializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>HoroscopeRequest<span style="color:#f92672">.</span>SerializeToString,
+        response_deserializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>HoroscopeResponse<span style="color:#f92672">.</span>FromString,
         )
-    self.SuggestFortune = channel.unary_unary(
-        '/example.FortuneTeller/SuggestFortune',
-        request_serializer=fortune_pb2.SuggestionRequest.SerializeToString,
-        response_deserializer=fortune_pb2.SuggestionResponse.FromString,
+    self<span style="color:#f92672">.</span>SuggestFortune <span style="color:#f92672">=</span> channel<span style="color:#f92672">.</span>unary_unary(
+        <span style="color:#e6db74">&#39;/example.FortuneTeller/SuggestFortune&#39;</span>,
+        request_serializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>SuggestionRequest<span style="color:#f92672">.</span>SerializeToString,
+        response_deserializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>SuggestionResponse<span style="color:#f92672">.</span>FromString,
         )
 
 
-class FortuneTellerServicer(object):
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FortuneTellerServicer</span>(object):
 
-  def TellFortune(self, request, context):
-    &quot;&quot;&quot;Returns the horoscope and zodiac sign for the given month and day.
-    errors: invalid month or day, fortune unavailable
-    &quot;&quot;&quot;
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">TellFortune</span>(self, request, context):
+    <span style="color:#e6db74">&#34;&#34;&#34;Returns the horoscope and zodiac sign for the given month and day.
+</span><span style="color:#e6db74">    errors: invalid month or day, fortune unavailable
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    context<span style="color:#f92672">.</span>set_code(grpc<span style="color:#f92672">.</span>StatusCode<span style="color:#f92672">.</span>UNIMPLEMENTED)
+    context<span style="color:#f92672">.</span>set_details(<span style="color:#e6db74">&#39;Method not implemented!&#39;</span>)
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>(<span style="color:#e6db74">&#39;Method not implemented!&#39;</span>)
 
-  def SuggestFortune(self, request, context):
-    &quot;&quot;&quot;Replaces the fortune for the given zodiac sign with the provided
-one.
-    errors: invalid zodiac sign
-    &quot;&quot;&quot;
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">SuggestFortune</span>(self, request, context):
+    <span style="color:#e6db74">&#34;&#34;&#34;Replaces the fortune for the given zodiac sign with the provided
+</span><span style="color:#e6db74">one.
+</span><span style="color:#e6db74">    errors: invalid zodiac sign
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    context<span style="color:#f92672">.</span>set_code(grpc<span style="color:#f92672">.</span>StatusCode<span style="color:#f92672">.</span>UNIMPLEMENTED)
+    context<span style="color:#f92672">.</span>set_details(<span style="color:#e6db74">&#39;Method not implemented!&#39;</span>)
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>(<span style="color:#e6db74">&#39;Method not implemented!&#39;</span>)
 
 
-def add_FortuneTellerServicer_to_server(servicer, server):
-  rpc_method_handlers = {
-      'TellFortune': grpc.unary_unary_rpc_method_handler(
-          servicer.TellFortune,
-          request_deserializer=fortune_pb2.HoroscopeRequest.FromString,
-          response_serializer=fortune_pb2.HoroscopeResponse.SerializeToString,
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_FortuneTellerServicer_to_server</span>(servicer, server):
+  rpc_method_handlers <span style="color:#f92672">=</span> {
+      <span style="color:#e6db74">&#39;TellFortune&#39;</span>: grpc<span style="color:#f92672">.</span>unary_unary_rpc_method_handler(
+          servicer<span style="color:#f92672">.</span>TellFortune,
+          request_deserializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>HoroscopeRequest<span style="color:#f92672">.</span>FromString,
+          response_serializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>HoroscopeResponse<span style="color:#f92672">.</span>SerializeToString,
       ),
-      'SuggestFortune': grpc.unary_unary_rpc_method_handler(
-          servicer.SuggestFortune,
-          request_deserializer=fortune_pb2.SuggestionRequest.FromString,
-          response_serializer=fortune_pb2.SuggestionResponse.SerializeToString,
+      <span style="color:#e6db74">&#39;SuggestFortune&#39;</span>: grpc<span style="color:#f92672">.</span>unary_unary_rpc_method_handler(
+          servicer<span style="color:#f92672">.</span>SuggestFortune,
+          request_deserializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>SuggestionRequest<span style="color:#f92672">.</span>FromString,
+          response_serializer<span style="color:#f92672">=</span>fortune_pb2<span style="color:#f92672">.</span>SuggestionResponse<span style="color:#f92672">.</span>SerializeToString,
       ),
   }
-  generic_handler = grpc.method_handlers_generic_handler(
-      'example.FortuneTeller', rpc_method_handlers)
-  server.add_generic_rpc_handlers((generic_handler,))
-</code></pre>
-
+  generic_handler <span style="color:#f92672">=</span> grpc<span style="color:#f92672">.</span>method_handlers_generic_handler(
+      <span style="color:#e6db74">&#39;example.FortuneTeller&#39;</span>, rpc_method_handlers)
+  server<span style="color:#f92672">.</span>add_generic_rpc_handlers((generic_handler,))</code></pre></div>
 <h2 id="code-elements">Code Elements</h2>
 
 <p>The gRPC generated code starts by importing the <code>grpc</code> package and the plain

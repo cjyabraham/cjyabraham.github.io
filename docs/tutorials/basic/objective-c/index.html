@@ -92,6 +92,7 @@
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/python/" >Python</a>
 <a href="https://cjyabraham.github.io/docs/tutorials/basic/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/tutorials/basic/web/" >Web</a>
 
 </div>
 
@@ -114,13 +115,11 @@ introduction to working with gRPC.</p>
 <p>It assumes a passing familiarity with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. Note
 that the example in this tutorial uses the proto3 version of the protocol
-buffers language, which is currently in beta release: you can find out more in
+buffers language: you can find out more in
 the <a href="https://developers.google.com/protocol-buffers/docs/proto3">proto3 language
 guide</a> and the
 <a href="https://developers.google.com/protocol-buffers/docs/reference/objective-c-generated">Objective-C generated code
-guide</a>,
-and see the <a href="https://github.com/google/protobuf/releases">release notes</a> for the
-new version in the protocol buffers Github repository.</p>
+guide</a>.</p>
 
 <div id="toc"></div>
 
@@ -149,11 +148,11 @@ strip unused code is limited by the dynamic nature of the language.</p>
 <h2 id="example-code-and-setup">Example code and setup</h2>
 
 <p>The example code for our tutorial is in
-<a href="https://github.com/grpc/grpc/tree/{{ site.data.config.grpc_release_tag }}/examples/objective-c/route_guide">grpc/grpc/examples/objective-c/route_guide</a>.
+<a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/objective-c/route_guide">grpc/grpc/examples/objective-c/route_guide</a>.
 To download the example, clone the <code>grpc</code> repository by running the following
 commands:</p>
 
-<pre><code>$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
+<pre><code>$ git clone -b v1.19.0 https://github.com/grpc/grpc
 $ cd grpc
 $ git submodule update --init
 </code></pre>
@@ -210,15 +209,12 @@ uses that library.</p>
 its method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. You can
 see the complete .proto file for our example in
-<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+<a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
 
 <p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
-
-<pre><code class="language-protobuf">service RouteGuide {
-   ...
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#66d9ef">service</span> RouteGuide {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   <span style="color:#f92672">...</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>Then you define <code>rpc</code> methods inside your service definition, specifying their
 request and response types. Protocol buffers let you define four kinds of
 service method, all of which are used in the <code>RouteGuide</code> service:</p>
@@ -227,24 +223,18 @@ service method, all of which are used in the <code>RouteGuide</code> service:</p
 <li>A <em>simple RPC</em> where the client sends a request to the server and receives a
 response later, just like a normal remote procedure call.</li>
 </ul>
-
-<pre><code class="language-protobuf">// Obtains the feature at a given position.
-rpc GetFeature(Point) returns (Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#75715e">// Obtains the feature at a given position.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> GetFeature(Point) <span style="color:#66d9ef">returns</span> (Feature) {}</code></pre></div>
 <ul>
 <li>A <em>response-streaming RPC</em> where the client sends a request to the server and
 gets back a stream of response messages. You specify a response-streaming
 method by placing the <code>stream</code> keyword before the <em>response</em> type.</li>
 </ul>
-
-<pre><code class="language-protobuf">// Obtains the Features available within the given Rectangle.  Results are
-// streamed rather than returned at once (e.g. in a response message with a
-// repeated field), as the rectangle may cover a large area and contain a
-// huge number of features.
-rpc ListFeatures(Rectangle) returns (stream Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#75715e">// Obtains the Features available within the given Rectangle.  Results are
+</span><span style="color:#75715e">// streamed rather than returned at once (e.g. in a response message with a
+</span><span style="color:#75715e">// repeated field), as the rectangle may cover a large area and contain a
+</span><span style="color:#75715e">// huge number of features.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> ListFeatures(Rectangle) <span style="color:#66d9ef">returns</span> (stream Feature) {}</code></pre></div>
 <ul>
 <li>A <em>request-streaming RPC</em> where the client sends a sequence of messages to the
 server. Once the client has finished writing the messages, it waits for the
@@ -252,12 +242,9 @@ server to read them all and return its response. You specify a
 request-streaming method by placing the <code>stream</code> keyword before the <em>request</em>
 type.</li>
 </ul>
-
-<pre><code class="language-protobuf">// Accepts a stream of Points on a route being traversed, returning a
-// RouteSummary when traversal is completed.
-rpc RecordRoute(stream Point) returns (RouteSummary) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#75715e">// Accepts a stream of Points on a route being traversed, returning a
+</span><span style="color:#75715e">// RouteSummary when traversal is completed.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> RecordRoute(stream Point) <span style="color:#66d9ef">returns</span> (RouteSummary) {}</code></pre></div>
 <ul>
 <li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages
 to the other. The two streams operate independently, so clients and servers
@@ -268,32 +255,23 @@ combination of reads and writes. The order of messages in each stream is
 preserved. You specify this type of method by placing the <code>stream</code> keyword
 before both the request and the response.</li>
 </ul>
-
-<pre><code class="language-protobuf">// Accepts a stream of RouteNotes sent while a route is being traversed,
-// while receiving other RouteNotes (e.g. from other users).
-rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#75715e">// Accepts a stream of RouteNotes sent while a route is being traversed,
+</span><span style="color:#75715e">// while receiving other RouteNotes (e.g. from other users).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">rpc</span> RouteChat(stream RouteNote) <span style="color:#66d9ef">returns</span> (stream RouteNote) {}</code></pre></div>
 <p>Our .proto file also contains protocol buffer message type definitions for all
 the request and response types used in our service methods - for example, here&rsquo;s
 the <code>Point</code> message type:</p>
-
-<pre><code class="language-protobuf">// Points are represented as latitude-longitude pairs in the E7 representation
-// (degrees multiplied by 10**7 and rounded to the nearest integer).
-// Latitudes should be in the range +/- 90 degrees and longitude should be in
-// the range +/- 180 degrees (inclusive).
-message Point {
-  int32 latitude = 1;
-  int32 longitude = 2;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#75715e">// Points are represented as latitude-longitude pairs in the E7 representation
+</span><span style="color:#75715e">// (degrees multiplied by 10**7 and rounded to the nearest integer).
+</span><span style="color:#75715e">// Latitudes should be in the range +/- 90 degrees and longitude should be in
+</span><span style="color:#75715e">// the range +/- 180 degrees (inclusive).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Point</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>You can specify a prefix to be used for your generated classes by adding the
 <code>objc_class_prefix</code> option at the top of the file. For example:</p>
-
-<pre><code class="language-protobuf">option objc_class_prefix = &quot;RTG&quot;;
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#66d9ef">option</span> objc_class_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;RTG&#34;</span>;</code></pre></div>
 <p><a name="protoc"></a></p>
 
 <h2 id="generating-client-code">Generating client code</h2>
@@ -302,7 +280,7 @@ message Point {
 definition. We do this using the protocol buffer compiler (<code>protoc</code>) with a
 special gRPC Objective-C plugin.</p>
 
-<p>For simplicity, we&rsquo;ve provided a <a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/objective-c/route_guide/RouteGuide.podspec">Podspec
+<p>For simplicity, we&rsquo;ve provided a <a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/objective-c/route_guide/RouteGuide.podspec">Podspec
 file</a>
 that runs <code>protoc</code> for you with the appropriate plugin, input, and output, and
 describes how to compile the generated files. You just need to run in this
@@ -348,7 +326,7 @@ version, and other metadata.</p>
 
 <p>In this section, we&rsquo;ll look at creating an Objective-C client for our
 <code>RouteGuide</code> service. You can see our complete example client code in
-<a href="https://github.com/grpc/grpc/blob/{{ site.data.config.grpc_release_tag }}/examples/objective-c/route_guide/ViewControllers.m">examples/objective-c/route_guide/ViewControllers.m</a>.
+<a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/objective-c/route_guide/ViewControllers.m">examples/objective-c/route_guide/ViewControllers.m</a>.
 (Note: In your apps, for maintainability and readability reasons, you shouldn&rsquo;t
 put all of your view controllers in a single file; it&rsquo;s done here only to
 simplify the learning process).</p>

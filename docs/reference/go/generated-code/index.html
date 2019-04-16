@@ -66,10 +66,12 @@
   <div class="section2" style="text-align:left;margin-bottom:5%">
     
 
+<h1 id="go-generated-code-reference">Go Generated Code Reference</h1>
+
 <p>This guide describes the code generated with the <a href="https://godoc.org/github.com/golang/protobuf/protoc-gen-go/grpc">grpc plugin</a> to <code>protoc-gen-go</code>
 when compiling <code>.proto</code> files with <code>protoc</code>.</p>
 
-<p>You can find out how to define a gRPC service in a <code>.proto</code> file in <a href="../guides/concepts.html#service-definition">Service Definitions</a>.</p>
+<p>You can find out how to define a gRPC service in a <code>.proto</code> file in <a href="/docs/guides/concepts/#service-definition">Service Definitions</a>.</p>
 
 <p class="note"><strong>Thread-safety</strong>: note that client-side RPC invocations and server-side RPC handlers <i>are thread-safe</i> and are meant
 to be run on concurrent goroutines. But also note that for <i>individual streams</i>, incoming and outgoing data is bi-directional but serial;
@@ -238,7 +240,7 @@ End-of-stream for the client-to-server stream can be indicated from the client b
 
 <h2 id="packages-and-namespaces">Packages and Namespaces</h2>
 
-<p>When the <code>prococ</code> compiler is invoked with <code>--go_out=plugins=grpc:</code>, the <code>proto package</code> to Go package translation
+<p>When the <code>protoc</code> compiler is invoked with <code>--go_out=plugins=grpc:</code>, the <code>proto package</code> to Go package translation
 works the same as when the <code>protoc-gen-go</code> plugin is used without the <code>grpc</code> plugin.</p>
 
 <p>So, for example, if <code>foo.proto</code> declares itself to be in <code>package foo</code>, then the generated <code>foo.pb.go</code> file will also be in

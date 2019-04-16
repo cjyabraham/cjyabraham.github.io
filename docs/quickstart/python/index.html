@@ -84,12 +84,13 @@
 <a href="https://cjyabraham.github.io/docs/quickstart/dart/" >Dart</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/go/" >Go</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/java/" >Java</a>
-<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/android/" >Android Java</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/node/" >Node.js</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/objective-c/" >Objective-C</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/php/" >PHP</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/python/"  class="active">Python</a>
 <a href="https://cjyabraham.github.io/docs/quickstart/ruby/" >Ruby</a>
+<a href="https://cjyabraham.github.io/docs/quickstart/web/" >Web</a>
 </div>
 
 <div class="quickstartcol2" style="margin-top:4%">
@@ -109,69 +110,45 @@ working example.</p>
 <p>gRPC Python is supported for use with Python 2.7 or Python 3.4 or higher.</p>
 
 <p>Ensure you have <code>pip</code> version 9.0.1 or higher:</p>
-
-<pre><code class="language-sh">$ python -m pip install --upgrade pip
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install --upgrade pip</code></pre></div>
 <p>If you cannot upgrade <code>pip</code> due to a system-owned installation, you can
 run the example in a virtualenv:</p>
-
-<pre><code class="language-sh">$ python -m pip install virtualenv
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install virtualenv
 $ virtualenv venv
 $ source venv/bin/activate
-$ python -m pip install --upgrade pip
-</code></pre>
-
+$ python -m pip install --upgrade pip</code></pre></div>
 <h3 id="install-grpc">Install gRPC</h3>
 
 <p>Install gRPC:</p>
-
-<pre><code class="language-sh">$ python -m pip install grpcio
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install grpcio</code></pre></div>
 <p>Or, to install it system wide:</p>
-
-<pre><code class="language-sh">$ sudo python -m pip install grpcio
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo python -m pip install grpcio</code></pre></div>
 <p>On El Capitan OSX, you may get the following error:</p>
-
-<pre><code class="language-sh">$ OSError: [Errno 1] Operation not permitted: '/tmp/pip-qwTLbI-uninstall/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/six-1.4.1-py2.7.egg-info'
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ OSError: <span style="color:#f92672">[</span>Errno <span style="color:#ae81ff">1</span><span style="color:#f92672">]</span> Operation not permitted: <span style="color:#e6db74">&#39;/tmp/pip-qwTLbI-uninstall/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/six-1.4.1-py2.7.egg-info&#39;</span></code></pre></div>
 <p>You can work around this using:</p>
-
-<pre><code class="language-sh">$ python -m pip install grpcio --ignore-installed
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install grpcio --ignore-installed</code></pre></div>
 <h3 id="install-grpc-tools">Install gRPC tools</h3>
 
 <p>Python&rsquo;s gRPC tools include the protocol buffer compiler <code>protoc</code> and the
 special plugin for generating server and client code from <code>.proto</code> service
 definitions. For the first part of our quickstart example, we&rsquo;ve already
 generated the server and client stubs from
-<a href="https://github.com/grpc/grpc/tree/{{site.data.config.grpc_release_tag}}/examples/protos/helloworld.proto">helloworld.proto</a>,
+<a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/protos/helloworld.proto">helloworld.proto</a>,
 but you&rsquo;ll need the tools for the rest of our quickstart, as well as later
 tutorials and your own projects.</p>
 
 <p>To install gRPC tools, run:</p>
-
-<pre><code class="language-sh">$ python -m pip install grpcio-tools googleapis-common-protos
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install grpcio-tools</code></pre></div>
 <h2 id="download-the-example">Download the example</h2>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
-Download the example code from our Github repository (the following command
+Download the example code from our GitHub repository (the following command
 clones the entire repository, but you just need the examples for this quickstart
 and other tutorials):</p>
-
-<pre><code class="language-sh">$ # Clone the repository to get the example code:
-$ git clone -b {{ site.data.config.grpc_release_tag }} https://github.com/grpc/grpc
-$ # Navigate to the &quot;hello, world&quot; Python example:
-$ cd grpc/examples/python/helloworld
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># Clone the repository to get the example code:</span>
+$ git clone -b v1.19.0 https://github.com/grpc/grpc
+$ <span style="color:#75715e"># Navigate to the &#34;hello, world&#34; Python example:</span>
+$ cd grpc/examples/python/helloworld</code></pre></div>
 <h2 id="run-a-grpc-application">Run a gRPC application</h2>
 
 <p>From the <code>examples/python/helloworld</code> directory:</p>
@@ -179,17 +156,11 @@ $ cd grpc/examples/python/helloworld
 <ol>
 <li>Run the server</li>
 </ol>
-
-<pre><code class="language-sh">   $ python greeter_server.py
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ python greeter_server.py</code></pre></div>
 <ol>
 <li>In another terminal, run the client</li>
 </ol>
-
-<pre><code class="language-sh">   $ python greeter_client.py
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ python greeter_client.py</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
 <h2 id="update-a-grpc-service">Update a gRPC service</h2>
@@ -200,7 +171,7 @@ buffers; you can find out lots more about how to define a service in a <code>.pr
 file in <a href="../guides/">What is gRPC?</a> and <a href="../tutorials/basic/python.html">gRPC Basics: Python</a>. For now all you need
 to know is that both the server and the client &ldquo;stub&rdquo; have a <code>SayHello</code> RPC
 method that takes a <code>HelloRequest</code> parameter from the client and returns a
-<code>HelloResponse</code> from the server, and that this method is defined like this:</p>
+<code>HelloReply</code> from the server, and that this method is defined like this:</p>
 
 <pre><code>// The greeting service definition.
 service Greeter {
@@ -250,10 +221,7 @@ message HelloReply {
 service definition.</p>
 
 <p>From the <code>examples/python/helloworld</code> directory, run:</p>
-
-<pre><code class="language-sh">$ python -m grpc_tools.protoc -I../../protos --python_out=. --grpc_python_out=. ../../protos/helloworld.proto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m grpc_tools.protoc -I../../protos --python_out<span style="color:#f92672">=</span>. --grpc_python_out<span style="color:#f92672">=</span>. ../../protos/helloworld.proto</code></pre></div>
 <p>This regenerates <code>helloworld_pb2.py</code> which contains our generated request and
 response classes and <code>helloworld_pb2_grpc.py</code> which contains our generated
 client and server classes.</p>
@@ -298,17 +266,11 @@ this:</p>
 <ol>
 <li>Run the server</li>
 </ol>
-
-<pre><code class="language-sh">   $ python greeter_server.py
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ python greeter_server.py</code></pre></div>
 <ol>
 <li>In another terminal, run the client</li>
 </ol>
-
-<pre><code class="language-sh">   $ python greeter_client.py
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ python greeter_client.py</code></pre></div>
 <h2 id="what-s-next">What&rsquo;s next</h2>
 
 <ul>
