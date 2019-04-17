@@ -151,16 +151,16 @@ updating.</p>
 
 <p>The example code for our tutorial is in
 <a href="https://github.com/grpc/grpc/tree/
-v1.19.0/examples/csharp/RouteGuide">grpc/grpc/examples/csharp/RouteGuide</a>. To
+v1.20.0/examples/csharp/RouteGuide">grpc/grpc/examples/csharp/RouteGuide</a>. To
 download the example, clone the <code>grpc</code> repository by running the following
 command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.20.0 https://github.com/grpc/grpc
 $ cd grpc</code></pre></div>
 <p>All the files for this tutorial are in the directory
 <code>examples/csharp/RouteGuide</code>. Open the solution
 <code>examples/csharp/RouteGuide/RouteGuide.sln</code> from Visual Studio (Windows or Mac) or Visual Studio Code.
 For additional installation details, see the <a href="https://github.com/grpc/grpc/tree/
-v1.19.0/src/csharp#how-to-use">How to use
+v1.20.0/src/csharp#how-to-use">How to use
 instructions</a>.</p>
 
 <h2 id="defining-the-service">Defining the service</h2>
@@ -170,7 +170,7 @@ define the gRPC <em>service</em> and the method <em>request</em> and <em>respons
 <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>.
 You can see the complete .proto file in
 <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+v1.20.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
 
 <p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#66d9ef">service</span> RouteGuide {<span style="color:#960050;background-color:#1e0010">
@@ -285,7 +285,7 @@ service responses.</li>
 
 <p>You can find our example <code>RouteGuide</code> server in
 <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/examples/csharp/RouteGuide/RouteGuideServer/RouteGuideImpl.cs">examples/csharp/RouteGuide/RouteGuideServer/RouteGuideImpl.cs</a>.
+v1.20.0/examples/csharp/RouteGuide/RouteGuideServer/RouteGuideImpl.cs">examples/csharp/RouteGuide/RouteGuideServer/RouteGuideImpl.cs</a>.
 Let&rsquo;s take a closer look at how it works.</p>
 
 <h3 id="implementing-routeguide">Implementing RouteGuide</h3>
@@ -435,7 +435,7 @@ This is done by adding <code>ServerPort</code> to the <code>Ports</code> collect
 <p>In this section, we&rsquo;ll look at creating a C# client for our <code>RouteGuide</code>
 service. You can see our complete example client code in
 <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/examples/csharp/RouteGuide/RouteGuideClient/Program.cs">examples/csharp/RouteGuide/RouteGuideClient/Program.cs</a>.</p>
+v1.20.0/examples/csharp/RouteGuide/RouteGuideClient/Program.cs">examples/csharp/RouteGuide/RouteGuideClient/Program.cs</a>.</p>
 
 <h3 id="creating-a-client-object">Creating a client object</h3>
 

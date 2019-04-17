@@ -152,10 +152,10 @@ interface updating.</p>
 <h2 id="example-code-and-setup">Example code and setup</h2>
 
 <p>The example code for our tutorial is in
-<a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/php/route_guide">grpc/grpc/examples/php/route_guide</a>.
+<a href="https://github.com/grpc/grpc/tree/v1.20.0/examples/php/route_guide">grpc/grpc/examples/php/route_guide</a>.
 To download the example, clone the <code>grpc</code> repository by running the following
 command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.20.0 https://github.com/grpc/grpc</code></pre></div>
 <p>You need grpc-php-plugin to help you generate proto files. You can build it from source:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc <span style="color:#f92672">&amp;&amp;</span> git submodule update --init <span style="color:#f92672">&amp;&amp;</span> make grpc_php_plugin</code></pre></div>
 <p>Then change your current directory to <code>examples/php/route_guide</code> and generate proto files:</p>
@@ -195,7 +195,7 @@ stub that uses that library.</p>
 its method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. You can
 see the complete .proto file for our example in
-<a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+<a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
 
 <p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#66d9ef">service</span> RouteGuide {<span style="color:#960050;background-color:#1e0010">
@@ -297,7 +297,7 @@ defined in the <code>RouteGuide</code> service.</li>
 
 <p>In this section, we&rsquo;ll look at creating a PHP client for our <code>RouteGuide</code>
 service. You can see our complete example client code in
-<a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/php/route_guide/route_guide_client.php">examples/php/route_guide/route_guide_client.php</a>.</p>
+<a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/php/route_guide/route_guide_client.php">examples/php/route_guide/route_guide_client.php</a>.</p>
 
 <h3 id="constructing-a-client-object">Constructing a client object</h3>
 

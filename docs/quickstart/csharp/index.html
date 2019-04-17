@@ -123,7 +123,7 @@ example by using either an IDE and its build tools,
 or by using the the .NET Core SDK command line tools.</p>
 
 <p>First, make sure you have installed the
-<a href="https://github.com/grpc/grpc/blob/v1.19.0/src/csharp/README.md#prerequisites">gRPC C# prerequisites</a>.
+<a href="https://github.com/grpc/grpc/blob/v1.20.0/src/csharp/README.md#prerequisites">gRPC C# prerequisites</a>.
 You will also need Git to download the sample code.</p>
 
 <h2 id="download-the-example">Download the example</h2>
@@ -133,7 +133,7 @@ Download the example code from our GitHub repository (the following command
 clones the entire repository, but you just need the examples for this quickstart
 and other tutorials):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># Clone the repository to get the example code:</span>
-$ git clone -b v1.19.0 https://github.com/grpc/grpc 
+$ git clone -b v1.20.0 https://github.com/grpc/grpc 
 $ cd grpc</code></pre></div>
 <p>This document will walk you through the &ldquo;Hello World&rdquo; example.
 The projects and source files can be found in the <code>examples/csharp/Helloworld</code> directory.</p>
@@ -155,7 +155,7 @@ dependencies for you (<code>Grpc</code>, <code>Grpc.Tools</code> and <code>Googl
 <p>From the <code>examples/csharp/Helloworld</code> directory:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; dotnet build Greeter.sln</code></pre></div>
 <p><em>NOTE: If you want to use gRPC C# from a project that uses the &ldquo;classic&rdquo; .csproj files (supported by Visual Studio 2013, 2015 and older versions of Mono), please refer to the
-<a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/csharp/HelloworldLegacyCsproj/README.md">Greeter using &ldquo;classic&rdquo; .csproj</a> example.</em></p>
+<a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/csharp/HelloworldLegacyCsproj/README.md">Greeter using &ldquo;classic&rdquo; .csproj</a> example.</em></p>
 
 <h2 id="run-a-grpc-application">Run a gRPC application</h2>
 
@@ -228,7 +228,7 @@ to generate the code. Starting from version 1.17 the package also integrates wit
 MSBuild to provide <a href="https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md">automatic C# code generation</a>
 from <code>.proto</code> files.</p>
 
-<p>This example project already depends on the <code>Grpc.Tools.1.19.0</code> NuGet package so just re-building the solution
+<p>This example project already depends on the <code>Grpc.Tools.1.20.0</code> NuGet package so just re-building the solution
 is enough to regenerate the code from our modified <code>.proto</code> file.</p>
 
 <p>You can rebuild just like we first built the original

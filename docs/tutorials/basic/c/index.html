@@ -154,10 +154,10 @@ updating.</p>
 
 <p>The example code for our tutorial is in
 <a href="https://github.com/grpc/grpc/tree/
-v1.19.0/examples/cpp/route_guide">grpc/grpc/examples/cpp/route_guide</a>. To
+v1.20.0/examples/cpp/route_guide">grpc/grpc/examples/cpp/route_guide</a>. To
 download the example, clone the <code>grpc</code> repository by running the following
 command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.20.0 https://github.com/grpc/grpc</code></pre></div>
 <p>Then change your current directory to <code>examples/cpp/route_guide</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/cpp/route_guide</code></pre></div>
 <p>You also should have the relevant tools installed to generate the server and
@@ -171,7 +171,7 @@ define the gRPC <em>service</em> and the method <em>request</em> and <em>respons
 <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>.
 You can see the complete .proto file in
 <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
+v1.20.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
 
 <p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">service RouteGuide {
@@ -240,11 +240,11 @@ service definition. We do this using the protocol buffer compiler <code>protoc</
 a special gRPC C++ plugin.</p>
 
 <p>For simplicity, we&rsquo;ve provided a <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/examples/cpp/route_guide/Makefile">Makefile</a>
+v1.20.0/examples/cpp/route_guide/Makefile">Makefile</a>
 that runs <code>protoc</code> for you with the appropriate plugin, input, and output (if
 you want to run this yourself, make sure you&rsquo;ve installed protoc and followed
 the gRPC code <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/src/cpp/README.md#make">installation instructions</a> first):</p>
+v1.20.0/src/cpp/README.md#make">installation instructions</a> first):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make route_guide.grpc.pb.cc route_guide.pb.cc</code></pre></div>
 <p>which actually runs:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ protoc -I ../../protos --grpc_out<span style="color:#f92672">=</span>. --plugin<span style="color:#f92672">=</span>protoc-gen-grpc<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>which grpc_cpp_plugin<span style="color:#e6db74">`</span> ../../protos/route_guide.proto
@@ -296,7 +296,7 @@ service responses.</li>
 
 <p>You can find our example <code>RouteGuide</code> server in
 <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/examples/cpp/route_guide/route_guide_server.cc">examples/cpp/route_guide/route_guide_server.cc</a>.
+v1.20.0/examples/cpp/route_guide/route_guide_server.cc">examples/cpp/route_guide/route_guide_server.cc</a>.
 Let&rsquo;s take a closer look at how it works.</p>
 
 <h3 id="implementing-routeguide">Implementing RouteGuide</h3>
@@ -439,7 +439,7 @@ our service.</li>
 <p>In this section, we&rsquo;ll look at creating a C++ client for our <code>RouteGuide</code>
 service. You can see our complete example client code in
 <a href="https://github.com/grpc/grpc/blob/
-v1.19.0/examples/cpp/route_guide/route_guide_client.cc">examples/cpp/route_guide/route_guide_client.cc</a>.</p>
+v1.20.0/examples/cpp/route_guide/route_guide_client.cc">examples/cpp/route_guide/route_guide_client.cc</a>.</p>
 
 <h3 id="creating-a-stub">Creating a stub</h3>
 
