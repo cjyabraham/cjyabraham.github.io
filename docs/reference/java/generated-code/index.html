@@ -7,8 +7,19 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
-   &ndash; gRPC
-</title>
+  Java Generated Code Reference &ndash; gRPC
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -58,12 +69,22 @@
             </div>
 	  </nav>
     
-            <div class="headertext"></div>
+            <div class="headertext">Documentation</div>
   </div>
         </div>
         </div>
 
-  <div class="section2" style="text-align:left;margin-bottom:5%">
+    <div class="subnav d-none d-md-block">
+  <a href="https://cjyabraham.github.io/docs/" >Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/" >Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/" >Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/" >Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/"  class="active">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/" >Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/" >Presentations</a>
+</div>
+
+    <div class="refsection">
     
 
 <h1 id="java-generated-code-reference">Java Generated Code Reference</h1>
@@ -309,14 +330,13 @@ java_grpc_library<span style="color:#f92672">(</span>
     srcs <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;:helloworld_proto&#34;</span><span style="color:#f92672">],</span>
     deps <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;:helloworld_java_proto&#34;</span><span style="color:#f92672">],</span>
 <span style="color:#f92672">)</span></code></pre></div>
-<p>Android developers please see <a href="https://grpc.io/docs/tutorials/basic/android.html#generating-client-code">https://grpc.io/docs/tutorials/basic/android.html#generating-client-code</a>
-for reference.</p>
+<p>Android developers please see <a href="/docs/tutorials/basic/android/#generating-client-code">this</a> for reference.</p>
 
 <p>If you wish to invoke the protobuf plugin for gRPC Java directly,
 the command-line syntax is as follows:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ protoc --plugin<span style="color:#f92672">=</span>protoc-gen-grpc-java <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --grpc-java_out<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$OUTPUT_FILE<span style="color:#e6db74">&#34;</span> --proto_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$DIR_OF_PROTO_FILE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$PROTO_FILE<span style="color:#e6db74">&#34;</span></code></pre></div>
-  </div>
+    </div>
 
     
     

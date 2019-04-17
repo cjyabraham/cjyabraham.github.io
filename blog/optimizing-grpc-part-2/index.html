@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   So You Want to Optimize gRPC - Part 2 &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -217,27 +228,21 @@ Since we have removed those, we expect to see a 100x improvement.  The same amou
 per RPC, but a lot more are happening at the same time.  Let&rsquo;s see if our hypothesis holds:</p>
 
 <p>Before:</p>
-
-<pre><code>$ ./gradlew installDist
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ./gradlew installDist
 $ time ./build/install/kvstore/bin/kvstore
-Apr 16, 2018 10:38:42 AM io.grpc.examples.KvRunner runClient
-INFO: Did 24.067 RPCs/s
+Apr <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2018</span> <span style="color:#ae81ff">10</span>:38:42 AM io.grpc.examples.KvRunner runClient
+INFO: Did <span style="color:#ae81ff">24</span>.067 RPCs/s
 
 real	1m0.886s
 user	0m9.340s
-sys	0m1.660s
-</code></pre>
-
+sys	0m1.660s</code></pre></div>
 <p>After:</p>
-
-<pre><code>Apr 16, 2018 10:36:48 AM io.grpc.examples.KvRunner runClient
-INFO: Did 2,449.8 RPCs/s
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Apr <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2018</span> <span style="color:#ae81ff">10</span>:36:48 AM io.grpc.examples.KvRunner runClient
+INFO: Did <span style="color:#ae81ff">2</span>,449.8 RPCs/s
 
 real	1m0.968s
 user	0m52.184s
-sys	0m20.692s
-</code></pre>
-
+sys	0m20.692s</code></pre></div>
 <p>Wow!  From 24 RPCs per second to 2,400 RPCs per second.  And we didn&rsquo;t have to change our API or
 our client.  This is why understanding your code and API semantics is important.  By exploiting the
 properties of the key-value API, namely the independence of operations on different keys, the code
@@ -254,12 +259,9 @@ scaling per the number of RPCs, it would scale per the number of cores.  Thus, i
 <h3 id="more-errors">More Errors</h3>
 
 <p>If you run this code yourself, you will see a lot more log spam in the form:</p>
-
-<pre><code>Apr 16, 2018 10:38:40 AM io.grpc.examples.KvClient$3 onFailure
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Apr <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2018</span> <span style="color:#ae81ff">10</span>:38:40 AM io.grpc.examples.KvClient$3 onFailure
 INFO: Key not found
-io.grpc.StatusRuntimeException: NOT_FOUND
-</code></pre>
-
+io.grpc.StatusRuntimeException: NOT_FOUND</code></pre></div>
 <p>The reason is that the new version of the code makes API level race conditions more apparent.
 With 100 times as many RPCs happening, the chance of updates and deletes colliding with each other
 is more likely.  To solve this we will need to modify the API definition.   Stay tuned for the next

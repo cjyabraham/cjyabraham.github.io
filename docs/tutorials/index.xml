@@ -37,7 +37,7 @@ By walking through it you&amp;rsquo;ll also learn how to use the Objective-C gRP
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/android/</guid>
-      <description>This tutorial provides a basic Android Java programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Android Java programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate client code using the protocol buffer compiler. Use the Java gRPC API to write a simple mobile client for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. This guide also does not cover anything on the server side.</description>
     </item>
@@ -48,7 +48,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/csharp/</guid>
-      <description>This tutorial provides a basic C# programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic C# programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the C# gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and C# generated code reference.</description>
     </item>
@@ -59,7 +59,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/c/</guid>
-      <description>This tutorial provides a basic C++ programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic C++ programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the C++ gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and C++ generated code guide.</description>
     </item>
@@ -70,7 +70,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/dart/</guid>
-      <description>This tutorial provides a basic Dart programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Dart programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Dart gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide.</description>
     </item>
@@ -81,7 +81,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/go/</guid>
-      <description>This tutorial provides a basic Go programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Go programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Go gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and the Go generated code guide.</description>
     </item>
@@ -92,7 +92,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/java/</guid>
-      <description>This tutorial provides a basic Java programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Java programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Java gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and Java generated code guide.</description>
     </item>
@@ -103,7 +103,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/node/</guid>
-      <description>This tutorial provides a basic Node.js programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Node.js programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Use the Node.js gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language.</description>
     </item>
@@ -114,7 +114,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/objective-c/</guid>
-      <description>This tutorial provides a basic Objective-C programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Objective-C programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate client code using the protocol buffer compiler. Use the Objective-C gRPC API to write a simple client for your service.  It assumes a passing familiarity with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide and the Objective-C generated code guide.</description>
     </item>
@@ -125,7 +125,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/php/</guid>
-      <description>This tutorial provides a basic PHP programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic PHP programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate client code using the protocol buffer compiler. Use the PHP gRPC API to write a simple client for your service.  It assumes a passing familiarity with protocol buffers. Note that the example in this tutorial uses the proto2 version of the protocol buffers language.</description>
     </item>
@@ -136,7 +136,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/python/</guid>
-      <description>This tutorial provides a basic Python programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Python programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Python gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. You can find out more in the proto3 language guide and Python generated code guide.</description>
     </item>
@@ -147,7 +147,7 @@ By walking through this example you&amp;rsquo;ll learn how to:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/docs/tutorials/basic/ruby/</guid>
-      <description>This tutorial provides a basic Ruby programmer&#39;s introduction to working with gRPC.
+      <description>This tutorial provides a basic Ruby programmer&amp;rsquo;s introduction to working with gRPC.
 By walking through this example you&amp;rsquo;ll learn how to:
  Define a service in a .proto file. Generate server and client code using the protocol buffer compiler. Use the Ruby gRPC API to write a simple client and server for your service.  It assumes that you have read the Overview and are familiar with protocol buffers. Note that the example in this tutorial uses the proto3 version of the protocol buffers language: you can find out more in the proto3 language guide.</description>
     </item>

@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - PHP &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic PHP programmer's introduction to
+<p>This tutorial provides a basic PHP programmer&rsquo;s introduction to
 working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
@@ -120,7 +131,7 @@ buffers language.</p>
 
 <p>Also note that currently you can only create clients in PHP for gRPC services -
 you can find out how to create gRPC servers in our other tutorials, e.g.
-<a href="/docs/tutorials/basic/node.html">Node.js</a>.</p>
+<a href="/docs/tutorials/basic/node/">Node.js</a>.</p>
 
 <div id="toc"></div>
 
@@ -144,21 +155,12 @@ interface updating.</p>
 <a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/php/route_guide">grpc/grpc/examples/php/route_guide</a>.
 To download the example, clone the <code>grpc</code> repository by running the following
 command:</p>
-
-<pre><code>$ git clone -b v1.19.0 https://github.com/grpc/grpc
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc</code></pre></div>
 <p>You need grpc-php-plugin to help you generate proto files. You can build it from source:</p>
-
-<pre><code>$ cd grpc &amp;&amp; git submodule update --init &amp;&amp; make grpc_php_plugin
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc <span style="color:#f92672">&amp;&amp;</span> git submodule update --init <span style="color:#f92672">&amp;&amp;</span> make grpc_php_plugin</code></pre></div>
 <p>Then change your current directory to <code>examples/php/route_guide</code> and generate proto files:</p>
-
-<pre><code>$ cd examples/php/route_guide
-$ ./route_guide_proto_gen.sh
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/php/route_guide
+$ ./route_guide_proto_gen.sh</code></pre></div>
 <p>Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
 exchange route information such as traffic updates with the server and other
@@ -166,7 +168,7 @@ clients.</p>
 
 <p>You also should have the relevant tools installed to generate the client
 interface code (and a server in another language, for testing). You can obtain
-the latter by following <a href="/docs/tutorials/basic/node.html">these setup
+the latter by following <a href="/docs/tutorials/basic/node/">these setup
 instructions</a>.</p>
 
 <p><a name="try"></a></p>
@@ -175,18 +177,12 @@ instructions</a>.</p>
 
 <p>To try the sample app, we need a gRPC server running locally. Let&rsquo;s compile and
 run, for example, the Node.js server in this repository:</p>
-
-<pre><code>$ cd ../../node
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd ../../node
 $ npm install
 $ cd dynamic_codegen/route_guide
-$ nodejs ./route_guide_server.js --db_path=route_guide_db.json
-</code></pre>
-
+$ nodejs ./route_guide_server.js --db_path<span style="color:#f92672">=</span>route_guide_db.json</code></pre></div>
 <p>Run the PHP client (in a different terminal):</p>
-
-<pre><code>$ ./run_route_guide_client.sh
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ./run_route_guide_client.sh</code></pre></div>
 <p>The next sections guide you step-by-step through how this proto service is
 defined, how to generate a client library from it, and how to create a client
 stub that uses that library.</p>

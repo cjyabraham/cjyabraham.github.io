@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
    &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -58,12 +69,22 @@
             </div>
 	  </nav>
     
-            <div class="headertext"></div>
+            <div class="headertext">Documentation</div>
   </div>
         </div>
         </div>
 
-  <div class="section2" style="text-align:left;margin-bottom:5%">
+    <div class="subnav d-none d-md-block">
+  <a href="https://cjyabraham.github.io/docs/" >Overview</a>
+|  <a href="https://cjyabraham.github.io/docs/quickstart/" >Quick Start</a>
+|  <a href="https://cjyabraham.github.io/docs/guides/" >Guides</a>
+|  <a href="https://cjyabraham.github.io/docs/tutorials/" >Tutorials</a>
+|  <a href="https://cjyabraham.github.io/docs/reference/"  class="active">Reference</a>
+|  <a href="https://cjyabraham.github.io/docs/samples/" >Samples</a>
+|  <a href="https://cjyabraham.github.io/docs/talks/" >Presentations</a>
+</div>
+
+    <div class="refsection">
     
 
 <h1 id="go-generated-code-reference">Go Generated Code Reference</h1>
@@ -105,13 +126,10 @@ so e.g. <i>individual streams</i> do not support <i>concurrent reads</i> or <i>c
 of <code>MsgB</code> messages.</p>
 
 <p><code>&lt;ServiceName&gt;_FooServer</code> has an embedded <code>grpc.ServerStream</code> and the following interface:</p>
-
-<pre><code>type &lt;ServiceName&gt;_FooServer interface {
-	Send(*MsgB) error
-	grpc.ServerStream
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> &lt;<span style="color:#a6e22e">ServiceName</span>&gt;<span style="color:#a6e22e">_FooServer</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Send</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgB</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ServerStream</span>
+}</code></pre></div>
 <p>The server-side handler can send a stream of protobuf messages to the client through this parameter&rsquo;s <code>Send</code> method. End-of-stream for the server-to-client
 stream is caused by the <code>return</code> of the handler method.</p>
 
@@ -124,14 +142,11 @@ stream is caused by the <code>return</code> of the handler method.</p>
 <p>In this context, <code>&lt;ServiceName&gt;_FooServer</code> can be used both to read the client-to-server message stream and to send the single server response message.</p>
 
 <p><code>&lt;ServiceName&gt;_FooServer</code> has an embedded <code>grpc.ServerStream</code> and the following interface:</p>
-
-<pre><code>type &lt;ServiceName&gt;_FooServer interface {
-	SendAndClose(*MsgA) error
-	Recv() (*MsgB, error)
-	grpc.ServerStream
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> &lt;<span style="color:#a6e22e">ServiceName</span>&gt;<span style="color:#a6e22e">_FooServer</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">SendAndClose</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgA</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">Recv</span>() (<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgB</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ServerStream</span>
+}</code></pre></div>
 <p>The server-side handler can repeatedly call <code>Recv</code> on this parameter in order to receive the full stream of
 messages from the client. <code>Recv</code> returns <code>(nil, io.EOF)</code> once it has reached the end of the stream.
 The single response message from the server is sent by calling the <code>SendAndClose</code> method on this <code>&lt;ServiceName&gt;_FooServer</code> parameter.
@@ -145,14 +160,11 @@ Note that <code>SendAndClose</code> must be called once and only once.</p>
 
 <p>In this context, <code>&lt;ServiceName&gt;_FooServer</code> can be used to access both the client-to-server message stream and the server-to-client message stream.
 <code>&lt;ServiceName&gt;_FooServer</code> has an embedded <code>grpc.ServerStream</code> and the following interface:</p>
-
-<pre><code>type &lt;ServiceName&gt;_FooServer interface {
-	Send(*MsgA) error
-	Recv() (*MsgB, error)
-	grpc.ServerStream
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> &lt;<span style="color:#a6e22e">ServiceName</span>&gt;<span style="color:#a6e22e">_FooServer</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Send</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgA</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">Recv</span>() (<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgB</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ServerStream</span>
+}</code></pre></div>
 <p>The server-side handler can repeatedly call <code>Recv</code> on this parameter in order to read the client-to-server message stream.
 <code>Recv</code> returns <code>(nil, io.EOF)</code> once it has reached the end of the client-to-server stream.
 The response server-to-client message stream is sent by repeatedly calling the <code>Send</code> method of on this <code>ServiceName&gt;_FooServer</code> parameter.
@@ -180,13 +192,10 @@ returns a concrete implementation of the <code>BarClient</code> interface (this 
 <p>In this context, <code>&lt;ServiceName&gt;_FooClient</code> represents the server-to-client <code>stream</code> of <code>MsgB</code> messages.</p>
 
 <p>This stream has an embedded <code>grpc.ClientStream</code> and the following interface:</p>
-
-<pre><code>type &lt;ServiceName&gt;_FooClient interface {
-	Recv() (*MsgB, error)
-	grpc.ClientStream
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> &lt;<span style="color:#a6e22e">ServiceName</span>&gt;<span style="color:#a6e22e">_FooClient</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Recv</span>() (<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgB</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ClientStream</span>
+}</code></pre></div>
 <p>The stream begins when the client calls the <code>Foo</code> method on the stub.
 The client can then repeatedly call the <code>Recv</code> method on the returned <code>&lt;ServiceName&gt;_FooClient</code> <i>stream</i> in order to read the server-to-client response stream.
 This <code>Recv</code> method returns <code>(nil, io.EOF)</code> once the server-to-client stream has been completely read through.</p>
@@ -200,14 +209,11 @@ This <code>Recv</code> method returns <code>(nil, io.EOF)</code> once the server
 <p>In this context, <code>&lt;ServiceName&gt;_FooClient</code> represents the client-to-server <code>stream</code> of <code>MsgA</code> messages.</p>
 
 <p><code>&lt;ServiceName&gt;_FooClient</code> has an embedded <code>grpc.ClientStream</code> and the following interface:</p>
-
-<pre><code>type &lt;ServiceName&gt;_FooClient interface {
-	Send(*MsgA) error
-	CloseAndRecv() (*MsgA, error)
-	grpc.ClientStream
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> &lt;<span style="color:#a6e22e">ServiceName</span>&gt;<span style="color:#a6e22e">_FooClient</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Send</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgA</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">CloseAndRecv</span>() (<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgA</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ClientStream</span>
+}</code></pre></div>
 <p>The stream begins when the client calls the <code>Foo</code> method on the stub.
 The client can then repeatedly call the <code>Send</code> method on the returned <code>&lt;ServiceName&gt;_FooClient</code> stream in order to send the client-to-server message stream.
 The <code>CloseAndRecv</code> method on this stream must be called once and only once, in order to both close the client-to-server stream
@@ -222,14 +228,11 @@ and receive the single response message from the server.</p>
 <p>In this context, <code>&lt;ServiceName&gt;_FooClient</code> represents both the client-to-server and server-to-client message streams.</p>
 
 <p><code>&lt;ServiceName&gt;_FooClient</code> has an embedded <code>grpc.ClientStream</code> and the following interface:</p>
-
-<pre><code>type &lt;ServiceName&gt;_FooClient interface {
-	Send(*MsgA) error
-	Recv() (*MsgB, error)
-	grpc.ClientStream
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> &lt;<span style="color:#a6e22e">ServiceName</span>&gt;<span style="color:#a6e22e">_FooClient</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Send</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgA</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">Recv</span>() (<span style="color:#f92672">*</span><span style="color:#a6e22e">MsgB</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">ClientStream</span>
+}</code></pre></div>
 <p>The stream begins when the client calls the <code>Foo</code> method on the stub.
 The client can then repeatedly call the <code>Send</code> method on the returned <code>&lt;SericeName&gt;_FooClient</code> stream in order to send the
 client-to-server message stream. The client can also repeatedly call <code>Recv</code> on this stream in order to
@@ -246,7 +249,7 @@ works the same as when the <code>protoc-gen-go</code> plugin is used without the
 <p>So, for example, if <code>foo.proto</code> declares itself to be in <code>package foo</code>, then the generated <code>foo.pb.go</code> file will also be in
 the Go package <code>foo</code>.</p>
 
-  </div>
+    </div>
 
     
     

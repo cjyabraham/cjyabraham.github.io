@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - Python &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic Python programmer's introduction
+<p>This tutorial provides a basic Python programmer&rsquo;s introduction
 to working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
@@ -144,18 +155,12 @@ interface updating.</p>
 <a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/python/route_guide">grpc/grpc/examples/python/route_guide</a>.
 To download the example, clone the <code>grpc</code> repository by running the following
 command:</p>
-
-<pre><code>$ git clone -b v1.19.0 https://github.com/grpc/grpc
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc</code></pre></div>
 <p>Then change your current directory to <code>examples/python/route_guide</code> in the repository:</p>
-
-<pre><code>$ cd grpc/examples/python/route_guide
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc/examples/python/route_guide</code></pre></div>
 <p>You also should have the relevant tools installed to generate the server and
 client interface code - if you don&rsquo;t already, follow the setup instructions in
-<a href="/docs/quickstart/python.html">the Python quick start guide</a>.</p>
+<a href="/docs/quickstart/python">the Python quick start guide</a>.</p>
 
 <h2 id="defining-the-service">Defining the service</h2>
 
@@ -232,15 +237,9 @@ the <code>Point</code> message type:</p>
 service definition.</p>
 
 <p>First, install the grpcio-tools package:</p>
-
-<pre><code>$ pip install grpcio-tools
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pip install grpcio-tools</code></pre></div>
 <p>Use the following command to generate the Python code:</p>
-
-<pre><code>$ python -m grpc_tools.protoc -I../../protos --python_out=. --grpc_python_out=. ../../protos/route_guide.proto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m grpc_tools.protoc -I../../protos --python_out<span style="color:#f92672">=</span>. --grpc_python_out<span style="color:#f92672">=</span>. ../../protos/route_guide.proto</code></pre></div>
 <p>Note that as we&rsquo;ve already provided a version of the generated code in the
 example directory, running this command regenerates the appropriate file rather
 than creates a new one. The generated code files are called
@@ -431,15 +430,9 @@ semantics:</p>
 <h2 id="try-it-out">Try it out!</h2>
 
 <p>Run the server, which will listen on port 50051:</p>
-
-<pre><code>$ python route_guide_server.py
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python route_guide_server.py</code></pre></div>
 <p>Run the client (in a different terminal):</p>
-
-<pre><code>$ python route_guide_client.py
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python route_guide_client.py</code></pre></div>
 </div>
 </div>
 

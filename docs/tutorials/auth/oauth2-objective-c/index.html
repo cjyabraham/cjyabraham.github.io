@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   OAuth2 on gRPC - Objective-C &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This example demonstrates how to use OAuth2 on gRPC to make
+<p>This example demonstrates how to use OAuth2 on gRPC to make
 authenticated API calls on behalf of a user.</p>
 
 <p>By walking through it you&rsquo;ll also learn how to use the Objective-C gRPC API to:</p>
@@ -116,9 +127,9 @@ headers and trailers.</li>
 </ul>
 
 <p>It assumes you know the basics on how to make gRPC API calls using the
-Objective-C client library, as shown in <a href="/docs/tutorials/basic/objective-c.html">gRPC Basics:
+Objective-C client library, as shown in <a href="/docs/tutorials/basic/objective-c/">gRPC Basics:
 Objective-C</a> and the
-<a href="/docs/index.html">overview</a>, and are familiar with OAuth2 concepts like <em>access
+<a href="/docs/">overview</a>, and are familiar with OAuth2 concepts like <em>access
 token</em>.</p>
 
 <div id="toc"></div>
@@ -131,17 +142,11 @@ token</em>.</p>
 <a href="https://github.com/grpc/grpc/tree/
 v1.19.0/examples/objective-c/auth_sample">gprc/examples/objective-c/auth_sample</a>. To
 download the example, clone this repository by running the following commands:</p>
-
-<pre><code>$ git clone -b v1.19.0 https://github.com/grpc/grpc
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc
 $ cd grpc
-$ git submodule update --init
-</code></pre>
-
+$ git submodule update --init</code></pre></div>
 <p>Then change your current directory to <code>examples/objective-c/auth_sample</code>:</p>
-
-<pre><code>$ cd examples/objective-c/auth_sample
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/objective-c/auth_sample</code></pre></div>
 <p>Our example is a simple application with two views. The first view lets a user
 sign in and out using the OAuth2 flow of Google&rsquo;s <a href="https://developers.google.com/identity/sign-in/ios/">iOS SignIn
 library</a>. (Google&rsquo;s library
@@ -169,10 +174,7 @@ following <a href="https://github.com/grpc/homebrew-grpc">these setup instructio
 
 <p>To try the sample app, first have Cocoapods generate and install the client library for our .proto
 files:</p>
-
-<pre><code>$ pod install
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pod install</code></pre></div>
 <p>(This might have to compile OpenSSL, which takes around 15 minutes if Cocoapods
 doesn&rsquo;t have it yet on your computer&rsquo;s cache).</p>
 

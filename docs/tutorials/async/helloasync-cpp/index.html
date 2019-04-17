@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   Asynchronous Basics - C&#43;&#43; &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -104,10 +115,10 @@
 
 <p>This tutorial shows you how to write a simple server and client in C++ using
 gRPC&rsquo;s asynchronous/non-blocking APIs. It assumes you are already familiar with
-writing simple synchronous gRPC code, as described in <a href="/docs/tutorials/basic/c.html">gRPC Basics:
+writing simple synchronous gRPC code, as described in <a href="/docs/tutorials/basic/c/">gRPC Basics:
 C++</a>. The example used in this tutorial follows on
 from the basic <a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/cpp/helloworld">Greeter example</a> we used in the
-<a href="/docs/index.html">overview</a>. You&rsquo;ll find it along with installation
+<a href="/docs/">overview</a>. You&rsquo;ll find it along with installation
 instructions in
 <a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/cpp/helloworld">grpc/examples/cpp/helloworld</a>.</p>
 
@@ -138,33 +149,24 @@ the following to make an asynchronous call:</p>
 <li>Initiate the RPC and create a handle for it. Bind the RPC to a
 <code>CompletionQueue</code>.</li>
 </ul>
-
-<pre><code>    CompletionQueue cq;
-    std::unique_ptr&lt;ClientAsyncResponseReader&lt;HelloReply&gt; &gt; rpc(
-        stub_-&gt;AsyncSayHello(&amp;context, request, &amp;cq));
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    CompletionQueue cq;
+    std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ClientAsyncResponseReader<span style="color:#f92672">&lt;</span>HelloReply<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> rpc(
+        stub_<span style="color:#f92672">-&gt;</span>AsyncSayHello(<span style="color:#f92672">&amp;</span>context, request, <span style="color:#f92672">&amp;</span>cq));</code></pre></div>
 <ul>
 <li>Ask for the reply and final status, with a unique tag</li>
 </ul>
-
-<pre><code>    Status status;
-    rpc-&gt;Finish(&amp;reply, &amp;status, (void*)1);
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    Status status;
+    rpc<span style="color:#f92672">-&gt;</span>Finish(<span style="color:#f92672">&amp;</span>reply, <span style="color:#f92672">&amp;</span>status, (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#ae81ff">1</span>);</code></pre></div>
 <ul>
 <li>Wait for the completion queue to return the next tag. The reply and status are
 ready once the tag passed into the corresponding <code>Finish()</code> call is returned.</li>
 </ul>
-
-<pre><code>    void* got_tag;
-    bool ok = false;
-    cq.Next(&amp;got_tag, &amp;ok);
-    if (ok &amp;&amp; got_tag == (void*)1) {
-      // check reply and status
-    }
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> got_tag;
+    <span style="color:#66d9ef">bool</span> ok <span style="color:#f92672">=</span> false;
+    cq.Next(<span style="color:#f92672">&amp;</span>got_tag, <span style="color:#f92672">&amp;</span>ok);
+    <span style="color:#66d9ef">if</span> (ok <span style="color:#f92672">&amp;&amp;</span> got_tag <span style="color:#f92672">==</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#ae81ff">1</span>) {
+      <span style="color:#75715e">// check reply and status
+</span><span style="color:#75715e"></span>    }</code></pre></div>
 <p>You can see the complete client example in
 <a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/cpp/helloworld/greeter_async_client.cc">greeter&#95;async&#95;client.cc</a>.</p>
 
@@ -177,124 +179,106 @@ asynchronously is:</p>
 <ul>
 <li>Build a server exporting the async service</li>
 </ul>
-
-<pre><code>    helloworld::Greeter::AsyncService service;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    helloworld<span style="color:#f92672">::</span>Greeter<span style="color:#f92672">::</span>AsyncService service;
     ServerBuilder builder;
-    builder.AddListeningPort(&quot;0.0.0.0:50051&quot;, InsecureServerCredentials());
-    builder.RegisterAsyncService(&amp;service);
-    auto cq = builder.AddCompletionQueue();
-    auto server = builder.BuildAndStart();
-</code></pre>
-
+    builder.AddListeningPort(<span style="color:#e6db74">&#34;0.0.0.0:50051&#34;</span>, InsecureServerCredentials());
+    builder.RegisterAsyncService(<span style="color:#f92672">&amp;</span>service);
+    <span style="color:#66d9ef">auto</span> cq <span style="color:#f92672">=</span> builder.AddCompletionQueue();
+    <span style="color:#66d9ef">auto</span> server <span style="color:#f92672">=</span> builder.BuildAndStart();</code></pre></div>
 <ul>
 <li>Request one RPC, providing a unique tag</li>
 </ul>
-
-<pre><code>    ServerContext context;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    ServerContext context;
     HelloRequest request;
-    ServerAsyncResponseWriter&lt;HelloReply&gt; responder;
-    service.RequestSayHello(&amp;context, &amp;request, &amp;responder, &amp;cq, &amp;cq, (void*)1);
-</code></pre>
-
+    ServerAsyncResponseWriter<span style="color:#f92672">&lt;</span>HelloReply<span style="color:#f92672">&gt;</span> responder;
+    service.RequestSayHello(<span style="color:#f92672">&amp;</span>context, <span style="color:#f92672">&amp;</span>request, <span style="color:#f92672">&amp;</span>responder, <span style="color:#f92672">&amp;</span>cq, <span style="color:#f92672">&amp;</span>cq, (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#ae81ff">1</span>);</code></pre></div>
 <ul>
 <li>Wait for the completion queue to return the tag. The context, request and
 responder are ready once the tag is retrieved.</li>
 </ul>
-
-<pre><code>    HelloReply reply;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    HelloReply reply;
     Status status;
-    void* got_tag;
-    bool ok = false;
-    cq.Next(&amp;got_tag, &amp;ok);
-    if (ok &amp;&amp; got_tag == (void*)1) {
-      // set reply and status
-      responder.Finish(reply, status, (void*)2);
-    }
-</code></pre>
-
+    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> got_tag;
+    <span style="color:#66d9ef">bool</span> ok <span style="color:#f92672">=</span> false;
+    cq.Next(<span style="color:#f92672">&amp;</span>got_tag, <span style="color:#f92672">&amp;</span>ok);
+    <span style="color:#66d9ef">if</span> (ok <span style="color:#f92672">&amp;&amp;</span> got_tag <span style="color:#f92672">==</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#ae81ff">1</span>) {
+      <span style="color:#75715e">// set reply and status
+</span><span style="color:#75715e"></span>      responder.Finish(reply, status, (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#ae81ff">2</span>);
+    }</code></pre></div>
 <ul>
 <li>Wait for the completion queue to return the tag. The RPC is finished when the
 tag is back.</li>
 </ul>
-
-<pre><code>    void* got_tag;
-    bool ok = false;
-    cq.Next(&amp;got_tag, &amp;ok);
-    if (ok &amp;&amp; got_tag == (void*)2) {
-      // clean up
-    }
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> got_tag;
+    <span style="color:#66d9ef">bool</span> ok <span style="color:#f92672">=</span> false;
+    cq.Next(<span style="color:#f92672">&amp;</span>got_tag, <span style="color:#f92672">&amp;</span>ok);
+    <span style="color:#66d9ef">if</span> (ok <span style="color:#f92672">&amp;&amp;</span> got_tag <span style="color:#f92672">==</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#ae81ff">2</span>) {
+      <span style="color:#75715e">// clean up
+</span><span style="color:#75715e"></span>    }</code></pre></div>
 <p>This basic flow, however, doesn&rsquo;t take into account the server handling multiple
 requests concurrently. To deal with this, our complete async server example uses
 a <code>CallData</code> object to maintain the state of each RPC, and uses the address of
 this object as the unique tag for the call.</p>
-
-<pre><code>  class CallData {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">  class CallData {
    public:
-    // Take in the &quot;service&quot; instance (in this case representing an asynchronous
-    // server) and the completion queue &quot;cq&quot; used for asynchronous communication
-    // with the gRPC runtime.
-    CallData(Greeter::AsyncService* service, ServerCompletionQueue* cq)
-        : service_(service), cq_(cq), responder_(&amp;ctx_), status_(CREATE) {
-      // Invoke the serving logic right away.
-      Proceed();
+    <span style="color:#75715e">// Take in the &#34;service&#34; instance (in this case representing an asynchronous
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// server) and the completion queue &#34;cq&#34; used for asynchronous communication
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// with the gRPC runtime.
+</span><span style="color:#75715e"></span>    CallData(Greeter<span style="color:#f92672">::</span>AsyncService<span style="color:#f92672">*</span> service, ServerCompletionQueue<span style="color:#f92672">*</span> cq)
+        <span style="color:#f92672">:</span> service_(service), cq_(cq), responder_(<span style="color:#f92672">&amp;</span>ctx_), status_(CREATE) {
+      <span style="color:#75715e">// Invoke the serving logic right away.
+</span><span style="color:#75715e"></span>      Proceed();
     }
 
-    void Proceed() {
-      if (status_ == CREATE) {
-        // As part of the initial CREATE state, we *request* that the system
-        // start processing SayHello requests. In this request, &quot;this&quot; acts are
-        // the tag uniquely identifying the request (so that different CallData
-        // instances can serve different requests concurrently), in this case
-        // the memory address of this CallData instance.
-        service_-&gt;RequestSayHello(&amp;ctx_, &amp;request_, &amp;responder_, cq_, cq_,
+    <span style="color:#66d9ef">void</span> Proceed() {
+      <span style="color:#66d9ef">if</span> (status_ <span style="color:#f92672">==</span> CREATE) {
+        <span style="color:#75715e">// As part of the initial CREATE state, we *request* that the system
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// start processing SayHello requests. In this request, &#34;this&#34; acts are
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// the tag uniquely identifying the request (so that different CallData
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// instances can serve different requests concurrently), in this case
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// the memory address of this CallData instance.
+</span><span style="color:#75715e"></span>        service_<span style="color:#f92672">-&gt;</span>RequestSayHello(<span style="color:#f92672">&amp;</span>ctx_, <span style="color:#f92672">&amp;</span>request_, <span style="color:#f92672">&amp;</span>responder_, cq_, cq_,
                                   this);
-        // Make this instance progress to the PROCESS state.
-        status_ = PROCESS;
-      } else if (status_ == PROCESS) {
-        // Spawn a new CallData instance to serve new clients while we process
-        // the one for this CallData. The instance will deallocate itself as
-        // part of its FINISH state.
-        new CallData(service_, cq_);
+        <span style="color:#75715e">// Make this instance progress to the PROCESS state.
+</span><span style="color:#75715e"></span>        status_ <span style="color:#f92672">=</span> PROCESS;
+      } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (status_ <span style="color:#f92672">==</span> PROCESS) {
+        <span style="color:#75715e">// Spawn a new CallData instance to serve new clients while we process
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// the one for this CallData. The instance will deallocate itself as
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// part of its FINISH state.
+</span><span style="color:#75715e"></span>        new CallData(service_, cq_);
 
-        // The actual processing.
-        std::string prefix(&quot;Hello &quot;);
-        reply_.set_message(prefix + request_.name());
+        <span style="color:#75715e">// The actual processing.
+</span><span style="color:#75715e"></span>        std<span style="color:#f92672">::</span>string prefix(<span style="color:#e6db74">&#34;Hello &#34;</span>);
+        reply_.set_message(prefix <span style="color:#f92672">+</span> request_.name());
 
-        // And we are done! Let the gRPC runtime know we've finished, using the
-        // memory address of this instance as the uniquely identifying tag for
-        // the event.
-        responder_.Finish(reply_, Status::OK, this);
-        status_ = FINISH;
-      } else {
-        GPR_ASSERT(status_ == FINISH);
-        // Once in the FINISH state, deallocate ourselves (CallData).
-        delete this;
+        <span style="color:#75715e">// And we are done! Let the gRPC runtime know we&#39;ve finished, using the
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// memory address of this instance as the uniquely identifying tag for
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// the event.
+</span><span style="color:#75715e"></span>        responder_.Finish(reply_, Status<span style="color:#f92672">::</span>OK, this);
+        status_ <span style="color:#f92672">=</span> FINISH;
+      } <span style="color:#66d9ef">else</span> {
+        GPR_ASSERT(status_ <span style="color:#f92672">==</span> FINISH);
+        <span style="color:#75715e">// Once in the FINISH state, deallocate ourselves (CallData).
+</span><span style="color:#75715e"></span>        delete this;
       }
     }
-  }
-</code></pre>
-
+  }</code></pre></div>
 <p>For simplicity the server only uses one completion queue for all events, and
 runs a main loop in <code>HandleRpcs</code> to query the queue:</p>
-
-<pre><code>  void HandleRpcs() {
-    // Spawn a new CallData instance to serve new clients.
-    new CallData(&amp;service_, cq_.get());
-    void* tag;  // uniquely identifies a request.
-    bool ok;
-    while (true) {
-      // Block waiting to read the next event from the completion queue. The
-      // event is uniquely identified by its tag, which in this case is the
-      // memory address of a CallData instance.
-      cq_-&gt;Next(&amp;tag, &amp;ok);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">HandleRpcs</span>() {
+    <span style="color:#75715e">// Spawn a new CallData instance to serve new clients.
+</span><span style="color:#75715e"></span>    new CallData(<span style="color:#f92672">&amp;</span>service_, cq_.get());
+    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> tag;  <span style="color:#75715e">// uniquely identifies a request.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> ok;
+    <span style="color:#66d9ef">while</span> (true) {
+      <span style="color:#75715e">// Block waiting to read the next event from the completion queue. The
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">// event is uniquely identified by its tag, which in this case is the
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">// memory address of a CallData instance.
+</span><span style="color:#75715e"></span>      cq_<span style="color:#f92672">-&gt;</span>Next(<span style="color:#f92672">&amp;</span>tag, <span style="color:#f92672">&amp;</span>ok);
       GPR_ASSERT(ok);
-      static_cast&lt;CallData*&gt;(tag)-&gt;Proceed();
+      static_cast<span style="color:#f92672">&lt;</span>CallData<span style="color:#f92672">*&gt;</span>(tag)<span style="color:#f92672">-&gt;</span>Proceed();
     }
-  }
-</code></pre>
-
+  }</code></pre></div>
 <h3 id="shutting-down-the-server">Shutting Down the Server</h3>
 
 <p>We&rsquo;ve been using a completion queue to get the async notifications. Care must be
@@ -311,14 +295,11 @@ returned completion queue.</p>
 
 <p>Refer to <code>ServerBuilder::AddCompletionQueue</code>&rsquo;s full docstring for more details.
 What this means in our example is that <code>ServerImpl's</code> destructor looks like:</p>
-
-<pre><code>  ~ServerImpl() {
-    server_-&gt;Shutdown();
-    // Always shutdown the completion queue after the server.
-    cq_-&gt;Shutdown();
-  }
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">  <span style="color:#f92672">~</span>ServerImpl() {
+    server_<span style="color:#f92672">-&gt;</span>Shutdown();
+    <span style="color:#75715e">// Always shutdown the completion queue after the server.
+</span><span style="color:#75715e"></span>    cq_<span style="color:#f92672">-&gt;</span>Shutdown();
+  }</code></pre></div>
 <p>You can see our complete server example in
 <a href="https://github.com/grpc/grpc/blob/v1.19.0/examples/cpp/helloworld/greeter_async_server.cc">greeter&#95;async&#95;server.cc</a>.</p>
 

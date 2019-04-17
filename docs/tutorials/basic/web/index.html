@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - Web &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic introduction on how to use
+<p>This tutorial provides a basic introduction on how to use
 gRPC-Web from browsers.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
@@ -160,7 +171,7 @@ For more information about protocol buffers and proto3 syntax, please see the
 for details.</p>
 
 <p>You can implement the server in any language supported by gRPC. Please see
-the <a href="https://grpc.io/docs/">main page</a> for more details.</p>
+the <a href="/docs/">main page</a> for more details.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doEcho</span>(<span style="color:#a6e22e">call</span>, <span style="color:#a6e22e">callback</span>) {
   <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, {<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">call</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">message</span>});
 }

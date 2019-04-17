@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Concepts &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -115,42 +126,33 @@ buffers</a> as the Interface
 Definition Language (IDL) for describing both the service interface and the
 structure of the payload messages. It is possible to use other alternatives if
 desired.</p>
-
-<pre><code>service HelloService {
-  rpc SayHello (HelloRequest) returns (HelloResponse);
-}
-
-message HelloRequest {
-  string greeting = 1;
-}
-
-message HelloResponse {
-  string reply = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">service</span> HelloService {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> SayHello (HelloRequest) <span style="color:#66d9ef">returns</span> (HelloResponse);<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloRequest</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> greeting <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">HelloResponse</span> {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">string</span> reply <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>gRPC lets you define four kinds of service method:</p>
 
 <ul>
 <li>Unary RPCs where the client sends a single request to the server and gets a
 single response back, just like a normal function call.</li>
 </ul>
-
-<pre><code>rpc SayHello(HelloRequest) returns (HelloResponse){
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">rpc</span> SayHello(HelloRequest) <span style="color:#66d9ef">returns</span> (HelloResponse){<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <ul>
 <li>Server streaming RPCs where the client sends a request to the server and gets
 a stream to read a sequence of messages back. The client reads from the
 returned stream until there are no more messages. gRPC guarantees message
 ordering within an individual RPC call.</li>
 </ul>
-
-<pre><code>rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse){
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">rpc</span> LotsOfReplies(HelloRequest) <span style="color:#66d9ef">returns</span> (stream HelloResponse){<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <ul>
 <li>Client streaming RPCs where the client writes a sequence of messages and sends
 them to the server, again using a provided stream. Once the client has
@@ -158,11 +160,8 @@ finished writing the messages, it waits for the server to read them and return
 its response.  Again gRPC guarantees message ordering within an individual RPC
 call.</li>
 </ul>
-
-<pre><code>rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse) {
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">rpc</span> LotsOfGreetings(stream HelloRequest) <span style="color:#66d9ef">returns</span> (HelloResponse) {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <ul>
 <li>Bidirectional streaming RPCs where both sides send a sequence of messages
 using a read-write stream. The two streams operate independently, so clients
@@ -172,11 +171,8 @@ responses, or it could alternately read a message then write a message, or
 some other combination of reads and writes. The order of messages in each
 stream is preserved.</li>
 </ul>
-
-<pre><code>rpc BidiHello(stream HelloRequest) returns (stream HelloResponse){
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">rpc</span> BidiHello(stream HelloRequest) <span style="color:#66d9ef">returns</span> (stream HelloResponse){<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>We&rsquo;ll look at the different types of RPC in more detail in the RPC life cycle section below.</p>
 
 <h3 id="using-the-api-surface">Using the API surface</h3>
@@ -300,7 +296,7 @@ terminates the RPC immediately so that no further work is done. It is <em>not</e
 
 <h3 id="metadata">Metadata</h3>
 
-<p>Metadata is information about a particular RPC call (such as <a href="/docs/guides/auth.html">authentication details</a>) in the
+<p>Metadata is information about a particular RPC call (such as <a href="/docs/guides/auth/">authentication details</a>) in the
 form of a list of key-value pairs, where the keys are strings and the values are
 typically strings (but can be binary data). Metadata is opaque to gRPC itself -
 it lets the client provide information associated with the call to the server

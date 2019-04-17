@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - C&#43;&#43; &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic C++ programmer's introduction to working with gRPC.</p>
+<p>This tutorial provides a basic C++ programmer&rsquo;s introduction to working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
 
@@ -112,7 +123,7 @@
 <li>Use the C++ gRPC API to write a simple client and server for your service.</li>
 </ul>
 
-<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
+<p>It assumes that you have read the <a href="/docs/">Overview</a> and are familiar
 with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. Note
 that the example in this tutorial uses the proto3 version of the protocol
@@ -146,22 +157,16 @@ updating.</p>
 v1.19.0/examples/cpp/route_guide">grpc/grpc/examples/cpp/route_guide</a>. To
 download the example, clone the <code>grpc</code> repository by running the following
 command:</p>
-
-<pre><code>$ git clone -b v1.19.0 https://github.com/grpc/grpc
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc</code></pre></div>
 <p>Then change your current directory to <code>examples/cpp/route_guide</code>:</p>
-
-<pre><code>$ cd examples/cpp/route_guide
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/cpp/route_guide</code></pre></div>
 <p>You also should have the relevant tools installed to generate the server and
 client interface code - if you don&rsquo;t already, follow the setup instructions in
-<a href="/docs/quickstart/cpp.html">the C++ quick start guide</a>.</p>
+<a href="/docs/quickstart/cpp">the C++ quick start guide</a>.</p>
 
 <h2 id="defining-the-service">Defining the service</h2>
 
-<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
 <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>.
 You can see the complete .proto file in
@@ -169,12 +174,9 @@ You can see the complete .proto file in
 v1.19.0/examples/protos/route_guide.proto"><code>examples/protos/route_guide.proto</code></a>.</p>
 
 <p>To define a service, you specify a named <code>service</code> in your .proto file:</p>
-
-<pre><code>service RouteGuide {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">service RouteGuide {
    ...
-}
-</code></pre>
-
+}</code></pre></div>
 <p>Then you define <code>rpc</code> methods inside your service definition, specifying their
 request and response types. gRPC lets you define four kinds of service method,
 all of which are used in the <code>RouteGuide</code> service:</p>
@@ -183,11 +185,8 @@ all of which are used in the <code>RouteGuide</code> service:</p>
 <li>A <em>simple RPC</em> where the client sends a request to the server using the stub
 and waits for a response to come back, just like a normal function call.</li>
 </ul>
-
-<pre><code>// Obtains the feature at a given position.
-rpc GetFeature(Point) returns (Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// Obtains the feature at a given position.
+</span><span style="color:#75715e"></span>rpc <span style="color:#a6e22e">GetFeature</span>(Point) returns (Feature) {}</code></pre></div>
 <ul>
 <li>A <em>server-side streaming RPC</em> where the client sends a request to the server
 and gets a stream to read a sequence of messages back. The client reads from
@@ -195,14 +194,11 @@ the returned stream until there are no more messages. As you can see in our
 example, you specify a server-side streaming method by placing the <code>stream</code>
 keyword before the <em>response</em> type.</li>
 </ul>
-
-<pre><code>// Obtains the Features available within the given Rectangle.  Results are
-// streamed rather than returned at once (e.g. in a response message with a
-// repeated field), as the rectangle may cover a large area and contain a
-// huge number of features.
-rpc ListFeatures(Rectangle) returns (stream Feature) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// Obtains the Features available within the given Rectangle.  Results are
+</span><span style="color:#75715e">// streamed rather than returned at once (e.g. in a response message with a
+</span><span style="color:#75715e">// repeated field), as the rectangle may cover a large area and contain a
+</span><span style="color:#75715e">// huge number of features.
+</span><span style="color:#75715e"></span>rpc <span style="color:#a6e22e">ListFeatures</span>(Rectangle) returns (stream Feature) {}</code></pre></div>
 <ul>
 <li>A <em>client-side streaming RPC</em> where the client writes a sequence of messages
 and sends them to the server, again using a provided stream. Once the client
@@ -210,12 +206,9 @@ has finished writing the messages, it waits for the server to read them all
 and return its response. You specify a client-side streaming method by placing
 the <code>stream</code> keyword before the <em>request</em> type.</li>
 </ul>
-
-<pre><code>// Accepts a stream of Points on a route being traversed, returning a
-// RouteSummary when traversal is completed.
-rpc RecordRoute(stream Point) returns (RouteSummary) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// Accepts a stream of Points on a route being traversed, returning a
+</span><span style="color:#75715e">// RouteSummary when traversal is completed.
+</span><span style="color:#75715e"></span>rpc <span style="color:#a6e22e">RecordRoute</span>(stream Point) returns (RouteSummary) {}</code></pre></div>
 <ul>
 <li>A <em>bidirectional streaming RPC</em> where both sides send a sequence of messages
 using a read-write stream. The two streams operate independently, so clients
@@ -226,26 +219,20 @@ some other combination of reads and writes. The order of messages in each
 stream is preserved. You specify this type of method by placing the <code>stream</code>
 keyword before both the request and the response.</li>
 </ul>
-
-<pre><code>// Accepts a stream of RouteNotes sent while a route is being traversed,
-// while receiving other RouteNotes (e.g. from other users).
-rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// Accepts a stream of RouteNotes sent while a route is being traversed,
+</span><span style="color:#75715e">// while receiving other RouteNotes (e.g. from other users).
+</span><span style="color:#75715e"></span>rpc <span style="color:#a6e22e">RouteChat</span>(stream RouteNote) returns (stream RouteNote) {}</code></pre></div>
 <p>Our .proto file also contains protocol buffer message type definitions for all
 the request and response types used in our service methods - for example, here&rsquo;s
 the <code>Point</code> message type:</p>
-
-<pre><code>// Points are represented as latitude-longitude pairs in the E7 representation
-// (degrees multiplied by 10**7 and rounded to the nearest integer).
-// Latitudes should be in the range +/- 90 degrees and longitude should be in
-// the range +/- 180 degrees (inclusive).
-message Point {
-  int32 latitude = 1;
-  int32 longitude = 2;
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// Points are represented as latitude-longitude pairs in the E7 representation
+</span><span style="color:#75715e">// (degrees multiplied by 10**7 and rounded to the nearest integer).
+</span><span style="color:#75715e">// Latitudes should be in the range +/- 90 degrees and longitude should be in
+</span><span style="color:#75715e">// the range +/- 180 degrees (inclusive).
+</span><span style="color:#75715e"></span>message Point {
+  int32 latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+  int32 longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+}</code></pre></div>
 <h2 id="generating-client-and-server-code">Generating client and server code</h2>
 
 <p>Next we need to generate the gRPC client and server interfaces from our .proto
@@ -258,16 +245,10 @@ that runs <code>protoc</code> for you with the appropriate plugin, input, and ou
 you want to run this yourself, make sure you&rsquo;ve installed protoc and followed
 the gRPC code <a href="https://github.com/grpc/grpc/blob/
 v1.19.0/src/cpp/README.md#make">installation instructions</a> first):</p>
-
-<pre><code>$ make route_guide.grpc.pb.cc route_guide.pb.cc
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make route_guide.grpc.pb.cc route_guide.pb.cc</code></pre></div>
 <p>which actually runs:</p>
-
-<pre><code>$ protoc -I ../../protos --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ../../protos/route_guide.proto
-$ protoc -I ../../protos --cpp_out=. ../../protos/route_guide.proto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ protoc -I ../../protos --grpc_out<span style="color:#f92672">=</span>. --plugin<span style="color:#f92672">=</span>protoc-gen-grpc<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>which grpc_cpp_plugin<span style="color:#e6db74">`</span> ../../protos/route_guide.proto
+$ protoc -I ../../protos --cpp_out<span style="color:#f92672">=</span>. ../../protos/route_guide.proto</code></pre></div>
 <p>Running this command generates the following files in your current directory:</p>
 
 <ul>
@@ -590,20 +571,11 @@ independently.</p>
 <h2 id="try-it-out">Try it out!</h2>
 
 <p>Build client and server:</p>
-
-<pre><code>$ make
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make</code></pre></div>
 <p>Run the server, which will listen on port 50051:</p>
-
-<pre><code>$ ./route_guide_server
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ./route_guide_server</code></pre></div>
 <p>Run the client (in a different terminal):</p>
-
-<pre><code>$ ./route_guide_client
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ./route_guide_client</code></pre></div>
 </div>
 </div>
 

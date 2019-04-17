@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - Android Java &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic Android Java programmer's introduction to working with gRPC.</p>
+<p>This tutorial provides a basic Android Java programmer&rsquo;s introduction to working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
 
@@ -112,8 +123,8 @@
 <li>Use the Java gRPC API to write a simple mobile client for your service.</li>
 </ul>
 
-<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>.
-This guide also does not cover anything on the server side. You can check the <a href="/docs/tutorials/basic/java.md">Java guide</a> for more information.</p>
+<p>It assumes that you have read the <a href="/docs/">Overview</a> and are familiar with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>.
+This guide also does not cover anything on the server side. You can check the <a href="/docs/tutorials/basic/java/">Java guide</a> for more information.</p>
 
 <div id="toc"></div>
 
@@ -126,20 +137,14 @@ This guide also does not cover anything on the server side. You can check the <a
 <h2 id="example-code-and-setup">Example code and setup</h2>
 
 <p>The example code for our tutorial is in <a href="https://github.com/grpc/grpc-java/tree/v1.19.0/examples/android">grpc-java&rsquo;s examples/android</a>. To download the example, clone the <code>grpc-java</code> repository by running the following command:</p>
-
-<pre><code>$ git clone -b v1.20.0 https://github.com/grpc/grpc-java.git
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.20.0 https://github.com/grpc/grpc-java.git</code></pre></div>
 <p>Then change your current directory to <code>grpc-java/examples/android</code>:</p>
-
-<pre><code>$ cd grpc-java/examples/android
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc-java/examples/android</code></pre></div>
 <p>You also should have the relevant tools installed to generate the client interface code - if you don&rsquo;t already, follow the setup instructions in <a href="https://github.com/grpc/grpc-java/blob/v1.19.0/README.md">the Java README</a>.</p>
 
 <h2 id="defining-the-service">Defining the service</h2>
 
-<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. You can see the complete .proto file in <a href="https://github.com/grpc/grpc-java/blob/v1.19.0/examples/android/routeguide/app/src/main/proto/route_guide.proto"><code>routeguide/app/src/main/proto/route_guide.proto</code></a>.</p>
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. You can see the complete .proto file in <a href="https://github.com/grpc/grpc-java/blob/v1.19.0/examples/android/routeguide/app/src/main/proto/route_guide.proto"><code>routeguide/app/src/main/proto/route_guide.proto</code></a>.</p>
 
 <p>As we&rsquo;re generating Java code in this example, we&rsquo;ve specified a <code>java_package</code> file option in our .proto:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto"><span style="color:#66d9ef">option</span> java_package <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;io.grpc.examples&#34;</span>;</code></pre></div>
@@ -258,7 +263,7 @@ Iterator<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672
 
 <h4 id="client-side-streaming-rpc">Client-side streaming RPC</h4>
 
-<p>Now for something a little more complicated: the client-side streaming method <code>RecordRoute</code>, where we send a stream of <code>Point</code>s to the server and get back a single <code>RouteSummary</code>. For this method we need to use the asynchronous stub. If you&rsquo;ve already read <a href="https://github.com/grpc/grpc.github.io/blob/v1.19.0/docs/tutorials/basic/java.md#creating-the-server">Creating the server</a> some of this may look very familiar - asynchronous streaming RPCs are implemented in a similar way on both sides.</p>
+<p>Now for something a little more complicated: the client-side streaming method <code>RecordRoute</code>, where we send a stream of <code>Point</code>s to the server and get back a single <code>RouteSummary</code>. For this method we need to use the asynchronous stub. If you&rsquo;ve already read <a href="/docs/tutorials/basic/java/#creating-the-server">Creating the server</a> some of this may look very familiar - asynchronous streaming RPCs are implemented in a similar way on both sides.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">recordRoute</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span> points<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> numPoints<span style="color:#f92672">,</span> RouteGuideStub asyncStub<span style="color:#f92672">)</span>
         <span style="color:#66d9ef">throws</span> InterruptedException<span style="color:#f92672">,</span> RuntimeException <span style="color:#f92672">{</span>
     <span style="color:#66d9ef">final</span> StringBuffer logs <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuffer<span style="color:#f92672">();</span>

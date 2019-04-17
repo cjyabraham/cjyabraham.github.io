@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - Objective-C &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic Objective-C programmer's
+<p>This tutorial provides a basic Objective-C programmer&rsquo;s
 introduction to working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
@@ -152,17 +163,11 @@ strip unused code is limited by the dynamic nature of the language.</p>
 <a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/objective-c/route_guide">grpc/grpc/examples/objective-c/route_guide</a>.
 To download the example, clone the <code>grpc</code> repository by running the following
 commands:</p>
-
-<pre><code>$ git clone -b v1.19.0 https://github.com/grpc/grpc
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc
 $ cd grpc
-$ git submodule update --init
-</code></pre>
-
+$ git submodule update --init</code></pre></div>
 <p>Then change your current directory to <code>examples/objective-c/route_guide</code>:</p>
-
-<pre><code>$ cd examples/objective-c/route_guide
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/objective-c/route_guide</code></pre></div>
 <p>Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
 exchange route information such as traffic updates with the server and other
@@ -179,18 +184,12 @@ setup instructions</a>.</p>
 
 <p>To try the sample app, we need a gRPC server running locally. Let&rsquo;s compile and
 run, for example, the C++ server in this repository:</p>
-
-<pre><code>$ pushd ../../cpp/route_guide
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pushd ../../cpp/route_guide
 $ make
 $ ./route_guide_server &amp;
-$ popd
-</code></pre>
-
+$ popd</code></pre></div>
 <p>Now have Cocoapods generate and install the client library for our .proto files:</p>
-
-<pre><code>$ pod install
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pod install</code></pre></div>
 <p>(This might have to compile OpenSSL, which takes around 15 minutes if Cocoapods
 doesn&rsquo;t have it yet on your computer&rsquo;s cache).</p>
 
@@ -286,15 +285,9 @@ file</a>
 that runs <code>protoc</code> for you with the appropriate plugin, input, and output, and
 describes how to compile the generated files. You just need to run in this
 directory (<code>examples/objective-c/route_guide</code>):</p>
-
-<pre><code>$ pod install
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pod install</code></pre></div>
 <p>which, before installing the generated library in the XCode project of this sample, runs:</p>
-
-<pre><code>$ protoc -I ../../protos --objc_out=Pods/RouteGuide --objcgrpc_out=Pods/RouteGuide ../../protos/route_guide.proto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ protoc -I ../../protos --objc_out<span style="color:#f92672">=</span>Pods/RouteGuide --objcgrpc_out<span style="color:#f92672">=</span>Pods/RouteGuide ../../protos/route_guide.proto</code></pre></div>
 <p>Running this command generates the following files under <code>Pods/RouteGuide/</code>:</p>
 
 <ul>
@@ -337,17 +330,14 @@ simplify the learning process).</p>
 <p>To call service methods, we first need to create a service object, an instance
 of the generated <code>RTGRouteGuide</code> class. The designated initializer of the class
 expects a <code>NSString *</code> with the server address and port we want to connect to:</p>
-
-<pre><code>#import &lt;GRPCClient/GRPCCall+Tests.h&gt;
-#import &lt;RouteGuide/RouteGuide.pbrpc.h&gt;
-
-static NSString * const kHostAddress = @&quot;localhost:50051&quot;;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c"><span style="color:#75715e">#import &lt;GRPCClient/GRPCCall+Tests.h&gt;
+</span><span style="color:#75715e">#import &lt;RouteGuide/RouteGuide.pbrpc.h&gt;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">static</span> NSString <span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> kHostAddress <span style="color:#f92672">=</span> <span style="color:#e6db74">@&#34;localhost:50051&#34;</span>;
 ...
 [GRPCCall useInsecureConnectionsForHost:kHostAddress];
 
-RTGRouteGuide *service = [[RTGRouteGuide alloc] initWithHost:kHostAddress];
-</code></pre>
-
+RTGRouteGuide <span style="color:#f92672">*</span>service <span style="color:#f92672">=</span> [[RTGRouteGuide alloc] initWithHost:kHostAddress];</code></pre></div>
 <p>Notice that before constructing our service object we&rsquo;ve told the gRPC library
 to use insecure connections for that host:port pair. This is because the server
 we will be using to test our client doesn&rsquo;t use
@@ -367,20 +357,17 @@ without worrying about freezing your UI or the OS killing your app.</p>
 
 <p>Calling the simple RPC <code>GetFeature</code> is as straightforward as calling any other
 asynchronous method on Cocoa.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c">RTGPoint <span style="color:#f92672">*</span>point <span style="color:#f92672">=</span> [RTGPoint message];
+point.latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">40E7</span>;
+point.longitude <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">74E7</span>;
 
-<pre><code>RTGPoint *point = [RTGPoint message];
-point.latitude = 40E7;
-point.longitude = -74E7;
-
-[service getFeatureWithRequest:point handler:^(RTGFeature *response, NSError *error) {
-  if (response) {
-    // Successful response received
-  } else {
-    // RPC error
-  }
-}];
-</code></pre>
-
+[service getFeatureWithRequest:point handler:<span style="color:#f92672">^</span>(RTGFeature <span style="color:#f92672">*</span>response, NSError <span style="color:#f92672">*</span>error) {
+  <span style="color:#66d9ef">if</span> (response) {
+    <span style="color:#75715e">// Successful response received
+</span><span style="color:#75715e"></span>  } <span style="color:#66d9ef">else</span> {
+    <span style="color:#75715e">// RPC error
+</span><span style="color:#75715e"></span>  }
+}];</code></pre></div>
 <p>As you can see, we create and populate a request protocol buffer object (in our
 case <code>RTGPoint</code>). Then, we call the method on the service object, passing it the
 request, and a block to handle the response (or any RPC error). If the RPC
@@ -389,26 +376,20 @@ and we can read the response information from the server from the response
 argument. If, instead, some RPC error happens, the handler block is called with
 a <code>nil</code> response argument, and we can read the details of the problem from the
 error argument.</p>
-
-<pre><code>NSLog(@&quot;Found feature called %@ at %@.&quot;, response.name, response.location);
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c">NSLog(<span style="color:#e6db74">@&#34;Found feature called %@ at %@.&#34;</span>, response.name, response.location);</code></pre></div>
 <h4 id="streaming-rpcs">Streaming RPCs</h4>
 
 <p>Now let&rsquo;s look at our streaming methods. Here&rsquo;s where we call the
 response-streaming method <code>ListFeatures</code>, which results in our client app
 receiving a stream of geographical <code>RTGFeature</code>s:</p>
-
-<pre><code>[service listFeaturesWithRequest:rectangle
-                    eventHandler:^(BOOL done, RTGFeature *response, NSError *error) {
-  if (response) {
-    NSLog(@&quot;Found feature at %@ called %@.&quot;, response.location, response.name);
-  } else if (error) {
-    NSLog(@&quot;RPC error: %@&quot;, error);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c">[service listFeaturesWithRequest:rectangle
+                    eventHandler:<span style="color:#f92672">^</span>(<span style="color:#66d9ef">BOOL</span> done, RTGFeature <span style="color:#f92672">*</span>response, NSError <span style="color:#f92672">*</span>error) {
+  <span style="color:#66d9ef">if</span> (response) {
+    NSLog(<span style="color:#e6db74">@&#34;Found feature at %@ called %@.&#34;</span>, response.location, response.name);
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (error) {
+    NSLog(<span style="color:#e6db74">@&#34;RPC error: %@&#34;</span>, error);
   }
-}];
-</code></pre>
-
+}];</code></pre></div>
 <p>Notice how the signature of the handler block now includes a <code>BOOL done</code>
 parameter. The handler block can be called any number of times; only on the last
 call is the <code>done</code> argument value set to <code>YES</code>. If an error occurs, the RPC
@@ -418,52 +399,45 @@ finishes and the handler is called with the arguments <code>(YES, nil, error)</c
 the cient. This stream is passed to the method as an object that conforms to the
 <code>GRXWriter</code> protocol. The simplest way to create one is to initialize one from a
 <code>NSArray</code> object:</p>
-
-<pre><code>#import &lt;gRPC/GRXWriter+Immediate.h&gt;
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c"><span style="color:#75715e">#import &lt;gRPC/GRXWriter+Immediate.h&gt;
+</span><span style="color:#75715e"></span>
 ...
 
-RTGPoint *point1 = [RTGPoint message];
-point.latitude = 40E7;
-point.longitude = -74E7;
+RTGPoint <span style="color:#f92672">*</span>point1 <span style="color:#f92672">=</span> [RTGPoint message];
+point.latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">40E7</span>;
+point.longitude <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">74E7</span>;
 
-RTGPoint *point2 = [RTGPoint message];
-point.latitude = 40E7;
-point.longitude = -74E7;
+RTGPoint <span style="color:#f92672">*</span>point2 <span style="color:#f92672">=</span> [RTGPoint message];
+point.latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">40E7</span>;
+point.longitude <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">74E7</span>;
 
-GRXWriter *locationsWriter = [GRXWriter writerWithContainer:@[point1, point2]];
+GRXWriter <span style="color:#f92672">*</span>locationsWriter <span style="color:#f92672">=</span> [GRXWriter writerWithContainer:<span style="color:#ae81ff">@[</span>point1, point2<span style="color:#ae81ff">]</span>];
 
-[service recordRouteWithRequestsWriter:locationsWriter handler:^(RTGRouteSummary *response, NSError *error) {
-  if (response) {
-    NSLog(@&quot;Finished trip with %i points&quot;, response.pointCount);
-    NSLog(@&quot;Passed %i features&quot;, response.featureCount);
-    NSLog(@&quot;Travelled %i meters&quot;, response.distance);
-    NSLog(@&quot;It took %i seconds&quot;, response.elapsedTime);
-  } else {
-    NSLog(@&quot;RPC error: %@&quot;, error);
+[service recordRouteWithRequestsWriter:locationsWriter handler:<span style="color:#f92672">^</span>(RTGRouteSummary <span style="color:#f92672">*</span>response, NSError <span style="color:#f92672">*</span>error) {
+  <span style="color:#66d9ef">if</span> (response) {
+    NSLog(<span style="color:#e6db74">@&#34;Finished trip with %i points&#34;</span>, response.pointCount);
+    NSLog(<span style="color:#e6db74">@&#34;Passed %i features&#34;</span>, response.featureCount);
+    NSLog(<span style="color:#e6db74">@&#34;Travelled %i meters&#34;</span>, response.distance);
+    NSLog(<span style="color:#e6db74">@&#34;It took %i seconds&#34;</span>, response.elapsedTime);
+  } <span style="color:#66d9ef">else</span> {
+    NSLog(<span style="color:#e6db74">@&#34;RPC error: %@&#34;</span>, error);
   }
-}];
-
-</code></pre>
-
+}];</code></pre></div>
 <p>The <code>GRXWriter</code> protocol is generic enough to allow for asynchronous streams, streams of future values, or even infinite streams.</p>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>. The way to
 call a bidirectional streaming RPC is just a combination of how to call
 request-streaming RPCs and response-streaming RPCs.</p>
-
-<pre><code>[service routeChatWithRequestsWriter:notesWriter handler:^(BOOL done, RTGRouteNote *note, NSError *error) {
-  if (note) {
-    NSLog(@&quot;Got message %@ at %@&quot;, note.message, note.location);
-  } else if (error) {
-    NSLog(@&quot;RPC error: %@&quot;, error);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c">[service routeChatWithRequestsWriter:notesWriter handler:<span style="color:#f92672">^</span>(<span style="color:#66d9ef">BOOL</span> done, RTGRouteNote <span style="color:#f92672">*</span>note, NSError <span style="color:#f92672">*</span>error) {
+  <span style="color:#66d9ef">if</span> (note) {
+    NSLog(<span style="color:#e6db74">@&#34;Got message %@ at %@&#34;</span>, note.message, note.location);
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (error) {
+    NSLog(<span style="color:#e6db74">@&#34;RPC error: %@&#34;</span>, error);
   }
-  if (done) {
-    NSLog(@&quot;Chat ended.&quot;);
+  <span style="color:#66d9ef">if</span> (done) {
+    NSLog(<span style="color:#e6db74">@&#34;Chat ended.&#34;</span>);
   }
-}];
-</code></pre>
-
+}];</code></pre></div>
 <p>The semantics for the handler block and the <code>GRXWriter</code> argument here are
 exactly the same as for our request-streaming and response-streaming methods.
 Although both client and server will always get the other&rsquo;s messages in the

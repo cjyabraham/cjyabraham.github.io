@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   2017-08-22 gRPC-Go performance Improvements &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -163,14 +174,53 @@ Benchmark results at the end.</p>
 </ul></li>
 </ul>
 
-<p>| Message Size | GRPC          | HTTP 1.1   |
-  | &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- |:&mdash;&mdash;&mdash;&mdash;&ndash;:| &mdash;&mdash;&mdash;&mdash;&mdash;:|
-  |1 KB|~152 ms|~152 ms|
-  |10 KB|~152 ms|~152 ms|
-  |100 KB|~152 ms|~152 ms|
-  |1 MB|~156 ms|~156 ms|
-  |10 MB|~622 ms|~630ms|
-  |100 MB|~5 sec|~5 sec|</p>
+<table>
+<thead>
+<tr>
+<th>Message Size</th>
+<th align="center">GRPC</th>
+<th align="right">HTTP 1.1</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1 KB</td>
+<td align="center">~152 ms</td>
+<td align="right">~152 ms</td>
+</tr>
+
+<tr>
+<td>10 KB</td>
+<td align="center">~152 ms</td>
+<td align="right">~152 ms</td>
+</tr>
+
+<tr>
+<td>100 KB</td>
+<td align="center">~152 ms</td>
+<td align="right">~152 ms</td>
+</tr>
+
+<tr>
+<td>1 MB</td>
+<td align="center">~156 ms</td>
+<td align="right">~156 ms</td>
+</tr>
+
+<tr>
+<td>10 MB</td>
+<td align="center">~622 ms</td>
+<td align="right">~630ms</td>
+</tr>
+
+<tr>
+<td>100 MB</td>
+<td align="center">~5 sec</td>
+<td align="right">~5 sec</td>
+</tr>
+</tbody>
+</table>
 
 <ul>
 <li>Benchmark on simulated network:
@@ -185,50 +235,227 @@ Benchmark results at the end.</p>
 </ul></li>
 </ul>
 
-<p>##### No Latency Network</p>
+<h5 id="no-latency-network">No Latency Network</h5>
 
-<p>| GRPC | HTTP 2.0 | HTTP 1.1 |
-  | &mdash;&mdash;&mdash;&mdash;&ndash;|:&mdash;&mdash;&mdash;&mdash;-:|&mdash;&mdash;&mdash;&ndash;:|
-  |5.097809ms|16.107461ms|18.298959ms |<br />
-  |4.46083ms|4.301808ms|7.715456ms
-  |5.081421ms|4.076645ms|8.118601ms
-  |4.338013ms|4.232606ms|6.621028ms
-  |5.013544ms|4.693488ms|5.83375ms
-  |3.963463ms|4.558047ms|5.571579ms
-  |3.509808ms|4.855556ms|4.966938ms
-  |4.864618ms|4.324159ms|6.576279ms
-  |3.545933ms|4.61375ms|6.105608ms
-  |3.481094ms|4.621215ms|7.001607ms</p>
+<table>
+<thead>
+<tr>
+<th>GRPC</th>
+<th align="center">HTTP 2.0</th>
+<th align="right">HTTP 1.1</th>
+</tr>
+</thead>
 
-<p>##### Network with RTT of 16ms</p>
+<tbody>
+<tr>
+<td>5.097809ms</td>
+<td align="center">16.107461ms</td>
+<td align="right">18.298959ms</td>
+</tr>
 
-<p>| GRPC | HTTP 2.0 | HTTP 1.1 |
-  | &mdash;&mdash;&mdash;&mdash;&ndash;|:&mdash;&mdash;&mdash;&mdash;-:|&mdash;&mdash;&mdash;&ndash;:|
-  |118.837625ms|84.453913ms|58.858109ms
-  |36.801006ms|22.476308ms|20.877585ms
-  |35.008349ms|21.206222ms|19.793881ms
-  |21.153461ms|20.940937ms|22.18179ms
-  |20.640364ms|21.888247ms|21.4666ms
-  |21.410346ms|21.186008ms|20.925514ms
-  |19.755766ms|21.818027ms|20.553768ms
-  |20.388882ms|21.366796ms|21.460029ms
-  |20.623342ms|20.681414ms|20.586908ms
-  |20.452023ms|20.781208ms|20.278481ms</p>
+<tr>
+<td>4.46083ms</td>
+<td align="center">4.301808ms</td>
+<td align="right">7.715456ms</td>
+</tr>
 
-<p>##### Network with RTT of 64ms</p>
+<tr>
+<td>5.081421ms</td>
+<td align="center">4.076645ms</td>
+<td align="right">8.118601ms</td>
+</tr>
 
-<p>| GRPC | HTTP 2.0 | HTTP 1.1 |
-  | &mdash;&mdash;&mdash;&mdash;&ndash;|:&mdash;&mdash;&mdash;&mdash;-:|&mdash;&mdash;&mdash;&ndash;:|
-  |455.072669ms|275.290241ms|208.826314ms
-  |195.43357ms|70.386788ms|70.042513ms
-  |132.215978ms|70.01131ms|71.19429ms
-  |69.239273ms|70.032237ms|69.479335ms
-  |68.669903ms|70.192272ms|70.858937ms
-  |70.458108ms|69.395154ms|71.161921ms
-  |68.488057ms|69.252731ms|71.374758ms
-  |68.816031ms|69.628744ms|70.141381ms
-  |69.170105ms|68.935813ms|70.685521ms
-  |68.831608ms|69.728349ms|69.45605ms</p>
+<tr>
+<td>4.338013ms</td>
+<td align="center">4.232606ms</td>
+<td align="right">6.621028ms</td>
+</tr>
+
+<tr>
+<td>5.013544ms</td>
+<td align="center">4.693488ms</td>
+<td align="right">5.83375ms</td>
+</tr>
+
+<tr>
+<td>3.963463ms</td>
+<td align="center">4.558047ms</td>
+<td align="right">5.571579ms</td>
+</tr>
+
+<tr>
+<td>3.509808ms</td>
+<td align="center">4.855556ms</td>
+<td align="right">4.966938ms</td>
+</tr>
+
+<tr>
+<td>4.864618ms</td>
+<td align="center">4.324159ms</td>
+<td align="right">6.576279ms</td>
+</tr>
+
+<tr>
+<td>3.545933ms</td>
+<td align="center">4.61375ms</td>
+<td align="right">6.105608ms</td>
+</tr>
+
+<tr>
+<td>3.481094ms</td>
+<td align="center">4.621215ms</td>
+<td align="right">7.001607ms</td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="network-with-rtt-of-16ms">Network with RTT of 16ms</h5>
+
+<table>
+<thead>
+<tr>
+<th>GRPC</th>
+<th align="center">HTTP 2.0</th>
+<th align="right">HTTP 1.1</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>118.837625ms</td>
+<td align="center">84.453913ms</td>
+<td align="right">58.858109ms</td>
+</tr>
+
+<tr>
+<td>36.801006ms</td>
+<td align="center">22.476308ms</td>
+<td align="right">20.877585ms</td>
+</tr>
+
+<tr>
+<td>35.008349ms</td>
+<td align="center">21.206222ms</td>
+<td align="right">19.793881ms</td>
+</tr>
+
+<tr>
+<td>21.153461ms</td>
+<td align="center">20.940937ms</td>
+<td align="right">22.18179ms</td>
+</tr>
+
+<tr>
+<td>20.640364ms</td>
+<td align="center">21.888247ms</td>
+<td align="right">21.4666ms</td>
+</tr>
+
+<tr>
+<td>21.410346ms</td>
+<td align="center">21.186008ms</td>
+<td align="right">20.925514ms</td>
+</tr>
+
+<tr>
+<td>19.755766ms</td>
+<td align="center">21.818027ms</td>
+<td align="right">20.553768ms</td>
+</tr>
+
+<tr>
+<td>20.388882ms</td>
+<td align="center">21.366796ms</td>
+<td align="right">21.460029ms</td>
+</tr>
+
+<tr>
+<td>20.623342ms</td>
+<td align="center">20.681414ms</td>
+<td align="right">20.586908ms</td>
+</tr>
+
+<tr>
+<td>20.452023ms</td>
+<td align="center">20.781208ms</td>
+<td align="right">20.278481ms</td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="network-with-rtt-of-64ms">Network with RTT of 64ms</h5>
+
+<table>
+<thead>
+<tr>
+<th>GRPC</th>
+<th align="center">HTTP 2.0</th>
+<th align="right">HTTP 1.1</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>455.072669ms</td>
+<td align="center">275.290241ms</td>
+<td align="right">208.826314ms</td>
+</tr>
+
+<tr>
+<td>195.43357ms</td>
+<td align="center">70.386788ms</td>
+<td align="right">70.042513ms</td>
+</tr>
+
+<tr>
+<td>132.215978ms</td>
+<td align="center">70.01131ms</td>
+<td align="right">71.19429ms</td>
+</tr>
+
+<tr>
+<td>69.239273ms</td>
+<td align="center">70.032237ms</td>
+<td align="right">69.479335ms</td>
+</tr>
+
+<tr>
+<td>68.669903ms</td>
+<td align="center">70.192272ms</td>
+<td align="right">70.858937ms</td>
+</tr>
+
+<tr>
+<td>70.458108ms</td>
+<td align="center">69.395154ms</td>
+<td align="right">71.161921ms</td>
+</tr>
+
+<tr>
+<td>68.488057ms</td>
+<td align="center">69.252731ms</td>
+<td align="right">71.374758ms</td>
+</tr>
+
+<tr>
+<td>68.816031ms</td>
+<td align="center">69.628744ms</td>
+<td align="right">70.141381ms</td>
+</tr>
+
+<tr>
+<td>69.170105ms</td>
+<td align="center">68.935813ms</td>
+<td align="right">70.685521ms</td>
+</tr>
+
+<tr>
+<td>68.831608ms</td>
+<td align="center">69.728349ms</td>
+<td align="right">69.45605ms</td>
+</tr>
+</tbody>
+</table>
   </p>
 
 

@@ -13,10 +13,10 @@
     
     <item>
       <title>Dear gRPC</title>
-      <link>https://cjyabraham.github.io/blog/2019-03-08-pancakes/</link>
+      <link>https://cjyabraham.github.io/blog/hello-pancakes/</link>
       <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/blog/2019-03-08-pancakes/</guid>
+      <guid>https://cjyabraham.github.io/blog/hello-pancakes/</guid>
       <description>Dear gRPC,
 We messed up. We are so sorry that we missed your birthday this year. Last year we celebrated with cake and fanfare, but this year we dropped the ball. Please don&amp;rsquo;t think that we love you any less.
 You&amp;rsquo;re 4 now and that&amp;rsquo;s a big milestone! You&amp;rsquo;re part of so much amazing technology at companies like Salesforce, Netflix, Spotify, Fanatics, and of course, Google. In fact just this week the biggest API Google has went production-ready with gRPC.</description>
@@ -24,10 +24,10 @@ You&amp;rsquo;re 4 now and that&amp;rsquo;s a big milestone! You&amp;rsquo;re pa
     
     <item>
       <title>The state of gRPC in the browser</title>
-      <link>https://cjyabraham.github.io/blog/2019-01-08-state-of-grpc-web/</link>
+      <link>https://cjyabraham.github.io/blog/state-of-grpc-web/</link>
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/blog/2019-01-08-state-of-grpc-web/</guid>
+      <guid>https://cjyabraham.github.io/blog/state-of-grpc-web/</guid>
       <description>&lt;p&gt;&lt;em&gt;This is a guest post by&lt;/em&gt;
 &lt;em&gt;&lt;a href=&#34;https://jbrandhorst.com&#34;&gt;Johan Brandhorst&lt;/a&gt;, Software Engineer at&lt;/em&gt;
 &lt;em&gt;&lt;a href=&#34;https://www.infosum.com&#34;&gt;InfoSum&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
@@ -51,10 +51,10 @@ the state of the world today, and share some thoughts on the future.&lt;/p&gt;</
     
     <item>
       <title>gRPC Meets .NET SDK And Visual Studio: Automatic Codegen On Build</title>
-      <link>https://cjyabraham.github.io/blog/2018-12-18-grpc-dotnet-build/</link>
+      <link>https://cjyabraham.github.io/blog/grpc-dotnet-build/</link>
       <pubDate>Tue, 18 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/blog/2018-12-18-grpc-dotnet-build/</guid>
+      <guid>https://cjyabraham.github.io/blog/grpc-dotnet-build/</guid>
       <description>&lt;p&gt;As part of Microsoft&amp;rsquo;s move towards its cross-platform .NET offering, they have
 greatly simplified the project file format, and allowed a tight integration of
 third-party code generators with .NET projects. We are listening, and now proud
@@ -73,19 +73,19 @@ sources in a .NET C# project.&lt;/p&gt;</description>
     
     <item>
       <title>Visualizing gRPC Language Stacks</title>
-      <link>https://cjyabraham.github.io/blog/2018-12-11-grpc-stacks/</link>
+      <link>https://cjyabraham.github.io/blog/grpc-stacks/</link>
       <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/blog/2018-12-11-grpc-stacks/</guid>
+      <guid>https://cjyabraham.github.io/blog/grpc-stacks/</guid>
       <description>&lt;p&gt;Here is a high level overview of the gRPC Stacks.  Each of the &lt;strong&gt;10&lt;/strong&gt; default languages supported by gRPC has multiple layers, allowing you to customize what pieces you want in your application.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>gRPC-Web is Generally Available</title>
-      <link>https://cjyabraham.github.io/blog/2018-10-23-grpc-web-ga/</link>
+      <link>https://cjyabraham.github.io/blog/grpc-web-ga/</link>
       <pubDate>Tue, 23 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/blog/2018-10-23-grpc-web-ga/</guid>
+      <guid>https://cjyabraham.github.io/blog/grpc-web-ga/</guid>
       <description>&lt;p&gt;We are excited to announce the GA release of
 &lt;a href=&#34;https://www.npmjs.com/package/grpc-web&#34;&gt;gRPC-Web&lt;/a&gt;, a JavaScript client library
 that enables web apps to communicate directly with gRPC backend services,
@@ -95,10 +95,10 @@ gRPC-Web is now Generally Available and stable and qualified for production use.
     
     <item>
       <title>A short introduction to Channelz</title>
-      <link>https://cjyabraham.github.io/blog/2018-09-05-grpc-channelz-how-to/</link>
+      <link>https://cjyabraham.github.io/blog/a_short_introduction_to_channelz/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/blog/2018-09-05-grpc-channelz-how-to/</guid>
+      <guid>https://cjyabraham.github.io/blog/a_short_introduction_to_channelz/</guid>
       <description>&lt;p&gt;Channelz is a tool that provides comprehensive runtime info about connections at
 different levels in gRPC. It is designed to help debug live programs, which may
 be suffering from network, performance, configuration issues, etc. The
@@ -116,11 +116,11 @@ applicable across languages. At the time of writing, channelz is available for
     
     <item>
       <title>gRPC on HTTP/2 Engineering a Robust, High Performance Protocol</title>
-      <link>https://cjyabraham.github.io/blog/2018-08-20-grpc-on-http2/</link>
+      <link>https://cjyabraham.github.io/blog/grpc_on_http2/</link>
       <pubDate>Mon, 20 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cjyabraham.github.io/blog/2018-08-20-grpc-on-http2/</guid>
-      <description>&lt;p&gt;In a &lt;a href=&#34;https://grpc.io/blog/http2_smarter_at_scale&#34;&gt;previous article&lt;/a&gt;, we explored how HTTP/2 dramatically increases network efficiency and enables real-time communication by providing a framework for long-lived connections. In this article, we’ll look at how gRPC builds on HTTP/2’s long-lived connections to create a performant, robust platform for inter-service communication. We will explore the relationship between gRPC and HTTP/2, how gRPC manages HTTP/2 connections, and how gRPC uses HTTP/2 to keep connections alive, healthy, and utilized.&lt;/p&gt;</description>
+      <guid>https://cjyabraham.github.io/blog/grpc_on_http2/</guid>
+      <description>&lt;p&gt;In a &lt;a href=&#34;https://cjyabraham.github.io/blog/http2_smarter_at_scale&#34;&gt;previous article&lt;/a&gt;, we explored how HTTP/2 dramatically increases network efficiency and enables real-time communication by providing a framework for long-lived connections. In this article, we’ll look at how gRPC builds on HTTP/2’s long-lived connections to create a performant, robust platform for inter-service communication. We will explore the relationship between gRPC and HTTP/2, how gRPC manages HTTP/2 connections, and how gRPC uses HTTP/2 to keep connections alive, healthy, and utilized.&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - Ruby &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic Ruby programmer's introduction to working with gRPC.</p>
+<p>This tutorial provides a basic Ruby programmer&rsquo;s introduction to working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
 
@@ -112,7 +123,7 @@
 <li>Use the Ruby gRPC API to write a simple client and server for your service.</li>
 </ul>
 
-<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
+<p>It assumes that you have read the <a href="/docs/">Overview</a> and are familiar
 with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. Note
 that the example in this tutorial uses the proto3 version of the protocol
@@ -143,23 +154,17 @@ updating.</p>
 <a href="https://github.com/grpc/grpc/tree/v1.19.0/examples/ruby/route_guide">grpc/grpc/examples/ruby/route_guide</a>.
 To download the example, clone the <code>grpc</code> repository by running the following
 command:</p>
-
-<pre><code>$ git clone -b v1.19.0 https://github.com/grpc/grpc
-$ cd grpc
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.19.0 https://github.com/grpc/grpc
+$ cd grpc</code></pre></div>
 <p>Then change your current directory to <code>examples/ruby/route_guide</code>:</p>
-
-<pre><code>$ cd examples/ruby/route_guide
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd examples/ruby/route_guide</code></pre></div>
 <p>You also should have the relevant tools installed to generate the server and
 client interface code - if you don&rsquo;t already, follow the setup instructions in
-<a href="/docs/quickstart/ruby.html">the Ruby quick start guide</a>.</p>
+<a href="/docs/quickstart/ruby/">the Ruby quick start guide</a>.</p>
 
 <h2 id="defining-the-service">Defining the service</h2>
 
-<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
 <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. You can
@@ -237,10 +242,7 @@ the gRPC Ruby plugin <a href="https://github.com/grpc/grpc/blob/v1.19.0/src/ruby
 instructions</a> first):</p>
 
 <p>Once that&rsquo;s done, the following command can be used to generate the ruby code.</p>
-
-<pre><code>$ grpc_tools_ruby_protoc -I ../../protos --ruby_out=../lib --grpc_out=../lib ../../protos/route_guide.proto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ grpc_tools_ruby_protoc -I ../../protos --ruby_out<span style="color:#f92672">=</span>../lib --grpc_out<span style="color:#f92672">=</span>../lib ../../protos/route_guide.proto</code></pre></div>
 <p>Running this command regenerates the following files in the lib directory:</p>
 
 <ul>
@@ -432,25 +434,16 @@ streams operate completely independently.</p>
 <h2 id="try-it-out">Try it out!</h2>
 
 <p>Build client and server:</p>
-
-<pre><code>$ # from examples/ruby
-$ gem install bundler &amp;&amp; bundle install
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># from examples/ruby</span>
+$ gem install bundler <span style="color:#f92672">&amp;&amp;</span> bundle install</code></pre></div>
 <p>Run the server, which will listen on port 50051:</p>
-
-<pre><code>$ # from examples/ruby
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># from examples/ruby</span>
 $ bundle exec route_guide/route_guide_server.rb ../python/route_guide/route_guide_db.json
-$ # (note that the route_guide_db.json file is actually language-agnostic; it's just
-$ # located in the python folder).
-</code></pre>
-
+$ <span style="color:#75715e"># (note that the route_guide_db.json file is actually language-agnostic; it&#39;s just</span>
+$ <span style="color:#75715e"># located in the python folder).</span></code></pre></div>
 <p>Run the client (in a different terminal):</p>
-
-<pre><code>$ # from examples/ruby
-$ bundle exec route_guide/route_guide_client.rb ../python/route_guide/route_guide_db.json
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#75715e"># from examples/ruby</span>
+$ bundle exec route_guide/route_guide_client.rb ../python/route_guide/route_guide_db.json</code></pre></div>
 </div>
 </div>
 

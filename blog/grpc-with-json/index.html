@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC &#43; JSON &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -85,7 +96,7 @@
 </span></code></pre></div>
 <p>Previously, Protobuf and gRPC were generating code for us, but we would like to use our own types.  Additionally, we are going to be using our own encoding too.  Gson allows us to bring our own types in our code, but provides a way of serializing those types into bytes.</p>
 
-<p>Let&rsquo;s continue with the <a href="https://github.com/carl-mastrangelo/kvstore/tree/04-gson-marshaller">Key-Value</a> store service.  We will be modifying the code used my previous <a href="https://grpc.io/blog/optimizing-grpc-part-2">So You Want to Optimize gRPC</a> post.</p>
+<p>Let&rsquo;s continue with the <a href="https://github.com/carl-mastrangelo/kvstore/tree/04-gson-marshaller">Key-Value</a> store service.  We will be modifying the code used my previous <a href="/blog/optimizing-grpc-part-2">So You Want to Optimize gRPC</a> post.</p>
 
 <h2 id="what-is-a-service-anyways">What is a Service Anyways?</h2>
 
@@ -214,11 +225,8 @@ $ <span style="color:#75715e"># no proto deps!</span></code></pre></div>
 time ./build/install/kvstore/bin/kvstore
 
 INFO: Did <span style="color:#ae81ff">215</span>.883 RPCs/s</code></pre></div>
-<p>What happened?  In the previous <a href="https://grpc.io/blog/optimizing-grpc-part-2">optimization</a> post, we saw the Protobuf version do nearly <em>2,500 RPCs/s</em>.  JSON is slow, but not <em>that</em> slow.  We can see what the problem is by printing out the JSON data as it goes through the marshaller:</p>
-
-<pre><code>{&quot;key&quot;:[4,-100,-48,22,-128,85,115,5,56,34,-48,-1,-119,60,17,-13,-118]}
-</code></pre>
-
+<p>What happened?  In the previous <a href="/blog/optimizing-grpc-part-2">optimization</a> post, we saw the Protobuf version do nearly <em>2,500 RPCs/s</em>.  JSON is slow, but not <em>that</em> slow.  We can see what the problem is by printing out the JSON data as it goes through the marshaller:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;key&#34;</span>:[<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">-100</span>,<span style="color:#ae81ff">-48</span>,<span style="color:#ae81ff">22</span>,<span style="color:#ae81ff">-128</span>,<span style="color:#ae81ff">85</span>,<span style="color:#ae81ff">115</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">56</span>,<span style="color:#ae81ff">34</span>,<span style="color:#ae81ff">-48</span>,<span style="color:#ae81ff">-1</span>,<span style="color:#ae81ff">-119</span>,<span style="color:#ae81ff">60</span>,<span style="color:#ae81ff">17</span>,<span style="color:#ae81ff">-13</span>,<span style="color:#ae81ff">-118</span>]}</code></pre></div>
 <p>That&rsquo;s not right!  Looking at a <code>RetrieveRequest</code>, we see that the key bytes are being encoded as an array, rather than as a byte string.  The wire size is much larger than it needs to be, and may not be compatible with other JSON code.  To fix this, let&rsquo;s tell GSON to encode and decode this data as base64 encoded bytes:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Gson gson <span style="color:#f92672">=</span>
       <span style="color:#66d9ef">new</span> GsonBuilder<span style="color:#f92672">().</span><span style="color:#a6e22e">registerTypeAdapter</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[].</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> TypeAdapter<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]&gt;()</span> <span style="color:#f92672">{</span>

@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   Announcing out of the box support for gRPC in the Flatbuffers serialization library. &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -88,45 +99,38 @@ additional data structures. It was originally designed for games and other resou
 <h3 id="use-flatbuffers-as-an-idl">Use Flatbuffers as an IDL</h3>
 
 <p>Start with an <code>.fbs</code> schema (similar to .proto, if you are familiar with protocol buffers) that declares an RPC service:</p>
-
-<pre><code>table HelloReply {
-  message:string;
-}
-
-table HelloRequest {
-  name:string;
-}
-
-table ManyHellosRequest {
-  name:string;
-  num_greetings:int;
-}
-
-rpc_service Greeter {
-  SayHello(HelloRequest):HelloReply;
-  SayManyHellos(ManyHellosRequest):HelloReply (streaming: &quot;server&quot;);
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-proto" data-lang="proto">table HelloReply {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  message<span style="color:#f92672">:</span><span style="color:#66d9ef">string</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>table HelloRequest {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  name<span style="color:#f92672">:</span><span style="color:#66d9ef">string</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>table ManyHellosRequest {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  name<span style="color:#f92672">:</span><span style="color:#66d9ef">string</span>;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  num_greetings<span style="color:#f92672">:</span>int;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>rpc_service Greeter {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  SayHello(HelloRequest)<span style="color:#f92672">:</span>HelloReply;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  SayManyHellos(ManyHellosRequest)<span style="color:#f92672">:</span>HelloReply (streaming<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;server&#34;</span>);<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>To generate C++ code from this, run: <code>flatc --cpp --grpc example.fbs</code>, much like in protocol buffers.</p>
 
 <h4 id="generated-server-implementation">Generated Server Implementation</h4>
 
 <p>The server implementation is very similar to protocol buffers, except now the request and response messages are of type <code>flatbuffers::grpc::Message&lt;HelloRequest&gt; *</code>.
 Unlike protocol buffers, where these types represent a tree of C++ objects, here they are merely handles to a flat object in the underlying gRPC slice. You can access the data directly:</p>
-
-<pre><code>auto request = request_msg-&gt;GetRoot();
-auto name = request-&gt;name()-&gt;str();
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> request <span style="color:#f92672">=</span> request_msg<span style="color:#f92672">-&gt;</span>GetRoot();
+<span style="color:#66d9ef">auto</span> name <span style="color:#f92672">=</span> request<span style="color:#f92672">-&gt;</span>name()<span style="color:#f92672">-&gt;</span>str();
+</code></pre></div>
 <p>Building a response is equally simple</p>
-
-<pre><code>auto msg_offset = mb_.CreateString(&quot;Hello, &quot; + name);
-auto hello_offset = CreateHelloReply(mb_, msg_offset);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> msg_offset <span style="color:#f92672">=</span> mb_.CreateString(<span style="color:#e6db74">&#34;Hello, &#34;</span> <span style="color:#f92672">+</span> name);
+<span style="color:#66d9ef">auto</span> hello_offset <span style="color:#f92672">=</span> CreateHelloReply(mb_, msg_offset);
 mb_.Finish(hello_offset);
-*response_msg = mb_.ReleaseMessage&lt;HelloReply&gt;();
-</code></pre>
-
+<span style="color:#f92672">*</span>response_msg <span style="color:#f92672">=</span> mb_.ReleaseMessage<span style="color:#f92672">&lt;</span>HelloReply<span style="color:#f92672">&gt;</span>();
+</code></pre></div>
 <p>The client code is the same as that generated by protocol buffers, except for the FlatBuffer access and construction code.</p>
 
 <p>See the full example <a href="https://github.com/google/flatbuffers/tree/master/grpc/samples/greeter">here</a>. To compile it, you need gRPC.

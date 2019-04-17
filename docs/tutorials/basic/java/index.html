@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - Java &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic Java programmer's introduction to
+<p>This tutorial provides a basic Java programmer&rsquo;s introduction to
 working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
@@ -113,7 +124,7 @@ working with gRPC.</p>
 <li>Use the Java gRPC API to write a simple client and server for your service.</li>
 </ul>
 
-<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
+<p>It assumes that you have read the <a href="/docs/">Overview</a> and are familiar
 with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. Note
 that the example in this tutorial uses the
@@ -146,18 +157,12 @@ updating.</p>
 <a href="https://github.com/grpc/grpc-java/tree/master/examples/src/main/java/io/grpc/examples">grpc/grpc-java/examples/src/main/java/io/grpc/examples</a>.
 To download the example, clone the latest release in <code>grpc-java</code> repository by
 running the following command:</p>
-
-<pre><code>$ git clone -b v1.20.0 https://github.com/grpc/grpc-java.git
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.20.0 https://github.com/grpc/grpc-java.git</code></pre></div>
 <p>Then change your current directory to <code>grpc-java/examples</code>:</p>
-
-<pre><code>$ cd grpc-java/examples
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc-java/examples</code></pre></div>
 <h2 id="defining-the-service">Defining the service</h2>
 
-<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
 <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
 buffers</a>. You can

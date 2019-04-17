@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="https://cjyabraham.github.io/css/style.css">
     <title>
   gRPC Basics - Dart &ndash; gRPC
-</title>
+	</title>
+		
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60127042-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-60127042-1');
+	</script>
+
   </head>
   <body>
 
@@ -102,7 +113,7 @@
 
     
 
-<p class="lead">This tutorial provides a basic Dart programmer's introduction to
+<p>This tutorial provides a basic Dart programmer&rsquo;s introduction to
 working with gRPC.</p>
 
 <p>By walking through this example you&rsquo;ll learn how to:</p>
@@ -113,7 +124,7 @@ working with gRPC.</p>
 <li>Use the Dart gRPC API to write a simple client and server for your service.</li>
 </ul>
 
-<p>It assumes that you have read the <a href="/docs/index.html">Overview</a> and are familiar
+<p>It assumes that you have read the <a href="/docs/">Overview</a> and are familiar
 with <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. Note that the
 example in this tutorial uses the proto3 version of the protocol buffers
 language: you can find out more in the
@@ -143,20 +154,14 @@ updating.</p>
 <a href="https://github.com/grpc/grpc-dart/tree/master/example/route_guide">grpc/grpc-dart/example/route_guide</a>.
 To download the example, clone the <code>grpc-dart</code> repository by running the following
 command:</p>
-
-<pre><code>$ git clone https://github.com/grpc/grpc-dart.git
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone https://github.com/grpc/grpc-dart.git</code></pre></div>
 <p>Then change your current directory to <code>grpc-dart/example/route_guide</code>:</p>
-
-<pre><code>$ cd grpc-dart/example/route_guide
-</code></pre>
-
-<p>You also should have the relevant tools installed to generate the server and client interface code - if you don&rsquo;t already, follow the setup instructions in <a href="/docs/quickstart/dart.html">the Dart quick start guide</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc-dart/example/route_guide</code></pre></div>
+<p>You also should have the relevant tools installed to generate the server and client interface code - if you don&rsquo;t already, follow the setup instructions in <a href="/docs/quickstart/dart/">the Dart quick start guide</a>.</p>
 
 <h2 id="defining-the-service">Defining the service</h2>
 
-<p>Our first step (as you&rsquo;ll know from the <a href="/docs/index.html">Overview</a>) is to
+<p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
 <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. You can see the
 complete .proto file in
@@ -225,7 +230,7 @@ keyword before both the request and the response.</li>
 <p>Next we need to generate the gRPC client and server interfaces from our .proto
 service definition. We do this using the protocol buffer compiler <code>protoc</code> with
 a special Dart plugin.
-This is similar to what we did in the <a href="../../quickstart/dart.html">quickstart guide</a></p>
+This is similar to what we did in the <a href="/docs/quickstart/">quickstart guide</a></p>
 
 <p>From the <code>route_guide</code> example directory run :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> protoc -I protos/ protos/route_guide.proto --dart_out<span style="color:#f92672">=</span>grpc:lib/src/generated</code></pre></div>
