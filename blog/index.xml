@@ -237,10 +237,12 @@ HUGOMORE42 The meetup kit includes a 15 minute presentation on the basic concept
       <pubDate>Tue, 22 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/blog/2017-08-22-grpc-go-perf-improvements/</guid>
-      <description>&lt;p&gt;For past few months we&amp;rsquo;ve been working on improving gRPC-Go performance. This includes improving network utilization, optimizing CPU usage and memory allocations. Most of our recent effort has been focused around revamping gRPC-Go flow control. After several optimizations and new features we&amp;rsquo;ve been able to improve quite significantly, especially on high-latency networks. We expect users that are working with high-latency networks and large messages to see an order of magnitude performance gain.
+      <description>&lt;p&gt;&lt;p&gt;
+&lt;span style=&#34;margin-bottom:5%&#34;&gt;For past few months we&amp;rsquo;ve been working on improving gRPC-Go performance. This includes improving network utilization, optimizing CPU usage and memory allocations. Most of our recent effort has been focused around revamping gRPC-Go flow control. After several optimizations and new features we&amp;rsquo;ve been able to improve quite significantly, especially on high-latency networks. We expect users that are working with high-latency networks and large messages to see an order of magnitude performance gain.
 Benchmark results at the end.&lt;/p&gt;
 
-&lt;p&gt;This blog summarizes the work we have done so far (in chronological order) to improve performance and lays out our near-future plans.&lt;/p&gt;</description>
+&lt;p&gt;This blog summarizes the work we have done so far (in chronological order) to improve performance and lays out our near-future plans.&lt;/style&gt;
+&lt;/p&gt;&lt;br&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
