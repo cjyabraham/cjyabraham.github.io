@@ -536,7 +536,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://cjyabraham.github.io/contribute/</guid>
-      <description>To contribute to gRPC documentation, please fork the&amp;nbsp;GitHub gRPC repository &amp;nbsp;and start submitting pull requests. Continue your edit Click the below link to edit the page you were just on. When you are done, press &#34;Commit Changes&#34; at the bottom of the screen. This will create a copy of our site on your GitHub account called a &#34;fork.&#34; You can make other changes in your fork after it is created, if you want.</description>
+      <description>To contribute to gRPC documentation, please fork the&amp;nbsp;GitHub gRPC repository &amp;nbsp;and start submitting pull requests. Contribution guidelines for gRPC We welcome contributions to either of our three core repositories. gRPC, gRPC Java and gRPC Go. View Guidelines  Contribution guidelines for gRPC Ecosystem gRPC Ecosystem is a different organization where we collect and curate valuable integrations of other projects with gRPC. You can propose a new project for it by filling up the Propose new project form.</description>
     </item>
     
     <item>
