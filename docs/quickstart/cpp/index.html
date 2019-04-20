@@ -124,9 +124,9 @@ working example.</p>
 
 <div id="toc"></div>
 
-<h2 id="before-you-begin">Before you begin</h2>
+<h3 id="before-you-begin">Before you begin</h3>
 
-<h3 id="prerequisites">Prerequisites</h3>
+<h4 id="prerequisites">Prerequisites</h4>
 
 <h4 id="install-grpc">Install gRPC</h4>
 
@@ -148,7 +148,7 @@ that you are running these commands in the gRPC tree you just built in the from
 the previous step.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd third_party/protobuf
 $ make <span style="color:#f92672">&amp;&amp;</span> sudo make install</code></pre></div>
-<h2 id="build-the-example">Build the example</h2>
+<h3 id="build-the-example">Build the example</h3>
 
 <p>Always assuming you have gRPC properly installed, go into the example&rsquo;s
 directory:</p>
@@ -159,7 +159,7 @@ directory:</p>
 installed gRPC to a non-standard location. Check out <a href="https://github.com/grpc/grpc/blob/master/src/cpp/README.md#make">the installation
 instructions for details</a>).</p>
 
-<h2 id="try-it">Try it!</h2>
+<h3 id="try-it">Try it!</h3>
 
 <p>From the <code>examples/cpp/helloworld</code> directory, run the server, which will listen
 on port 50051:</p>
@@ -171,7 +171,7 @@ client side output.</p>
 
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
-<h2 id="update-a-grpc-service">Update a gRPC service</h2>
+<h3 id="update-a-grpc-service">Update a gRPC service</h3>
 
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -219,7 +219,7 @@ types:</p>
 </span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
-<h2 id="generate-grpc-code">Generate gRPC code</h2>
+<h3 id="generate-grpc-code">Generate gRPC code</h3>
 
 <p>Next we need to update the gRPC code used by our application to use the new
 service definition. From the <code>examples/cpp/helloworld</code> directory:</p>
@@ -228,12 +228,12 @@ service definition. From the <code>examples/cpp/helloworld</code> directory:</p>
 contains our generated client and server classes, as well as classes for
 populating, serializing, and retrieving our request and response types.</p>
 
-<h2 id="update-and-run-the-application">Update and run the application</h2>
+<h3 id="update-and-run-the-application">Update and run the application</h3>
 
 <p>We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.</p>
 
-<h3 id="update-the-server">Update the server</h3>
+<h4 id="update-the-server">Update the server</h4>
 
 <p>In the same directory, open <code>greeter_server.cc</code>. Implement the new method like
 this:</p>
@@ -251,7 +251,7 @@ this:</p>
   }
 };
 </code></pre></div>
-<h3 id="update-the-client">Update the client</h3>
+<h4 id="update-the-client">Update the client</h4>
 
 <p>A new <code>SayHelloAgain</code> method is now available in the stub. We&rsquo;ll follow the same
 pattern as for the already present <code>SayHello</code> and add a new <code>SayHelloAgain</code>
@@ -293,7 +293,7 @@ method to <code>GreeterClient</code>:</p>
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div>
-<h3 id="run">Run!</h3>
+<h4 id="run">Run!</h4>
 
 <p>Just like we did before, from the <code>examples/cpp/helloworld</code> directory:</p>
 
@@ -312,7 +312,7 @@ method to <code>GreeterClient</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ./greeter_client
    Greeter received: Hello world
    Greeter received: Hello again world</code></pre></div>
-<h2 id="what-s-next">What&rsquo;s next</h2>
+<h3 id="what-s-next">What&rsquo;s next</h3>
 
 <ul>
 <li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
