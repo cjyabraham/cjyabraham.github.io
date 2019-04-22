@@ -190,7 +190,7 @@ languages.</p>
 
 <div id="toc" class="toc mobile-toc"></div>
 
-<h2 id="overview">Overview</h2>
+<h3 id="overview">Overview</h3>
 
 <p>gRPC is designed to work with a variety of authentication mechanisms, making it
 easy to safely use gRPC to talk to other systems. You can use our supported
@@ -201,7 +201,7 @@ can plug in your own authentication system by extending our provided code.</p>
 necessary authentication information as <code>Credentials</code> when creating a channel or
 making a call.</p>
 
-<h2 id="supported-auth-mechanisms">Supported auth mechanisms</h2>
+<h3 id="supported-auth-mechanisms">Supported auth mechanisms</h3>
 
 <p>The following authentication mechanisms are built-in to gRPC:</p>
 
@@ -226,13 +226,13 @@ be used to connect to Google services. Sending a Google issued OAuth2 token
 to a non-Google service could result in this token being stolen and used to
 impersonate the client to Google services.</p>
 
-<h2 id="authentication-api">Authentication API</h2>
+<h3 id="authentication-api">Authentication API</h3>
 
 <p>gRPC provides a simple authentication API based around the unified concept of
 Credentials objects, which can be used when creating an entire gRPC channel or
 an individual call.</p>
 
-<h3 id="credential-types">Credential types</h3>
+<h4 id="credential-types">Credential types</h4>
 
 <p>Credentials can be of two types:</p>
 
@@ -259,7 +259,7 @@ send the appropriate access token for each call on this channel.</p>
 will trigger the sending of the authentication data associated with the two
 <code>CallCredentials</code>.</p>
 
-<h3 id="using-client-side-ssl-tls">Using client-side SSL/TLS</h3>
+<h4 id="using-client-side-ssl-tls">Using client-side SSL/TLS</h4>
 
 <p>Now let&rsquo;s look at how <code>Credentials</code> work with one of our supported auth
 mechanisms. This is the simplest authentication scenario, where a client just
@@ -279,7 +279,7 @@ more languages in our Examples section below.</p>
 the corresponding options can be set in the <code>SslCredentialsOptions</code> parameter
 passed to the factory method.</p>
 
-<h3 id="using-google-token-based-authentication">Using Google token-based authentication</h3>
+<h4 id="using-google-token-based-authentication">Using Google token-based authentication</h4>
 
 <p>gRPC applications can use a simple API to create a credential that works for
 authentication with Google in various deployment scenarios. Again, our example
@@ -302,7 +302,7 @@ OAuth2 scopes can be configured during VM setup. At run-time, this credential
 handles communication with the authentication systems to obtain OAuth2 access
 tokens and attaches them to each outgoing RPC on the corresponding channel.</p>
 
-<h3 id="extending-grpc-to-support-other-authentication-mechanisms">Extending gRPC to support other authentication mechanisms</h3>
+<h4 id="extending-grpc-to-support-other-authentication-mechanisms">Extending gRPC to support other authentication mechanisms</h4>
 
 <p>The Credentials plugin API allows developers to plug in their own type of
 credentials. This consists of:</p>
@@ -341,16 +341,16 @@ ticket in a custom header.</p>
 implementation at the core level. gRPC internals also allow switching out
 SSL/TLS with other encryption mechanisms.</p>
 
-<h2 id="examples">Examples</h2>
+<h3 id="examples">Examples</h3>
 
 <p>These authentication mechanisms will be available in all gRPC&rsquo;s supported
 languages. The following sections demonstrate how authentication and
 authorization features described above appear in each language: more languages
 are coming soon.</p>
 
-<h3 id="go">Go</h3>
+<h4 id="go">Go</h4>
 
-<h4 id="base-case-no-encryption-or-authentication">Base case - no encryption or authentication</h4>
+<h5 id="base-case-no-encryption-or-authentication">Base case - no encryption or authentication</h5>
 
 <p>Client:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#e6db74">&#34;localhost:50051&#34;</span>, <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">WithInsecure</span>())
@@ -362,7 +362,7 @@ are coming soon.</p>
 <span style="color:#a6e22e">lis</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;localhost:50051&#34;</span>)
 <span style="color:#75715e">// error handling omitted
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Serve</span>(<span style="color:#a6e22e">lis</span>)</code></pre></div>
-<h4 id="with-server-authentication-ssl-tls">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls">With server authentication SSL/TLS</h5>
 
 <p>Client:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">creds</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">credentials</span>.<span style="color:#a6e22e">NewClientTLSFromFile</span>(<span style="color:#a6e22e">certFile</span>, <span style="color:#e6db74">&#34;&#34;</span>)
@@ -376,7 +376,7 @@ are coming soon.</p>
 <span style="color:#a6e22e">lis</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;localhost:50051&#34;</span>)
 <span style="color:#75715e">// error handling omitted
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Serve</span>(<span style="color:#a6e22e">lis</span>)</code></pre></div>
-<h4 id="authenticate-with-google">Authenticate with Google</h4>
+<h5 id="authenticate-with-google">Authenticate with Google</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">pool</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">SystemCertPool</span>()
 <span style="color:#75715e">// error handling omitted
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">creds</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">credentials</span>.<span style="color:#a6e22e">NewClientTLSFromCert</span>(<span style="color:#a6e22e">pool</span>, <span style="color:#e6db74">&#34;&#34;</span>)
@@ -389,15 +389,15 @@ are coming soon.</p>
 <span style="color:#75715e">// error handling omitted
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">client</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">NewGreeterClient</span>(<span style="color:#a6e22e">conn</span>)
 <span style="color:#f92672">//</span> <span style="color:#f92672">...</span></code></pre></div>
-<h3 id="ruby">Ruby</h3>
+<h4 id="ruby">Ruby</h4>
 
-<h4 id="base-case-no-encryption-or-authentication-1">Base case - no encryption or authentication</h4>
+<h5 id="base-case-no-encryption-or-authentication-1">Base case - no encryption or authentication</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">stub <span style="color:#f92672">=</span> <span style="color:#66d9ef">Helloworld</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Greeter</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Stub</span><span style="color:#f92672">.</span>new(<span style="color:#e6db74">&#39;localhost:50051&#39;</span>, <span style="color:#e6db74">:this_channel_is_insecure</span>)
 <span style="color:#f92672">...</span></code></pre></div>
-<h4 id="with-server-authentication-ssl-tls-1">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls-1">With server authentication SSL/TLS</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">creds <span style="color:#f92672">=</span> <span style="color:#66d9ef">GRPC</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Core</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Credentials</span><span style="color:#f92672">.</span>new(load_certs)  <span style="color:#75715e"># load_certs typically loads a CA roots file</span>
 stub <span style="color:#f92672">=</span> <span style="color:#66d9ef">Helloworld</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Greeter</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Stub</span><span style="color:#f92672">.</span>new(<span style="color:#e6db74">&#39;myservice.example.com&#39;</span>, creds)</code></pre></div>
-<h4 id="authenticate-with-google-1">Authenticate with Google</h4>
+<h5 id="authenticate-with-google-1">Authenticate with Google</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require <span style="color:#e6db74">&#39;googleauth&#39;</span>  <span style="color:#75715e"># from http://www.rubydoc.info/gems/googleauth/0.1.0</span>
 <span style="color:#f92672">...</span>
 ssl_creds <span style="color:#f92672">=</span> <span style="color:#66d9ef">GRPC</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Core</span><span style="color:#f92672">::</span><span style="color:#66d9ef">ChannelCredentials</span><span style="color:#f92672">.</span>new(load_certs)  <span style="color:#75715e"># load_certs typically loads a CA roots file</span>
@@ -405,36 +405,36 @@ authentication <span style="color:#f92672">=</span> <span style="color:#66d9ef">
 call_creds <span style="color:#f92672">=</span> <span style="color:#66d9ef">GRPC</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Core</span><span style="color:#f92672">::</span><span style="color:#66d9ef">CallCredentials</span><span style="color:#f92672">.</span>new(authentication<span style="color:#f92672">.</span>updater_proc)
 combined_creds <span style="color:#f92672">=</span> ssl_creds<span style="color:#f92672">.</span>compose(call_creds)
 stub <span style="color:#f92672">=</span> <span style="color:#66d9ef">Helloworld</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Greeter</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Stub</span><span style="color:#f92672">.</span>new(<span style="color:#e6db74">&#39;greeter.googleapis.com&#39;</span>, combined_creds)</code></pre></div>
-<h3 id="c">C++</h3>
+<h4 id="c">C++</h4>
 
-<h4 id="base-case-no-encryption-or-authentication-2">Base case - no encryption or authentication</h4>
+<h5 id="base-case-no-encryption-or-authentication-2">Base case - no encryption or authentication</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> channel <span style="color:#f92672">=</span> grpc<span style="color:#f92672">::</span>CreateChannel(<span style="color:#e6db74">&#34;localhost:50051&#34;</span>, InsecureChannelCredentials());
 std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>Greeter<span style="color:#f92672">::</span>Stub<span style="color:#f92672">&gt;</span> stub(Greeter<span style="color:#f92672">::</span>NewStub(channel));
 ...
 </code></pre></div>
-<h4 id="with-server-authentication-ssl-tls-2">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls-2">With server authentication SSL/TLS</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> channel_creds <span style="color:#f92672">=</span> grpc<span style="color:#f92672">::</span>SslCredentials(grpc<span style="color:#f92672">::</span>SslCredentialsOptions());
 <span style="color:#66d9ef">auto</span> channel <span style="color:#f92672">=</span> grpc<span style="color:#f92672">::</span>CreateChannel(<span style="color:#e6db74">&#34;myservice.example.com&#34;</span>, channel_creds);
 std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>Greeter<span style="color:#f92672">::</span>Stub<span style="color:#f92672">&gt;</span> stub(Greeter<span style="color:#f92672">::</span>NewStub(channel));
 ...
 </code></pre></div>
-<h4 id="authenticate-with-google-2">Authenticate with Google</h4>
+<h5 id="authenticate-with-google-2">Authenticate with Google</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> creds <span style="color:#f92672">=</span> grpc<span style="color:#f92672">::</span>GoogleDefaultCredentials();
 <span style="color:#66d9ef">auto</span> channel <span style="color:#f92672">=</span> grpc<span style="color:#f92672">::</span>CreateChannel(<span style="color:#e6db74">&#34;greeter.googleapis.com&#34;</span>, creds);
 std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>Greeter<span style="color:#f92672">::</span>Stub<span style="color:#f92672">&gt;</span> stub(Greeter<span style="color:#f92672">::</span>NewStub(channel));
 ...
 </code></pre></div>
-<h3 id="c-35">C&#35;</h3>
+<h4 id="c-35">C&#35;</h4>
 
-<h4 id="base-case-no-encryption-or-authentication-3">Base case - no encryption or authentication</h4>
+<h5 id="base-case-no-encryption-or-authentication-3">Base case - no encryption or authentication</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">var</span> channel = <span style="color:#66d9ef">new</span> Channel(<span style="color:#e6db74">&#34;localhost:50051&#34;</span>, ChannelCredentials.Insecure);
 <span style="color:#66d9ef">var</span> client = <span style="color:#66d9ef">new</span> Greeter.GreeterClient(channel);
 ...</code></pre></div>
-<h4 id="with-server-authentication-ssl-tls-3">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls-3">With server authentication SSL/TLS</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">var</span> channelCredentials = <span style="color:#66d9ef">new</span> SslCredentials(File.ReadAllText(<span style="color:#e6db74">&#34;roots.pem&#34;</span>));  <span style="color:#75715e">// Load a custom roots file.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> channel = <span style="color:#66d9ef">new</span> Channel(<span style="color:#e6db74">&#34;myservice.example.com&#34;</span>, channelCredentials);
 <span style="color:#66d9ef">var</span> client = <span style="color:#66d9ef">new</span> Greeter.GreeterClient(channel);</code></pre></div>
-<h4 id="authenticate-with-google-3">Authenticate with Google</h4>
+<h5 id="authenticate-with-google-3">Authenticate with Google</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Grpc.Auth;  <span style="color:#75715e">// from Grpc.Auth NuGet package
 </span><span style="color:#75715e"></span>...
 <span style="color:#75715e">// Loads Google Application Default Credentials with publicly trusted roots.
@@ -443,22 +443,22 @@ std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&l
 <span style="color:#66d9ef">var</span> channel = <span style="color:#66d9ef">new</span> Channel(<span style="color:#e6db74">&#34;greeter.googleapis.com&#34;</span>, channelCredentials);
 <span style="color:#66d9ef">var</span> client = <span style="color:#66d9ef">new</span> Greeter.GreeterClient(channel);
 ...</code></pre></div>
-<h4 id="authenticate-a-single-rpc-call">Authenticate a single RPC call</h4>
+<h5 id="authenticate-a-single-rpc-call">Authenticate a single RPC call</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">var</span> channel = <span style="color:#66d9ef">new</span> Channel(<span style="color:#e6db74">&#34;greeter.googleapis.com&#34;</span>, <span style="color:#66d9ef">new</span> SslCredentials());  <span style="color:#75715e">// Use publicly trusted roots.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> client = <span style="color:#66d9ef">new</span> Greeter.GreeterClient(channel);
 ...
 <span style="color:#66d9ef">var</span> googleCredential = <span style="color:#66d9ef">await</span> GoogleCredential.GetApplicationDefaultAsync();
 <span style="color:#66d9ef">var</span> result = client.SayHello(request, <span style="color:#66d9ef">new</span> CallOptions(credentials: googleCredential.ToCallCredentials()));
 ...</code></pre></div>
-<h3 id="python">Python</h3>
+<h4 id="python">Python</h4>
 
-<h4 id="base-case-no-encryption-or-authentication-4">Base case - No encryption or authentication</h4>
+<h5 id="base-case-no-encryption-or-authentication-4">Base case - No encryption or authentication</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> grpc
 <span style="color:#f92672">import</span> helloworld_pb2
 
 channel <span style="color:#f92672">=</span> grpc<span style="color:#f92672">.</span>insecure_channel(<span style="color:#e6db74">&#39;localhost:50051&#39;</span>)
 stub <span style="color:#f92672">=</span> helloworld_pb2<span style="color:#f92672">.</span>GreeterStub(channel)</code></pre></div>
-<h4 id="with-server-authentication-ssl-tls-4">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls-4">With server authentication SSL/TLS</h5>
 
 <p>Client:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> grpc
@@ -483,7 +483,7 @@ server_credentials <span style="color:#f92672">=</span> grpc<span style="color:#
 server<span style="color:#f92672">.</span>add_secure_port(<span style="color:#e6db74">&#39;myservice.example.com:443&#39;</span>, server_credentials)
 server<span style="color:#f92672">.</span>start()
 <span style="color:#75715e"># Server sleep omitted</span></code></pre></div>
-<h4 id="authenticate-with-google-using-a-jwt">Authenticate with Google using a JWT</h4>
+<h5 id="authenticate-with-google-using-a-jwt">Authenticate with Google using a JWT</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> grpc
 <span style="color:#f92672">import</span> helloworld_pb2
 
@@ -497,7 +497,7 @@ jwt_creds <span style="color:#f92672">=</span> google_auth_jwt<span style="color
 channel <span style="color:#f92672">=</span> google_auth_transport_grpc<span style="color:#f92672">.</span>secure_authorized_channel(
     jwt_creds, None, <span style="color:#e6db74">&#39;greeter.googleapis.com:443&#39;</span>)
 stub <span style="color:#f92672">=</span> helloworld_pb2<span style="color:#f92672">.</span>GreeterStub(channel)</code></pre></div>
-<h4 id="authenticate-with-google-using-an-oauth2-token">Authenticate with Google using an Oauth2 token</h4>
+<h5 id="authenticate-with-google-using-an-oauth2-token">Authenticate with Google using an Oauth2 token</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> grpc
 <span style="color:#f92672">import</span> helloworld_pb2
 
@@ -510,14 +510,14 @@ request <span style="color:#f92672">=</span> google_auth_transport_requests<span
 channel <span style="color:#f92672">=</span> google_auth_transport_grpc<span style="color:#f92672">.</span>secure_authorized_channel(
     credentials, request, <span style="color:#e6db74">&#39;greeter.googleapis.com:443&#39;</span>)
 stub <span style="color:#f92672">=</span> helloworld_pb2<span style="color:#f92672">.</span>GreeterStub(channel)</code></pre></div>
-<h3 id="java">Java</h3>
+<h4 id="java">Java</h4>
 
-<h4 id="base-case-no-encryption-or-authentication-5">Base case - no encryption or authentication</h4>
+<h5 id="base-case-no-encryption-or-authentication-5">Base case - no encryption or authentication</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ManagedChannel channel <span style="color:#f92672">=</span> ManagedChannelBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">forAddress</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;localhost&#34;</span><span style="color:#f92672">,</span> 50051<span style="color:#f92672">)</span>
     <span style="color:#f92672">.</span><span style="color:#a6e22e">usePlaintext</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
     <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
 GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">GreeterStub</span> stub <span style="color:#f92672">=</span> GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">newStub</span><span style="color:#f92672">(</span>channel<span style="color:#f92672">);</span></code></pre></div>
-<h4 id="with-server-authentication-ssl-tls-5">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls-5">With server authentication SSL/TLS</h5>
 
 <p>In Java we recommend that you use OpenSSL when using gRPC over TLS. You can find
 details about installing and using OpenSSL and other required libraries for both
@@ -552,7 +552,7 @@ GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">Greet
     <span style="color:#f92672">.</span><span style="color:#a6e22e">sslContext</span><span style="color:#f92672">(</span>GrpcSslContexts<span style="color:#f92672">.</span><span style="color:#a6e22e">forClient</span><span style="color:#f92672">().</span><span style="color:#a6e22e">trustManager</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;roots.pem&#34;</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">())</span>
     <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
 GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">GreeterStub</span> stub <span style="color:#f92672">=</span> GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">newStub</span><span style="color:#f92672">(</span>channel<span style="color:#f92672">);</span></code></pre></div>
-<h4 id="authenticate-with-google-4">Authenticate with Google</h4>
+<h5 id="authenticate-with-google-4">Authenticate with Google</h5>
 
 <p>The following code snippet shows how you can call the <a href="https://cloud.google.com/pubsub/overview">Google Cloud PubSub
 API</a> using gRPC with a service
@@ -566,16 +566,16 @@ ManagedChannel channel <span style="color:#f92672">=</span> ManagedChannelBuilde
     <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
 GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">GreeterStub</span> stub <span style="color:#f92672">=</span> GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">newStub</span><span style="color:#f92672">(</span>channel<span style="color:#f92672">)</span>
     <span style="color:#f92672">.</span><span style="color:#a6e22e">withCallCredentials</span><span style="color:#f92672">(</span>MoreCallCredentials<span style="color:#f92672">.</span><span style="color:#a6e22e">from</span><span style="color:#f92672">(</span>creds<span style="color:#f92672">));</span></code></pre></div>
-<h3 id="node-js">Node.js</h3>
+<h4 id="node-js">Node.js</h4>
 
-<h4 id="base-case-no-encryption-authentication">Base case - No encryption/authentication</h4>
+<h5 id="base-case-no-encryption-authentication">Base case - No encryption/authentication</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stub</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">helloworld</span>.<span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#39;localhost:50051&#39;</span>, <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">credentials</span>.<span style="color:#a6e22e">createInsecure</span>());
 </code></pre></div>
-<h4 id="with-server-authentication-ssl-tls-6">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls-6">With server authentication SSL/TLS</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ssl_creds</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">credentials</span>.<span style="color:#a6e22e">createSsl</span>(<span style="color:#a6e22e">root_certs</span>);
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stub</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">helloworld</span>.<span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#39;myservice.example.com&#39;</span>, <span style="color:#a6e22e">ssl_creds</span>);
 </code></pre></div>
-<h4 id="authenticate-with-google-5">Authenticate with Google</h4>
+<h5 id="authenticate-with-google-5">Authenticate with Google</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Authenticating with Google
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">GoogleAuth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;google-auth-library&#39;</span>); <span style="color:#75715e">// from https://www.npmjs.com/package/google-auth-library
 </span><span style="color:#75715e"></span>...
@@ -586,7 +586,7 @@ GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">Greet
   <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stub</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">helloworld</span>.<span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#39;greeter.googleapis.com&#39;</span>, <span style="color:#a6e22e">combined_credentials</span>);
 });
 </code></pre></div>
-<h4 id="authenticate-with-google-using-oauth2-token-legacy-approach">Authenticate with Google using Oauth2 token (legacy approach)</h4>
+<h5 id="authenticate-with-google-using-oauth2-token-legacy-approach">Authenticate with Google using Oauth2 token (legacy approach)</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">GoogleAuth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;google-auth-library&#39;</span>); <span style="color:#75715e">// from https://www.npmjs.com/package/google-auth-library
 </span><span style="color:#75715e"></span>...
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ssl_creds</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">grpc</span>.<span style="color:#a6e22e">Credentials</span>.<span style="color:#a6e22e">createSsl</span>(<span style="color:#a6e22e">root_certs</span>); <span style="color:#75715e">// load_certs typically loads a CA roots file
@@ -600,14 +600,14 @@ GreeterGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">Greet
   <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stub</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">helloworld</span>.<span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#39;greeter.googleapis.com&#39;</span>, <span style="color:#a6e22e">combined_credentials</span>);
 });
 </code></pre></div>
-<h3 id="php">PHP</h3>
+<h4 id="php">PHP</h4>
 
-<h4 id="base-case-no-encryption-authorization">Base case - No encryption/authorization</h4>
+<h5 id="base-case-no-encryption-authorization">Base case - No encryption/authorization</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$client = new helloworld\GreeterClient(&#39;localhost:50051&#39;, [
     &#39;credentials&#39; =&gt; Grpc\ChannelCredentials::createInsecure(),
 ]);
 ...</code></pre></div>
-<h4 id="authenticate-with-google-6">Authenticate with Google</h4>
+<h5 id="authenticate-with-google-6">Authenticate with Google</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">function updateAuthMetadataCallback($context)
 {
     $auth_credentials = ApplicationDefaultCredentials::getCredentials();
@@ -623,7 +623,7 @@ $opts = [
 $client = new helloworld\GreeterClient(&#39;greeter.googleapis.com&#39;, $opts);
 ````
 
-#### Authenticate with Google using Oauth2 token (legacy approach)
+##### Authenticate with Google using Oauth2 token (legacy approach)
 
 ```php
 // the environment variable &#34;GOOGLE_APPLICATION_CREDENTIALS&#34; needs to be set
@@ -634,15 +634,15 @@ $opts = [
   &#39;update_metadata&#39; =&gt; $auth-&gt;getUpdateMetadataFunc(),
 ];
 $client = new helloworld\GreeterClient(&#39;greeter.googleapis.com&#39;, $opts);</code></pre></div>
-<h3 id="dart">Dart</h3>
+<h4 id="dart">Dart</h4>
 
-<h4 id="base-case-no-encryption-or-authentication-6">Base case - no encryption or authentication</h4>
+<h5 id="base-case-no-encryption-or-authentication-6">Base case - no encryption or authentication</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#66d9ef">final</span> channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ClientChannel(<span style="color:#e6db74">&#39;localhost&#39;</span>,
       port: <span style="color:#ae81ff">50051</span>,
       options: <span style="color:#66d9ef">const</span> ChannelOptions(
           credentials: <span style="color:#66d9ef">const</span> ChannelCredentials.insecure()));
 <span style="color:#66d9ef">final</span> stub <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GreeterClient(channel);</code></pre></div>
-<h4 id="with-server-authentication-ssl-tls-7">With server authentication SSL/TLS</h4>
+<h5 id="with-server-authentication-ssl-tls-7">With server authentication SSL/TLS</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">// Load a custom roots file.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> trustedRoot <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File(<span style="color:#e6db74">&#39;roots.pem&#39;</span>).readAsBytesSync();
 <span style="color:#66d9ef">final</span> channelCredentials <span style="color:#f92672">=</span>
@@ -651,7 +651,7 @@ $client = new helloworld\GreeterClient(&#39;greeter.googleapis.com&#39;, $opts);
 <span style="color:#66d9ef">final</span> channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ClientChannel(<span style="color:#e6db74">&#39;myservice.example.com&#39;</span>,
     options: channelOptions);
 <span style="color:#66d9ef">final</span> client <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GreeterClient(channel);</code></pre></div>
-<h4 id="authenticate-with-google-7">Authenticate with Google</h4>
+<h5 id="authenticate-with-google-7">Authenticate with Google</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">// Uses publicly trusted roots by default.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ClientChannel(<span style="color:#e6db74">&#39;greeter.googleapis.com&#39;</span>);
 <span style="color:#66d9ef">final</span> serviceAccountJson <span style="color:#f92672">=</span>
@@ -659,7 +659,7 @@ $client = new helloworld\GreeterClient(&#39;greeter.googleapis.com&#39;, $opts);
 <span style="color:#66d9ef">final</span> credentials <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JwtServiceAccountAuthenticator(serviceAccountJson);
 <span style="color:#66d9ef">final</span> client <span style="color:#f92672">=</span>
     <span style="color:#66d9ef">new</span> GreeterClient(channel, options: credentials.toCallOptions);</code></pre></div>
-<h4 id="authenticate-a-single-rpc-call-1">Authenticate a single RPC call</h4>
+<h5 id="authenticate-a-single-rpc-call-1">Authenticate a single RPC call</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">// Uses publicly trusted roots by default.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ClientChannel(<span style="color:#e6db74">&#39;greeter.googleapis.com&#39;</span>);
 <span style="color:#66d9ef">final</span> client <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GreeterClient(channel);

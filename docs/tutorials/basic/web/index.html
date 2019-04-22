@@ -178,7 +178,7 @@ buffers</a>.</p>
 
 <p><a name="why-grpc"></a></p>
 
-<h2 id="why-use-grpc-and-grpc-web">Why use gRPC and gRPC-Web?</h2>
+<h3 id="why-use-grpc-and-grpc-web">Why use gRPC and gRPC-Web?</h3>
 
 <p>With gRPC you can define your service once in a .proto file and implement
 clients and servers in any of gRPC&rsquo;s supported languages, which in turn can be
@@ -191,7 +191,7 @@ from browsers using an idiomatic API.</p>
 
 <p><a name="setup"></a></p>
 
-<h2 id="define-the-service">Define the Service</h2>
+<h3 id="define-the-service">Define the Service</h3>
 
 <p>The first step when creating a gRPC service is to define the service methods
 and their request and response message types using protocol buffers. In this
@@ -210,7 +210,7 @@ For more information about protocol buffers and proto3 syntax, please see the
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">service</span> EchoService {<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> Echo(EchoRequest) <span style="color:#66d9ef">returns</span> (EchoResponse);<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
-<h2 id="implement-grpc-backend-server">Implement gRPC Backend Server</h2>
+<h3 id="implement-grpc-backend-server">Implement gRPC Backend Server</h3>
 
 <p>Next, we implement our EchoService interface using Node in the backend gRPC
 <code>EchoServer</code>. This will handle requests from clients. See the file
@@ -223,7 +223,7 @@ the <a href="/docs/">main page</a> for more details.</p>
   <span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, {<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">call</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">message</span>});
 }
 </code></pre></div>
-<h2 id="configure-the-envoy-proxy">Configure the Envoy Proxy</h2>
+<h3 id="configure-the-envoy-proxy">Configure the Envoy Proxy</h3>
 
 <p>In this example, we will use the <a href="https://www.envoyproxy.io/">Envoy</a>
 proxy to forward the gRPC browser request to the backend server. You can see
@@ -266,7 +266,7 @@ cross-origin content.</p>
 <p>In this simple example, the browser makes gRPC requests to port <code>:8080</code>. Envoy
 forwards the request to the backend gRPC server listening on port <code>:9090</code>.</p>
 
-<h2 id="generate-protobuf-messages-and-service-client-stub">Generate Protobuf Messages and Service Client Stub</h2>
+<h3 id="generate-protobuf-messages-and-service-client-stub">Generate Protobuf Messages and Service Client Stub</h3>
 
 <p>To generate the protobuf message classes from our <code>echo.proto</code>, run the
 following command:</p>
@@ -290,7 +290,7 @@ $ sudo make install-plugin</code></pre></div>
 <p>Our command generates the client stub, by default, to the file
 <code>echo_grpc_web_pb.js</code>.</p>
 
-<h2 id="write-js-client-code">Write JS Client Code</h2>
+<h3 id="write-js-client-code">Write JS Client Code</h3>
 
 <p>Now you are ready to write some JS client code. Put this in a <code>client.js</code> file.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> {<span style="color:#a6e22e">EchoRequest</span>, <span style="color:#a6e22e">EchoResponse</span>} <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./echo_pb.js&#39;</span>);
@@ -318,7 +318,7 @@ $ sudo make install-plugin</code></pre></div>
     <span style="color:#f92672">&#34;webpack-cli&#34;</span>: <span style="color:#e6db74">&#34;^3.1.0&#34;</span>
   }
 }</code></pre></div>
-<h2 id="compile-the-js-library">Compile the JS Library</h2>
+<h3 id="compile-the-js-library">Compile the JS Library</h3>
 
 <p>Finally, putting all these together, we can compile all the relevant JS files
 into one single JS library that can be used in the browser.</p>

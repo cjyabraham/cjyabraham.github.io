@@ -190,7 +190,7 @@ binary file.</li>
 <p>The compiler plugin, <code>protoc-gen-dart</code>, is installed in <code>$HOME/.pub-cache/bin</code>.
 It must be in your $PATH for the protocol compiler, protoc, to find it.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ export PATH<span style="color:#f92672">=</span>$PATH:$HOME/.pub-cache/bin</code></pre></div>
-<h2 id="download-the-example">Download the example</h2>
+<h3 id="download-the-example">Download the example</h3>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -200,7 +200,7 @@ and other tutorials):</p>
 $ git clone https://github.com/grpc/grpc-dart
 $ <span style="color:#75715e"># Navigate to the &#34;Hello World&#34; Dart example:</span>
 $ cd grpc-dart/example/helloworld</code></pre></div>
-<h2 id="run-a-grpc-application">Run a gRPC application</h2>
+<h3 id="run-a-grpc-application">Run a gRPC application</h3>
 
 <p>From the <code>example/helloworld</code> directory:</p>
 
@@ -218,7 +218,7 @@ $ cd grpc-dart/example/helloworld</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ dart bin/client.dart</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
-<h2 id="update-a-grpc-service">Update a gRPC service</h2>
+<h3 id="update-a-grpc-service">Update a gRPC service</h3>
 
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -264,7 +264,7 @@ method, with the same request and response types:</p>
 }</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
-<h2 id="generate-grpc-code">Generate gRPC code</h2>
+<h3 id="generate-grpc-code">Generate gRPC code</h3>
 
 <p>Next we need to update the gRPC code used by our application to use the new
 service definition.</p>
@@ -274,12 +274,12 @@ service definition.</p>
 <p>This regenerates the files in <code>lib/src/generated</code> which contain our generated
 request and response classes, and client and server classes.</p>
 
-<h2 id="update-and-run-the-application">Update and run the application</h2>
+<h3 id="update-and-run-the-application">Update and run the application</h3>
 
 <p>We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.</p>
 
-<h3 id="update-the-server">Update the server</h3>
+<h4 id="update-the-server">Update the server</h4>
 
 <p>In the same directory, open <code>bin/server.dart</code>. Implement the new method like
 this:</p>
@@ -296,7 +296,7 @@ this:</p>
   }
 }
 ...</code></pre></div>
-<h3 id="update-the-client">Update the client</h3>
+<h4 id="update-the-client">Update the client</h4>
 
 <p>In the same directory, open <code>bin/client.dart</code>. Call the new method like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart">Future<span style="color:#f92672">&lt;</span>Null<span style="color:#f92672">&gt;</span> main(List<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">String</span><span style="color:#f92672">&gt;</span> args) <span style="color:#66d9ef">async</span> {
@@ -318,7 +318,7 @@ this:</p>
   }
   <span style="color:#66d9ef">await</span> channel.shutdown();
 }</code></pre></div>
-<h3 id="run">Run!</h3>
+<h4 id="run">Run!</h4>
 
 <p>Just like we did before, from the <code>example/helloworld</code> directory:</p>
 
@@ -330,7 +330,7 @@ this:</p>
 <li>In another terminal, run the client</li>
 </ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ dart bin/client.dart</code></pre></div>
-<h2 id="what-s-next">What&rsquo;s next</h2>
+<h3 id="what-s-next">What&rsquo;s next</h3>
 
 <ul>
 <li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>
@@ -338,7 +338,7 @@ and <a href="/docs/guides/concepts/">gRPC Concepts</a></li>
 <li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/dart/">gRPC Basics: Dart</a></li>
 </ul>
 
-<h2 id="reporting-issues">Reporting issues</h2>
+<h3 id="reporting-issues">Reporting issues</h3>
 
 <p>Should you encounter an issue, please help us out by
 <a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>

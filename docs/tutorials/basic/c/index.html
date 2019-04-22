@@ -182,7 +182,7 @@ guide</a>.</p>
 
 <div id="toc"></div>
 
-<h2 id="why-use-grpc">Why use gRPC?</h2>
+<h3 id="why-use-grpc">Why use gRPC?</h3>
 
 <p>Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -197,7 +197,7 @@ handled for you by gRPC. We also get all the advantages of working with protocol
 buffers, including efficient serialization, a simple IDL, and easy interface
 updating.</p>
 
-<h2 id="example-code-and-setup">Example code and setup</h2>
+<h3 id="example-code-and-setup">Example code and setup</h3>
 
 <p>The example code for our tutorial is in
 <a href="https://github.com/grpc/grpc/tree/
@@ -211,7 +211,7 @@ command:</p>
 client interface code - if you don&rsquo;t already, follow the setup instructions in
 <a href="/docs/quickstart/cpp">the C++ quick start guide</a>.</p>
 
-<h2 id="defining-the-service">Defining the service</h2>
+<h3 id="defining-the-service">Defining the service</h3>
 
 <p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
@@ -280,7 +280,7 @@ the <code>Point</code> message type:</p>
   int32 latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
   int32 longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
 }</code></pre></div>
-<h2 id="generating-client-and-server-code">Generating client and server code</h2>
+<h3 id="generating-client-and-server-code">Generating client and server code</h3>
 
 <p>Next we need to generate the gRPC client and server interfaces from our .proto
 service definition. We do this using the protocol buffer compiler <code>protoc</code> with
@@ -325,7 +325,7 @@ defined in the <code>RouteGuide</code> service.</li>
 
 <p><a name="server"></a></p>
 
-<h2 id="creating-the-server">Creating the server</h2>
+<h3 id="creating-the-server">Creating the server</h3>
 
 <p>First let&rsquo;s look at how we create a <code>RouteGuide</code> server. If you&rsquo;re only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -346,7 +346,7 @@ service responses.</li>
 v1.20.0/examples/cpp/route_guide/route_guide_server.cc">examples/cpp/route_guide/route_guide_server.cc</a>.
 Let&rsquo;s take a closer look at how it works.</p>
 
-<h3 id="implementing-routeguide">Implementing RouteGuide</h3>
+<h4 id="implementing-routeguide">Implementing RouteGuide</h4>
 
 <p>As you can see, our server has a <code>RouteGuideImpl</code> class that implements the
 generated <code>RouteGuide::Service</code> interface:</p>
@@ -448,7 +448,7 @@ get the other&rsquo;s messages in the order they were written, both the client a
 server can read and write in any order — the streams operate completely
 independently.</p>
 
-<h3 id="starting-the-server">Starting the server</h3>
+<h4 id="starting-the-server">Starting the server</h4>
 
 <p>Once we&rsquo;ve implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
@@ -481,14 +481,14 @@ our service.</li>
 
 <p><a name="client"></a></p>
 
-<h2 id="creating-the-client">Creating the client</h2>
+<h3 id="creating-the-client">Creating the client</h3>
 
 <p>In this section, we&rsquo;ll look at creating a C++ client for our <code>RouteGuide</code>
 service. You can see our complete example client code in
 <a href="https://github.com/grpc/grpc/blob/
 v1.20.0/examples/cpp/route_guide/route_guide_client.cc">examples/cpp/route_guide/route_guide_client.cc</a>.</p>
 
-<h3 id="creating-a-stub">Creating a stub</h3>
+<h4 id="creating-a-stub">Creating a stub</h4>
 
 <p>To call service methods, we first need to create a <em>stub</em>.</p>
 
@@ -506,14 +506,14 @@ address and port we want to connect to - in our case we&rsquo;ll use no SSL:</p>
    ...
  }
 </code></pre></div>
-<h3 id="calling-service-methods">Calling service methods</h3>
+<h4 id="calling-service-methods">Calling service methods</h4>
 
 <p>Now let&rsquo;s look at how we call our service methods. Note that in this tutorial
 we&rsquo;re calling the <em>blocking/synchronous</em> versions of each method: this means
 that the RPC call waits for the server to respond, and will either return a
 response or raise an exception.</p>
 
-<h4 id="simple-rpc">Simple RPC</h4>
+<h5 id="simple-rpc">Simple RPC</h5>
 
 <p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
 local method.</p>
@@ -542,7 +542,7 @@ response information from the server from our response object.</p>
           <span style="color:#f92672">&lt;&lt;</span> feature<span style="color:#f92672">-&gt;</span>location().latitude()<span style="color:#f92672">/</span>kCoordFactor_ <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span>
           <span style="color:#f92672">&lt;&lt;</span> feature<span style="color:#f92672">-&gt;</span>location().longitude()<span style="color:#f92672">/</span>kCoordFactor_ <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 </code></pre></div>
-<h4 id="streaming-rpcs">Streaming RPCs</h4>
+<h5 id="streaming-rpcs">Streaming RPCs</h5>
 
 <p>Now let&rsquo;s look at our streaming methods. If you&rsquo;ve already read <a href="#server">Creating the
 server</a> some of this may look very familiar - streaming RPCs are
@@ -615,7 +615,7 @@ get the other&rsquo;s messages in the order they were written, both the client a
 server can read and write in any order — the streams operate completely
 independently.</p>
 
-<h2 id="try-it-out">Try it out!</h2>
+<h3 id="try-it-out">Try it out!</h3>
 
 <p>Build client and server:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make</code></pre></div>

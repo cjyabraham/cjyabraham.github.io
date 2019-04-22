@@ -181,7 +181,7 @@ guide</a>.</p>
 
 <div id="toc"></div>
 
-<h2 id="why-use-grpc">Why use gRPC?</h2>
+<h3 id="why-use-grpc">Why use gRPC?</h3>
 
 <p>This example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -196,7 +196,7 @@ is handled for you by gRPC. You also get all the advantages of working with
 protocol buffers, including efficient serialization, a simple IDL, and easy
 interface updating.</p>
 
-<h2 id="example-code-and-setup">Example code and setup</h2>
+<h3 id="example-code-and-setup">Example code and setup</h3>
 
 <p>The example code for this tutorial is in
 <a href="https://github.com/grpc/grpc/tree/v1.20.0/examples/python/route_guide">grpc/grpc/examples/python/route_guide</a>.
@@ -209,7 +209,7 @@ command:</p>
 client interface code - if you don&rsquo;t already, follow the setup instructions in
 <a href="/docs/quickstart/python">the Python quick start guide</a>.</p>
 
-<h2 id="defining-the-service">Defining the service</h2>
+<h3 id="defining-the-service">Defining the service</h3>
 
 <p>Your first step (as you&rsquo;ll know from the <a href="/docs/guides/#overview">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
@@ -278,7 +278,7 @@ the <code>Point</code> message type:</p>
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
-<h2 id="generating-client-and-server-code">Generating client and server code</h2>
+<h3 id="generating-client-and-server-code">Generating client and server code</h3>
 
 <p>Next you need to generate the gRPC client and server interfaces from your .proto
 service definition.</p>
@@ -313,7 +313,7 @@ a <code>grpc.Server</code></li>
 
 <p><a name="server"></a></p>
 
-<h2 id="creating-the-server">Creating the server</h2>
+<h3 id="creating-the-server">Creating the server</h3>
 
 <p>First let&rsquo;s look at how you create a <code>RouteGuide</code> server. If you&rsquo;re only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -329,7 +329,7 @@ anyway!).</p>
 <p>You can find the example <code>RouteGuide</code> server in
 <a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/python/route_guide/route_guide_server.py">examples/python/route_guide/route_guide_server.py</a>.</p>
 
-<h3 id="implementing-routeguide">Implementing RouteGuide</h3>
+<h4 id="implementing-routeguide">Implementing RouteGuide</h4>
 
 <p><code>route_guide_server.py</code> has a <code>RouteGuideServicer</code> class that subclasses the
 generated class <code>route_guide_pb2_grpc.RouteGuideServicer</code>:</p>
@@ -337,7 +337,7 @@ generated class <code>route_guide_pb2_grpc.RouteGuideServicer</code>:</p>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RouteGuideServicer</span>(route_guide_pb2_grpc<span style="color:#f92672">.</span>RouteGuideServicer):</code></pre></div>
 <p><code>RouteGuideServicer</code> implements all the <code>RouteGuide</code> service methods.</p>
 
-<h4 id="simple-rpc">Simple RPC</h4>
+<h5 id="simple-rpc">Simple RPC</h5>
 
 <p>Let&rsquo;s look at the simplest type first, <code>GetFeature</code>, which just gets a <code>Point</code>
 from the client and returns the corresponding feature information from its
@@ -352,7 +352,7 @@ database in a <code>Feature</code>.</p>
 <code>grpc.ServicerContext</code> object that provides RPC-specific information such as
 timeout limits. It returns a <code>route_guide_pb2.Feature</code> response.</p>
 
-<h4 id="response-streaming-rpc">Response-streaming RPC</h4>
+<h5 id="response-streaming-rpc">Response-streaming RPC</h5>
 
 <p>Now let&rsquo;s look at the next method. <code>ListFeatures</code> is a response-streaming RPC
 that sends multiple <code>Feature</code>s to the client.</p>
@@ -371,7 +371,7 @@ that sends multiple <code>Feature</code>s to the client.</p>
 client wants to find <code>Feature</code>s. Instead of returning a single response the
 method yields zero or more responses.</p>
 
-<h4 id="request-streaming-rpc">Request-streaming RPC</h4>
+<h5 id="request-streaming-rpc">Request-streaming RPC</h5>
 
 <p>The request-streaming method <code>RecordRoute</code> uses an
 <a href="https://docs.python.org/2/library/stdtypes.html#iterator-types">iterator</a> of
@@ -396,7 +396,7 @@ request values and returns a single response value.</p>
                                       feature_count<span style="color:#f92672">=</span>feature_count,
                                       distance<span style="color:#f92672">=</span>int(distance),
                                       elapsed_time<span style="color:#f92672">=</span>int(elapsed_time))</code></pre></div>
-<h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
+<h5 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h5>
 
 <p>Lastly let&rsquo;s look at the bidirectionally-streaming method <code>RouteChat</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">RouteChat</span>(self, request_iterator, context):
@@ -410,7 +410,7 @@ request values and returns a single response value.</p>
 method and the response-streaming method. It is passed an iterator of request
 values and is itself an iterator of response values.</p>
 
-<h3 id="starting-the-server">Starting the server</h3>
+<h4 id="starting-the-server">Starting the server</h4>
 
 <p>Once you have implemented all the <code>RouteGuide</code> methods, the next step is to
 start up a gRPC server so that clients can actually use your service:</p>
@@ -425,12 +425,12 @@ else for your code to do while serving.</p>
 
 <p><a name="client"></a></p>
 
-<h2 id="creating-the-client">Creating the client</h2>
+<h3 id="creating-the-client">Creating the client</h3>
 
 <p>You can see the complete example client code in
 <a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/python/route_guide/route_guide_client.py">examples/python/route_guide/route_guide_client.py</a>.</p>
 
-<h3 id="creating-a-stub">Creating a stub</h3>
+<h4 id="creating-a-stub">Creating a stub</h4>
 
 <p>To call service methods, we first need to create a <em>stub</em>.</p>
 
@@ -438,7 +438,7 @@ else for your code to do while serving.</p>
 module, generated from our .proto.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">channel <span style="color:#f92672">=</span> grpc<span style="color:#f92672">.</span>insecure_channel(<span style="color:#e6db74">&#39;localhost:50051&#39;</span>)
 stub <span style="color:#f92672">=</span> route_guide_pb2_grpc<span style="color:#f92672">.</span>RouteGuideStub(channel)</code></pre></div>
-<h3 id="calling-service-methods">Calling service methods</h3>
+<h4 id="calling-service-methods">Calling service methods</h4>
 
 <p>For RPC methods that return a single response (&ldquo;response-unary&rdquo; methods), gRPC
 Python supports both synchronous (blocking) and asynchronous (non-blocking)
@@ -446,7 +446,7 @@ control flow semantics. For response-streaming RPC methods, calls immediately
 return an iterator of response values. Calls to that iterator&rsquo;s <code>next()</code> method
 block until the response to be yielded from the iterator becomes available.</p>
 
-<h4 id="simple-rpc-1">Simple RPC</h4>
+<h5 id="simple-rpc-1">Simple RPC</h5>
 
 <p>A synchronous call to the simple RPC <code>GetFeature</code> is nearly as straightforward
 as calling a local method. The RPC call waits for the server to respond, and
@@ -456,25 +456,25 @@ will either return a response or raise an exception:</p>
 asynchronously in a thread pool:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">feature_future <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>GetFeature<span style="color:#f92672">.</span>future(point)
 feature <span style="color:#f92672">=</span> feature_future<span style="color:#f92672">.</span>result()</code></pre></div>
-<h4 id="response-streaming-rpc-1">Response-streaming RPC</h4>
+<h5 id="response-streaming-rpc-1">Response-streaming RPC</h5>
 
 <p>Calling the response-streaming <code>ListFeatures</code> is similar to working with
 sequence types:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> feature <span style="color:#f92672">in</span> stub<span style="color:#f92672">.</span>ListFeatures(rectangle):</code></pre></div>
-<h4 id="request-streaming-rpc-1">Request-streaming RPC</h4>
+<h5 id="request-streaming-rpc-1">Request-streaming RPC</h5>
 
 <p>Calling the request-streaming <code>RecordRoute</code> is similar to passing an iterator
 to a local method. Like the simple RPC above that also returns a single
 response, it can be called synchronously or asynchronously:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">route_summary <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>RecordRoute(point_iterator)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">route_summary_future <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>RecordRoute<span style="color:#f92672">.</span>future(point_iterator)
 route_summary <span style="color:#f92672">=</span> route_summary_future<span style="color:#f92672">.</span>result()</code></pre></div>
-<h4 id="bidirectional-streaming-rpc-1">Bidirectional streaming RPC</h4>
+<h5 id="bidirectional-streaming-rpc-1">Bidirectional streaming RPC</h5>
 
 <p>Calling the bidirectionally-streaming <code>RouteChat</code> has (as is the case on the
 service-side) a combination of the request-streaming and response-streaming
 semantics:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> received_route_note <span style="color:#f92672">in</span> stub<span style="color:#f92672">.</span>RouteChat(sent_route_note_iterator):</code></pre></div>
-<h2 id="try-it-out">Try it out!</h2>
+<h3 id="try-it-out">Try it out!</h3>
 
 <p>Run the server, which will listen on port 50051:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python route_guide_server.py</code></pre></div>

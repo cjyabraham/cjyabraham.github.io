@@ -161,7 +161,7 @@ working example from the browser.</p>
 
 <div id="toc"></div>
 
-<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="prerequisites">Prerequisites</h3>
 
 <ul>
 <li><code>docker</code> and <code>docker-compose</code></li>
@@ -171,7 +171,7 @@ working example from the browser.</p>
 <a href="https://docs.docker.com/compose/compose-file/">version 3</a>. Please refer to
 <a href="https://docs.docker.com/compose/install/#install-compose">Docker website</a> on how to install Docker.</p>
 
-<h2 id="run-an-echo-example-from-the-browser">Run an Echo example from the browser!</h2>
+<h3 id="run-an-echo-example-from-the-browser">Run an Echo example from the browser!</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone https://github.com/grpc/grpc-web
 $ cd grpc-web
 $ docker-compose pull
@@ -180,7 +180,7 @@ $ docker-compose up -d node-server envoy commonjs-client</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">http://localhost:8081/echotest.html</code></pre></div>
 <p>To shutdown, run <code>docker-compose down</code>.</p>
 
-<h2 id="what-is-happening">What is Happening?</h2>
+<h3 id="what-is-happening">What is Happening?</h3>
 
 <p>In this demo, there are three key components:</p>
 
@@ -201,7 +201,7 @@ interacts with the webpage, it sends a gRPC-Web request to the Envoy proxy
 endpoint at <code>:8080</code>.</p></li>
 </ol>
 
-<h2 id="what-s-next">What&rsquo;s next</h2>
+<h3 id="what-s-next">What&rsquo;s next</h3>
 
 <ul>
 <li>Work through a more detailed tutorial in <a href="/docs/tutorials/basic/web/">gRPC Basics: Web</a></li>

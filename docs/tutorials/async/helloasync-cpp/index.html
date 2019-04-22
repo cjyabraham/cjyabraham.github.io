@@ -171,7 +171,7 @@ instructions in
 
 <div id="toc"></div>
 
-<h2 id="overview">Overview</h2>
+<h3 id="overview">Overview</h3>
 
 <p>gRPC uses the
 <a href="/grpc/cpp/classgrpc_1_1_completion_queue.html"><code>CompletionQueue</code></a>
@@ -185,7 +185,7 @@ is as follows:</p>
 appears, it indicates that the corresponding operation is complete.</li>
 </ul>
 
-<h2 id="async-client">Async client</h2>
+<h3 id="async-client">Async client</h3>
 
 <p>To use an asynchronous client to call a remote method, you first create a
 channel and stub, just as you do in a <a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/cpp/helloworld/greeter_client.cc">synchronous
@@ -217,7 +217,7 @@ ready once the tag passed into the corresponding <code>Finish()</code> call is r
 <p>You can see the complete client example in
 <a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/cpp/helloworld/greeter_async_client.cc">greeter&#95;async&#95;client.cc</a>.</p>
 
-<h2 id="async-server">Async server</h2>
+<h3 id="async-server">Async server</h3>
 
 <p>The server implementation requests an RPC call with a tag and then waits for the
 completion queue to return the tag. The basic flow for handling an RPC
@@ -326,7 +326,7 @@ runs a main loop in <code>HandleRpcs</code> to query the queue:</p>
       static_cast<span style="color:#f92672">&lt;</span>CallData<span style="color:#f92672">*&gt;</span>(tag)<span style="color:#f92672">-&gt;</span>Proceed();
     }
   }</code></pre></div>
-<h3 id="shutting-down-the-server">Shutting Down the Server</h3>
+<h4 id="shutting-down-the-server">Shutting Down the Server</h4>
 
 <p>We&rsquo;ve been using a completion queue to get the async notifications. Care must be
 taken to shut it down <em>after</em> the server has also been shut down.</p>

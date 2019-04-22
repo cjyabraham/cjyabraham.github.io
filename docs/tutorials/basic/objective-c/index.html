@@ -184,7 +184,7 @@ guide</a>.</p>
 
 <p><a name="why-grpc"></a></p>
 
-<h2 id="why-use-grpc">Why use gRPC?</h2>
+<h3 id="why-use-grpc">Why use gRPC?</h3>
 
 <p>With gRPC you can define your service once in a .proto file and implement
 clients and servers in any of gRPC&rsquo;s supported languages, which in turn can be
@@ -204,7 +204,7 @@ strip unused code is limited by the dynamic nature of the language.</p>
 
 <p><a name="setup"></a></p>
 
-<h2 id="example-code-and-setup">Example code and setup</h2>
+<h3 id="example-code-and-setup">Example code and setup</h3>
 
 <p>The example code for our tutorial is in
 <a href="https://github.com/grpc/grpc/tree/v1.20.0/examples/objective-c/route_guide">grpc/grpc/examples/objective-c/route_guide</a>.
@@ -250,7 +250,7 @@ uses that library.</p>
 
 <p><a name="proto"></a></p>
 
-<h2 id="defining-the-service">Defining the service</h2>
+<h3 id="defining-the-service">Defining the service</h3>
 
 <p>First let&rsquo;s look at how the service we&rsquo;re using is defined. A gRPC <em>service</em> and
 its method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol
@@ -321,7 +321,7 @@ the <code>Point</code> message type:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#66d9ef">option</span> objc_class_prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;RTG&#34;</span>;</code></pre></div>
 <p><a name="protoc"></a></p>
 
-<h2 id="generating-client-code">Generating client code</h2>
+<h3 id="generating-client-code">Generating client code</h3>
 
 <p>Next we need to generate the gRPC client interfaces from our .proto service
 definition. We do this using the protocol buffer compiler (<code>protoc</code>) with a
@@ -363,7 +363,7 @@ version, and other metadata.</p>
 
 <p><a name="client"></a></p>
 
-<h2 id="creating-the-client-application">Creating the client application</h2>
+<h3 id="creating-the-client-application">Creating the client application</h3>
 
 <p>In this section, we&rsquo;ll look at creating an Objective-C client for our
 <code>RouteGuide</code> service. You can see our complete example client code in
@@ -372,7 +372,7 @@ version, and other metadata.</p>
 put all of your view controllers in a single file; it&rsquo;s done here only to
 simplify the learning process).</p>
 
-<h3 id="constructing-a-service-object">Constructing a service object</h3>
+<h4 id="constructing-a-service-object">Constructing a service object</h4>
 
 <p>To call service methods, we first need to create a service object, an instance
 of the generated <code>RTGRouteGuide</code> class. The designated initializer of the class
@@ -394,13 +394,13 @@ case, though, is connecting with a gRPC server on the internet, running gRPC
 over TLS. For that case, the <code>useInsecureConnectionsForHost:</code> call isn&rsquo;t needed,
 and the port defaults to 443 if absent.</p>
 
-<h3 id="calling-service-methods">Calling service methods</h3>
+<h4 id="calling-service-methods">Calling service methods</h4>
 
 <p>Now let&rsquo;s look at how we call our service methods. As you will see, all these
 methods are asynchronous, so you can call them from the main thread of your app
 without worrying about freezing your UI or the OS killing your app.</p>
 
-<h4 id="simple-rpc">Simple RPC</h4>
+<h5 id="simple-rpc">Simple RPC</h5>
 
 <p>Calling the simple RPC <code>GetFeature</code> is as straightforward as calling any other
 asynchronous method on Cocoa.</p>
@@ -424,7 +424,7 @@ argument. If, instead, some RPC error happens, the handler block is called with
 a <code>nil</code> response argument, and we can read the details of the problem from the
 error argument.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c">NSLog(<span style="color:#e6db74">@&#34;Found feature called %@ at %@.&#34;</span>, response.name, response.location);</code></pre></div>
-<h4 id="streaming-rpcs">Streaming RPCs</h4>
+<h5 id="streaming-rpcs">Streaming RPCs</h5>
 
 <p>Now let&rsquo;s look at our streaming methods. Here&rsquo;s where we call the
 response-streaming method <code>ListFeatures</code>, which results in our client app

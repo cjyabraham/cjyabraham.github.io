@@ -175,13 +175,13 @@ This guide also does not cover anything on the server side. You can check the <a
 
 <div id="toc"></div>
 
-<h2 id="why-use-grpc">Why use gRPC?</h2>
+<h3 id="why-use-grpc">Why use gRPC?</h3>
 
 <p>Our example is a simple route mapping application that lets clients get information about features on their route, create a summary of their route, and exchange route information such as traffic updates with the server and other clients.</p>
 
 <p>With gRPC we can define our service once in a .proto file and implement clients and servers in any of gRPC&rsquo;s supported languages, which in turn can be run in environments ranging from servers inside Google to your own tablet - all the complexity of communication between different languages and environments is handled for you by gRPC. We also get all the advantages of working with protocol buffers, including efficient serialization, a simple IDL, and easy interface updating.</p>
 
-<h2 id="example-code-and-setup">Example code and setup</h2>
+<h3 id="example-code-and-setup">Example code and setup</h3>
 
 <p>The example code for our tutorial is in <a href="https://github.com/grpc/grpc-java/tree/v1.20.0/examples/android">grpc-java&rsquo;s examples/android</a>. To download the example, clone the <code>grpc-java</code> repository by running the following command:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b v1.20.0 https://github.com/grpc/grpc-java.git</code></pre></div>
@@ -189,7 +189,7 @@ This guide also does not cover anything on the server side. You can check the <a
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc-java/examples/android</code></pre></div>
 <p>You also should have the relevant tools installed to generate the client interface code - if you don&rsquo;t already, follow the setup instructions in <a href="https://github.com/grpc/grpc-java/blob/v1.20.0/README.md">the Java README</a>.</p>
 
-<h2 id="defining-the-service">Defining the service</h2>
+<h3 id="defining-the-service">Defining the service</h3>
 
 <p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using <a href="https://developers.google.com/protocol-buffers/docs/overview">protocol buffers</a>. You can see the complete .proto file in <a href="https://github.com/grpc/grpc-java/blob/v1.20.0/examples/android/routeguide/app/src/main/proto/route_guide.proto"><code>routeguide/app/src/main/proto/route_guide.proto</code></a>.</p>
 
@@ -237,7 +237,7 @@ This guide also does not cover anything on the server side. You can check the <a
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
-<h2 id="generating-client-code">Generating client code</h2>
+<h3 id="generating-client-code">Generating client code</h3>
 
 <p>Next we need to generate the gRPC client interfaces from our .proto
 service definition. We do this using the protocol buffer compiler <code>protoc</code> with
@@ -268,11 +268,11 @@ service.</li>
 </ul></li>
 </ul>
 
-<h2 id="creating-the-client">Creating the client</h2>
+<h3 id="creating-the-client">Creating the client</h3>
 
 <p>In this section, we&rsquo;ll look at creating a Java client for our <code>RouteGuide</code> service. You can see our complete example client code in <a href="https://github.com/grpc/grpc-java/blob/v1.20.0/examples/android/routeguide/app/src/main/java/io/grpc/routeguideexample/RouteGuideActivity.java"><code>routeguide/app/src/main/java/io/grpc/routeguideexample/RouteGuideActivity.java</code></a>.</p>
 
-<h3 id="creating-a-stub">Creating a stub</h3>
+<h4 id="creating-a-stub">Creating a stub</h4>
 
 <p>To call service methods, we first need to create a <em>stub</em>, or rather, two stubs:</p>
 
@@ -287,18 +287,18 @@ We use a <code>ManagedChannelBuilder</code> to create the channel.</p>
 <p>Now we can use the channel to create our stubs using the <code>newStub</code> and <code>newBlockingStub</code> methods provided in the <code>RouteGuideGrpc</code> class we generated from our .proto.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">blockingStub <span style="color:#f92672">=</span> RouteGuideGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">newBlockingStub</span><span style="color:#f92672">(</span>mChannel<span style="color:#f92672">);</span>
 asyncStub <span style="color:#f92672">=</span> RouteGuideGrpc<span style="color:#f92672">.</span><span style="color:#a6e22e">newStub</span><span style="color:#f92672">(</span>mChannel<span style="color:#f92672">);</span></code></pre></div>
-<h3 id="calling-service-methods">Calling service methods</h3>
+<h4 id="calling-service-methods">Calling service methods</h4>
 
 <p>Now let&rsquo;s look at how we call our service methods.</p>
 
-<h4 id="simple-rpc">Simple RPC</h4>
+<h5 id="simple-rpc">Simple RPC</h5>
 
 <p>Calling the simple RPC <code>GetFeature</code> on the blocking stub is as straightforward as calling a local method.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Point request <span style="color:#f92672">=</span> Point<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">setLatitude</span><span style="color:#f92672">(</span>lat<span style="color:#f92672">).</span><span style="color:#a6e22e">setLongitude</span><span style="color:#f92672">(</span>lon<span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
 Feature feature <span style="color:#f92672">=</span> blockingStub<span style="color:#f92672">.</span><span style="color:#a6e22e">getFeature</span><span style="color:#f92672">(</span>request<span style="color:#f92672">);</span></code></pre></div>
 <p>We create and populate a request protocol buffer object (in our case <code>Point</code>), pass it to the <code>getFeature()</code> method on our blocking stub, and get back a <code>Feature</code>.</p>
 
-<h4 id="server-side-streaming-rpc">Server-side streaming RPC</h4>
+<h5 id="server-side-streaming-rpc">Server-side streaming RPC</h5>
 
 <p>Next, let&rsquo;s look at a server-side streaming call to <code>ListFeatures</code>, which returns a stream of geographical <code>Feature</code>s:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Rectangle request <span style="color:#f92672">=</span>
@@ -308,7 +308,7 @@ Feature feature <span style="color:#f92672">=</span> blockingStub<span style="co
 Iterator<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672">&gt;</span> features <span style="color:#f92672">=</span> blockingStub<span style="color:#f92672">.</span><span style="color:#a6e22e">listFeatures</span><span style="color:#f92672">(</span>request<span style="color:#f92672">);</span></code></pre></div>
 <p>As you can see, it&rsquo;s very similar to the simple RPC we just looked at, except instead of returning a single <code>Feature</code>, the method returns an <code>Iterator</code> that the client can use to read all the returned <code>Feature</code>s.</p>
 
-<h4 id="client-side-streaming-rpc">Client-side streaming RPC</h4>
+<h5 id="client-side-streaming-rpc">Client-side streaming RPC</h5>
 
 <p>Now for something a little more complicated: the client-side streaming method <code>RecordRoute</code>, where we send a stream of <code>Point</code>s to the server and get back a single <code>RouteSummary</code>. For this method we need to use the asynchronous stub. If you&rsquo;ve already read <a href="/docs/tutorials/basic/java/#creating-the-server">Creating the server</a> some of this may look very familiar - asynchronous streaming RPCs are implemented in a similar way on both sides.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">recordRoute</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span> points<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> numPoints<span style="color:#f92672">,</span> RouteGuideStub asyncStub<span style="color:#f92672">)</span>
@@ -385,7 +385,7 @@ Iterator<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672
 
 <p>We then pass the <code>StreamObserver</code> to the asynchronous stub&rsquo;s <code>recordRoute()</code> method and get back our own <code>StreamObserver</code> request observer to write our <code>Point</code>s to send to the server.  Once we&rsquo;ve finished writing points, we use the request observer&rsquo;s <code>onCompleted()</code> method to tell gRPC that we&rsquo;ve finished writing on the client side. Once we&rsquo;re done, we check our <code>SettableFuture</code> to check that the server has completed on its side.</p>
 
-<h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
+<h5 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h5>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">routeChat</span><span style="color:#f92672">(</span>RouteGuideStub asyncStub<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> InterruptedException<span style="color:#f92672">,</span>
@@ -448,7 +448,7 @@ Iterator<span style="color:#f92672">&lt;</span>Feature<span style="color:#f92672
 <span style="color:#f92672">}</span></code></pre></div>
 <p>As with our client-side streaming example, we both get and return a <code>StreamObserver</code> response observer, except this time we send values via our method&rsquo;s response observer while the server is still writing messages to <em>their</em> message stream. The syntax for reading and writing here is exactly the same as for our client-streaming method. Although each side will always get the other&rsquo;s messages in the order they were written, both the client and server can read and write in any order — the streams operate completely independently.</p>
 
-<h2 id="try-it-out">Try it out!</h2>
+<h3 id="try-it-out">Try it out!</h3>
 
 <p>Follow the instructions in the example directory <a href="https://github.com/grpc/grpc-java/blob/v1.20.0/examples/android/README.md">README</a> to build and run the client and server.</p>
 

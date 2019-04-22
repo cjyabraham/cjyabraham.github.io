@@ -161,9 +161,9 @@ working example.</p>
 
 <div id="toc"></div>
 
-<h2 id="before-you-begin">Before you begin</h2>
+<h3 id="before-you-begin">Before you begin</h3>
 
-<h3 id="prerequisites">Prerequisites</h3>
+<h4 id="prerequisites">Prerequisites</h4>
 
 <p>gRPC Python is supported for use with Python 2.7 or Python 3.4 or higher.</p>
 
@@ -175,7 +175,7 @@ run the example in a virtualenv:</p>
 $ virtualenv venv
 $ source venv/bin/activate
 $ python -m pip install --upgrade pip</code></pre></div>
-<h3 id="install-grpc">Install gRPC</h3>
+<h4 id="install-grpc">Install gRPC</h4>
 
 <p>Install gRPC:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install grpcio</code></pre></div>
@@ -185,7 +185,7 @@ $ python -m pip install --upgrade pip</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ OSError: <span style="color:#f92672">[</span>Errno <span style="color:#ae81ff">1</span><span style="color:#f92672">]</span> Operation not permitted: <span style="color:#e6db74">&#39;/tmp/pip-qwTLbI-uninstall/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/six-1.4.1-py2.7.egg-info&#39;</span></code></pre></div>
 <p>You can work around this using:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install grpcio --ignore-installed</code></pre></div>
-<h3 id="install-grpc-tools">Install gRPC tools</h3>
+<h4 id="install-grpc-tools">Install gRPC tools</h4>
 
 <p>Python&rsquo;s gRPC tools include the protocol buffer compiler <code>protoc</code> and the
 special plugin for generating server and client code from <code>.proto</code> service
@@ -197,7 +197,7 @@ tutorials and your own projects.</p>
 
 <p>To install gRPC tools, run:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m pip install grpcio-tools</code></pre></div>
-<h2 id="download-the-example">Download the example</h2>
+<h3 id="download-the-example">Download the example</h3>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -207,7 +207,7 @@ and other tutorials):</p>
 $ git clone -b v1.20.0 https://github.com/grpc/grpc
 $ <span style="color:#75715e"># Navigate to the &#34;hello, world&#34; Python example:</span>
 $ cd grpc/examples/python/helloworld</code></pre></div>
-<h2 id="run-a-grpc-application">Run a gRPC application</h2>
+<h3 id="run-a-grpc-application">Run a gRPC application</h3>
 
 <p>From the <code>examples/python/helloworld</code> directory:</p>
 
@@ -221,7 +221,7 @@ $ cd grpc/examples/python/helloworld</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ python greeter_client.py</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
-<h2 id="update-a-grpc-service">Update a gRPC service</h2>
+<h3 id="update-a-grpc-service">Update a gRPC service</h3>
 
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -267,7 +267,7 @@ method, with the same request and response types:</p>
 </span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
-<h2 id="generate-grpc-code">Generate gRPC code</h2>
+<h3 id="generate-grpc-code">Generate gRPC code</h3>
 
 <p>Next we need to update the gRPC code used by our application to use the new
 service definition.</p>
@@ -278,12 +278,12 @@ service definition.</p>
 response classes and <code>helloworld_pb2_grpc.py</code> which contains our generated
 client and server classes.</p>
 
-<h2 id="update-and-run-the-application">Update and run the application</h2>
+<h3 id="update-and-run-the-application">Update and run the application</h3>
 
 <p>We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.</p>
 
-<h3 id="update-the-server">Update the server</h3>
+<h4 id="update-the-server">Update the server</h4>
 
 <p>In the same directory, open <code>greeter_server.py</code>. Implement the new method like
 this:</p>
@@ -295,7 +295,7 @@ this:</p>
   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">SayHelloAgain</span>(self, request, context):
     <span style="color:#66d9ef">return</span> helloworld_pb2<span style="color:#f92672">.</span>HelloReply(message<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Hello again, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">!&#39;</span> <span style="color:#f92672">%</span> request<span style="color:#f92672">.</span>name)
 <span style="color:#f92672">...</span></code></pre></div>
-<h3 id="update-the-client">Update the client</h3>
+<h4 id="update-the-client">Update the client</h4>
 
 <p>In the same directory, open <code>greeter_client.py</code>. Call the new method like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>():
@@ -305,7 +305,7 @@ this:</p>
   <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Greeter client received: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span>message)
   response <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>SayHelloAgain(helloworld_pb2<span style="color:#f92672">.</span>HelloRequest(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;you&#39;</span>))
   <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Greeter client received: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span>message)</code></pre></div>
-<h3 id="run">Run!</h3>
+<h4 id="run">Run!</h4>
 
 <p>Just like we did before, from the <code>examples/python/helloworld</code> directory:</p>
 
@@ -317,7 +317,7 @@ this:</p>
 <li>In another terminal, run the client</li>
 </ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ python greeter_client.py</code></pre></div>
-<h2 id="what-s-next">What&rsquo;s next</h2>
+<h3 id="what-s-next">What&rsquo;s next</h3>
 
 <ul>
 <li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>

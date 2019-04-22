@@ -161,15 +161,15 @@ working example.</p>
 
 <div id="toc"></div>
 
-<h2 id="before-you-begin">Before you begin</h2>
+<h3 id="before-you-begin">Before you begin</h3>
 
-<h3 id="prerequisites">Prerequisites</h3>
+<h4 id="prerequisites">Prerequisites</h4>
 
 <ul>
 <li><code>JDK</code>: version 7 or higher</li>
 </ul>
 
-<h2 id="download-the-example">Download the example</h2>
+<h3 id="download-the-example">Download the example</h3>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -179,7 +179,7 @@ and other tutorials):</p>
 $ git clone -b v1.20.0 https://github.com/grpc/grpc-java
 $ <span style="color:#75715e"># Navigate to the Java examples:</span>
 $ cd grpc-java/examples</code></pre></div>
-<h2 id="run-a-grpc-application">Run a gRPC application</h2>
+<h3 id="run-a-grpc-application">Run a gRPC application</h3>
 
 <p>From the <code>examples</code> directory:</p>
 
@@ -197,7 +197,7 @@ $ cd grpc-java/examples</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ./build/install/examples/bin/hello-world-client</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
-<h2 id="update-a-grpc-service">Update a gRPC service</h2>
+<h3 id="update-a-grpc-service">Update a gRPC service</h3>
 
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -243,7 +243,7 @@ method, with the same request and response types:</p>
 <span style="color:#f92672">}</span></code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
-<h2 id="update-and-run-the-application">Update and run the application</h2>
+<h3 id="update-and-run-the-application">Update and run the application</h3>
 
 <p>When we recompile the example, normal compilation will regenerate
 <code>GreeterGrpc.java</code>, which contains our generated gRPC client and server classes.
@@ -253,7 +253,7 @@ request and response types.</p>
 <p>However, we still need to implement and call the new method in the human-written
 parts of our example application.</p>
 
-<h3 id="update-the-server">Update the server</h3>
+<h4 id="update-the-server">Update the server</h4>
 
 <p>In the same directory, open
 <code>src/main/java/io/grpc/examples/helloworld/HelloWorldServer.java</code>. Implement the
@@ -275,7 +275,7 @@ new method like this:</p>
   <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span>
 <span style="color:#f92672">...</span></code></pre></div>
-<h3 id="update-the-client">Update the client</h3>
+<h4 id="update-the-client">Update the client</h4>
 
 <p>In the same directory, open
 <code>src/main/java/io/grpc/examples/helloworld/HelloWorldClient.java</code>. Call the new
@@ -299,7 +299,7 @@ method like this:</p>
   <span style="color:#f92672">}</span>
   logger<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Greeting: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
 <span style="color:#f92672">}</span></code></pre></div>
-<h3 id="run">Run!</h3>
+<h4 id="run">Run!</h4>
 
 <p>Just like we did before, from the <code>examples</code> directory:</p>
 
@@ -315,7 +315,7 @@ method like this:</p>
 <li>In another terminal, run the client</li>
 </ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ./build/install/examples/bin/hello-world-client</code></pre></div>
-<h2 id="what-s-next">What&rsquo;s next</h2>
+<h3 id="what-s-next">What&rsquo;s next</h3>
 
 <ul>
 <li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>

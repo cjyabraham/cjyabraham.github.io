@@ -183,7 +183,7 @@ token</em>.</p>
 
 <p><a name="setup"></a></p>
 
-<h2 id="example-code-and-setup">Example code and setup</h2>
+<h3 id="example-code-and-setup">Example code and setup</h3>
 
 <p>The example code for our tutorial is in
 <a href="https://github.com/grpc/grpc/tree/
@@ -217,7 +217,7 @@ following <a href="https://github.com/grpc/homebrew-grpc">these setup instructio
 
 <p><a name="try"></a></p>
 
-<h2 id="try-it-out">Try it out!</h2>
+<h3 id="try-it-out">Try it out!</h3>
 
 <p>To try the sample app, first have Cocoapods generate and install the client library for our .proto
 files:</p>
@@ -253,7 +253,7 @@ everything went as expected).</p>
 
 <p><a name="rpc-object"></a></p>
 
-<h2 id="create-an-rpc-object">Create an RPC object</h2>
+<h3 id="create-an-rpc-object">Create an RPC object</h3>
 
 <p>The other basic tutorials show how to invoke an RPC by calling an asynchronous
 method in a generated client object. However, to make an authenticated call you
@@ -283,7 +283,7 @@ ProtoRPC <span style="color:#f92672">*</span>call <span style="color:#f92672">=<
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c">[call start];</code></pre></div>
 <p><a name="request-metadata"></a></p>
 
-<h2 id="setting-request-metadata-auth-header-with-an-access-token">Setting request metadata: Auth header with an access token</h2>
+<h3 id="setting-request-metadata-auth-header-with-an-access-token">Setting request metadata: Auth header with an access token</h3>
 
 <p>Now let&rsquo;s look at how to configure some settings on the RPC object. The
 <code>ProtoRPC</code> class has a <code>requestHeaders</code> property (inherited from <code>GRPCCall</code>)
@@ -305,7 +305,7 @@ you have an access token, OAuth2 specifies it is to be sent in this format:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-objective-c" data-lang="objective-c">call.requestHeaders[<span style="color:#e6db74">@&#34;Authorization&#34;</span>] <span style="color:#f92672">=</span> [<span style="color:#e6db74">@&#34;Bearer &#34;</span> stringByAppendingString:accessToken];</code></pre></div>
 <p><a name="response-metadata"></a></p>
 
-<h2 id="getting-response-metadata-auth-challenge-header">Getting response metadata: Auth challenge header</h2>
+<h3 id="getting-response-metadata-auth-challenge-header">Getting response metadata: Auth challenge header</h3>
 
 <p>The <code>ProtoRPC</code> class also inherits a pair of properties, <code>responseHeaders</code> and
 <code>responseTrailers</code>, analogous to the request metadata we just looked at but sent

@@ -161,9 +161,9 @@ working example.</p>
 
 <div id="toc"></div>
 
-<h2 id="before-you-begin">Before you begin</h2>
+<h3 id="before-you-begin">Before you begin</h3>
 
-<h3 id="prerequisites">Prerequisites</h3>
+<h4 id="prerequisites">Prerequisites</h4>
 
 <p>Whether you&rsquo;re using Windows, OS X, or Linux, you can follow this
 example by using either an IDE and its build tools,
@@ -173,7 +173,7 @@ or by using the the .NET Core SDK command line tools.</p>
 <a href="https://github.com/grpc/grpc/blob/v1.20.0/src/csharp/README.md#prerequisites">gRPC C# prerequisites</a>.
 You will also need Git to download the sample code.</p>
 
-<h2 id="download-the-example">Download the example</h2>
+<h3 id="download-the-example">Download the example</h3>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -188,23 +188,23 @@ The projects and source files can be found in the <code>examples/csharp/Hellowor
 <p>The example in this walkthrough already adds the necessary
 dependencies for you (<code>Grpc</code>, <code>Grpc.Tools</code> and <code>Google.Protobuf</code> NuGet packages).</p>
 
-<h2 id="build-the-example">Build the example</h2>
+<h3 id="build-the-example">Build the example</h3>
 
-<h3 id="using-visual-studio-or-visual-studio-for-mac">Using Visual Studio (or Visual Studio for Mac)</h3>
+<h4 id="using-visual-studio-or-visual-studio-for-mac">Using Visual Studio (or Visual Studio for Mac)</h4>
 
 <ul>
 <li>Open the solution <code>Greeter.sln</code> with Visual Studio</li>
 <li>Build the solution</li>
 </ul>
 
-<h3 id="using-net-core-sdk-from-the-command-line">Using .NET Core SDK from the command line</h3>
+<h4 id="using-net-core-sdk-from-the-command-line">Using .NET Core SDK from the command line</h4>
 
 <p>From the <code>examples/csharp/Helloworld</code> directory:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; dotnet build Greeter.sln</code></pre></div>
 <p><em>NOTE: If you want to use gRPC C# from a project that uses the &ldquo;classic&rdquo; .csproj files (supported by Visual Studio 2013, 2015 and older versions of Mono), please refer to the
 <a href="https://github.com/grpc/grpc/blob/v1.20.0/examples/csharp/HelloworldLegacyCsproj/README.md">Greeter using &ldquo;classic&rdquo; .csproj</a> example.</em></p>
 
-<h2 id="run-a-grpc-application">Run a gRPC application</h2>
+<h3 id="run-a-grpc-application">Run a gRPC application</h3>
 
 <p>From the <code>examples/csharp/Helloworld</code> directory:</p>
 
@@ -220,7 +220,7 @@ dependencies for you (<code>Grpc</code>, <code>Grpc.Tools</code> and <code>Googl
 &gt; dotnet run -f netcoreapp2.1</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
-<h2 id="update-a-grpc-service">Update a gRPC service</h2>
+<h3 id="update-a-grpc-service">Update a gRPC service</h3>
 
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -266,7 +266,7 @@ method, with the same request and response types:</p>
 }</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
-<h2 id="generate-grpc-code">Generate gRPC code</h2>
+<h3 id="generate-grpc-code">Generate gRPC code</h3>
 
 <p>Next we need to update the gRPC code used by our application to use the new service definition.</p>
 
@@ -299,12 +299,12 @@ instances
 </ul></li>
 </ul>
 
-<h2 id="update-and-run-the-application">Update and run the application</h2>
+<h3 id="update-and-run-the-application">Update and run the application</h3>
 
 <p>We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.</p>
 
-<h3 id="update-the-server">Update the server</h3>
+<h4 id="update-the-server">Update the server</h4>
 
 <p>With the <code>Greeter.sln</code> open in your IDE, open <code>GreeterServer/Program.cs</code>.
 Implement the new method by editing the GreeterImpl class like this:</p>
@@ -322,7 +322,7 @@ Implement the new method by editing the GreeterImpl class like this:</p>
         <span style="color:#66d9ef">return</span> Task.FromResult(<span style="color:#66d9ef">new</span> HelloReply { Message = <span style="color:#e6db74">&#34;Hello again &#34;</span> + request.Name });
     }
 }</code></pre></div>
-<h3 id="update-the-client">Update the client</h3>
+<h4 id="update-the-client">Update the client</h4>
 
 <p>With the same <code>Greeter.sln</code> open in your IDE, open <code>GreeterClient/Program.cs</code>.
 Call the new method like this:</p>
@@ -343,12 +343,12 @@ Call the new method like this:</p>
     Console.WriteLine(<span style="color:#e6db74">&#34;Press any key to exit...&#34;</span>);
     Console.ReadKey();
 }</code></pre></div>
-<h3 id="rebuild-the-modified-example">Rebuild the modified example</h3>
+<h4 id="rebuild-the-modified-example">Rebuild the modified example</h4>
 
 <p>Rebuild the newly modified example just like we first built the original
 example by running <code>dotnet build Greeter.sln</code> or by clicking &ldquo;Build&rdquo; in Visual Studio.</p>
 
-<h3 id="run">Run!</h3>
+<h4 id="run">Run!</h4>
 
 <p>Just like we did before, from the <code>examples/csharp/Helloworld</code> directory:</p>
 
@@ -362,7 +362,7 @@ example by running <code>dotnet build Greeter.sln</code> or by clicking &ldquo;B
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&gt; cd GreeterClient
 &gt; dotnet run -f netcoreapp2.1</code></pre></div>
-<h2 id="what-s-next">What&rsquo;s next</h2>
+<h3 id="what-s-next">What&rsquo;s next</h3>
 
 <ul>
 <li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>

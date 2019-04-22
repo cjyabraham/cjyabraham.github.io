@@ -193,34 +193,34 @@ $ sudo mv composer.phar /usr/local/bin/composer</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ wget https://phar.phpunit.de/phpunit-old.phar
 $ chmod +x phpunit-old.phar
 $ sudo mv phpunit-old.phar /usr/bin/phpunit</code></pre></div>
-<h2 id="install-the-grpc-php-extension">Install the gRPC PHP extension</h2>
+<h3 id="install-the-grpc-php-extension">Install the gRPC PHP extension</h3>
 
 <p>There are two ways to install gRPC PHP extension.
 * <code>pecl</code>
 * <code>build from source</code></p>
 
-<h3 id="using-pecl">Using PECL</h3>
+<h4 id="using-pecl">Using PECL</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo pecl install grpc</code></pre></div>
 <p>or specific version</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo pecl install grpc-1.7.0</code></pre></div>
 <p>Note: for users on CentOS/RHEL 6, unfortunately this step won’t work.
 Please follow the instructions below to compile the PECL extension from source.</p>
 
-<h4 id="install-on-windows">Install on Windows</h4>
+<h5 id="install-on-windows">Install on Windows</h5>
 
 <p>You can download the pre-compiled gRPC extension from the PECL
 <a href="https://pecl.php.net/package/grpc">website</a></p>
 
-<h3 id="build-from-source-with-grpc-c-core-library">Build from Source with gRPC C core library</h3>
+<h4 id="build-from-source-with-grpc-c-core-library">Build from Source with gRPC C core library</h4>
 
 <p>Clone this repository</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone -b <span style="color:#66d9ef">$(</span>curl -L https://grpc.io/release<span style="color:#66d9ef">)</span> https://github.com/grpc/grpc</code></pre></div>
-<h4 id="build-and-install-the-grpc-c-core-library">Build and install the gRPC C core library</h4>
+<h5 id="build-and-install-the-grpc-c-core-library">Build and install the gRPC C core library</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc
 $ git submodule update --init
 $ make
 $ sudo make install</code></pre></div>
-<h4 id="build-and-install-grpc-php-extension">Build and install gRPC PHP extension</h4>
+<h5 id="build-and-install-grpc-php-extension">Build and install gRPC PHP extension</h5>
 
 <p>Compile the gRPC PHP extension</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc/src/php/ext/grpc
@@ -232,7 +232,7 @@ $ sudo make install</code></pre></div>
 standard PHP extension directory. You should be able to run
 the <a href="#unit-tests">unit tests</a>, with the PHP extension installed.</p>
 
-<h3 id="update-php-ini">Update php.ini</h3>
+<h4 id="update-php-ini">Update php.ini</h4>
 
 <p>After installing the gRPC extension, make sure you add this line
 to your <code>php.ini</code> file, (e.g. <code>/etc/php5/cli/php.ini</code>,
@@ -248,7 +248,7 @@ depending on where your PHP installation is.</p>
 <p>To run tests with generated stub code from <code>.proto</code> files, you will also
 need the <code>composer</code> and <code>protoc</code> binaries. You can find out how to get these below.</p>
 
-<h2 id="install-other-prerequisites-for-both-mac-os-x-and-linux">Install other prerequisites for both Mac OS X and Linux</h2>
+<h3 id="install-other-prerequisites-for-both-mac-os-x-and-linux">Install other prerequisites for both Mac OS X and Linux</h3>
 
 <ul>
 <li><code>protoc: protobuf compiler</code></li>
@@ -256,7 +256,7 @@ need the <code>composer</code> and <code>protoc</code> binaries. You can find ou
 <li><code>grpc_php_plugin: Generates PHP gRPC service interface out of Protobuf IDL</code></li>
 </ul>
 
-<h3 id="install-protobuf-compiler">Install Protobuf compiler</h3>
+<h4 id="install-protobuf-compiler">Install Protobuf compiler</h4>
 
 <p>If you don&rsquo;t have it already, you need to install the protobuf compiler
 <code>protoc</code>, version 3.4.0+ (the newer the better) for the current gRPC version.
@@ -335,14 +335,14 @@ upgrade to a newer release.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc/third_party/protobuf
 $ ./autogen.sh <span style="color:#f92672">&amp;&amp;</span> ./configure <span style="color:#f92672">&amp;&amp;</span> make
 $ sudo make install</code></pre></div>
-<h3 id="protobuf-runtime-library">Protobuf Runtime library</h3>
+<h4 id="protobuf-runtime-library">Protobuf Runtime library</h4>
 
 <p>There are two protobuf runtime libraries to choose from. They are identical
 in terms of APIs offered. The C implementation provides better performance,
 while the native implementation is easier to install. Make sure the installed
 protobuf version works with grpc version.</p>
 
-<h4 id="1-c-implementation-for-better-performance">1. C implementation (for better performance)</h4>
+<h5 id="1-c-implementation-for-better-performance">1. C implementation (for better performance)</h5>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo pecl install protobuf</code></pre></div>
 <p>or specific version</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo pecl install protobuf-3.4.0</code></pre></div>
@@ -351,13 +351,13 @@ to your <code>php.ini</code> file, (e.g. <code>/etc/php5/cli/php.ini</code>,
 <code>/etc/php5/apache2/php.ini</code>, or <code>/usr/local/etc/php/5.6/php.ini</code>),
 depending on where your PHP installation is.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">extension<span style="color:#f92672">=</span>protobuf.so</code></pre></div>
-<h4 id="2-php-implementation-for-easier-installation">2. PHP implementation (for easier installation)</h4>
+<h5 id="2-php-implementation-for-easier-installation">2. PHP implementation (for easier installation)</h5>
 
 <p>Add this to your <code>composer.json</code> file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;require&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
     <span style="color:#f92672">&#34;google/protobuf&#34;</span>: <span style="color:#e6db74">&#34;^v3.3.0&#34;</span>
   }</code></pre></div>
-<h3 id="php-protoc-plugin">PHP Protoc Plugin</h3>
+<h4 id="php-protoc-plugin">PHP Protoc Plugin</h4>
 
 <p>You need the gRPC PHP protoc plugin to generate the client stub classes.
 It can generate server and client code from .proto service definitions.</p>
@@ -376,7 +376,7 @@ $ make grpc_php_plugin</code></pre></div>
 make sure that the protobuf version installed is compatible with the grpc version
 you build this plugin.</p>
 
-<h2 id="download-the-example">Download the example</h2>
+<h3 id="download-the-example">Download the example</h3>
 
 <p>You&rsquo;ll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -394,7 +394,7 @@ $ <span style="color:#75715e"># Navigate to the &#34;hello, world&#34; PHP examp
 $ cd examples/php
 $ ./greeter_proto_gen.sh
 $ composer install</code></pre></div>
-<h2 id="run-a-grpc-application">Run a gRPC application</h2>
+<h3 id="run-a-grpc-application">Run a gRPC application</h3>
 
 <p>From the <code>examples/node</code> directory:</p>
 
@@ -412,7 +412,7 @@ $ composer install</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ./run_greeter_client.sh</code></pre></div>
 <p>Congratulations! You&rsquo;ve just run a client-server application with gRPC.</p>
 
-<h2 id="update-a-grpc-service">Update a gRPC service</h2>
+<h3 id="update-a-grpc-service">Update a gRPC service</h3>
 
 <p>Now let&rsquo;s look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -458,7 +458,7 @@ message HelloReply {
 }</code></pre></div>
 <p>(Don&rsquo;t forget to save the file!)</p>
 
-<h2 id="generate-grpc-code">Generate gRPC code</h2>
+<h3 id="generate-grpc-code">Generate gRPC code</h3>
 
 <p>Next we need to update the gRPC code used by our application to use the new
 service definition. From the <code>grpc</code> root directory:</p>
@@ -474,12 +474,12 @@ grpc-php-plugin by source:</p>
 as well as classes for populating, serializing, and retrieving our request and
 response types.</p>
 
-<h2 id="update-and-run-the-application">Update and run the application</h2>
+<h3 id="update-and-run-the-application">Update and run the application</h3>
 
 <p>We now have new generated client code, but we still need to implement and call
 the new method in the human-written parts of our example application.</p>
 
-<h3 id="update-the-server">Update the server</h3>
+<h4 id="update-the-server">Update the server</h4>
 
 <p>In the same directory, open <code>greeter_server.js</code>. Implement the new method like
 this:</p>
@@ -500,7 +500,7 @@ this:</p>
 }
 ...
 </code></pre></div>
-<h3 id="update-the-client">Update the client</h3>
+<h4 id="update-the-client">Update the client</h4>
 
 <p>In the same directory, open <code>greeter_client.php</code>. Call the new method like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    $request = new Helloworld\HelloRequest();
@@ -509,7 +509,7 @@ this:</p>
     $message = $reply-&gt;getMessage();
     list($reply, $status) = $client-&gt;SayHelloAgain($request)-&gt;wait();
     $message = $reply-&gt;getMessage();</code></pre></div>
-<h3 id="run">Run!</h3>
+<h4 id="run">Run!</h4>
 
 <p>Just like we did before, from the <code>examples/node/dynamic_codegen</code> directory:</p>
 
@@ -523,7 +523,7 @@ this:</p>
 <li>Run the client</li>
 </ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ ./run_greeter_client.sh</code></pre></div>
-<h2 id="what-s-next">What&rsquo;s next</h2>
+<h3 id="what-s-next">What&rsquo;s next</h3>
 
 <ul>
 <li>Read a full explanation of how gRPC works in <a href="/docs/guides/">What is gRPC?</a>

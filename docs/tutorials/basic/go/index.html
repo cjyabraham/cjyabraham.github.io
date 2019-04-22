@@ -182,7 +182,7 @@ guide</a>.</p>
 
 <div id="toc"></div>
 
-<h2 id="why-use-grpc">Why use gRPC?</h2>
+<h3 id="why-use-grpc">Why use gRPC?</h3>
 
 <p>Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -197,7 +197,7 @@ handled for you by gRPC. We also get all the advantages of working with protocol
 buffers, including efficient serialization, a simple IDL, and easy interface
 updating.</p>
 
-<h2 id="example-code-and-setup">Example code and setup</h2>
+<h3 id="example-code-and-setup">Example code and setup</h3>
 
 <p>The example code for our tutorial is in
 <a href="https://github.com/grpc/grpc-go/tree/master/examples/route_guide">grpc/grpc-go/examples/route_guide</a>.
@@ -208,7 +208,7 @@ command:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd $GOPATH/src/google.golang.org/grpc/examples/route_guide</code></pre></div>
 <p>You also should have the relevant tools installed to generate the server and client interface code - if you don&rsquo;t already, follow the setup instructions in <a href="/docs/quickstart/go/">the Go quick start guide</a>.</p>
 
-<h2 id="defining-the-service">Defining the service</h2>
+<h3 id="defining-the-service">Defining the service</h3>
 
 <p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
@@ -274,7 +274,7 @@ keyword before both the request and the response.</li>
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
-<h2 id="generating-client-and-server-code">Generating client and server code</h2>
+<h3 id="generating-client-and-server-code">Generating client and server code</h3>
 
 <p>Next we need to generate the gRPC client and server interfaces from our .proto
 service definition. We do this using the protocol buffer compiler <code>protoc</code> with
@@ -296,7 +296,7 @@ This is similar to what we did in the <a href="/docs/quickstart/go/">quickstart 
 
 <p><a name="server"></a></p>
 
-<h2 id="creating-the-server">Creating the server</h2>
+<h3 id="creating-the-server">Creating the server</h3>
 
 <p>First let&rsquo;s look at how we create a <code>RouteGuide</code> server. If you&rsquo;re only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -316,7 +316,7 @@ the right service implementation.</li>
 <a href="https://github.com/grpc/grpc-go/tree/master/examples/route_guide/server/server.go">grpc-go/examples/route_guide/server/server.go</a>.
 Let&rsquo;s take a closer look at how it works.</p>
 
-<h3 id="implementing-routeguide">Implementing RouteGuide</h3>
+<h4 id="implementing-routeguide">Implementing RouteGuide</h4>
 
 <p>As you can see, our server has a <code>routeGuideServer</code> struct type that implements the generated <code>RouteGuideServer</code> interface:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">routeGuideServer</span> <span style="color:#66d9ef">struct</span> {
@@ -343,7 +343,7 @@ Let&rsquo;s take a closer look at how it works.</p>
         <span style="color:#f92672">...</span>
 }
 <span style="color:#f92672">...</span></code></pre></div>
-<h4 id="simple-rpc">Simple RPC</h4>
+<h5 id="simple-rpc">Simple RPC</h5>
 
 <p><code>routeGuideServer</code> implements all our service methods. Let&rsquo;s look at the
 simplest type first, <code>GetFeature</code>, which just gets a <code>Point</code> from the client and
@@ -364,7 +364,7 @@ with the appropriate information, and then <code>return</code> it along with an 
 to tell gRPC that we&rsquo;ve finished dealing with the RPC and that the <code>Feature</code> can
 be returned to the client.</p>
 
-<h4 id="server-side-streaming-rpc">Server-side streaming RPC</h4>
+<h5 id="server-side-streaming-rpc">Server-side streaming RPC</h5>
 
 <p>Now let&rsquo;s look at one of our streaming RPCs. <code>ListFeatures</code> is a server-side
 streaming RPC, so we need to send back multiple <code>Feature</code>s to our client.</p>
@@ -390,7 +390,7 @@ finished writing responses. Should any error happen in this call, we return a
 non-<code>nil</code> error; the gRPC layer will translate it into an appropriate RPC status
 to be sent on the wire.</p>
 
-<h4 id="client-side-streaming-rpc">Client-side streaming RPC</h4>
+<h5 id="client-side-streaming-rpc">Client-side streaming RPC</h5>
 
 <p>Now let&rsquo;s look at something a little more complicated: the client-side
 streaming method <code>RecordRoute</code>, where we get a stream of <code>Point</code>s from the
@@ -439,7 +439,7 @@ ended and the server can return its <code>RouteSummary</code>. If it has any oth
 we return the error &ldquo;as is&rdquo; so that it&rsquo;ll be translated to an RPC status by the
 gRPC layer.</p>
 
-<h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
+<h5 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h5>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">routeGuideServer</span>) <span style="color:#a6e22e">RouteChat</span>(<span style="color:#a6e22e">stream</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">RouteGuide_RouteChatServer</span>) <span style="color:#66d9ef">error</span> {
@@ -472,7 +472,7 @@ will always get the other&rsquo;s messages in the order they were written, both 
 client and server can read and write in any order — the streams operate
 completely independently.</p>
 
-<h3 id="starting-the-server">Starting the server</h3>
+<h4 id="starting-the-server">Starting the server</h4>
 
 <p>Once we&rsquo;ve implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
@@ -499,13 +499,13 @@ until the process is killed or <code>Stop()</code> is called.</li>
 
 <p><a name="client"></a></p>
 
-<h2 id="creating-the-client">Creating the client</h2>
+<h3 id="creating-the-client">Creating the client</h3>
 
 <p>In this section, we&rsquo;ll look at creating a Go client for our <code>RouteGuide</code>
 service. You can see our complete example client code in
 <a href="https://github.com/grpc/grpc-go/tree/master/examples/route_guide/client/client.go">grpc-go/examples/route_guide/client/client.go</a>.</p>
 
-<h3 id="creating-a-stub">Creating a stub</h3>
+<h4 id="creating-a-stub">Creating a stub</h4>
 
 <p>To call service methods, we first need to create a gRPC <em>channel</em> to communicate
 with the server. We create this by passing the server address and port number to
@@ -523,13 +523,13 @@ that - however, we don&rsquo;t need to do this for our <code>RouteGuide</code> s
 get this using the <code>NewRouteGuideClient</code> method provided in the <code>pb</code> package we
 generated from our .proto.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">client</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">NewRouteGuideClient</span>(<span style="color:#a6e22e">conn</span>)</code></pre></div>
-<h3 id="calling-service-methods">Calling service methods</h3>
+<h4 id="calling-service-methods">Calling service methods</h4>
 
 <p>Now let&rsquo;s look at how we call our service methods. Note that in gRPC-Go, RPCs
 operate in a blocking/synchronous mode, which means that the RPC call waits for
 the server to respond, and will either return a response or an error.</p>
 
-<h4 id="simple-rpc-1">Simple RPC</h4>
+<h5 id="simple-rpc-1">Simple RPC</h5>
 
 <p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
 local method.</p>
@@ -544,7 +544,7 @@ behaviour if necessary, such as time-out/cancel an RPC in flight. If the call
 doesn&rsquo;t return an error, then we can read the response information from the
 server from the first return value.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">feature</span>)</code></pre></div>
-<h4 id="server-side-streaming-rpc-1">Server-side streaming RPC</h4>
+<h5 id="server-side-streaming-rpc-1">Server-side streaming RPC</h5>
 
 <p>Here&rsquo;s where we call the server-side streaming method <code>ListFeatures</code>, which
 returns a stream of geographical <code>Feature</code>s. If you&rsquo;ve already read <a href="#server">Creating
@@ -577,7 +577,7 @@ in the server&rsquo;s responses to a response protocol buffer object (in this ca
 and it can continue reading; if it&rsquo;s <code>io.EOF</code> then the message stream has ended;
 otherwise there must be an RPC error, which is passed over through <code>err</code>.</p>
 
-<h4 id="client-side-streaming-rpc-1">Client-side streaming RPC</h4>
+<h5 id="client-side-streaming-rpc-1">Client-side streaming RPC</h5>
 
 <p>The client-side streaming method <code>RecordRoute</code> is similar to the server-side
 method, except that we only pass the method a context and get a
@@ -616,7 +616,7 @@ We get our RPC status from the <code>err</code> returned from <code>CloseAndRecv
 status is <code>nil</code>, then the first return value from <code>CloseAndRecv()</code> will be a
 valid server response.</p>
 
-<h4 id="bidirectional-streaming-rpc-1">Bidirectional streaming RPC</h4>
+<h5 id="bidirectional-streaming-rpc-1">Bidirectional streaming RPC</h5>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>. As in the
 case of <code>RecordRoute</code>, we only pass the method a context object and get back a
@@ -652,7 +652,7 @@ finished our call. Although each side will always get the other&rsquo;s messages
 the order they were written, both the client and server can read and write in
 any order — the streams operate completely independently.</p>
 
-<h2 id="try-it-out">Try it out!</h2>
+<h3 id="try-it-out">Try it out!</h3>
 
 <p>To compile and run the server, assuming you are in the folder
 <code>$GOPATH/src/google.golang.org/grpc/examples/route_guide</code>, simply:</p>

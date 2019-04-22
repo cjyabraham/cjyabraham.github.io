@@ -180,7 +180,7 @@ guide</a>.</p>
 
 <div id="toc"></div>
 
-<h2 id="why-use-grpc">Why use gRPC?</h2>
+<h3 id="why-use-grpc">Why use gRPC?</h3>
 
 <p>Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -195,7 +195,7 @@ handled for you by gRPC. We also get all the advantages of working with protocol
 buffers, including efficient serialization, a simple IDL, and easy interface
 updating.</p>
 
-<h2 id="example-code-and-setup">Example code and setup</h2>
+<h3 id="example-code-and-setup">Example code and setup</h3>
 
 <p>The example code for our tutorial is in
 <a href="https://github.com/grpc/grpc-dart/tree/master/example/route_guide">grpc/grpc-dart/example/route_guide</a>.
@@ -206,7 +206,7 @@ command:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd grpc-dart/example/route_guide</code></pre></div>
 <p>You also should have the relevant tools installed to generate the server and client interface code - if you don&rsquo;t already, follow the setup instructions in <a href="/docs/quickstart/dart/">the Dart quick start guide</a>.</p>
 
-<h2 id="defining-the-service">Defining the service</h2>
+<h3 id="defining-the-service">Defining the service</h3>
 
 <p>Our first step (as you&rsquo;ll know from the <a href="/docs/">Overview</a>) is to
 define the gRPC <em>service</em> and the method <em>request</em> and <em>response</em> types using
@@ -272,7 +272,7 @@ keyword before both the request and the response.</li>
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>}</code></pre></div>
-<h2 id="generating-client-and-server-code">Generating client and server code</h2>
+<h3 id="generating-client-and-server-code">Generating client and server code</h3>
 
 <p>Next we need to generate the gRPC client and server interfaces from our .proto
 service definition. We do this using the protocol buffer compiler <code>protoc</code> with
@@ -304,7 +304,7 @@ the <code>RouteGuide</code> service.</li>
 
 <p><a name="server"></a></p>
 
-<h2 id="creating-the-server">Creating the server</h2>
+<h3 id="creating-the-server">Creating the server</h3>
 
 <p>First let&rsquo;s look at how we create a <code>RouteGuide</code> server. If you&rsquo;re only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -324,7 +324,7 @@ the right service implementation.</li>
 <a href="https://github.com/grpc/grpc-dart/tree/master/example/route_guide/lib/src/server.dart">grpc-dart/example/route_guide/lib/src/server.dart</a>.
 Let&rsquo;s take a closer look at how it works.</p>
 
-<h3 id="implementing-routeguide">Implementing RouteGuide</h3>
+<h4 id="implementing-routeguide">Implementing RouteGuide</h4>
 
 <p>As you can see, our server has a <code>RouteGuideService</code> class that extends the
 generated abstract <code>RouteGuideServiceBase</code> class:</p>
@@ -350,7 +350,7 @@ generated abstract <code>RouteGuideServiceBase</code> class:</p>
 
   ...
 }</code></pre></div>
-<h4 id="simple-rpc">Simple RPC</h4>
+<h5 id="simple-rpc">Simple RPC</h5>
 
 <p><code>RouteGuideService</code> implements all our service methods. Let&rsquo;s look at the
 simplest type first, <code>GetFeature</code>, which just gets a <code>Point</code> from the client and
@@ -368,7 +368,7 @@ response information. In the method we populate the <code>Feature</code> with th
 information, and then <code>return</code> it to the gRPC framework, which sends it back to
 the client.</p>
 
-<h4 id="server-side-streaming-rpc">Server-side streaming RPC</h4>
+<h5 id="server-side-streaming-rpc">Server-side streaming RPC</h5>
 
 <p>Now let&rsquo;s look at one of our streaming RPCs. <code>ListFeatures</code> is a server-side
 streaming RPC, so we need to send back multiple <code>Feature</code>s to our client.</p>
@@ -401,7 +401,7 @@ responses.</p>
 to the stream, and the gRPC layer will translate it into an appropriate RPC
 status to be sent on the wire.</p>
 
-<h4 id="client-side-streaming-rpc">Client-side streaming RPC</h4>
+<h5 id="client-side-streaming-rpc">Client-side streaming RPC</h5>
 
 <p>Now let&rsquo;s look at something a little more complicated: the client-side
 streaming method <code>RecordRoute</code>, where we get a stream of <code>Point</code>s from the
@@ -446,7 +446,7 @@ in our client&rsquo;s requests (in this case <code>Point</code> objects) until t
 messages. Once the request stream is done, the server can return its
 <code>RouteSummary</code>.</p>
 
-<h4 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h4>
+<h5 id="bidirectional-streaming-rpc">Bidirectional streaming RPC</h5>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dart" data-lang="dart"><span style="color:#75715e">/// RouteChat handler. Receives a stream of message/location pairs, and
@@ -471,7 +471,7 @@ server-streaming methods. Although each side will always get the other&rsquo;s m
 in the order they were written, both the client and server can read and write in
 any order — the streams operate completely independently.</p>
 
-<h3 id="starting-the-server">Starting the server</h3>
+<h4 id="starting-the-server">Starting the server</h4>
 
 <p>Once we&rsquo;ve implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
@@ -494,13 +494,13 @@ asynchronously until <code>shutdown()</code> is called on it.</li>
 
 <p><a name="client"></a></p>
 
-<h2 id="creating-the-client">Creating the client</h2>
+<h3 id="creating-the-client">Creating the client</h3>
 
 <p>In this section, we&rsquo;ll look at creating a Dart client for our <code>RouteGuide</code>
 service. You can see our complete example client code in
 <a href="https://github.com/grpc/grpc-dart/tree/master/example/route_guide/lib/src/client.dart">grpc-dart/example/route_guide/lib/src/client.dart</a>.</p>
 
-<h3 id="creating-a-stub">Creating a stub</h3>
+<h4 id="creating-a-stub">Creating a stub</h4>
 
 <p>To call service methods, we first need to create a gRPC <em>channel</em> to communicate
 with the server. We create this by passing the server address and port number to
@@ -521,13 +521,13 @@ package we generated from our .proto.</p>
 JWT credentials) if the service you request requires that - however, we don&rsquo;t
 need to do this for our <code>RouteGuide</code> service.</p>
 
-<h3 id="calling-service-methods">Calling service methods</h3>
+<h4 id="calling-service-methods">Calling service methods</h4>
 
 <p>Now let&rsquo;s look at how we call our service methods. Note that in gRPC-Dart, RPCs
 are always asynchronous, which means that the RPC returns a <code>Future</code> or <code>Stream</code>
 that must be listened to, to get the response from the server or an error.</p>
 
-<h4 id="simple-rpc-1">Simple RPC</h4>
+<h5 id="simple-rpc-1">Simple RPC</h5>
 
 <p>Calling the simple RPC <code>GetFeature</code> is nearly as straightforward as calling a
 local method.</p>
@@ -542,7 +542,7 @@ behaviour if necessary, such as time-out. If the call doesn&rsquo;t return an er
 the returned <code>Future</code> completes with the response information from the server.
 If there is an error, the <code>Future</code> will complete with the error.</p>
 
-<h4 id="server-side-streaming-rpc-1">Server-side streaming RPC</h4>
+<h5 id="server-side-streaming-rpc-1">Server-side streaming RPC</h5>
 
 <p>Here&rsquo;s where we call the server-side streaming method <code>ListFeatures</code>, which
 returns a stream of geographical <code>Feature</code>s. If you&rsquo;ve already read <a href="#server">Creating
@@ -565,7 +565,7 @@ server&rsquo;s responses.</p>
 responses to a response protocol buffer object (in this case a <code>Feature</code>) until
 there are no more messages.</p>
 
-<h4 id="client-side-streaming-rpc-1">Client-side streaming RPC</h4>
+<h5 id="client-side-streaming-rpc-1">Client-side streaming RPC</h5>
 
 <p>The client-side streaming method <code>RecordRoute</code> is similar to the server-side
 method, except that we pass the method a <code>Stream</code> and get a <code>Future</code> back.</p>
@@ -589,7 +589,7 @@ the stream is done (when <code>generateRoute()</code> returns), gRPC knows that 
 writing and are expecting to receive a response. The returned <code>Future</code> will either
 complete with the <code>RouteSummary</code> message received from the server, or an error.</p>
 
-<h4 id="bidirectional-streaming-rpc-1">Bidirectional streaming RPC</h4>
+<h5 id="bidirectional-streaming-rpc-1">Bidirectional streaming RPC</h5>
 
 <p>Finally, let&rsquo;s look at our bidirectional streaming RPC <code>RouteChat()</code>. As in the
 case of <code>RecordRoute</code>, we pass the method a stream where we will write the request
@@ -608,7 +608,7 @@ server-side streaming methods. Although each side will always get the other&rsqu
 messages in the order they were written, both the client and server can read and
 write in any order — the streams operate completely independently.</p>
 
-<h2 id="try-it-out">Try it out!</h2>
+<h3 id="try-it-out">Try it out!</h3>
 
 <p>Go to the <code>examples/route_guide</code> folder.</p>
 
@@ -618,7 +618,7 @@ write in any order — the streams operate completely independently.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ dart bin/server.dart</code></pre></div>
 <p>Likewise, to run the client:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ dart bin/client.dart</code></pre></div>
-<h2 id="reporting-issues">Reporting issues</h2>
+<h3 id="reporting-issues">Reporting issues</h3>
 
 <p>Should you encounter an issue, please help us out by
 <a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>
